@@ -17,7 +17,6 @@
     <script src="prices.js?v=20260927b"></script>
     <script src="ecd-api.js?v=20260930a"></script>
     <script src="ecd-content.js?v=20260930b"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
     <style>
       * {
         box-sizing: border-box;
@@ -833,36 +832,28 @@
         letter-spacing: 0.02em;
         word-break: break-word;
       }
-      .ecd-ref-box .ref-code.is-qr-payload {
-        font-size: 11px;
-        font-weight: 500;
-        line-height: 1.45;
-        color: #006681;
-        margin-top: 8px;
-      }
       .ecd-ref-box .ref-hint {
         margin-top: 8px;
         font-size: 12px;
         color: var(--gray-500);
         line-height: 1.5;
       }
-      .ecd-ref-box .ref-qr {
-        margin: 12px auto 0;
-        width: 160px;
-        height: 160px;
-        border: 1px solid rgba(0, 102, 129, 0.2);
-        border-radius: 8px;
-        background: #fff;
-        padding: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      .ecd-ref-box .sms-text {
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--black);
       }
-      .ecd-ref-box .ref-qr svg,
-      .ecd-ref-box .ref-qr img {
-        width: 100%;
-        height: 100%;
-        display: block;
+      .ecd-ref-box .sms-text + .sms-text {
+        margin-top: 8px;
+      }
+      .ecd-ref-box .sms-text strong {
+        white-space: nowrap;
+      }
+      .ecd-ref-box .ref-hint .ref-mono {
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 600;
+        color: var(--black);
+        letter-spacing: 0.04em;
       }
       .ecd-pending-actions {
         display: flex;
@@ -889,11 +880,28 @@
         opacity: 0.65;
         cursor: not-allowed;
       }
-      .ecd-pending-actions .req-hint {
-        font-size: 12px;
+      .ecd-pending-actions .ecd-pending-exit {
+        margin: 6px 0 2px;
+        font-size: 13px;
         color: var(--gray-500);
-        line-height: 1.5;
-        margin: 2px 0 4px;
+        line-height: 1.6;
+      }
+      .ecd-pending-actions .ecd-pending-exit .ecd-exit-link {
+        display: inline;
+        width: auto;
+        padding: 0;
+        border: 0;
+        border-radius: 4px;
+        background: none;
+        font: inherit;
+        font-weight: 600;
+        color: var(--black);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      .ecd-pending-actions .ecd-pending-exit .ecd-exit-link:focus-visible {
+        outline: 2px solid #006681;
+        outline-offset: 2px;
       }
       .ecd-pending-alert {
         border: 1px solid #fde68a;
@@ -1510,6 +1518,7 @@
                       autocapitalize="off"
                       spellcheck="false"
                       data-field="linkedin"
+                      maxlength="300"
                       placeholder="linkedin.com/in/your-name"
                     />
                     <span class="error-msg" data-error="linkedin"></span>
@@ -1523,6 +1532,7 @@
                       autocapitalize="off"
                       spellcheck="false"
                       data-field="facebook"
+                      maxlength="300"
                       placeholder="facebook.com/your.name"
                     />
                     <span class="error-msg" data-error="facebook"></span>
@@ -1611,7 +1621,7 @@
                 />
               </div>
               <p class="wallet-hint" id="ecdWalletHint">
-                Enter the number your mobile wallet is registered on.
+                Enter the number your mobile wallet is registered on. We will send an SMS to this number to confirm the payment.
               </p>
             </div>
             <div class="ecd-pending-card" id="ecdPendingCard" aria-live="polite">
@@ -1621,24 +1631,22 @@
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
               </div>
-              <h3>Payment Pending</h3>
-              <p class="ecd-pending-sub">Your payment is being processed.</p>
+              <h3 id="ecdPendingTitle">Payment Pending</h3>
+              <p class="ecd-pending-sub" id="ecdPendingSub">Your payment is being processed.</p>
               <div class="ecd-pending-codes" id="ecdPendingCodes"></div>
               <div class="ecd-pending-actions">
                 <button type="button" class="primary" id="ecdCheckStatusBtn">
                   Check payment status
                 </button>
-                <button type="button" id="ecdRequestNewCodeBtn">
-                  Request new code
-                </button>
-                <p class="req-hint">
-                  Requesting a new code replaces the current pending payment.
+                <p class="ecd-pending-exit">
+                  <span id="ecdPendingExitLead">Want to pay another way?</span>
+                  <button type="button" class="ecd-exit-link" id="ecdPendingExitBtn">Use a different payment method</button>.
                 </p>
               </div>
             </div>
             <div class="hosted-fields" id="hostedFieldsHint">
               <div class="hosted-label">
-                Card payments open a secure provider page. Fawry / Aman / wallet show a reference on this page.
+                Card payments open a secure provider page. Fawry shows a payment code on this page. Mobile wallets get an SMS to confirm the payment.
               </div>
               <div class="hosted-note">
                 We never store card numbers. Complete payment with the provider, then use Check payment status if you stay on this page.
@@ -1856,6 +1864,15 @@
           sessionUsed: false,
           pendingOrderCode: "",
           pendingBookingId: "",
+          pendingAccess: "",
+          pendingClosed: false,
+          pendingIsWallet: false,
+          pendingWalletPhone: "",
+          earlierBookings: [],
+          earlierCheckedAt: 0,
+          watchStartedAt: 0,
+          lastWatchAt: 0,
+          watchBusy: false,
           verifyTimer: null,
           lastPayResult: null,
         };
@@ -2198,10 +2215,10 @@
           facebook: cleanFacebook,
         };
 
-        // What the field shows: the clean link once valid, otherwise exactly
-        // what the buyer typed so they can fix it.
+        // What the field shows: the clean link once valid, otherwise what the
+        // buyer typed (outer spaces removed) so they can fix it.
         function tidyLink(key, raw) {
-          return LINK_CLEANERS[key](raw) || String(raw || "");
+          return LINK_CLEANERS[key](raw) || String(raw || "").trim();
         }
 
         function assembleMobile(mobile, cc) {
@@ -2251,7 +2268,7 @@
             if (hint) {
               hint.classList.remove("error");
               hint.textContent =
-                "Enter the number your mobile wallet is registered on.";
+                "Enter the number your mobile wallet is registered on. We will send an SMS to this number to confirm the payment.";
             }
             return;
           }
@@ -2269,7 +2286,7 @@
             hint.classList.toggle("error", invalid);
             hint.textContent = invalid
               ? "Enter a valid Egyptian mobile number (10 digits, e.g. 1012345678)."
-              : "Enter the number your mobile wallet is registered on.";
+              : "Enter the number your mobile wallet is registered on. We will send an SMS to this number to confirm the payment.";
           }
         }
 
@@ -2330,14 +2347,20 @@
             e.store = isSocialPage(b.store)
               ? "Enter your store's own website, not a social media page. For example: yourstore.com"
               : "Enter a real website link. For example: yourstore.com";
-          if (!b.linkedin && !b.facebook)
+          // One correct profile link (LinkedIn or Facebook) is enough. Once one
+          // is correct, the other field never blocks and is saved as typed.
+          var linkedin = String(b.linkedin || "").trim();
+          var facebook = String(b.facebook || "").trim();
+          if (!linkedin && !facebook)
             e.social = "Add a LinkedIn or a Facebook profile.";
-          if (b.linkedin && !cleanLinkedIn(b.linkedin))
-            e.linkedin =
-              "Enter your LinkedIn profile link. For example: linkedin.com/in/your-name";
-          if (b.facebook && !cleanFacebook(b.facebook))
-            e.facebook =
-              "Enter your Facebook profile link. For example: facebook.com/your.name";
+          else if (!cleanLinkedIn(linkedin) && !cleanFacebook(facebook)) {
+            if (linkedin)
+              e.linkedin =
+                "Enter your LinkedIn profile link. For example: linkedin.com/in/your-name";
+            if (facebook)
+              e.facebook =
+                "Enter your Facebook profile link. For example: facebook.com/your.name";
+          }
           return e;
         }
         function allErrors() {
@@ -2554,7 +2577,9 @@
           if (btn.dataset.idleHtml) {
             btn.innerHTML = btn.dataset.idleHtml;
             delete btn.dataset.idleHtml;
-          } else if (idleHtml != null) {
+          } else if (idleHtml != null && btn.innerHTML !== idleHtml) {
+            // Only redraw when the label changed: redrawing mid-click (e.g. the
+            // wallet field's blur right before Pay) makes the browser drop it.
             btn.innerHTML = idleHtml;
           }
         }
@@ -3152,9 +3177,20 @@
           return created;
         }
 
+        // While a payment waits (wallet SMS or Fawry code) the page keeps asking
+        // the server whether it is paid: every 3s for 2 minutes, then every 10s
+        // up to 15 minutes, plus right away when the buyer comes back to this
+        // tab. The moment it is paid, the buyer moves to the confirmation.
+        var WATCH_FAST_MS = 3000;
+        var WATCH_SLOW_MS = 10000;
+        var WATCH_FAST_FOR_MS = 2 * 60 * 1000;
+        var WATCH_FOR_MS = 15 * 60 * 1000;
+        var EARLIER_CHECK_EVERY_MS = 10000;
+        var EARLIER_MAX = 3;
+
         function clearVerifyTimer() {
           if (state.verifyTimer) {
-            clearInterval(state.verifyTimer);
+            clearTimeout(state.verifyTimer);
             state.verifyTimer = null;
           }
         }
@@ -3167,33 +3203,51 @@
             .replace(/"/g, "&quot;");
         }
 
-        function renderWalletQrMarkup(payload) {
-          var maxLen = 2048;
-          var raw = String(payload || "");
-          if (!raw) return { html: "", tooLarge: false };
-          if (raw.length > maxLen) {
-            return { html: "", tooLarge: true };
-          }
-          if (typeof qrcode === "function") {
-            try {
-              var qr = qrcode(0, "M");
-              qr.addData(raw);
-              qr.make();
-              return {
-                html:
-                  '<div class="ref-qr" role="img" aria-label="Wallet QR code">' +
-                  qr.createSvgTag(4, 2) +
-                  "</div>",
-                tooLarge: false,
-              };
-            } catch (e) {
-              console.warn("[checkout] wallet QR render failed", e);
+        // "+201012345678" → "+20 10•••••678"
+        function maskWalletPhone(e164) {
+          var national = String(e164 || "").replace(/^\+20/, "");
+          if (!/^\d{10}$/.test(national)) return "";
+          return "+20 " + national.slice(0, 2) + "•••••" + national.slice(-3);
+        }
+
+        function pendingAmountText(result) {
+          if (result && result.amountFormatted) return String(result.amountFormatted);
+          try {
+            var promo = state.promoState === "valid" ? state.appliedCode : "";
+            var total = window.EventPrices
+              ? EventPrices.calcTotals(state.ticket, 1, promo).total
+              : null;
+            if (typeof total === "number" && total > 0) {
+              return total.toLocaleString("en-US") + " EGP";
             }
-          }
-          return { html: "", tooLarge: false };
+          } catch (e) {}
+          return "";
+        }
+
+        function buildWalletSmsBox(result) {
+          var phone = maskWalletPhone(state.pendingWalletPhone);
+          var amount = pendingAmountText(result);
+          var ref = result.meezaReference ? String(result.meezaReference) : "";
+          return (
+            '<div class="ecd-ref-box">' +
+            '<p class="sms-text">We sent an SMS to ' +
+            (phone ? "<strong>" + escapeHtml(phone) + "</strong>" : "your wallet number") +
+            (amount ? " for <strong>" + escapeHtml(amount) + "</strong>" : "") +
+            ".</p>" +
+            '<p class="sms-text">Open the SMS on your phone and follow the instructions in it to confirm the payment. This page updates by itself once the payment is confirmed.</p>' +
+            (ref
+              ? '<p class="ref-hint">Payment reference: <span class="ref-mono">' +
+                escapeHtml(ref) +
+                "</span> (keep it in case you contact support)</p>"
+              : "") +
+            "</div>"
+          );
         }
 
         function buildPendingCodeBoxes(result) {
+          if (state.pendingIsWallet) {
+            return { html: buildWalletSmsBox(result), hasCodes: true };
+          }
           var entries = [
             {
               key: "fawry",
@@ -3216,21 +3270,6 @@
               instructions:
                 "Provide this code at any Masary outlet to complete your payment.",
             },
-            {
-              key: "meeza",
-              label: "Wallet Reference",
-              code: result.meezaReference,
-              instructions:
-                "Use this reference in your wallet app to complete your payment.",
-            },
-            {
-              key: "meeza-qr",
-              label: "Wallet QR code",
-              code: result.meezaQrCode,
-              instructions:
-                "Scan this code with your wallet app to complete your payment.",
-              isQr: true,
-            },
           ];
           var available = entries.filter(function (e) {
             return !!e.code;
@@ -3238,33 +3277,12 @@
           if (!available.length) {
             return {
               html:
-                '<div class="ecd-pending-alert">We could not set up an automatic payment for this method. Request a new code to try again, or contact support.</div>',
+                '<div class="ecd-pending-alert">We could not set up this payment. Please choose a payment method below to try again, or contact support.</div>',
               hasCodes: false,
             };
           }
           var html = available
             .map(function (entry) {
-              if (entry.isQr) {
-                var qr = renderWalletQrMarkup(entry.code);
-                var warn = qr.tooLarge
-                  ? '<div class="ecd-pending-alert" style="margin-top:10px">Wallet QR code is too large to render. Please request a new code.</div>'
-                  : "";
-                return (
-                  '<div class="ecd-ref-box">' +
-                  '<div class="ref-label">' +
-                  escapeHtml(entry.label) +
-                  "</div>" +
-                  qr.html +
-                  '<div class="ref-code is-qr-payload">' +
-                  escapeHtml(entry.code) +
-                  "</div>" +
-                  '<div class="ref-hint">' +
-                  escapeHtml(entry.instructions) +
-                  "</div>" +
-                  warn +
-                  "</div>"
-                );
-              }
               return (
                 '<div class="ecd-ref-box">' +
                 '<div class="ref-label">' +
@@ -3283,13 +3301,48 @@
           return { html: html, hasCodes: true };
         }
 
+        function setPendingTexts(mode) {
+          var title = document.getElementById("ecdPendingTitle");
+          var sub = document.getElementById("ecdPendingSub");
+          var lead = document.getElementById("ecdPendingExitLead");
+          var exitBtn = document.getElementById("ecdPendingExitBtn");
+          var wallet = mode === "wallet";
+          if (title) {
+            title.textContent = wallet
+              ? "Confirm your payment from the SMS"
+              : "Payment Pending";
+          }
+          if (sub) sub.style.display = wallet ? "none" : "";
+          if (lead) {
+            lead.textContent =
+              mode === "closed"
+                ? ""
+                : wallet
+                  ? "Didn't receive the SMS? Check the number above, or"
+                  : "Want to pay another way?";
+          }
+          if (exitBtn) {
+            exitBtn.textContent =
+              mode === "closed"
+                ? "Try the payment again"
+                : wallet
+                  ? "use a different number or payment method"
+                  : "Use a different payment method";
+          }
+        }
+
         function showHubPendingPayment(result) {
           result = result || {};
           state.lastPayResult = result;
+          // The method row is hidden while a payment waits, so the selected
+          // method is the one this payment was made with.
+          state.pendingIsWallet = selectedMethodIsWallet();
+          state.pendingWalletPhone = state.pendingIsWallet ? state.walletPhone : "";
           var card = document.getElementById("ecdPendingCard");
           var codesEl = document.getElementById("ecdPendingCodes");
           var built = buildPendingCodeBoxes(result);
           if (codesEl) codesEl.innerHTML = built.html;
+          setPendingTexts(state.pendingIsWallet ? "wallet" : "other");
           if (card) card.classList.add("is-visible");
           document.body.classList.add("ecd-pending-active");
           var hosted = document.getElementById("hostedFieldsHint");
@@ -3313,6 +3366,16 @@
           renderMobileBar();
         }
 
+        function showPendingNoLongerValid() {
+          state.pendingClosed = true;
+          var codesEl = document.getElementById("ecdPendingCodes");
+          if (codesEl) {
+            codesEl.innerHTML =
+              '<div class="ecd-pending-alert">This payment is no longer valid. You can try again below.</div>';
+          }
+          setPendingTexts("closed");
+        }
+
         function goToConfirmation(orderCode, access) {
           if (!orderCode) return;
           var url =
@@ -3326,51 +3389,115 @@
           window.location.href = url;
         }
 
-        function pollVerify(orderCode, bookingId) {
+        // Bookings the buyer left with "use a different number or payment
+        // method". Each keeps its own gateway payment, so if the buyer still
+        // pays it (an older SMS or Fawry code), the server marks it paid; we
+        // keep checking it here too so the buyer reaches the confirmation.
+        function rememberEarlierBooking(orderCode, access) {
+          if (!orderCode || !access) return;
+          state.earlierBookings = state.earlierBookings.filter(function (b) {
+            return b.orderCode !== orderCode;
+          });
+          state.earlierBookings.push({ orderCode: orderCode, access: access });
+          if (state.earlierBookings.length > EARLIER_MAX) {
+            state.earlierBookings = state.earlierBookings.slice(-EARLIER_MAX);
+          }
+        }
+
+        async function checkEarlierBookings() {
+          state.earlierCheckedAt = Date.now();
+          var list = state.earlierBookings.slice();
+          for (var i = 0; i < list.length; i++) {
+            var b = list[i];
+            try {
+              var r = await EcdApi.verifyByAccess(b.orderCode, b.access);
+              if (r && r.status === "paid") {
+                clearVerifyTimer();
+                goToConfirmation(r.orderCode || b.orderCode, r.access || b.access);
+                return true;
+              }
+              if (r && (r.status === "expired" || r.status === "failed")) {
+                state.earlierBookings = state.earlierBookings.filter(function (x) {
+                  return x.orderCode !== b.orderCode;
+                });
+              }
+            } catch (e) {}
+          }
+          return false;
+        }
+
+        // One check of the current payment (and, every 10s, earlier ones).
+        // Returns false once there is nothing left to watch or we navigated.
+        async function watchTick(forceEarlier) {
+          if (state.watchBusy) return true;
+          state.watchBusy = true;
+          state.lastWatchAt = Date.now();
+          try {
+            var id = state.pendingBookingId;
+            if (id && !state.pendingClosed) {
+              try {
+                var r = await EcdApi.verify(id);
+                if (r && r.status === "paid") {
+                  clearVerifyTimer();
+                  goToConfirmation(r.orderCode || state.pendingOrderCode, r.access);
+                  return false;
+                }
+                if (id === state.pendingBookingId) {
+                  if (r && r.access) state.pendingAccess = r.access;
+                  if (r && (r.status === "expired" || r.status === "failed")) {
+                    showPendingNoLongerValid();
+                  }
+                }
+              } catch (e) {}
+            }
+            if (
+              state.earlierBookings.length &&
+              (forceEarlier ||
+                Date.now() - state.earlierCheckedAt >= EARLIER_CHECK_EVERY_MS)
+            ) {
+              if (await checkEarlierBookings()) return false;
+            }
+            return (
+              (!!state.pendingBookingId && !state.pendingClosed) ||
+              state.earlierBookings.length > 0
+            );
+          } finally {
+            state.watchBusy = false;
+          }
+        }
+
+        function scheduleWatch(delay) {
           clearVerifyTimer();
+          state.verifyTimer = setTimeout(async function () {
+            state.verifyTimer = null;
+            var keepGoing = await watchTick(false);
+            var elapsed = Date.now() - state.watchStartedAt;
+            if (!keepGoing || elapsed >= WATCH_FOR_MS) return;
+            scheduleWatch(elapsed < WATCH_FAST_FOR_MS ? WATCH_FAST_MS : WATCH_SLOW_MS);
+          }, delay);
+        }
+
+        function pollVerify(orderCode, bookingId) {
           state.pendingOrderCode = orderCode || "";
           state.pendingBookingId = bookingId || "";
-          var tries = 0;
-          var btn = document.getElementById("ecdCheckStatusBtn");
-
-          async function tick() {
-            tries += 1;
-            try {
-              var result = await EcdApi.verify(bookingId);
-              if (result && result.status === "paid") {
-                clearVerifyTimer();
-                goToConfirmation(
-                  result.orderCode || orderCode,
-                  result.access,
-                );
-                return true;
-              }
-              if (
-                result &&
-                (result.status === "expired" || result.status === "failed")
-              ) {
-                clearVerifyTimer();
-                var codesEl = document.getElementById("ecdPendingCodes");
-                if (codesEl) {
-                  codesEl.innerHTML =
-                    '<div class="ecd-pending-alert">This payment session is no longer valid. Request a new code to try again, or start a new checkout.</div>';
-                }
-                return true;
-              }
-              if (tries >= 40) {
-                clearVerifyTimer();
-              }
-            } catch (e) {
-              if (tries >= 40) clearVerifyTimer();
-            }
-            return false;
-          }
-
-          state.verifyTimer = setInterval(function () {
-            tick();
-          }, 3000);
-          tick();
+          state.pendingAccess = "";
+          state.pendingClosed = false;
+          state.watchStartedAt = Date.now();
+          scheduleWatch(0);
         }
+
+        // Buyer approved the SMS in another app and came back: check now.
+        document.addEventListener("visibilitychange", function () {
+          if (document.hidden) return;
+          if (
+            !(state.pendingBookingId && !state.pendingClosed) &&
+            !state.earlierBookings.length
+          ) {
+            return;
+          }
+          if (Date.now() - state.lastWatchAt < 1500) return;
+          watchTick(true);
+        });
 
         async function manualCheckStatus() {
           if (!state.pendingBookingId) return;
@@ -3389,20 +3516,22 @@
               );
               return;
             }
+            if (result && result.access) state.pendingAccess = result.access;
+            if (state.earlierBookings.length && (await checkEarlierBookings())) {
+              return;
+            }
             if (
               result &&
               (result.status === "expired" || result.status === "failed")
             ) {
               clearVerifyTimer();
-              var codesEl = document.getElementById("ecdPendingCodes");
-              if (codesEl) {
-                codesEl.innerHTML =
-                  '<div class="ecd-pending-alert">This payment session is no longer valid. Request a new code to try again, or start a new checkout.</div>';
-              }
+              showPendingNoLongerValid();
               return;
             }
             showEcdModal(
-              "Payment is still pending. Complete it with the provider, then check again.",
+              state.pendingIsWallet
+                ? "We haven't received the confirmation yet. Follow the instructions in the SMS, then check again."
+                : "Payment is still pending. Complete it with the provider, then check again.",
               "Still pending",
             );
           } catch (e) {
@@ -3418,7 +3547,52 @@
           }
         }
 
-        async function handlePay(forceNewCode) {
+        // "Use a different number or payment method": back to the payment
+        // options. The next Pay starts a fresh booking (sessionUsed), so the
+        // payment just left stays tied to its own booking and is never lost.
+        async function leavePendingPayment() {
+          if (state.paying) return;
+          var btn = document.getElementById("ecdPendingExitBtn");
+          if (btn) btn.disabled = true;
+          try {
+            var id = state.pendingBookingId;
+            var orderCode = state.pendingOrderCode;
+            var access = state.pendingAccess;
+            var stillOpen = !state.pendingClosed;
+            if (id && stillOpen) {
+              // Last check first: if it is already paid, go to the confirmation.
+              try {
+                var r = await EcdApi.verify(id);
+                if (r && r.status === "paid") {
+                  clearVerifyTimer();
+                  goToConfirmation(r.orderCode || orderCode, r.access);
+                  return;
+                }
+                if (r && r.access) access = r.access;
+                if (r && (r.status === "expired" || r.status === "failed")) {
+                  stillOpen = false;
+                }
+              } catch (e) {}
+            }
+            if (id && stillOpen) rememberEarlierBooking(orderCode, access);
+            state.pendingBookingId = "";
+            state.pendingOrderCode = "";
+            state.pendingAccess = "";
+            state.pendingClosed = false;
+            hideHubPendingPayment();
+            if (!state.earlierBookings.length) clearVerifyTimer();
+            var target = selectedMethodIsWallet()
+              ? document.getElementById("ecd-wallet-phone")
+              : document.querySelector("#methodRow button, #methodRow input");
+            var label = document.getElementById("methodSectionLabel");
+            if (label) label.scrollIntoView({ behavior: "smooth", block: "start" });
+            if (target) target.focus({ preventScroll: true });
+          } finally {
+            if (btn) btn.disabled = false;
+          }
+        }
+
+        async function handlePay() {
           if (state.paying || state.promoApplying) return;
           const errs = allErrors();
           const s1Errs = screen1Errors();
@@ -3450,7 +3624,7 @@
             );
             return;
           }
-          if (!forceNewCode && window.EcdAnalytics) {
+          if (window.EcdAnalytics) {
             var payPromo = state.promoState === "valid" ? state.appliedCode : "";
             var payMethod = (state.paymentMethods || []).find(function (m) {
               return m.paymentId === state.paymentMethodId;
@@ -3469,9 +3643,11 @@
           renderPayButtons();
           try {
             // A new Pay after an earlier attempt (buyer came back from the card
-            // page, or the attempt failed) gets a fresh booking. "Request new
-            // code" keeps the same booking on purpose (forceNewCode).
-            await ensureCheckoutSession(!forceNewCode && state.sessionUsed);
+            // page, the attempt failed, or they chose "use a different number
+            // or payment method") gets a fresh booking. Never reuse a booking
+            // for a second gateway payment: the server only remembers the
+            // latest one, so paying the older SMS/code would be lost.
+            await ensureCheckoutSession(state.sessionUsed);
             if (!state.paymentMethods.length) {
               await loadPaymentMethods();
             }
@@ -3488,7 +3664,6 @@
               walletPhone: selectedMethodIsWallet()
                 ? state.walletPhone || undefined
                 : undefined,
-              forceNewCode: !!forceNewCode,
             });
 
             if (result && result.status === "duplicate") {
@@ -3580,20 +3755,10 @@
             manualCheckStatus();
           });
         }
-        var requestNewCodeBtn = document.getElementById("ecdRequestNewCodeBtn");
-        if (requestNewCodeBtn) {
-          requestNewCodeBtn.addEventListener("click", async function () {
-            if (state.paying) return;
-            requestNewCodeBtn.disabled = true;
-            requestNewCodeBtn.textContent = "Requesting…";
-            try {
-              clearVerifyTimer();
-              hideHubPendingPayment();
-              await handlePay(true);
-            } finally {
-              requestNewCodeBtn.disabled = false;
-              requestNewCodeBtn.textContent = "Request new code";
-            }
+        var pendingExitBtn = document.getElementById("ecdPendingExitBtn");
+        if (pendingExitBtn) {
+          pendingExitBtn.addEventListener("click", function () {
+            leavePendingPayment();
           });
         }
 
