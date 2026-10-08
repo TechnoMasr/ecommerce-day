@@ -167,7 +167,7 @@ class SiteFooter extends HTMLElement {
             </div>
           </div>
           <div class="footer-bottom">
-            <span>© ${year} TrafficMENA. ${footT("footer.rights", "All rights reserved.")}</span>
+            <span>${FOOTER_I18N ? `${footT("footer.rights", "")} © ${year} TrafficMENA` : `© ${year} TrafficMENA. All rights reserved.`}</span>
             <span>info@trafficmena.com · <a href="${footWa}" target="_blank" rel="noopener" aria-label="${footWaAria}" style="color: inherit">${footT("footer.whatsapp", "WhatsApp")}</a></span>
           </div>
         </div>

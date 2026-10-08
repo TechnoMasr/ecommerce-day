@@ -46,7 +46,7 @@
     "footer.contact": "تواصل معنا",
     "footer.whatsapp": "واتساب",
     "footer.privacy": "سياسة الخصوصية",
-    "footer.rights": "جميع الحقوق محفوظة.",
+    "footer.rights": "جميع الحقوق محفوظة",
     "footer.socialAria": "حسابات TrafficMENA على مواقع التواصل",
     "footer.on": "TrafficMENA على",
     "footer.newTab": "(يفتح في نافذة جديدة)",
@@ -73,6 +73,21 @@
     var file = location.pathname.split("/").pop() || "index.html";
     var target = file === "index.html" ? "../" : "../" + file;
     return target + location.search + location.hash;
+  }
+
+  // Links written in the page as href="agenda.html" data-ar-link go to the
+  // Arabic copy when it exists, otherwise to the English page.
+  function fixPageLinks() {
+    var links = document.querySelectorAll("a[data-ar-link]");
+    for (var i = 0; i < links.length; i++) {
+      links[i].setAttribute("href", page(links[i].getAttribute("href")));
+      links[i].removeAttribute("data-ar-link");
+    }
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", fixPageLinks);
+  } else {
+    fixPageLinks();
   }
 
   window.EcdI18n = {

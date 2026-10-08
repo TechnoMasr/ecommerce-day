@@ -159,6 +159,8 @@
     ".ecdt-title{letter-spacing:0;line-height:1.35}",
     ".ecdt-badge{right:auto;left:26px;letter-spacing:0}",
     ".ecdt-table th{text-align:right}",
+    // English text from the admin panel keeps its punctuation at the end
+    "ecd-tickets [data-pkg-eyebrow],ecd-tickets [data-pkg-title],ecd-tickets [data-pkg-desc],ecd-tickets .ecdt-list span{unicode-bidi:plaintext;text-align:right}",
   ].join("\n");
 
   function injectStyles() {
