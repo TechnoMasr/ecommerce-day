@@ -54,7 +54,7 @@ rep(
     '<script src="../ecd-analytics.js?v=20261008a"></script>',
     '<script src="../ecd-analytics.js?v=20261008a"></script>\n'
     '    <!-- Arabic mode for the shared components (must load before them) -->\n'
-    '    <script src="../ecd-i18n.js?v=20261008c"></script>',
+    '    <script src="../ecd-i18n.js?v=20261008d"></script>',
 )
 for name in ["navbar.js", "ecd-whatsapp.js", "footer.js", "prices.js", "ecd-api.js", "ecd-content.js", "tickets-section.js"]:
     rep(f'<script src="{name}', f'<script src="../{name}')
