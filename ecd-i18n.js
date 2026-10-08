@@ -15,7 +15,7 @@
 
   // Arabic pages that exist so far. Links to any other page go to its
   // English version until the Arabic copy is added here.
-  var AR_PAGES = ["index.html", "tickets.html"];
+  var AR_PAGES = ["index.html", "tickets.html", "speakers.html"];
 
   var WHATSAPP_TEXT = "مرحباً، محتاج مساعدة بخصوص يوم التجارة الإلكترونية 2026";
 
@@ -55,6 +55,33 @@
     // WhatsApp
     "wa.aria": "تواصل معنا على واتساب (يفتح في نافذة جديدة)",
   };
+
+  // Fixed labels that come from the admin panel (R12, user-approved list).
+  // A value not listed here shows as entered until it is added.
+  var LABELS = {
+    "main stage": "المسرح الرئيسي",
+    "second stage": "المسرح الثاني",
+    "acquisition workshops": "ورش مسار جذب العملاء",
+    "cro & retention workshops": "ورش مسار زيادة المبيعات والاحتفاظ بالعملاء",
+    "operations & logistics workshops": "ورش مسار التشغيل والشحن",
+    keynote: "الكلمة الرئيسية",
+    "solo talk": "جلسة فردية",
+    "solo talks": "جلسة فردية",
+    panel: "جلسة نقاشية",
+    workshop: "ورشة عمل",
+    intermediate: "مستوى متوسط",
+    founder: "مؤسس",
+    operator: "خبير تشغيل",
+    executive: "قيادي تنفيذي",
+    specialist: "متخصص",
+    confirmed: "مؤكد",
+    "speaker will be announced": "سيعلن عن المتحدث قريباً",
+  };
+
+  function label(value) {
+    var key = String(value == null ? "" : value).trim().toLowerCase();
+    return Object.prototype.hasOwnProperty.call(LABELS, key) ? LABELS[key] : value;
+  }
 
   function fileOf(href) {
     return String(href || "").split("#")[0].split("?")[0];
@@ -97,6 +124,7 @@
     t: function (key, fallback) {
       return Object.prototype.hasOwnProperty.call(STRINGS, key) ? STRINGS[key] : fallback;
     },
+    label: label,
     page: page,
     asset: function (path) {
       return "../" + path;

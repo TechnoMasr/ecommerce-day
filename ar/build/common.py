@@ -10,7 +10,7 @@ import urllib.parse
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 
-I18N_TAG = "../ecd-i18n.js?v=20261008d"
+I18N_TAG = "../ecd-i18n.js?v=20261008e"
 
 VENUE = "مركز إبداع مصر الرقمية (كريتيفا)، الجيزة"
 WA_TEXT = "مرحباً، محتاج مساعدة بخصوص يوم التجارة الإلكترونية 2026"
