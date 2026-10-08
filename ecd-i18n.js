@@ -15,7 +15,7 @@
 
   // Arabic pages that exist so far. Links to any other page go to its
   // English version until the Arabic copy is added here.
-  var AR_PAGES = ["index.html", "tickets.html", "speakers.html", "sponsors.html"];
+  var AR_PAGES = ["index.html", "tickets.html", "speakers.html", "sponsors.html", "agenda.html"];
 
   var WHATSAPP_TEXT = "مرحباً، محتاج مساعدة بخصوص يوم التجارة الإلكترونية 2026";
 

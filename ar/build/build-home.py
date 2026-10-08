@@ -54,7 +54,7 @@ rep(
     '<script src="../ecd-analytics.js?v=20261008a"></script>',
     '<script src="../ecd-analytics.js?v=20261008a"></script>\n'
     '    <!-- Arabic mode for the shared components (must load before them) -->\n'
-    '    <script src="../ecd-i18n.js?v=20261008f"></script>',
+    '    <script src="../ecd-i18n.js?v=20261008g"></script>',
 )
 for name in ["navbar.js", "ecd-whatsapp.js", "footer.js", "prices.js", "ecd-api.js", "ecd-content.js", "tickets-section.js"]:
     rep(f'<script src="{name}', f'<script src="../{name}')
@@ -675,6 +675,7 @@ rep('''                      "Video review from a past TrafficMENA event (" +
 # The countdown markup is gone; its script returns early on the missing element.
 rep('var labels = ["Days", "Hours", "Mins", "Secs"];', 'var labels = ["يوم", "ساعة", "دقيقة", "ثانية"];')
 
+s = s.replace("بـ 7-10 أيام", "بـ 7 إلى 10 أيام")
 out = ROOT / "ar" / "index.html"
 out.write_text(s, encoding="utf-8")
 print("wrote", out, len(s), "bytes")

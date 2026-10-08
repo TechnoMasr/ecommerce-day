@@ -10,7 +10,7 @@ import urllib.parse
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 
-I18N_TAG = "../ecd-i18n.js?v=20261008f"
+I18N_TAG = "../ecd-i18n.js?v=20261008g"
 
 VENUE = "مركز إبداع مصر الرقمية (كريتيفا)، الجيزة"
 WA_TEXT = "مرحباً، محتاج مساعدة بخصوص يوم التجارة الإلكترونية 2026"
@@ -37,6 +37,28 @@ class Page:
         if found != count:
             raise SystemExit(f"[{self.name}] expected {count} match(es), found {found}: {old[:100]!r}")
         self.s = self.s.replace(old, new)
+
+    def text(self, en, ar, count=1):
+        """Replace a text node by its content (whitespace-insensitive), keeping
+        the surrounding tags and indentation. Matches must equal `count`."""
+        import html as _html
+        norm = lambda t: re.sub(r"\s+", " ", _html.unescape(t)).strip()
+        target = norm(en)
+        hits = 0
+
+        def sub(m):
+            nonlocal hits
+            if norm(m.group(1)) == target:
+                hits += 1
+                inner = m.group(1)
+                lead = inner[: len(inner) - len(inner.lstrip())]
+                trail = inner[len(inner.rstrip()):]
+                return ">" + lead + ar + trail + "<"
+            return m.group(0)
+
+        self.s = re.sub(r">([^<>]*)<", sub, self.s)
+        if hits != count:
+            raise SystemExit(f"[{self.name}] text {en[:80]!r}: expected {count}, found {hits}")
 
     def replace_block(self, start, end, new):
         i = self.s.index(start)
@@ -69,8 +91,8 @@ class Page:
         )
         for name in SHARED_SCRIPTS:
             self.s = self.s.replace(f'<script src="{name}', f'<script src="../{name}')
-        self.s = self.s.replace('"assets/', '"../assets/')
-        self.s = re.sub(r"(\d+w), assets/", r"\1, ../assets/", self.s)
+        # every relative assets/ path (src, srcset lines, JS strings) moves up one level
+        self.s = re.sub(r"(?<![./\w-])assets/", "../assets/", self.s)
 
     def breadcrumb_schema(self, items):
         """Swap the BreadcrumbList JSON-LD names/URLs for the Arabic ones.
@@ -98,6 +120,9 @@ class Page:
         self.s = self.s[:i] + css.rstrip() + "\n" + self.s[i:]
 
     def write(self):
+        # Arabic reads "7 إلى 10 أيام"; a "7-10" range also breaks badly at line ends in RTL
+        self.s = self.s.replace("بـ 7-10 أيام", "بـ 7 إلى 10 أيام").replace("بـ\n                7-10 أيام", "بـ\n                7 إلى 10 أيام")
+        self.s = self.s.replace("، 7-10 أيام", "، 7 إلى 10 أيام")
         out = ROOT / "ar" / self.name
         out.write_text(self.s, encoding="utf-8")
         print("wrote", out, len(self.s), "bytes")
