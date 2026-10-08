@@ -12,7 +12,7 @@ Designing website UX for "ECommerce Day 2026" — one-day offline event, Cairo, 
 - Logo: use uploaded TrafficMENA logo exactly (black squircle, white "t", green arrow). Never recreate/recolor/distort. Nav: icon + wordmark "TrafficMENA" in #101010. Min icon 24px.
 
 ## Typography
-- SITE CONTENT LANGUAGE: ENGLISH on every page (user decision, overrides earlier bilingual spec). Manrope (700 headings, 400/500 body, 600 links). Keep IBM Plex Sans Arabic loaded only if Arabic ever needed.
+- SITE CONTENT LANGUAGE: English pages at the root, plus an Arabic version of the marketing pages in `ar/` (user decision, 8 Oct 2026, overrides the earlier "English only" rule; see "Arabic version" below). Manrope (700 headings, 400/500 body, 600 links). Arabic pages use IBM Plex Sans Arabic.
 - Eyebrows/labels/times/capacities/IDs: JetBrains Mono 11–12px uppercase, letter-spacing .08–.12em.
 - Scale: H1 56/1.02 desktop (40 mobile), H2 36/1.1, H3 24, body 16/1.7, lede 18.
 - No em dashes (—) or en dashes (–) anywhere on the site, in copy, titles, labels or comments. Use a comma, period, colon, parentheses or "·" instead; number ranges use a plain hyphen (1-10).
@@ -22,16 +22,15 @@ Designing website UX for "ECommerce Day 2026" — one-day offline event, Cairo, 
 - Buttons: Primary #05EF62 fill + #101010 text, 10px radius, 600. Secondary/ghost: #101010 1px outline on white. Dark band CTA: #101010 bg with green primary button inside.
 - Section header anatomy: mono kicker (text only, no green rule/bar before it) → H2 → optional lede (max 60ch).
 - Sticky translucent nav (white 85% + blur, 1px bottom #E6EAEE). Mobile: hamburger + persistent bottom "Book Your Ticket" bar.
-- Tracks (label ALWAYS with color): The Control Tower ink #101010 (main stage) · CLICKED green #05EF62 · CONFIRMED blue #006681 · DELIVERED amber #FFB020.
+- Tracks (label ALWAYS with color): Main Stage ink #101010 · Second Stage gray #4A5563 · Acquisition green #05EF62 · CRO & Retention blue #006681 · Operations & Logistics amber #FFB020. The old names (The Control Tower, CLICKED, CONFIRMED, DELIVERED) are retired (user, 8 Oct 2026): never use them.
 - Status pills (text + color): Confirmed / Coming Soon / Almost Full / Fully Booked / Waitlist / Templates Included / All Access Pass Only / All Tickets.
 - A11y: visible labels (no placeholder-as-label), 4.5:1 contrast, focus rings, real buttons, keyboard-navigable filters/accordions.
 
 ## Event facts
-- ECommerce Day 2026, TrafficMENA, 5 Nov 2026, Cairo. One offline day: Main Stage "The Control Tower" + "Second Stage" (never "Local Brands Stage") + 3 workshop tracks (CLICKED, CONFIRMED, DELIVERED). 15+ workshops in total (5 per workshop track).
-- Story: "Every order goes through three states: CLICKED → CONFIRMED → DELIVERED. The Control Tower sees the whole order."
-- Promises: Control Tower = See the whole order and lead the system · CLICKED = Build the Acquisition Machine · CONFIRMED = Turn Visits into Orders · DELIVERED = Keep the Promise and the Margin.
-- Times (Cairo, UTC+2 in November): registration opens 10:00 AM, program 10:30 AM to 7:00 PM. Calendar entries (.ics, emails) use 10:30 AM to 7:00 PM, always written with +02:00 (never +03:00, which shows an hour early).
-- Capacities (label as draft/subject to venue): Control Tower 500 · CLICKED 80 · CONFIRMED 200 · DELIVERED 100.
+- ECommerce Day 2026, TrafficMENA, 5 Nov 2026, Cairo. One offline day: two stages, "Main Stage" + "Second Stage" (never "Local Brands Stage"), + 3 workshop tracks (Acquisition, CRO & Retention, Operations & Logistics). 15+ workshops in total (5 per workshop track).
+- Promises (tracks renamed 8 Oct 2026): Main Stage = See the whole order and lead the system · Acquisition = Build the Acquisition Machine · CRO & Retention = Turn Visits into Orders · Operations & Logistics = Keep the Promise and the Margin. The old CLICKED → CONFIRMED → DELIVERED story is retired with the old names.
+- Times (Cairo, UTC+2 in November): registration opens 10:00 AM, program 10:30 AM to 7:00 PM. (8 Oct 2026: the user said the program runs 11:00 AM to 7:00 PM; asked whether that changes Home, the admin agenda, the .ics and the email. Update this line once answered.) Calendar entries (.ics, emails) use 10:30 AM to 7:00 PM, always written with +02:00 (never +03:00, which shows an hour early).
+- Capacities (label as draft/subject to venue): Main Stage 500 · Acquisition 80 · CRO & Retention 200 · Operations & Logistics 100.
 - Contact: info@trafficmena.com · 01118111793 · trafficmena.com · WhatsApp https://wa.me/201505437979?text=I%20need%20help%20for%20Ecommerce%20Day%202026 (show a WhatsApp button wherever contact details appear). Floating WhatsApp button on every page comes from `ecd-whatsapp.js` (green 56px circle, bottom-left, same as the main app). It lifts above any sticky bottom bar marked `data-ecd-bottom-bar`; mark every new sticky bottom bar with it.
 - Social (same as trafficmena.com footer, in this order): X https://x.com/trafficmena · Facebook https://facebook.com/trafficmena · LinkedIn https://linkedin.com/company/trafficmena · Instagram https://instagram.com/trafficmena · TikTok https://tiktok.com/@trafficmena · Threads https://threads.net/@trafficmena. Footer tiles: 36px, 10px radius, ink icon, hover ink bg + green icon.
 - Refunds: full refund until the end of 30 October 2026 (five days before the event), requested by email from the booking email. No refunds after that date. Tickets are non-transferable. Approved refunds go back through the original payment method.
@@ -49,6 +48,19 @@ Designing website UX for "ECommerce Day 2026" — one-day offline event, Cairo, 
 10. Speakers: only confirmed names. Unannounced → single block "More speakers will be announced soon" — no silhouettes/dummy cards. Once speakers are listed, the Speakers page box under the grid reads "The lineup is impressive. More speakers will be announced soon." Featured Speakers = published speakers with the admin "Featured" switch on (max 6, by Featured sort).
 11. Session times: "Slot 1 / Slot 2 / Slot 3" or approved Main Stage grid; never working times as final.
 12. Unresolved items show "Coming Soon" / "Announced soon" — never hidden or guessed.
+
+## Arabic version (user decisions, 8 Oct 2026, "option B")
+- Arabic copies of the marketing pages live in `ar/` (`ar/index.html`, `ar/agenda.html`, ... same file names). Checkout and Booking Confirmation stay English only. Shared scripts (navbar.js, footer.js, breadcrumbs.js, ecd-whatsapp.js, and later tickets-section.js, ecd-content.js, ecd-analytics.js) switch to Arabic only when `<html lang="ar">`; English output must stay byte-identical. In Arabic mode they prefix shared assets and English-only pages with `../`.
+- Every change to an English marketing page must be mirrored in its `ar/` copy (and the reverse), or the two drift.
+- Rollout: `ar/` pages are `noindex` and linked from nowhere while the team reviews them at direct links. The language switcher goes into the English navbar only after the navbar and all marketing pages are done; that is the moment Arabic goes public. The noindex comes off after the team signs off. The switcher stays hidden on Booking Confirmation.
+- Writing: modern Egyptian media Arabic, humanize skill rules (no shakl, tanween on the last letter, no dashes, no calques, Arabic punctuation). Western digits (1, 2, 3). The team's content expert reviews body copy on the preview links; terms below were confirmed by the user one by one.
+- Glossary (confirmed): ECommerce Day = يوم التجارة الإلكترونية · Standard Pass = التذكرة الأساسية · All Access Pass = التذكرة الشاملة · Main Stage = المسرح الرئيسي · Second Stage = المسرح الثاني · Acquisition = مسار جذب العملاء · CRO & Retention = مسار زيادة المبيعات والاحتفاظ بالعملاء · Operations & Logistics = مسار التشغيل والشحن · Workshops = ورش العمل · Venue = مركز إبداع مصر الرقمية (كريتيفا)، الجيزة · Nav: الرئيسية · الأجندة · المتحدثون · الرعاة · التذاكر · منصة TrafficMENA · كن راعياً · احجز تذكرتك · القائمة · Breadcrumb: الرعاة والشركاء · الأسئلة الشائعة · السياسات · Policies: الشروط والأحكام · الخصوصية · الاسترداد والإلغاء · التذاكر والدخول · Switcher: "العربية" on English pages, "English" on Arabic pages.
+- First mention of a pass or track on each Arabic page also shows the English name, e.g. "التذكرة الشاملة (All Access Pass)", because checkout, the confirmation page and the email stay English.
+- Fixed admin labels (rooms, session formats, level, speaker types, status) are translated on Arabic pages with a fixed lookup list; speaker names, roles, companies and sponsor blurbs stay English. Ticket cards and session titles stay English until the backend gets Arabic fields (admin: Arabic version under each English field on the same screen). Backend work comes last and needs the user's explicit yes first; the bilingual ticket email is part of it.
+- Become a Sponsor in Arabic: Arabic labels on screen, the saved values and sponsor_form_complete keep the English values.
+- WhatsApp on Arabic pages: https://wa.me/201505437979?text= + "مرحباً، محتاج مساعدة بخصوص يوم التجارة الإلكترونية 2026" (URL-encoded). Button stays bottom-left.
+- Checkout: Arabic links to checkout carry `?lang=ar`; then checkout's breadcrumb (and Booking Confirmation's) points "ECommerce Day" and "Tickets" back to the Arabic pages. No payment code changes.
+- Analytics: every ECD event gets `language` ("en" / "ar"); page_type values stay the same for `ar/` pages; checkout and purchase report "ar" for buyers who came from the Arabic site (kept in the browser through the payment trip; a confirmation link opened later on another device reports "en", accepted).
 
 ## Tickets section (single source of truth)
 - The "Choose Your Access" tickets section is ONE shared component, `tickets-section.js` (`<ecd-tickets>`), used on Home, Agenda and Tickets (#ticket-cards). Edit it there only; never copy its markup into a page.
