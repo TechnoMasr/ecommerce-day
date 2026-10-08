@@ -97,11 +97,11 @@ p.rep('></span>All Rooms\n', '></span>كل القاعات\n')
 p.rep('></span>Main Stage\n', '></span>المسرح الرئيسي\n')
 p.rep("""></span>Second
             Stage""", """></span>المسرح الثاني""")
-p.rep("""            >Acquisition workshops""", """            >ورش مسار جذب العملاء""")
+p.rep("""            >Acquisition workshops""", """            >ورش مسار جذب العملاء (Acquisition)""")
 p.rep("""></span>CRO &amp;
-            Retention workshops""", """></span>ورش مسار زيادة المبيعات والاحتفاظ بالعملاء""")
+            Retention workshops""", """></span>ورش مسار زيادة المبيعات والاحتفاظ بالعملاء (CRO &amp; Retention)""")
 p.rep("""></span>Operations
-            &amp; Logistics workshops""", """></span>ورش مسار التشغيل والشحن""")
+            &amp; Logistics workshops""", """></span>ورش مسار التشغيل والشحن (Operations &amp; Logistics)""")
 p.rep('<span class="filter-row-label">Type</span>', '<span class="filter-row-label">النوع</span>')
 p.rep('data-type="Founder">Founder</button>', 'data-type="Founder">مؤسس</button>')
 p.rep('data-type="Operator">Operator</button>', 'data-type="Operator">خبير تشغيل</button>')
