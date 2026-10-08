@@ -10,8 +10,11 @@
 (function () {
   "use strict";
 
-  var WHATSAPP_URL =
-    "https://wa.me/201505437979?text=I%20need%20help%20for%20Ecommerce%20Day%202026";
+  // Arabic pages (ar/) load ecd-i18n.js first: Arabic message and label.
+  var I18N = window.EcdI18n || null;
+  var WHATSAPP_URL = I18N
+    ? I18N.whatsappUrl
+    : "https://wa.me/201505437979?text=I%20need%20help%20for%20Ecommerce%20Day%202026";
   var GAP = 16;
 
   function init() {
@@ -39,7 +42,10 @@
     a.href = WHATSAPP_URL;
     a.target = "_blank";
     a.rel = "noopener noreferrer";
-    a.setAttribute("aria-label", "Chat with us on WhatsApp (opens in a new tab)");
+    a.setAttribute(
+      "aria-label",
+      I18N ? I18N.t("wa.aria", "") : "Chat with us on WhatsApp (opens in a new tab)",
+    );
     a.innerHTML =
       '<svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" focusable="false">' +
       '<path d="M19.11 17.27c-.28-.14-1.63-.8-1.88-.89-.25-.09-.43-.14-.61.14s-.7.89-.86 1.08c-.16.19-.31.21-.58.07-.28-.14-1.16-.43-2.2-1.37-.81-.72-1.35-1.62-1.5-1.89-.16-.28-.02-.43.12-.57.12-.12.28-.31.42-.47.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.49-.07-.14-.61-1.48-.84-2.03-.22-.52-.45-.45-.61-.46h-.52c-.19 0-.49.07-.75.35-.25.28-.98.96-.98 2.35s1.01 2.73 1.15 2.91c.14.19 1.98 3.02 4.79 4.24.67.29 1.2.47 1.61.6.68.22 1.29.19 1.78.12.54-.08 1.63-.67 1.86-1.31.23-.63.23-1.17.16-1.28-.07-.12-.25-.19-.53-.33Z"/>' +

@@ -16,6 +16,8 @@
   "use strict";
 
   var STYLE_ID = "ecd-breadcrumb-style";
+  // Arabic pages (ar/) load ecd-i18n.js first; English pages are unchanged.
+  var I18N = window.EcdI18n || null;
 
   function injectStyle() {
     if (document.getElementById(STYLE_ID)) return;
@@ -33,7 +35,9 @@
       ".ecd-bc a:hover,.ecd-bc button:hover{color:#101010;text-decoration:underline;text-underline-offset:3px}" +
       ".ecd-bc a:focus-visible,.ecd-bc button:focus-visible{outline:2px solid #101010;outline-offset:2px}" +
       ".ecd-bc [aria-current]{color:#101010;font-weight:600}" +
-      "@media (max-width:600px){.ecd-bc{padding:10px 16px;font-size:12px}}";
+      "@media (max-width:600px){.ecd-bc{padding:10px 16px;font-size:12px}}" +
+      (I18N ? ".ecd-bc{font-family:" + I18N.font + ";font-size:14px}" +
+        "@media (max-width:600px){.ecd-bc{font-size:13px}}" : "");
     document.head.appendChild(style);
   }
 
@@ -42,7 +46,7 @@
     injectStyle();
     var nav = document.createElement("nav");
     nav.className = "ecd-bc";
-    nav.setAttribute("aria-label", "Breadcrumb");
+    nav.setAttribute("aria-label", I18N ? I18N.t("bc.aria", "Breadcrumb") : "Breadcrumb");
     var ol = document.createElement("ol");
     (items || []).forEach(function (item, i) {
       var li = document.createElement("li");

@@ -13,6 +13,13 @@
 // Main TrafficMENA platform (the logo goes to the ECommerce Day home page).
 const PLATFORM_URL = "https://www.trafficmena.com/";
 
+// Arabic pages (ar/) load ecd-i18n.js first. English pages don't, so
+// every string and path below stays exactly as it was for them.
+const NAV_I18N = window.EcdI18n || null;
+const navT = (key, en) => (NAV_I18N ? NAV_I18N.t(key, en) : en);
+const navPage = (href) => (NAV_I18N ? NAV_I18N.page(href) : href);
+const navAsset = (path) => (NAV_I18N ? NAV_I18N.asset(path) : path);
+
 const EXTERNAL_ICON =
   '<svg class="ecdnav-ext-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>';
 
@@ -270,12 +277,88 @@ const NAVBAR_CSS = `
   }
 `;
 
+// Arabic pages only: right-to-left details and the language switcher.
+const NAVBAR_CSS_AR = `
+  site-navbar .ecdnav-header {
+    font-family: ${NAV_I18N ? NAV_I18N.font : "inherit"};
+  }
+
+  site-navbar .ecdnav-desktop a {
+    font-size: 15px;
+  }
+
+  site-navbar .ecdnav-btn {
+    font-size: 15px;
+  }
+
+  site-navbar .ecdnav-toggle {
+    padding: 0 12px 0 14px;
+    font-size: 15px;
+  }
+
+  /* The "opens elsewhere" arrow points up and away from the reading direction */
+  site-navbar .ecdnav-ext-icon {
+    transform: scaleX(-1);
+  }
+
+  /* Language switcher: always visible, desktop and mobile */
+  site-navbar .ecdnav-lang {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid var(--line-strong, #CBD5E0);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--ink, #101010);
+    font-family: "Manrope", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  site-navbar .ecdnav-lang:hover {
+    border-color: #101010;
+  }
+
+  site-navbar .ecdnav-lang:focus-visible {
+    outline: 2px solid #101010;
+    outline-offset: 2px;
+  }
+
+  site-navbar .ecdnav-lang svg {
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 992px) {
+    site-navbar .ecdnav-lang {
+      height: 44px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    site-navbar .ecdnav-lang {
+      padding: 0 10px;
+    }
+    site-navbar .ecdnav-lang svg {
+      display: none;
+    }
+  }
+`;
+
+const GLOBE_ICON =
+  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>';
+
 // Added once, at the end of <head>, so it wins ties with page CSS.
 function ensureNavbarStyles() {
   if (document.getElementById("ecdnav-styles")) return;
   const style = document.createElement("style");
   style.id = "ecdnav-styles";
-  style.textContent = NAVBAR_CSS;
+  style.textContent = NAV_I18N ? NAVBAR_CSS + NAVBAR_CSS_AR : NAVBAR_CSS;
   document.head.appendChild(style);
 }
 
@@ -288,52 +371,59 @@ class SiteNavbar extends HTMLElement {
 
     const currentPage = (this.getAttribute("current") || "").toLowerCase();
 
+    // key = the page's `current` value (the English label, lowercased)
     const links = [
-      { href: "index.html", label: "Home" },
-      { href: "agenda.html", label: "Agenda" },
-      { href: "speakers.html", label: "Speakers" },
-      { href: "sponsors.html", label: "Sponsors" },
-      { href: "tickets.html", label: "Tickets" },
+      { href: "index.html", key: "home", label: navT("nav.home", "Home") },
+      { href: "agenda.html", key: "agenda", label: navT("nav.agenda", "Agenda") },
+      { href: "speakers.html", key: "speakers", label: navT("nav.speakers", "Speakers") },
+      { href: "sponsors.html", key: "sponsors", label: navT("nav.sponsors", "Sponsors") },
+      { href: "tickets.html", key: "tickets", label: navT("nav.tickets", "Tickets") },
       // Hidden until the FAQ page content is updated. Uncomment to restore:
-      // { href: "faq.html", label: "FAQ" },
+      // { href: "faq.html", key: "faq", label: navT("nav.faq", "FAQ") },
     ];
 
     const renderLink = (l) => {
-      const isActive = l.label.toLowerCase() === currentPage;
-      return `<li><a href="${l.href}"${isActive ? ' class="ecdnav-active" aria-current="page"' : ""}>${l.label}</a></li>`;
+      const isActive = l.key === currentPage;
+      return `<li><a href="${navPage(l.href)}"${isActive ? ' class="ecdnav-active" aria-current="page"' : ""}>${l.label}</a></li>`;
     };
 
     const platformLink = (label) =>
-      `<li><a href="${PLATFORM_URL}" class="ecdnav-platform" aria-label="TrafficMENA Platform, the main TrafficMENA website">${label}${EXTERNAL_ICON}</a></li>`;
+      `<li><a href="${PLATFORM_URL}" class="ecdnav-platform" aria-label="${navT("nav.platformAria", "TrafficMENA Platform, the main TrafficMENA website")}">${label}${EXTERNAL_ICON}</a></li>`;
 
-    const desktopLinks = links.map(renderLink).join("") + platformLink("TrafficMENA");
-    const mobileLinks = links.map(renderLink).join("") + platformLink("TrafficMENA Platform");
+    const desktopLinks = links.map(renderLink).join("") + platformLink(navT("nav.platform", "TrafficMENA"));
+    const mobileLinks = links.map(renderLink).join("") + platformLink(navT("nav.platformMobile", "TrafficMENA Platform"));
+
+    // Arabic pages: link to the same page in English (English pages get
+    // their switcher when the Arabic site goes public).
+    const langSwitch = NAV_I18N
+      ? `<a href="${NAV_I18N.englishUrl()}" class="ecdnav-lang" lang="en" dir="ltr" hreflang="en" aria-label="${navT("nav.switchAria", "")}">${GLOBE_ICON}<span>${navT("nav.switch", "")}</span></a>`
+      : "";
 
     this.innerHTML = `
       <header class="ecdnav-header" id="top">
         <div class="ecdnav-inner">
           <a
-            href="index.html"
+            href="${navPage("index.html")}"
             class="ecdnav-brand"
-            aria-label="ECommerce Day home"
+            aria-label="${navT("nav.homeAria", "ECommerce Day home")}"
           >
             <img
-              src="assets/ecommerce-day-logo.webp"
+              src="${navAsset("assets/ecommerce-day-logo.webp")}"
               width="83"
               height="38"
-              alt="E-commerce Day by TrafficMENA"
+              alt="${navT("nav.logoAlt", "E-commerce Day by TrafficMENA")}"
             />
           </a>
 
-          <nav class="ecdnav-desktop" aria-label="Primary">
+          <nav class="ecdnav-desktop" aria-label="${navT("nav.primaryAria", "Primary")}">
             <ul>
               ${desktopLinks}
             </ul>
           </nav>
 
           <div class="ecdnav-actions">
-            <a href="become-a-sponsor.html" class="ecdnav-btn ecdnav-btn-ghost ecdnav-cta">Become a Sponsor</a>
-            <a href="tickets.html" class="ecdnav-btn ecdnav-btn-primary ecdnav-cta">Get Your Ticket</a>
+            ${langSwitch}<a href="${navPage("become-a-sponsor.html")}" class="ecdnav-btn ecdnav-btn-ghost ecdnav-cta">${navT("nav.sponsor", "Become a Sponsor")}</a>
+            <a href="${navPage("tickets.html")}" class="ecdnav-btn ecdnav-btn-primary ecdnav-cta">${navT("nav.ticket", "Get Your Ticket")}</a>
             <button
               type="button"
               class="ecdnav-toggle"
@@ -367,19 +457,19 @@ class SiteNavbar extends HTMLElement {
               >
                 <path d="M6 6l12 12M18 6 6 18" />
               </svg>
-              <span>Menu</span>
+              <span>${navT("nav.menu", "Menu")}</span>
             </button>
           </div>
         </div>
 
-        <nav class="ecdnav-mobile" id="ecdnav-menu" aria-label="Menu">
+        <nav class="ecdnav-mobile" id="ecdnav-menu" aria-label="${navT("nav.menuAria", "Menu")}">
           <ul>
             ${mobileLinks}
             <li>
-              <a href="become-a-sponsor.html" class="ecdnav-btn ecdnav-btn-ghost">Become a Sponsor</a>
+              <a href="${navPage("become-a-sponsor.html")}" class="ecdnav-btn ecdnav-btn-ghost">${navT("nav.sponsor", "Become a Sponsor")}</a>
             </li>
             <li>
-              <a href="tickets.html" class="ecdnav-btn ecdnav-btn-primary">Get Your Ticket</a>
+              <a href="${navPage("tickets.html")}" class="ecdnav-btn ecdnav-btn-primary">${navT("nav.ticket", "Get Your Ticket")}</a>
             </li>
           </ul>
         </nav>
