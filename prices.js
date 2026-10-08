@@ -226,6 +226,9 @@
 
   function checkoutUrl(ticketId) {
     var id = ticketId === "ct" ? "ct" : "fj";
+    // Arabic pages (ar/): checkout stays English, one level up, and is told
+    // the buyer came from the Arabic site (breadcrumb + analytics language).
+    if (global.EcdI18n) return "../checkout.html?ticket=" + id + "&lang=ar";
     return "checkout.html?ticket=" + id;
   }
 

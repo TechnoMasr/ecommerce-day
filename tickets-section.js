@@ -16,12 +16,56 @@
 (function () {
   if (customElements.get("ecd-tickets")) return;
 
-  var COPY = {
-    eyebrow: "Choose Your Access",
-    title: "Find the Pass That Fits Your Goals",
-    sub: "Access both live stages, or go further with workshops and extended content.",
-    note: "Workshop access remains subject to capacity and booking rules.",
-  };
+  // Arabic pages (ar/) load ecd-i18n.js first: the section's own text is
+  // Arabic there. Card names, features, badge and CTA come from the admin
+  // panel and stay as entered until the backend has Arabic fields.
+  var AR = window.EcdI18n || null;
+
+  var COPY = AR
+    ? {
+        eyebrow: "اختر طريقة حضورك",
+        title: "اختر التذكرة المناسبة لأهدافك",
+        sub: "احضر المسرحين طوال اليوم، أو اذهب أبعد مع ورش العمل والمحتوى الإضافي.",
+        note: "حضور الورش مرتبط بالأماكن المتاحة وقواعد الحجز.",
+      }
+    : {
+        eyebrow: "Choose Your Access",
+        title: "Find the Pass That Fits Your Goals",
+        sub: "Access both live stages, or go further with workshops and extended content.",
+        note: "Workshop access remains subject to capacity and booking rules.",
+      };
+
+  var UI = AR
+    ? {
+        suffix: " جنيه",
+        token: "[السعر النهائي] جنيه",
+        limited: "تذاكر محدودة",
+        compare: "قارن بين التذاكر",
+        close: "إغلاق المقارنة",
+        feature: "الميزة",
+        standard: "التذكرة الأساسية",
+        allAccess: "التذكرة الشاملة",
+        yes: "نعم",
+        no: "لا",
+        inStandard: "ما تشمله التذكرة الأساسية (Standard Pass)",
+        notStandard: "ما لا تشمله التذكرة الأساسية",
+        inAllAccess: "ما تشمله التذكرة الشاملة (All Access Pass)",
+      }
+    : {
+        suffix: " EGP",
+        token: "[Final Price] EGP",
+        limited: "Limited Tickets",
+        compare: "Compare Passes",
+        close: "Close comparison",
+        feature: "Feature",
+        standard: "Standard",
+        allAccess: "All Access",
+        yes: "Yes",
+        no: "No",
+        inStandard: "Included in the Standard Pass",
+        notStandard: "Not included in the Standard Pass",
+        inAllAccess: "Included in the All Access Pass",
+      };
 
   var CT_INCLUDED = [
     "Main Stage",
@@ -38,13 +82,21 @@
     { t: "Presentation slides", w: 400 },
     { t: "Workshop templates and files", w: 400 },
   ];
-  var COMPARE = [
-    { f: "Both stages and networking", c: "Yes" },
-    { f: "Keynotes, panels, and case studies", c: "Yes" },
-    { f: "Sponsor activations", c: "Yes" },
-    { f: "Up to five workshops", c: "No" },
-    { f: "Workshop templates and files", c: "No" },
-  ];
+  var COMPARE = AR
+    ? [
+        { f: "المسرحان والتعارف", c: "Yes" },
+        { f: "الكلمات الرئيسية والجلسات النقاشية ودراسات الحالة", c: "Yes" },
+        { f: "أنشطة الرعاة", c: "Yes" },
+        { f: "حتى خمس ورش عمل", c: "No" },
+        { f: "ملفات ونماذج الورش", c: "No" },
+      ]
+    : [
+        { f: "Both stages and networking", c: "Yes" },
+        { f: "Keynotes, panels, and case studies", c: "Yes" },
+        { f: "Sponsor activations", c: "Yes" },
+        { f: "Up to five workshops", c: "No" },
+        { f: "Workshop templates and files", c: "No" },
+      ];
 
   var CHECK =
     '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#04C44E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>';
@@ -96,11 +148,24 @@
     "@media (max-width:900px){.ecdt-grid{grid-template-columns:1fr}}",
   ].join("\n");
 
+  // Arabic pages: Arabic type, no letter-spacing (it breaks joined letters),
+  // mirrored badge and table alignment.
+  var CSS_AR = [
+    "ecd-tickets{font-family:" + (AR ? AR.font : "inherit") + "}",
+    ".ecdt-eyebrow,.ecdt-card-eyebrow,.ecdt-limited{font-family:inherit;letter-spacing:0;text-transform:none}",
+    ".ecdt-eyebrow{font-size:14px;font-weight:600}",
+    ".ecdt-card-eyebrow{font-size:13px}",
+    ".ecdt-limited{font-size:12px}",
+    ".ecdt-title{letter-spacing:0;line-height:1.35}",
+    ".ecdt-badge{right:auto;left:26px;letter-spacing:0}",
+    ".ecdt-table th{text-align:right}",
+  ].join("\n");
+
   function injectStyles() {
     if (document.getElementById("ecdt-styles")) return;
     var style = document.createElement("style");
     style.id = "ecdt-styles";
-    style.textContent = CSS;
+    style.textContent = AR ? CSS + "\n" + CSS_AR : CSS;
     document.head.appendChild(style);
   }
 
@@ -125,8 +190,8 @@
         ";color:" +
         (isNo ? "#7A827D" : "#1E2422") +
         '">' +
-        m.c +
-        '</td><td style="font-weight:700">Yes</td></tr>'
+        (isNo ? UI.no : UI.yes) +
+        '</td><td style="font-weight:700">' + UI.yes + "</td></tr>"
       );
     }).join("");
   }
@@ -142,9 +207,9 @@
       '<div class="ecdt-card-eyebrow" data-pkg-eyebrow>Standard Pass</div>' +
       '<h3 class="ecdt-card-title" data-pkg-title>The Live Stage Experience</h3>' +
       '<p class="ecdt-card-desc" data-pkg-desc>Market perspectives, case studies, industry conversations, and networking.</p>' +
-      '<ul class="ecdt-list" id="confIncluded" aria-label="Included in the Standard Pass">' + listItems(CT_INCLUDED, CHECK) + "</ul>" +
-      '<ul class="ecdt-list excluded" id="confExcluded" aria-label="Not included in the Standard Pass">' + listItems(CT_EXCLUDED, CROSS) + "</ul>" +
-      '<div class="ecdt-price price-ct" data-suffix=" EGP">[Final Price] EGP</div>' +
+      '<ul class="ecdt-list" id="confIncluded" aria-label="' + UI.inStandard + '">' + listItems(CT_INCLUDED, CHECK) + "</ul>" +
+      '<ul class="ecdt-list excluded" id="confExcluded" aria-label="' + UI.notStandard + '">' + listItems(CT_EXCLUDED, CROSS) + "</ul>" +
+      '<div class="ecdt-price price-ct" data-suffix="' + UI.suffix + '">' + UI.token + "</div>" +
       '<button type="button" class="ecdt-btn ecdt-btn-outline ecdt-btn-full" data-checkout="ct" data-pkg-cta>Get Standard Pass</button>' +
       "</article>" +
       // All Access Pass (fj)
@@ -153,27 +218,27 @@
       '<div class="ecdt-card-eyebrow" data-pkg-eyebrow>All Access Pass</div>' +
       '<h3 class="ecdt-card-title" data-pkg-title>The Full ECommerce Day Experience</h3>' +
       '<p class="ecdt-card-desc" data-pkg-desc>Workshops, deeper application, and continued learning after the event.</p>' +
-      '<ul class="ecdt-list" id="allAccess" aria-label="Included in the All Access Pass">' + listItems(FJ_INCLUDED, CHECK) + "</ul>" +
+      '<ul class="ecdt-list" id="allAccess" aria-label="' + UI.inAllAccess + '">' + listItems(FJ_INCLUDED, CHECK) + "</ul>" +
       '<div class="ecdt-price-row">' +
-      '<div class="ecdt-price price-fj" data-suffix=" EGP">[Final Price] EGP</div>' +
-      '<span class="ecdt-limited">Limited Tickets</span>' +
+      '<div class="ecdt-price price-fj" data-suffix="' + UI.suffix + '">' + UI.token + "</div>" +
+      '<span class="ecdt-limited">' + UI.limited + "</span>" +
       "</div>" +
       '<button type="button" class="ecdt-btn ecdt-btn-primary ecdt-btn-full" data-checkout="fj" data-pkg-cta>Get All Access Pass</button>' +
       "</article>" +
       "</div>" +
       '<div class="ecdt-actions">' +
-      '<button type="button" class="ecdt-btn ecdt-btn-outline" id="openCompare" aria-haspopup="dialog">Compare Passes' +
+      '<button type="button" class="ecdt-btn ecdt-btn-outline" id="openCompare" aria-haspopup="dialog">' + UI.compare +
       '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>' +
       "</button></div>" +
       '<p class="ecdt-note">' + COPY.note + "</p>" +
       // Compare modal
-      '<div class="ecdt-backdrop" id="compareModal" hidden role="dialog" aria-modal="true" aria-label="Compare Passes">' +
+      '<div class="ecdt-backdrop" id="compareModal" hidden role="dialog" aria-modal="true" aria-label="' + UI.compare + '">' +
       '<div class="ecdt-modal">' +
-      '<div class="ecdt-modal-head"><h3>Compare Passes</h3>' +
-      '<button type="button" class="ecdt-close" id="closeCompare" aria-label="Close comparison">' +
+      '<div class="ecdt-modal-head"><h3>' + UI.compare + "</h3>" +
+      '<button type="button" class="ecdt-close" id="closeCompare" aria-label="' + UI.close + '">' +
       '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>' +
       "</button></div>" +
-      '<table class="ecdt-table"><thead><tr><th>Feature</th><th>Standard</th><th>All Access</th></tr></thead>' +
+      '<table class="ecdt-table"><thead><tr><th>' + UI.feature + "</th><th>" + UI.standard + "</th><th>" + UI.allAccess + "</th></tr></thead>" +
       '<tbody id="cmpModalBody">' + compareRows() + "</tbody></table>" +
       "</div></div>"
     );

@@ -5,6 +5,22 @@
 (function (global) {
   "use strict";
 
+  // Arabic pages (ar/) load ecd-i18n.js first. Admin content (names, roles,
+  // ticket cards) stays as entered; only these fixed strings change.
+  var AR = global.EcdI18n || null;
+  var RTL = !!AR;
+  var TXT = AR
+    ? {
+        sponsorsSoon: "سيعلن عن الرعاة قريباً.",
+        partnersSoon: "سيعلن عن الشركاء قريباً",
+        speakersSoon: "سيعلن عن مزيد من المتحدثين قريباً",
+      }
+    : {
+        sponsorsSoon: "Sponsors will be announced soon.",
+        partnersSoon: "Partners announced soon",
+        speakersSoon: "More speakers will be announced soon",
+      };
+
   function el(tag, attrs) {
     var node = document.createElement(tag);
     attrs = attrs || {};
@@ -109,7 +125,7 @@
     grid.appendChild(frag);
     var status = document.getElementById("sponsorsStatus");
     if (status) {
-      status.textContent = list.length ? "" : "Sponsors will be announced soon.";
+      status.textContent = list.length ? "" : TXT.sponsorsSoon;
     }
   }
 
@@ -122,7 +138,7 @@
       wrap.appendChild(
         el("div", {
           class: "partner-tile",
-          html: "<span>Partners announced soon</span>",
+          html: "<span>" + TXT.partnersSoon + "</span>",
         }),
       );
       return;
@@ -152,16 +168,19 @@
     var next = document.getElementById("nextSpeaker");
     if (!prev || !next || track.dataset.carouselBound) return;
     track.dataset.carouselBound = "1";
+    // Right-to-left pages scroll the other way: scrollLeft runs from 0 down
+    // to negative values, and "next" moves left.
+    var side = RTL ? -1 : 1;
     function scrollByCard(dir) {
       var card = track.firstElementChild;
       var amount =
-        (card ? card.getBoundingClientRect().width + 20 : 280) * dir;
+        (card ? card.getBoundingClientRect().width + 20 : 280) * dir * side;
       track.scrollBy({ left: amount, behavior: "smooth" });
     }
     function updateButtons() {
-      var atStart = track.scrollLeft <= 4;
-      var atEnd =
-        track.scrollLeft >= track.scrollWidth - track.clientWidth - 4;
+      var pos = track.scrollLeft * side;
+      var atStart = pos <= 4;
+      var atEnd = pos >= track.scrollWidth - track.clientWidth - 4;
       prev.disabled = atStart;
       next.disabled = atEnd;
     }
@@ -175,11 +194,11 @@
     track.addEventListener("keydown", function (e) {
       if (e.key === "ArrowRight") {
         e.preventDefault();
-        scrollByCard(1);
+        scrollByCard(side);
       }
       if (e.key === "ArrowLeft") {
         e.preventDefault();
-        scrollByCard(-1);
+        scrollByCard(-side);
       }
     });
     setTimeout(updateButtons, 0);
@@ -196,7 +215,7 @@
       );
       var info = el("div", { class: "speaker-info" });
       info.appendChild(
-        el("div", { class: "speaker-name", text: "More speakers will be announced soon" }),
+        el("div", { class: "speaker-name", text: TXT.speakersSoon }),
       );
       info.appendChild(el("div", { class: "speaker-role", text: "" }));
       empty.appendChild(info);

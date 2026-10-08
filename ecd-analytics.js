@@ -37,6 +37,7 @@
   var PAGE_TYPES = {
     "": "ecd_home",
     "ecommerce-day": "ecd_home",
+    ar: "ecd_home",
     index: "ecd_home",
     agenda: "ecd_agenda",
     speakers: "ecd_speakers",
@@ -52,6 +53,7 @@
   function push(data) {
     try {
       global.dataLayer = global.dataLayer || [];
+      if (data && data.language == null) data.language = LANGUAGE;
       global.dataLayer.push(data);
     } catch (e) {
       // Silent fail: analytics must never break the page
@@ -73,6 +75,38 @@
     var slug = parts[parts.length - 1].replace(/\.html$/, "");
     return PAGE_TYPES[slug] || "ecd_other";
   }
+
+  /*
+   * language on every event: "ar" on the Arabic pages (ar/), "en" otherwise.
+   * Checkout and Booking Confirmation are English-only pages; they report the
+   * language the buyer came from: Arabic CTAs open checkout with ?lang=ar,
+   * and that choice is kept in this tab (sessionStorage) for the payment trip
+   * back to Booking Confirmation. A checkout opened without ?lang=ar resets it
+   * to "en", so switching back to English is never reported as Arabic.
+   */
+  var LANG_KEY = "ecd_checkout_lang";
+  var LANGUAGE = (function () {
+    try {
+      var htmlLang = String(document.documentElement.getAttribute("lang") || "");
+      if (/^ar/i.test(htmlLang)) return "ar";
+      var type = getPageType(global.location.pathname);
+      if (type === "ecd_checkout") {
+        var fromAr = new URLSearchParams(global.location.search).get("lang") === "ar";
+        try {
+          global.sessionStorage.setItem(LANG_KEY, fromAr ? "ar" : "en");
+        } catch (e) {}
+        return fromAr ? "ar" : "en";
+      }
+      if (type === "ecd_booking_confirmation") {
+        var saved = null;
+        try {
+          saved = global.sessionStorage.getItem(LANG_KEY);
+        } catch (e) {}
+        return saved === "ar" ? "ar" : "en";
+      }
+    } catch (e) {}
+    return "en";
+  })();
 
   // Same rule as the main app's normalizeAnalyticsPaymentMethod.
   function normalizePaymentMethod(name) {
