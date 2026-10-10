@@ -15,7 +15,7 @@
     <script src="ecd-whatsapp.js?v=20261008a" defer></script>
     <script src="breadcrumbs.js?v=20261008a"></script>
     <script src="prices.js?v=20261008a"></script>
-    <script src="ecd-api.js?v=20260930a"></script>
+    <script src="ecd-api.js?v=20261010b"></script>
     <script src="ecd-content.js?v=20261008a"></script>
     <style>
       * {
@@ -903,6 +903,18 @@
         outline: 2px solid #006681;
         outline-offset: 2px;
       }
+      .methods-error {
+        border: 1px solid #f3c4c0;
+        background: #fdf3f2;
+        border-radius: 12px;
+        padding: 14px;
+      }
+      .methods-error p {
+        margin: 0 0 12px;
+        font-size: 13px;
+        line-height: 1.55;
+        color: #8a2a23;
+      }
       .ecd-pending-alert {
         border: 1px solid #fde68a;
         background: #fffbeb;
@@ -1448,7 +1460,7 @@
                 <div class="form-card" style="border: none; padding: 0">
                   <div class="field">
                     <label for="name">Full name *</label>
-                    <input id="name" type="text" data-field="name" autocomplete="name" />
+                    <input id="name" type="text" data-field="name" autocomplete="name" maxlength="160" />
                     <span class="error-msg" data-error="name"></span>
                   </div>
                   <div class="field">
@@ -1458,6 +1470,7 @@
                       type="email"
                       data-field="email"
                       autocomplete="email"
+                      maxlength="255"
                       placeholder="name@company.com"
                     />
                     <span class="error-msg" data-error="email"></span>
@@ -1491,7 +1504,7 @@
                   <div class="full-width form-subhead">Company &amp; store</div>
                   <div class="field">
                     <label for="company">Company *</label>
-                    <input id="company" type="text" data-field="company" autocomplete="organization" />
+                    <input id="company" type="text" data-field="company" autocomplete="organization" maxlength="160" />
                     <span class="error-msg" data-error="company"></span>
                   </div>
                   <div class="field">
@@ -1851,6 +1864,13 @@
           method: "Cards",
           paymentMethodId: null,
           paymentMethods: [],
+          // "loading" or "error" while the list is empty; the row shows a
+          // Try again button on "error" instead of loading forever.
+          methodsStatus: "loading",
+          methodsError: "",
+          // Fields the server refused (key → message). Cleared when the buyer
+          // edits that field.
+          serverErrors: {},
           walletPhone: "",
           walletLocal: "",
           walletTouched: false,
@@ -2127,6 +2147,10 @@
            People may type links with or without https:// and www; we save
            the full https:// link. Each returns the clean link, or "" when
            the text is not a valid link of that kind. */
+        // The server's email check (zod 3, server/node_modules/zod/v3/types.js).
+        var EMAIL_RE =
+          /^(?!\.)(?!.*\.\.)([A-Z0-9_'+\-\.]*)[A-Z0-9_+-]@([A-Z0-9][A-Z0-9\-]*\.)+[A-Z]{2,}$/i;
+
         function parseLink(raw) {
           var text = String(raw || "").trim();
           if (!text || /\s/.test(text)) return null;
@@ -2156,13 +2180,23 @@
         var NOT_A_STORE =
           /(^|\.)(instagram\.com|facebook\.com|fb\.com|fb\.me|tiktok\.com|linkedin\.com|x\.com|twitter\.com|threads\.net|snapchat\.com|youtube\.com|youtu\.be|wa\.me|whatsapp\.com|t\.me|telegram\.me|linktr\.ee|beacons\.ai)$/;
 
+        // Ad and share tags (Instagram, Facebook, Google...) make links too
+        // long for the server (200 characters) and say nothing about the store.
+        var TRACKING_PARAM =
+          /^(utm_.*|fbclid|gclid|gbraid|wbraid|dclid|msclkid|ttclid|twclid|igshid|igsh|srsltid|mc_cid|mc_eid|_ga|_gl|yclid|epik|scid|brid)$/i;
+
         function cleanStoreLink(raw) {
           var u = parseLink(raw);
           if (!u) return "";
           var host = u.hostname.toLowerCase();
           if (!isRealHostname(host) || NOT_A_STORE.test(host)) return "";
           var path = u.pathname === "/" ? "" : u.pathname.replace(/\/+$/, "");
-          return "https://" + host + path + u.search;
+          var keep = [];
+          u.searchParams.forEach(function (value, key) {
+            if (!TRACKING_PARAM.test(key)) keep.push([key, value]);
+          });
+          var search = keep.length ? "?" + new URLSearchParams(keep).toString() : "";
+          return "https://" + host + path + search;
         }
 
         function isSocialPage(raw) {
@@ -2331,22 +2365,32 @@
         function screen1Errors() {
           const b = state.buyer;
           const e = {};
+          // Same limits as the server (POST /session), so nothing the buyer
+          // can send here is refused there.
+          var name = String(b.name || "").trim();
+          var email = String(b.email || "").trim();
+          var company = String(b.company || "").trim();
           if (!b.country) e.country = "Country is required.";
           if (!b.title) e.title = "Pick the job title closest to your work.";
-          if (!b.name) e.name = "Your full name is required.";
-          if (!b.email) e.email = "Your email is required.";
-          else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(b.email))
-            e.email = "Enter a valid email.";
+          if (!name) e.name = "Your full name is required.";
+          else if (name.length < 2) e.name = "Enter your full name.";
+          if (!email) e.email = "Your email is required.";
+          else if (!EMAIL_RE.test(email) || email.length > 255)
+            e.email = "Enter a valid email. For example: name@company.com";
           if (!b.mobile) e.mobile = "Your mobile number is required.";
           else if (!isValidMobile(b.mobile, state.cc))
             e.mobile = mobileErrorText(state.cc);
-          if (!b.company)
+          if (!company)
             e.company = "Company name is required. Freelance? Write freelance.";
+          var store = cleanStoreLink(b.store);
           if (!b.store) e.store = "Add the link to your store's website.";
-          else if (!cleanStoreLink(b.store))
+          else if (!store)
             e.store = isSocialPage(b.store)
               ? "Enter your store's own website, not a social media page. For example: yourstore.com"
               : "Enter a real website link. For example: yourstore.com";
+          else if (store.length > 200)
+            e.store =
+              "This link is too long. Enter just your store's address. For example: yourstore.com";
           // One correct profile link (LinkedIn or Facebook) is enough. Once one
           // is correct, the other field never blocks and is saved as typed.
           var linkedin = String(b.linkedin || "").trim();
@@ -2361,6 +2405,11 @@
               e.facebook =
                 "Enter your Facebook profile link. For example: facebook.com/your.name";
           }
+          if (linkedin.length > 300) e.linkedin = "This link is too long.";
+          if (facebook.length > 300) e.facebook = "This link is too long.";
+          Object.keys(state.serverErrors).forEach(function (key) {
+            if (!e[key]) e[key] = state.serverErrors[key];
+          });
           return e;
         }
         function allErrors() {
@@ -2415,8 +2464,18 @@
           row.innerHTML = "";
           var methods = state.paymentMethods;
           if (!methods.length) {
-            row.innerHTML =
-              '<div style="font-size:13px;color:var(--gray-500)">Loading payment methods…</div>';
+            if (state.methodsStatus === "error") {
+              row.innerHTML =
+                '<div class="methods-error" role="alert"><p>' +
+                escapeHtml(state.methodsError || "Could not load payment methods.") +
+                '</p><button type="button" class="btn-secondary" id="methodsRetryBtn">Try again</button></div>';
+              document
+                .getElementById("methodsRetryBtn")
+                .addEventListener("click", retryPaymentStep);
+            } else {
+              row.innerHTML =
+                '<div style="font-size:13px;color:var(--gray-500)">Loading payment methods…</div>';
+            }
             syncWalletUi();
             return;
           }
@@ -2720,11 +2779,13 @@
           document.querySelectorAll(selector).forEach((el) => {
             el.addEventListener("input", (e) => {
               state.buyer[key] = e.target.value;
+              delete state.serverErrors[key];
               persistCheckoutDraft();
               if (state.tried || state.tried1) renderErrors();
             });
             el.addEventListener("change", (e) => {
               state.buyer[key] = e.target.value;
+              delete state.serverErrors[key];
               persistCheckoutDraft();
               if (state.tried || state.tried1) renderErrors();
             });
@@ -2775,6 +2836,7 @@
           var onCcChange = function (e) {
             if (state.cc === e.target.value) return;
             state.cc = e.target.value;
+            delete state.serverErrors.mobile;
             updateMobilePlaceholder();
             if (state.buyer.mobile) onMobileSettled();
             else persistCheckoutDraft();
@@ -2885,27 +2947,127 @@
           preparePaymentStep();
         }
 
-        async function preparePaymentStep() {
-          var row = document.getElementById("methodRow");
-          if (row && !state.paymentMethods.length) {
-            row.innerHTML =
-              '<div style="font-size:13px;color:var(--gray-500)">Loading payment methods…</div>';
+        // One preparation at a time. Changes made while one runs (switching
+        // passes quickly, a promo) are merged into one follow-up run, so a
+        // burst of clicks no longer creates a booking per click.
+        var prepareRun = null;
+        var prepareAgain = false;
+
+        function preparePaymentStep() {
+          if (prepareRun) {
+            prepareAgain = true;
+            return prepareRun;
+          }
+          prepareRun = (async function () {
+            try {
+              do {
+                prepareAgain = false;
+                await preparePaymentStepOnce();
+              } while (prepareAgain && state.sub === 2);
+            } finally {
+              prepareRun = null;
+            }
+          })();
+          return prepareRun;
+        }
+
+        function retryPaymentStep() {
+          state.methodsStatus = "loading";
+          state.methodsError = "";
+          renderMethodButtons();
+          preparePaymentStep();
+        }
+
+        function friendlyCheckoutError(err) {
+          if (err && err.network) return err.message;
+          if (err && err.status === 429) {
+            return "Too many attempts in a short time. Wait a minute, then try again.";
+          }
+          return (
+            (err && err.message) ||
+            "Could not start checkout. Check your details and try again."
+          );
+        }
+
+        async function preparePaymentStepOnce() {
+          if (!state.paymentMethods.length) {
+            state.methodsStatus = "loading";
+            renderMethodButtons();
           }
           try {
             await ensureCheckoutSession();
             await loadPaymentMethods();
-            if (!state.paymentMethods.length) {
-              showEcdModal(
-                "No payment methods available right now. Refresh and try again.",
-                "Payment unavailable",
-              );
-            }
           } catch (err) {
             console.warn("[checkout] prepare payment step", err);
+            if (isFieldRejection(err)) {
+              showServerFieldErrors(err);
+              return;
+            }
+            var msg = friendlyCheckoutError(err);
+            if (!state.paymentMethods.length) {
+              state.methodsStatus = "error";
+              state.methodsError = msg;
+              renderMethodButtons();
+            }
+            showEcdModal(msg, "Checkout error");
+          }
+        }
+
+        // The server refused some details (400 from POST /session). Show
+        // which ones on the details step instead of a generic message.
+        var SERVER_FIELD_MESSAGES = {
+          name: "Enter your full name.",
+          email: "Check your email address. For example: name@company.com",
+          country: "Pick your country from the list.",
+          title: "Pick the job title closest to your work.",
+          company: "Company name is required. Freelance? Write freelance.",
+          store: "Enter just your store's website. For example: yourstore.com",
+          linkedin: "Check your LinkedIn link. For example: linkedin.com/in/your-name",
+          facebook: "Check your Facebook link. For example: facebook.com/your.name",
+        };
+
+        function isFieldRejection(err) {
+          return !!(
+            err &&
+            err.status === 400 &&
+            err.code === "INVALID_REQUEST" &&
+            err.payload &&
+            err.payload.error &&
+            err.payload.error.details
+          );
+        }
+
+        function showServerFieldErrors(err) {
+          var details = err.payload.error.details;
+          var fields = Array.isArray(details.fields) ? details.fields : [];
+          var errs = {};
+          fields.forEach(function (path) {
+            var key = String(path).replace(/^buyer\./, "");
+            if (key === "mobile" || key === "countryCode") {
+              errs.mobile = mobileErrorText(state.cc);
+            } else if (SERVER_FIELD_MESSAGES[key]) {
+              errs[key] = SERVER_FIELD_MESSAGES[key];
+            }
+          });
+          state.sessionReady = false;
+          state.paying = false;
+          state.serverErrors = errs;
+          state.tried1 = true;
+          if (state.sub === 2) {
+            // Back to the details step; drop the payment-step history entry so
+            // the browser's Back button stays in step with the page.
+            state.sub = 1;
+            try {
+              if (history.state && history.state.ecdStep === 2) history.back();
+            } catch (e) {}
+          }
+          renderAll();
+          if (Object.keys(errs).length) {
+            focusFirstError(errs);
+          } else {
             showEcdModal(
-              (err && err.message) ||
-                "Could not start checkout. Check your details and try again.",
-              "Checkout error",
+              "Some of your details could not be accepted. Check your name, email and store link, then continue to payment again.",
+              "Check your details",
             );
           }
         }
@@ -3090,25 +3252,30 @@
           });
         }
 
+        // Throws when the list can't be loaded; the caller shows the error
+        // with a Try again button.
         async function loadPaymentMethods() {
-          if (!window.EcdApi || !EcdApi.getToken()) return;
-          try {
-            var methods = await EcdApi.fetchPaymentMethods();
-            state.paymentMethods = Array.isArray(methods)
-              ? methods
-              : methods && methods.methods
-                ? methods.methods
-                : [];
-            renderMethodButtons();
-            renderPayButtons();
-          } catch (err) {
-            console.warn("[checkout] payment methods", err);
-            var row = document.getElementById("methodRow");
-            if (row) {
-              row.innerHTML =
-                '<div style="font-size:13px;color:#B3362E">Could not load payment methods. Refresh and try again.</div>';
-            }
+          if (!window.EcdApi) throw new Error("Checkout could not start. Refresh the page.");
+          if (!EcdApi.getToken()) {
+            // The session was created but this browser would not keep its key
+            // (site storage blocked, e.g. some private modes).
+            throw new Error(
+              "Your browser blocked this page from saving your checkout. Turn off private or blocking mode, or open the page in another browser, then try again.",
+            );
           }
+          var methods = await EcdApi.fetchPaymentMethods();
+          state.paymentMethods = Array.isArray(methods)
+            ? methods
+            : methods && methods.methods
+              ? methods.methods
+              : [];
+          if (!state.paymentMethods.length) {
+            throw new Error("No payment methods are available right now. Try again in a few minutes.");
+          }
+          state.methodsStatus = "ready";
+          state.methodsError = "";
+          renderMethodButtons();
+          renderPayButtons();
         }
 
         function sessionFingerprint() {
@@ -3155,12 +3322,12 @@
             promoCode: promo || null,
             clientTotalCents: clientTotalCents,
             buyer: {
-              name: state.buyer.name,
-              email: state.buyer.email,
+              name: String(state.buyer.name || "").trim(),
+              email: String(state.buyer.email || "").trim(),
               mobile: assembleMobile(state.buyer.mobile, state.cc),
               countryCode: state.cc || "+20",
               country: state.buyer.country,
-              company: state.buyer.company,
+              company: String(state.buyer.company || "").trim(),
               title: state.buyer.title,
               store: state.buyer.store,
               linkedin: state.buyer.linkedin || null,
@@ -3426,6 +3593,19 @@
           return false;
         }
 
+        // Check the waiting payment. The checkout key in this tab belongs to
+        // the latest booking; after a new one (pass or promo changed while
+        // waiting) asking with it is refused, so use the waiting booking's own
+        // access code then.
+        function verifyPendingBooking() {
+          var id = state.pendingBookingId;
+          var current = (EcdApi.getStoredBooking() || {}).bookingId;
+          if (state.pendingAccess && state.pendingOrderCode && current !== id) {
+            return EcdApi.verifyByAccess(state.pendingOrderCode, state.pendingAccess);
+          }
+          return EcdApi.verify(id);
+        }
+
         // One check of the current payment (and, every 10s, earlier ones).
         // Returns false once there is nothing left to watch or we navigated.
         async function watchTick(forceEarlier) {
@@ -3436,10 +3616,13 @@
             var id = state.pendingBookingId;
             if (id && !state.pendingClosed) {
               try {
-                var r = await EcdApi.verify(id);
+                var r = await verifyPendingBooking();
                 if (r && r.status === "paid") {
                   clearVerifyTimer();
-                  goToConfirmation(r.orderCode || state.pendingOrderCode, r.access);
+                  goToConfirmation(
+                    r.orderCode || state.pendingOrderCode,
+                    r.access || state.pendingAccess,
+                  );
                   return false;
                 }
                 if (id === state.pendingBookingId) {
@@ -3477,10 +3660,10 @@
           }, delay);
         }
 
-        function pollVerify(orderCode, bookingId) {
+        function pollVerify(orderCode, bookingId, access) {
           state.pendingOrderCode = orderCode || "";
           state.pendingBookingId = bookingId || "";
-          state.pendingAccess = "";
+          state.pendingAccess = access || "";
           state.pendingClosed = false;
           state.watchStartedAt = Date.now();
           scheduleWatch(0);
@@ -3507,12 +3690,12 @@
             btn.textContent = "Checking…";
           }
           try {
-            var result = await EcdApi.verify(state.pendingBookingId);
+            var result = await verifyPendingBooking();
             if (result && result.status === "paid") {
               clearVerifyTimer();
               goToConfirmation(
                 result.orderCode || state.pendingOrderCode,
-                result.access,
+                result.access || state.pendingAccess,
               );
               return;
             }
@@ -3562,10 +3745,10 @@
             if (id && stillOpen) {
               // Last check first: if it is already paid, go to the confirmation.
               try {
-                var r = await EcdApi.verify(id);
+                var r = await verifyPendingBooking();
                 if (r && r.status === "paid") {
                   clearVerifyTimer();
-                  goToConfirmation(r.orderCode || orderCode, r.access);
+                  goToConfirmation(r.orderCode || orderCode, r.access || access);
                   return;
                 }
                 if (r && r.access) access = r.access;
@@ -3642,6 +3825,13 @@
           state.paying = true;
           renderPayButtons();
           try {
+            // Let a running preparation finish first, so Pay reuses its
+            // session instead of creating a second one alongside it.
+            if (prepareRun) {
+              try {
+                await prepareRun;
+              } catch (e) {}
+            }
             // A new Pay after an earlier attempt (buyer came back from the card
             // page, the attempt failed, or they chose "use a different number
             // or payment method") gets a fresh booking. Never reuse a booking
@@ -3681,6 +3871,8 @@
               return;
             }
 
+            var payAccess = (result && result.access) || "";
+
             if (result && result.redirectUrl) {
               window.location.href = result.redirectUrl;
               return;
@@ -3711,15 +3903,18 @@
                 result.meezaQrCode)
             ) {
               showHubPendingPayment(result);
-              pollVerify(orderCode, bookingId);
+              pollVerify(orderCode, bookingId, payAccess);
               return;
             }
 
             showHubPendingPayment(result || {});
-            pollVerify(orderCode, bookingId);
+            pollVerify(orderCode, bookingId, payAccess);
           } catch (err) {
-            var msg =
-              (err && err.message) || "Checkout failed. Please try again.";
+            if (isFieldRejection(err)) {
+              showServerFieldErrors(err);
+              return;
+            }
+            var msg = friendlyCheckoutError(err);
             if (
               err &&
               (err.code === "hold_expired" ||
@@ -3738,6 +3933,11 @@
                   await EcdContent.boot(state.ticket);
                 } catch (e) {}
               }
+            }
+            if (!state.paymentMethods.length) {
+              state.methodsStatus = "error";
+              state.methodsError = msg;
+              renderMethodButtons();
             }
             showEcdModal(msg, "Checkout error");
           } finally {

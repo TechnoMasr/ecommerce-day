@@ -81,6 +81,79 @@
     }
   }
 
+  // Every request gets a time limit, so a stalled mobile connection shows
+  // an error instead of loading forever (10 Oct 2026). Requests that are safe
+  // to repeat (reads, checkout session, promo check, payment checks) are tried
+  // once more after a network error, a time-out or a 502/503/504. Pay, sponsor
+  // enquiries, workshop picks and uploads are never repeated automatically:
+  // a second Pay could start a second payment.
+  var TIMEOUT_MS = 20000;
+  var RETRY_DELAY_MS = 1500;
+
+  function requestOnce(url, init, timeoutMs) {
+    var controller =
+      typeof AbortController === "function" ? new AbortController() : null;
+    var timer = null;
+    if (controller && timeoutMs) {
+      timer = setTimeout(function () {
+        controller.abort();
+      }, timeoutMs);
+      init.signal = controller.signal;
+    }
+    function done() {
+      if (timer) clearTimeout(timer);
+    }
+    function networkError(timedOut) {
+      var err = new Error(
+        timedOut
+          ? "The connection timed out. Check your internet and try again."
+          : "We couldn't reach the server. Check your internet and try again.",
+      );
+      err.code = timedOut ? "TIMEOUT" : "NETWORK";
+      err.network = true;
+      return err;
+    }
+    return fetch(url, init).then(
+      async function (res) {
+        try {
+          var json = null;
+          try {
+            json = await res.json();
+          } catch (e) {
+            // The answer started but stopped before the end: a time-out,
+            // not an empty answer.
+            if (e && e.name === "AbortError") throw networkError(true);
+            json = null;
+          }
+          if (!res.ok) {
+            var err = new Error(
+              (json && json.error && json.error.message) ||
+                "Request failed (" + res.status + ")",
+            );
+            err.status = res.status;
+            err.code = json && json.error && json.error.code;
+            err.payload = json;
+            throw err;
+          }
+          return json && json.data !== undefined ? json.data : json;
+        } finally {
+          done();
+        }
+      },
+      function (e) {
+        done();
+        throw networkError(e && e.name === "AbortError");
+      },
+    );
+  }
+
+  function isRetryable(err) {
+    return !!(
+      err &&
+      (err.network || err.status === 502 || err.status === 503 || err.status === 504)
+    );
+  }
+
   function api(path, options) {
     options = options || {};
     var headers = Object.assign(
@@ -89,35 +162,37 @@
     );
     var token = options.token !== undefined ? options.token : getToken();
     if (token) headers.Authorization = "Bearer " + token;
+    var method = options.method || "GET";
+    var retry = options.retry !== undefined ? options.retry : method === "GET";
 
-    return fetch(CONFIG.API_BASE + path, {
-      method: options.method || "GET",
-      headers: headers,
-      body: options.body ? JSON.stringify(options.body) : undefined,
-      credentials: "omit",
-    }).then(async function (res) {
-      var json = null;
-      try {
-        json = await res.json();
-      } catch (e) {
-        json = null;
-      }
-      if (!res.ok) {
-        var err = new Error(
-          (json && json.error && json.error.message) ||
-            "Request failed (" + res.status + ")",
-        );
-        err.status = res.status;
-        err.code = json && json.error && json.error.code;
-        err.payload = json;
-        throw err;
-      }
-      return json && json.data !== undefined ? json.data : json;
+    function attempt() {
+      return requestOnce(
+        CONFIG.API_BASE + path,
+        {
+          method: method,
+          headers: headers,
+          body: options.body ? JSON.stringify(options.body) : undefined,
+          credentials: "omit",
+        },
+        options.timeoutMs || TIMEOUT_MS,
+      );
+    }
+
+    return attempt().catch(function (err) {
+      if (!retry || !isRetryable(err)) throw err;
+      return new Promise(function (resolve) {
+        setTimeout(resolve, RETRY_DELAY_MS);
+      }).then(attempt);
     });
   }
 
   function createSession(payload) {
-    return api("/session", { method: "POST", body: payload, token: "" }).then(
+    return api("/session", {
+      method: "POST",
+      body: payload,
+      token: "",
+      retry: true,
+    }).then(
       function (data) {
         setSession(data);
         return data;
@@ -130,6 +205,7 @@
       method: "POST",
       body: payload,
       token: "",
+      retry: true,
     });
   }
 
@@ -137,14 +213,16 @@
     return api("/payment-methods");
   }
 
+  // Never retried, and a longer limit: the server may wait on the gateway.
   function pay(payload) {
-    return api("/pay", { method: "POST", body: payload });
+    return api("/pay", { method: "POST", body: payload, retry: false, timeoutMs: 45000 });
   }
 
   function verify(bookingId) {
     return api("/verify", {
       method: "POST",
       body: bookingId ? { bookingId: bookingId } : {},
+      retry: true,
     });
   }
 
@@ -163,6 +241,7 @@
       method: "POST",
       body: { access: access },
       token: "",
+      retry: true,
     }).then(function (data) {
       try {
         if (data && data.access) {
@@ -261,30 +340,16 @@
     var token = getToken();
     if (token) headers.Authorization = "Bearer " + token;
 
-    return fetch(CONFIG.API_BASE + path, {
-      method: "POST",
-      headers: headers,
-      body: form,
-      credentials: "omit",
-    }).then(async function (res) {
-      var json = null;
-      try {
-        json = await res.json();
-      } catch (e) {
-        json = null;
-      }
-      if (!res.ok) {
-        var err = new Error(
-          (json && json.error && json.error.message) ||
-            "Request failed (" + res.status + ")",
-        );
-        err.status = res.status;
-        err.code = json && json.error && json.error.code;
-        err.payload = json;
-        throw err;
-      }
-      return json && json.data !== undefined ? json.data : json;
-    });
+    return requestOnce(
+      CONFIG.API_BASE + path,
+      {
+        method: "POST",
+        headers: headers,
+        body: form,
+        credentials: "omit",
+      },
+      90000,
+    );
   }
 
   function dataUrlToBlob(dataUrl) {
