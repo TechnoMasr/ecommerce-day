@@ -59,13 +59,13 @@ p.add_css("""
 p.rep("<span>ECommerce Day 2026 Tickets</span>", "<span>تذاكر يوم التجارة الإلكترونية 2026</span>")
 p.rep(
     '<h1>Choose how <span class="accent">deep</span> you want to go.</h1>',
-    '<h1>اختر <span class="accent">العمق</span> الذي يناسبك.</h1>',
+    '<h1>تذكرتان، والفرق <span class="accent">في الورش</span>.</h1>',
 )
 p.rep("""          Select the pass that fits your goals: Standard Pass for both stages,
           or All Access Pass for stages, workshops, and premium resources.""",
-      """          اختر التذكرة الأقرب لأهدافك: التذكرة الأساسية (Standard Pass)
-          لحضور المسرحين، أو التذكرة الشاملة (All Access Pass) للمسرحين وورش
-          العمل والملفات الإضافية.""")
+      """          التذكرة الأساسية (Standard Pass) تدخلك المسرحين طوال اليوم. والتذكرة
+          الشاملة (All Access Pass) تضيف إليهما ورش العمل، والملفات التي تصلك
+          بعدها.""")
 p.rep(""">Choose Your Ticket ↓</a""", """>اختر تذكرتك ↓</a""")
 p.rep("""          <a href="agenda.html" class="btn btn-outline btn-lg"
             >View the Agenda</a
@@ -73,26 +73,31 @@ p.rep("""          <a href="agenda.html" class="btn btn-outline btn-lg"
             >شاهد الأجندة</a
           >""")
 p.rep("<span>2 Stages</span>", "<span>مسرحان</span>")
-p.rep("<span>15+ Workshops</span>", "<span>أكثر من 15 ورشة عمل</span>")
-p.rep("<span>Expertise</span>", "<span>خبرات عملية</span>")
-p.rep("<span>Professional Networking</span>", "<span>تعارف مهني</span>")
+p.rep("<span>15+ Workshops</span>", "<span>أكثر من 15 ورشة</span>")
+p.rep("<span>Expertise</span>", "<span>حالات حقيقية</span>")
+p.rep("<span>Professional Networking</span>", "<span>تعارف</span>")
 
 # ---------- WHY ----------
-p.rep("<span>Why All Access Costs More</span>", "<span>لماذا سعر التذكرة الشاملة أعلى</span>")
-p.rep("          You're paying for the work, not the seat\n", "          أنت تدفع مقابل العمل، لا مقابل المقعد\n")
-p.rep('<div class="why-title">Workshop Access &amp; Reservation</div>', '<div class="why-title">حضور الورش وحجزها</div>')
+p.rep("""        <div class="eyebrow">
+          <span>Why All Access Costs More</span>
+        </div>
+        <h2 class="section-heading" style="margin-bottom: 48px">
+          You're paying for the work, not the seat
+        </h2>""", """        <h2 class="section-heading">لماذا تكلف التذكرة الشاملة أكثر؟</h2>
+        <p class="section-sub">لأنك تدفع لتعمل، لا لتجلس فقط</p>""")
+p.rep('<div class="why-title">Workshop Access &amp; Reservation</div>', '<div class="why-title">مقعد في الورش</div>')
 p.rep("""              Up to 5 workshops across the three workshop tracks, in
-              capacity-limited rooms.""", """              حتى 5 ورش عمل من المسارات الثلاثة، في قاعات أماكنها محدودة.""")
+              capacity-limited rooms.""", """              حتى 5 ورش من المسارات الثلاثة، في قاعات مقاعدها محدودة.""")
 p.rep('<div class="why-title">Presentation Slides</div>', '<div class="why-title">شرائح العروض</div>')
 p.rep("""              The presentation slides from the sessions, sent by email after
-              the event.""", """              شرائح العروض من الجلسات، نرسلها بالبريد الإلكتروني بعد الفعالية.""")
+              the event.""", """              شرائح الجلسات تصلك بالبريد الإلكتروني بعد الفعالية.""")
 p.rep('<div class="why-title">Workshop Templates &amp; Files</div>', '<div class="why-title">ملفات ونماذج الورش</div>')
 p.rep("""              The templates and files from the workshops, so you can apply the
-              work in your own business.""", """              ملفات الورش ونماذجها، لتطبق ما تعلمته على عملك أنت.""")
+              work in your own business.""", """              الملفات والنماذج المستخدمة في الورش، لتطبق ما تعلمته على متجرك أنت.""")
 
 # ---------- COMPARISON ----------
 p.rep("<span>Full Comparison</span>", "<span>مقارنة كاملة</span>")
-p.rep("            Every feature, side by side\n", "            كل الميزات جنباً إلى جنب\n")
+p.rep("            Every feature, side by side\n", "            التذكرتان جنباً إلى جنب\n")
 p.rep("""              <span>Feature</span>
               <span>Standard Pass</span>
               <span>All Access Pass</span>""", """              <span>الميزة</span>
@@ -122,69 +127,66 @@ p.rep("""                The Standard Pass covers full-day access to the Main St
                 activations and networking. The All Access Pass adds up to 5
                 workshops across the three workshop tracks, the presentation
                 slides and the Workshop Templates &amp; Files.""",
-      """                تتيح التذكرة الأساسية حضور المسرح الرئيسي والمسرح الثاني طوال
-                اليوم: الكلمات الرئيسية، والجلسات النقاشية، ودراسات الحالة،
-                وأنشطة الرعاة، والتعارف. وتضيف التذكرة الشاملة حتى 5 ورش عمل من
-                المسارات الثلاثة، وشرائح العروض، وملفات ونماذج الورش (Workshop
-                Templates &amp; Files).""")
+      """                الأساسية تدخلك المسرح الرئيسي والمسرح الثاني طوال اليوم: الكلمات
+                الرئيسية، والجلسات النقاشية، ودراسات الحالة، وأنشطة الرعاة،
+                والتعارف. والشاملة تضيف حتى 5 ورش عمل من المسارات الثلاثة، وشرائح
+                العروض، وملفات ونماذج الورش (Workshop Templates &amp; Files).""")
 p.rep("<span>How do workshops work with the All Access Pass?</span>", "<span>كيف تعمل الورش مع التذكرة الشاملة؟</span>")
 p.rep("""                Workshops are offline and capacity-limited. Workshop booking
                 opens 7-10 days before the event, and we will announce how to
                 book. You can select up to 5 workshops; workshops at the same
                 time cannot be selected together.""",
-      """                الورش حضورية وأماكنها محدودة. يفتح حجز الورش قبل الفعالية بـ
-                7-10 أيام، وسنعلن طريقة الحجز. يمكنك اختيار حتى 5 ورش، ولا يمكن
-                اختيار ورشتين في الوقت نفسه.""")
+      """                الورش حضورية ومقاعدها محدودة. يفتح الحجز قبل الفعالية بـ 7 إلى 10
+                أيام وسنعلن طريقته. تختار حتى 5 ورش، على ألا يتداخل موعد ورشتين
+                منها.""")
 p.rep("<span>Do I get the Workshop Templates &amp; Files?</span>", "<span>هل أحصل على ملفات ونماذج الورش؟</span>")
 p.rep("""                Workshop Templates &amp; Files are included with the All Access
-                Pass only.""", """                ملفات ونماذج الورش متاحة لحاملي التذكرة الشاملة فقط.""")
+                Pass only.""", """                مع التذكرة الشاملة فقط.""")
 p.rep(""">Can I upgrade from Standard to All Access later?</span""", """>هل يمكنني الترقية من التذكرة الأساسية إلى الشاملة لاحقاً؟</span""")
 p.rep("""                Yes. Our team upgrades passes on request before the event,
                 subject to All Access availability. Workshop seats after
                 upgrading are subject to availability. Contact us through email
                 at info@trafficmena.com or """,
-      """                نعم. يرقي فريقنا التذاكر عند الطلب قبل الفعالية، حسب توفر
-                التذكرة الشاملة. وأماكن الورش بعد الترقية حسب المتاح. تواصل
-                معنا بالبريد الإلكتروني على info@trafficmena.com أو """)
+      """                نعم، قبل الفعالية وحسب توفر التذكرة الشاملة. يرقي فريقنا تذكرتك
+                عند الطلب، وتختار ورشك من الأماكن المتبقية. اطلبها على
+                info@trafficmena.com أو عبر """)
 p.rep("<span>Can I transfer my ticket to someone else?</span>", "<span>هل يمكنني نقل تذكرتي لشخص آخر؟</span>")
 p.rep("""                No. Tickets are non-transferable and cannot be reassigned to
                 another attendee. For help, contact info@trafficmena.com or
-""", """                لا. التذاكر غير قابلة للتحويل، ولا يمكن نقلها لحاضر آخر.
-                للمساعدة، راسلنا على info@trafficmena.com أو
+""", """                لا، التذاكر شخصية ولا يمكن نقلها لحاضر آخر. لأي مساعدة:
+                info@trafficmena.com أو
 """)
 p.rep("<span>What is the refund policy?</span>", "<span>ما سياسة الاسترداد؟</span>")
 p.rep("""                A full refund is available until the end of 30 October 2026, five
                 days before the event. To request one, email
                 info@trafficmena.com from the email associated with your
                 booking. Requests after this date cannot be accepted.""",
-      """                يمكنك استرداد المبلغ كاملاً حتى نهاية يوم 30 أكتوبر 2026، أي قبل
-                الفعالية بخمسة أيام. لطلب الاسترداد، راسلنا على
-                info@trafficmena.com من البريد الإلكتروني الذي حجزت به. ولا
-                نقبل الطلبات بعد هذا التاريخ.""")
+      """                الاسترداد الكامل متاح حتى نهاية يوم 30 أكتوبر 2026، أي قبل الفعالية
+                بخمسة أيام. أرسل طلبك إلى info@trafficmena.com من البريد الإلكتروني
+                الذي حجزت به. بعد هذا التاريخ لا نقبل طلبات الاسترداد.""")
 p.rep("<span>Can I get an invoice for my company?</span>", "<span>هل يمكنني الحصول على فاتورة لشركتي؟</span>")
 p.rep("""                Yes. An invoice can be requested during checkout or afterwards
-                via info@trafficmena.com or """, """                نعم. يمكنك طلب فاتورة أثناء الحجز أو بعده عبر
-                info@trafficmena.com أو """)
+                via info@trafficmena.com or """, """                نعم. اطلبها أثناء الحجز أو بعده على info@trafficmena.com أو
+                عبر """)
 p.rep("<span>Where is the venue?</span>", "<span>أين يقام اليوم؟</span>")
 p.rep("""                ECommerce Day takes place at
-                <a""", """                يقام يوم التجارة الإلكترونية في
+                <a""", """                في
                 <a""")
 p.rep(""">Creativa Innovation Hub, Giza</a
-                >, on 5 November 2026.""", f""">{VENUE}</a
-                >، يوم 5 نوفمبر 2026.""")
+                >, on 5 November 2026.""", """>مركز إبداع مصر الرقمية (كريتيفا)</a
+                > بالجيزة، يوم الخميس 5 نوفمبر 2026.""")
 p.rep("<span>Is there a certificate?</span>", "<span>هل هناك شهادة؟</span>")
 p.rep("""                No, there is no certificate. All Access Pass holders receive the
                 presentation slides and the Workshop Templates &amp; Files by
                 email after the event.""",
-      """                لا، لا توجد شهادة. ويستلم حاملو التذكرة الشاملة شرائح العروض
-                وملفات ونماذج الورش بالبريد الإلكتروني بعد الفعالية.""")
+      """                لا نصدر شهادات حضور. ويستلم حاملو التذكرة الشاملة بعد الفعالية
+                شرائح العروض وملفات ونماذج الورش بالبريد الإلكتروني.""")
 
 # ---------- FINAL CTA ----------
-p.rep("<h2>Pick your pass. Build your ECommerce Day.</h2>", "<h2>اختر تذكرتك. وابن يومك كما تريده.</h2>")
+p.rep("<h2>Pick your pass. Build your ECommerce Day.</h2>", "<h2>المسرحان فقط، أم اليوم كاملاً؟</h2>")
 p.rep("""          Start with the Main Stage, or take the full journey with workshops,
           hands-on practice and Workshop Templates &amp; Files.""",
-      """          ابدأ بالمسرح الرئيسي، أو خذ التجربة كاملة مع ورش العمل والتطبيق
-          العملي وملفات ونماذج الورش.""")
+      """          ابدأ بالمسرحين، أو خذ اليوم كله مع الورش والتطبيق العملي والملفات.""")
 p.rep("            Book Standard Pass\n", "            احجز التذكرة الأساسية\n")
 p.rep("            Book All Access Pass\n", "            احجز التذكرة الشاملة\n")
 

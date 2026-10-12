@@ -44,7 +44,7 @@
     <!-- Shared prices + ECD content (partners/speakers/packages) -->
     <script src="prices.js?v=20261008a" defer></script>
     <script src="ecd-api.js?v=20261012a" defer></script>
-    <script src="ecd-content.js?v=20261008a" defer></script>
+    <script src="ecd-content.js?v=20261012a" defer></script>
 
     <style>
       /* Reserve the navbar's height before navbar.js renders it (prevents layout shift) */
@@ -1759,7 +1759,7 @@
           <!-- Shared tickets section (also used on agenda.html). Loaded here, not in <head>,
                so it no longer blocks the first paint; still NOT deferred on purpose: it must
                define <ecd-tickets> before the inline reveal script, prices.js and ecd-content.js run. -->
-          <script src="tickets-section.js?v=20261008b"></script>
+          <script src="tickets-section.js?v=20261012a"></script>
           <ecd-tickets></ecd-tickets>
         </div>
       </section>

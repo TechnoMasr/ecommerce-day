@@ -56,6 +56,22 @@ p.add_css("""
       .wa-btn {
         font-family: "IBM Plex Sans Arabic", "Manrope", sans-serif;
       }
+      /* Plan your day + FAQ: big heading with a line under it, no small label */
+      .section-title.ar-has-sub {
+        margin-bottom: 12px;
+      }
+      .ar-section-sub {
+        font-size: 18px;
+        line-height: 1.7;
+        color: #4a5563;
+        max-width: 60ch;
+        margin: 0 0 32px;
+      }
+      @media (max-width: 768px) {
+        .ar-section-sub {
+          font-size: 16px;
+        }
+      }
 """)
 
 # FAQ buttons and session cards were left-aligned inline
@@ -73,16 +89,16 @@ p.text("ECommerce Day 2026 Agenda", "أجندة يوم التجارة الإلك
 p.rep("""        From First <span style="color: #04c44e">Click</span> to Profitable
         Growth""", """        من أول <span style="color: #04c44e">نقرة</span> إلى نمو مربح""")
 p.text("Meet market leaders, gain wider business insight, strengthen your decisions, and build a high-value ecommerce network.",
-       "قابل قيادات السوق، ووسع نظرتك للعمل كله، واتخذ قرارات أقوى، وابن شبكة علاقات قيمة في التجارة الإلكترونية.")
+       "30 جلسة على مسرحين وثلاث قاعات ورش. اختر منها ما يخدم عملك، وقابل في الاستراحات من قد تعمل معهم لاحقاً.")
 p.text("5 November 2026", "5 نوفمبر 2026")
-p.text("Offline in Cairo", "حضورياً في القاهرة")
-p.text("Two stages and three workshop rooms", "مسرحان وثلاث قاعات للورش")
+p.text("Offline in Cairo", "حضورياً في كريتيفا، الجيزة")
+p.text("Two stages and three workshop rooms", "مسرحان وثلاث قاعات ورش")
 p.rep('<a href="tickets.html" class="btn-primary">Book Your Ticket</a>', '<a href="tickets.html" data-ar-link class="btn-primary">احجز تذكرتك</a>')
 p.rep('<a href="tickets.html" class="btn-secondary">Compare Tickets</a>', '<a href="tickets.html" data-ar-link class="btn-secondary">قارن بين التذاكر</a>')
 
 # ---------- NOTICE ----------
 p.text("ECommerce Day offers 15+ workshops covering 3 core ecommerce functions. All Access Pass holders can select and attend up to 5 workshops, subject to availability. Workshop booking opens 7-10 days before the event, and we will announce how to book. Workshops scheduled at the same time cannot be selected together.",
-       "في يوم التجارة الإلكترونية أكثر من 15 ورشة عمل تغطي 3 مسارات أساسية في التجارة الإلكترونية. ويمكن لحاملي التذكرة الشاملة (All Access Pass) اختيار وحضور حتى 5 ورش حسب الأماكن المتاحة. يفتح حجز الورش قبل الفعالية بـ 7-10 أيام، وسنعلن طريقة الحجز. ولا يمكن اختيار ورشتين في الوقت نفسه.")
+       "أكثر من 15 ورشة عمل في 3 مسارات. مع التذكرة الشاملة (All Access Pass) تختار منها حتى 5 ورش حسب الأماكن المتاحة. يفتح الحجز قبل الفعالية بـ 7 إلى 10 أيام وسنعلن طريقته، ولا يمكنك اختيار ورشتين في التوقيت نفسه.")
 
 # ---------- VIEW SWITCHER + FILTERS ----------
 p.rep('aria-label="Agenda view"', 'aria-label="طريقة عرض الأجندة"')
@@ -107,17 +123,17 @@ p.text("Keynotes", "الكلمات الرئيسية")
 p.text("Panels", "الجلسات النقاشية")
 p.text("Solo Talks", "الجلسات الفردية")
 p.text("Workshops", "ورش العمل")
-p.text("* Selection updates the URL, filtered views are shareable", "* يظهر اختيارك في رابط الصفحة، ويمكنك مشاركة العرض كما هو")
+p.text("* Selection updates the URL, filtered views are shareable", "* الفلاتر تحفظ في رابط الصفحة، فيمكنك مشاركته كما هو")
 
 # ---------- ROOM INTRO CARDS ----------
 p.text("MAIN STAGE", "المسرح الرئيسي")
-p.text("The full picture of the business", "الصورة الكاملة للعمل")
-p.text("Founders, leaders, decision makers", "مؤسسون وقيادات وأصحاب قرار")
+p.text("The full picture of the business", "الصورة الكبيرة")
+p.text("Founders, leaders, decision makers", "مؤسسون وقيادات يتكلمون عن قرارات اتخذوها")
 p.text("SECOND STAGE", "المسرح الثاني")
 p.text("Local brands on what actually happened", "علامات محلية تحكي ما حدث فعلاً")
-p.text("Anyone who wants the detail behind a result", "لكل من يريد التفاصيل وراء أي نتيجة")
+p.text("Anyone who wants the detail behind a result", "لمن يسأل: وكيف وصلتم لهذا الرقم؟")
 p.text("ACQUISITION", "مسار جذب العملاء (Acquisition)")
-p.text("Build the system that brings demand", "ابن النظام الذي يجلب الطلب")
+p.text("Build the system that brings demand", "ابن نظاماً يجلب الطلبات باستمرار")
 p.text("Marketing, performance, SEO, content", "التسويق، والإعلانات المدفوعة، وSEO، والمحتوى")
 p.text("CRO & RETENTION", "مسار زيادة المبيعات والاحتفاظ بالعملاء (CRO & Retention)")
 p.text("Turn visits into orders, and orders into repeat customers", "حول الزيارات إلى طلبات، والطلبات إلى عملاء يعودون")
@@ -128,14 +144,17 @@ p.text("Operations, CX, fulfillment", "التشغيل، وتجربة العمي�
 
 # ---------- TIMELINE / ROOM VIEW ----------
 p.text("Session topics and times are still being finalized, so a few may shift slightly over the coming days.",
-       "ما زلنا نضع اللمسات الأخيرة على موضوعات الجلسات ومواعيدها، لذلك قد يتغير بعضها قليلاً في الأيام القادمة.")
+       "نؤكد الآن موضوعات الجلسات ومواعيدها مع المتحدثين، فقد يتغير بعضها قليلاً في الأيام القادمة.")
 p.text("Loading agenda…", "جار تحميل الأجندة...")
 p.text("Times shown are working times and may change before the final run of show.",
        "المواعيد المعروضة مبدئية، وقد تتغير قبل الجدول النهائي.")
 
 # ---------- PLAN YOUR DAY ----------
-p.text("Plan Your Day", "خطط ليومك")
-p.text("Logistics, in one place", "كل التفاصيل العملية في مكان واحد")
+p.rep("""      <div class="section-label">
+        <span class="font-mono">Plan Your Day</span>
+      </div>
+      <h2 class="section-title">Logistics, in one place</h2>""", """      <h2 class="section-title ar-has-sub">خطط ليومك</h2>
+      <p class="ar-section-sub">ما تحتاجه قبل أن تخرج من البيت</p>""")
 p.text("Event Timing", "مواعيد اليوم")
 p.text("Registration", "التسجيل")
 p.text("Opening", "الافتتاح")
@@ -152,69 +171,74 @@ p.rep('alt="Aerial view of Creativa Innovation Hub courtyard with the TrafficMEN
 p.rep('aria-label="Creativa Innovation Hub, Giza (open in Google Maps, new tab)"',
       f'aria-label="{VENUE} (يفتح في خرائط Google في نافذة جديدة)"')
 p.text("Creativa Innovation Hub, Giza", VENUE)
-p.text("Entrance, parking and accessibility info will follow.", "سنرسل تفاصيل الدخول والانتظار وتسهيلات الحركة لاحقاً.")
+p.text("Entrance, parking and accessibility info will follow.", "نرسل لك قبل الفعالية تفاصيل الدخول ومواقف السيارات وتسهيلات الحركة.")
 p.text("Room Guide", "دليل القاعات")
 p.text("Registration · Sponsors Area · Prayer Room · Help Desk", "التسجيل · منطقة الرعاة · مصلى · مكتب المساعدة")
 p.text("Before You Arrive", "قبل أن تصل")
 p.text("Have your QR ticket ready on your phone", "جهز تذكرتك (رمز QR) على هاتفك")
-p.text("Book your workshops when booking opens, 7-10 days before the event", "احجز ورشك عند فتح الحجز، قبل الفعالية بـ 7-10 أيام")
+p.text("Book your workshops when booking opens, 7-10 days before the event", "احجز ورشك فور فتح الحجز، قبل الفعالية بـ 7 إلى 10 أيام")
 p.text("Bring a laptop if your workshop needs one", "أحضر حاسوبك المحمول إن كانت ورشتك تحتاجه")
-p.text("Arrive early. Registration takes time", "تعال مبكراً، فالتسجيل يأخذ وقتاً")
+p.text("Arrive early. Registration takes time", "تعال مبكراً، التسجيل يأخذ وقتاً")
 
 # ---------- FAQ ----------
-p.text("Agenda FAQ", "أسئلة عن الأجندة")
-p.text("Plan Your Day With Confidence", "خطط ليومك وأنت مطمئن")
-FAQ = [
+p.rep("""      <div class="section-label">
+        <span class="font-mono">Agenda FAQ</span>
+      </div>
+      <h2 class="section-title">Plan Your Day With Confidence</h2>""", """      <h2 class="section-title ar-has-sub">أسئلة عن الأجندة</h2>
+      <p class="ar-section-sub">حتى لا تفاجأ يوم الفعالية</p>""")
+for en, ar in [
     ("Which sessions can I access with each pass?", "ما الجلسات المتاحة مع كل تذكرة؟"),
-    ("The Standard Pass includes access to the Main Stage and Second Stage.",
-     "تتيح التذكرة الأساسية (Standard Pass) حضور المسرح الرئيسي والمسرح الثاني."),
-    ("The All Access Pass includes both stages, plus the opportunity to select up to five workshops from more than 15 options across three core ecommerce functions.",
-     "وتتيح التذكرة الشاملة (All Access Pass) حضور المسرحين، مع اختيار حتى خمس ورش من أكثر من 15 ورشة في ثلاثة مسارات أساسية للتجارة الإلكترونية."),
     ("How do I select my workshops?", "كيف أختار ورشي؟"),
-    ("Workshop booking opens 7-10 days before the event, and we will announce how to book. All Access holders can select up to five workshops, subject to availability.",
-     "يفتح حجز الورش قبل الفعالية بـ 7-10 أيام، وسنعلن طريقة الحجز. ويمكن لحاملي التذكرة الشاملة اختيار حتى خمس ورش حسب الأماكن المتاحة."),
-    ("Your selected workshops must not overlap, allowing you to attend each one in full.",
-     "يجب ألا تتداخل مواعيد الورش التي تختارها، حتى تحضر كل واحدة منها كاملة."),
     ("Can I change my workshop selection after booking?", "هل يمكنني تغيير اختيار الورش بعد الحجز؟"),
-    ("Workshop selections are final once your booking is confirmed.", "اختيار الورش نهائي بمجرد تأكيد حجزك."),
-    ("Each selection reserves a limited seat that immediately becomes unavailable to other attendees, so changes cannot be accommodated after confirmation. We recommend reviewing the workshop timings carefully before completing your booking.",
-     "كل اختيار يحجز مقعداً محدوداً يصبح فوراً غير متاح لغيرك، لذلك لا نستطيع تغييره بعد التأكيد. راجع مواعيد الورش جيداً قبل أن تكمل الحجز."),
     ("Can I upgrade from Standard to All Access?", "هل يمكنني الترقية من التذكرة الأساسية إلى الشاملة؟"),
-    ("Yes. Our team upgrades passes on request before the event, subject to All Access availability.",
-     "نعم. يرقي فريقنا التذاكر عند الطلب قبل الفعالية، حسب توفر التذكرة الشاملة."),
-    ("Workshop selection will depend on the remaining capacity at the time your upgrade is confirmed.",
-     "ويعتمد اختيار الورش على الأماكن المتبقية وقت تأكيد الترقية."),
-    ("Contact us through email at", "تواصل معنا بالبريد الإلكتروني على"),
     ("When will the final agenda be announced?", "متى تعلن الأجندة النهائية؟"),
-    ("The agenda will continue to be updated as speakers and sessions are confirmed.",
-     "نحدث الأجندة باستمرار مع تأكيد المتحدثين والجلسات."),
-    ("The complete schedule will be shared before the event, and registered attendees will receive all key updates directly.",
-     "وسننشر الجدول الكامل قبل الفعالية، ويصل كل جديد مهم إلى الحضور المسجلين مباشرة."),
     ("Are workshop templates and files included with both passes?", "هل ملفات ونماذج الورش متاحة مع التذكرتين؟"),
-    ("Workshop templates and supporting files are exclusive to the All Access Pass.",
-     "ملفات ونماذج الورش حصرية للتذكرة الشاملة."),
-    ("All Access holders will receive these resources by email after the event.",
-     "ويستلمها حاملو التذكرة الشاملة بالبريد الإلكتروني بعد الفعالية."),
     ("What post-event content is included with each pass?", "ما المحتوى الذي يصلني بعد الفعالية مع كل تذكرة؟"),
-    ("The Standard Pass covers the live day on both stages.", "تغطي التذكرة الأساسية يوم الحضور على المسرحين."),
-    ("The All Access Pass adds the presentation slides and the Workshop Templates & Files, sent by email after the event.",
-     "وتضيف التذكرة الشاملة شرائح العروض وملفات ونماذج الورش، ونرسلها بالبريد الإلكتروني بعد الفعالية."),
     ("Can I request a refund or transfer my ticket?", "هل يمكنني استرداد ثمن التذكرة أو نقلها لشخص آخر؟"),
-    ("A full refund is available until the end of 30 October 2026, five days before the event.",
-     "يمكنك استرداد المبلغ كاملاً حتى نهاية يوم 30 أكتوبر 2026، أي قبل الفعالية بخمسة أيام."),
-    ("To request a refund, email info@trafficmena.com before the deadline using the email associated with your booking.",
-     "لطلب الاسترداد، راسلنا على info@trafficmena.com قبل الموعد من البريد الإلكتروني الذي حجزت به."),
-    ("Requests received after this date cannot be accepted. Tickets are non-transferable and cannot be reassigned to another attendee.",
-     "لا نقبل الطلبات بعد هذا التاريخ. والتذاكر غير قابلة للتحويل، ولا يمكن نقلها لحاضر آخر."),
-    ("Approved refunds will be returned through the original payment method.", "يعود المبلغ المسترد بوسيلة الدفع الأصلية نفسها."),
-    ("For assistance, contact", "للمساعدة، تواصل معنا على"),
-]
-for en, ar in FAQ:
+]:
     p.text(en, ar)
-p.text("or", "أو", count=2)
+
+# Answers follow the document's paragraphs (12 Oct 2026): two English
+# paragraphs become one Arabic paragraph where the document has one.
+P1 = '<p style="margin: 0 0 12px">'
+P0 = '<p style="margin: 0">'
+def one(en1, en2, ar):
+    p.rep(f"{P1}{en1}</p>\n            {P0}{en2}</p>", f"{P0}{ar}</p>")
+one("The Standard Pass includes access to the Main Stage and Second Stage.",
+    "The All Access Pass includes both stages, plus the opportunity to select up to five workshops from more than 15 options across three core ecommerce functions.",
+    "التذكرة الأساسية (Standard Pass) تدخلك المسرح الرئيسي والمسرح الثاني. والتذكرة الشاملة (All Access Pass) تدخلك المسرحين، ومعهما حتى خمس ورش تختارها من أكثر من 15 ورشة في ثلاثة مسارات.")
+one("Workshop booking opens 7-10 days before the event, and we will announce how to book. All Access holders can select up to five workshops, subject to availability.",
+    "Your selected workshops must not overlap, allowing you to attend each one in full.",
+    "يفتح الحجز قبل الفعالية بـ 7 إلى 10 أيام، وسنعلن طريقته. لحاملي التذكرة الشاملة حتى خمس ورش حسب الأماكن المتاحة، بشرط ألا تتداخل مواعيدها حتى تحضر كل ورشة من أولها لآخرها.")
+one("Workshop selections are final once your booking is confirmed.",
+    "Each selection reserves a limited seat that immediately becomes unavailable to other attendees, so changes cannot be accommodated after confirmation. We recommend reviewing the workshop timings carefully before completing your booking.",
+    "لا. يصبح اختيارك نهائياً بمجرد تأكيد الحجز، لأن كل مقعد تحجزه يخرج فوراً من المتاح لغيرك. راجع المواعيد جيداً قبل أن تؤكد.")
+# Upgrade: one paragraph, no contact line (user, 12 Oct 2026)
+up_start = f"{P1}Yes. Our team upgrades passes on request before the event, subject to All Access availability.</p>"
+i = p.s.index(up_start)
+k = p.s.index("Contact us through email at", i)
+j = p.s.index("</p>", k) + len("</p>")
+p.s = p.s[:i] + f"{P0}نعم، قبل الفعالية وحسب توفر التذكرة الشاملة. يرقي فريقنا تذكرتك عند الطلب، وتختار ورشك من الأماكن المتبقية وقت تأكيد الترقية.</p>" + p.s[j:]
+one("The agenda will continue to be updated as speakers and sessions are confirmed.",
+    "The complete schedule will be shared before the event, and registered attendees will receive all key updates directly.",
+    "نحدثها كلما تأكد متحدث أو جلسة، وننشر الجدول الكامل قبل الفعالية. وأي تغيير مهم يصل للحضور المسجلين مباشرة.")
+one("Workshop templates and supporting files are exclusive to the All Access Pass.",
+    "All Access holders will receive these resources by email after the event.",
+    "لا، هي لحاملي التذكرة الشاملة فقط، وتصلهم بالبريد الإلكتروني بعد الفعالية.")
+one("The Standard Pass covers the live day on both stages.",
+    "The All Access Pass adds the presentation slides and the Workshop Templates &amp; Files, sent by email after the event.",
+    "التذكرة الأساسية تغطي يوم الحضور على المسرحين فقط. والشاملة تضيف شرائح العروض وملفات ونماذج الورش، نرسلها بالبريد الإلكتروني بعد الفعالية.")
+p.rep(f"""{P1}A full refund is available until the end of 30 October 2026, five days before the event.</p>
+            {P1}To request a refund, email info@trafficmena.com before the deadline using the email associated with your booking.</p>
+            {P1}Requests received after this date cannot be accepted. Tickets are non-transferable and cannot be reassigned to another attendee.</p>
+            {P1}Approved refunds will be returned through the original payment method.</p>""",
+      f"""{P1}الاسترداد الكامل متاح حتى نهاية يوم 30 أكتوبر 2026، أي قبل الفعالية بخمسة أيام. أرسل طلبك إلى info@trafficmena.com من البريد الإلكتروني الذي حجزت به، ويعود المبلغ بوسيلة الدفع نفسها. بعد هذا التاريخ لا نقبل طلبات الاسترداد.</p>
+            {P1}التذاكر شخصية ولا يمكن نقلها لحاضر آخر.</p>""")
+p.text("For assistance, contact", "تواصل معنا:")
+p.text("or", "أو")
 
 # ---------- FINAL CTA ----------
-p.text("Pick the sessions you'll attend. Build your ECommerce Day.", "اختر الجلسات التي ستحضرها. وابن يومك كما تريده.")
+p.text("Pick the sessions you'll attend. Build your ECommerce Day.", "اختر جلساتك، ورتب يومك بنفسك.")
 p.rep("""            href="tickets.html"
             class="btn-primary"
             style="padding: 15px 28px; font-size: 16px"
@@ -233,7 +257,7 @@ p.rep("""            href="tickets.html"
             class="btn-secondary"
             style="
               background: transparent;""")
-p.text("Compare Ticket Types", "قارن بين أنواع التذاكر")
+p.text("Compare Ticket Types", "قارن بين التذاكر")
 
 # ---------- SCRIPT ----------
 p.rep('title: s.title || "Will be announced",', 'title: s.title || "يعلن قريباً",')

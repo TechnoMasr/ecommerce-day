@@ -62,28 +62,47 @@ p.add_css("""
         unicode-bidi: plaintext;
         text-align: right;
       }
+      /* Speaker list: big heading with a line under it, no small label */
+      .featured-title.ar-has-sub {
+        margin-bottom: 12px;
+      }
+      .ar-section-sub {
+        font-size: 18px;
+        line-height: 1.7;
+        color: #4a5563;
+        max-width: 60ch;
+        margin: 0 0 40px;
+      }
+      @media (max-width: 768px) {
+        .ar-section-sub {
+          font-size: 16px;
+        }
+      }
 """)
 
 # ---------- HERO ----------
 p.rep("<span>ECommerce Day 2026 Speaker Lineup</span>", "<span>متحدثو يوم التجارة الإلكترونية 2026</span>")
 p.rep("""        Meet the Minds Shaping
         <span style="color: #04c44e">Ecommerce</span> Across MENA""",
-      """        تعرف على العقول التي تشكل
-        <span style="color: #04c44e">التجارة الإلكترونية</span> في المنطقة""")
+      """        من يبنون <span style="color: #04c44e">التجارة الإلكترونية</span> في
+        المنطقة، ويحكون كيف""")
 p.rep("""        Gain practical insight, strengthen your decisions, and build a valuable
         network with founders, business leaders, and specialists across the
         ecommerce ecosystem.""",
-      """        خذ فهماً عملياً، واتخذ قرارات أوضح، وابن علاقات مفيدة مع مؤسسين
-        وقيادات ومتخصصين من كل أطراف سوق التجارة الإلكترونية.""")
-p.rep('<a class="btn-primary" href="#featured-speakers">Meet the Experts</a>', '<a class="btn-primary" href="#featured-speakers">تعرف على الخبراء</a>')
+      """        مؤسسون وقيادات ومتخصصون من كل جوانب السوق. اسمع كيف يفكرون،
+        واسألهم، وابدأ علاقة قد تفيدك بعد اليوم بكثير.""")
+p.rep('<a class="btn-primary" href="#featured-speakers">Meet the Experts</a>', '<a class="btn-primary" href="#featured-speakers">تعرف على المتحدثين</a>')
 p.rep('<a class="btn-secondary" href="tickets.html">Secure Your Ticket</a>', '<a class="btn-secondary" href="tickets.html" data-ar-link>احجز تذكرتك</a>')
 p.rep("<span>Ecommerce Founders</span>", "<span>مؤسسو متاجر إلكترونية</span>")
 p.rep("<span>Business Leaders</span>", "<span>قيادات أعمال</span>")
 p.rep("<span>Industry Experts</span>", "<span>خبراء في المجال</span>")
 
 # ---------- FEATURED ----------
-p.rep("<span>Featured Speakers</span>", "<span>متحدثون مميزون</span>")
-p.rep('<h2 class="featured-title">Learn from operators, not theorists</h2>', '<h2 class="featured-title">تعلم من أصحاب التجربة، لا من أصحاب النظريات</h2>')
+p.rep("""        <div class="featured-label">
+          <span>Featured Speakers</span>
+        </div>
+        <h2 class="featured-title">Learn from operators, not theorists</h2>""", """        <h2 class="featured-title ar-has-sub">المتحدثون</h2>
+        <p class="ar-section-sub">تعلم من أصحاب التجربة، لا من أصحاب النظريات</p>""")
 
 # ---------- FILTERS ----------
 p.rep('<label for="spk-search">Search by name or company</label>', '<label for="spk-search">ابحث بالاسم أو الشركة</label>')
@@ -135,11 +154,11 @@ p.rep("""          href="tickets.html"
           data-ar-link
           style="padding: 12px 22px; font-size: 14px"
         >
-          تابع آخر الأخبار""")
+          تابع الجديد""")
 
 # ---------- CTA ----------
 p.rep("""          Build your day around the expertise that can improve your decisions,
-          execution, and business results.""", """          رتب يومك حول الخبرات التي تحسن قراراتك وتنفيذك ونتائج عملك.""")
+          execution, and business results.""", """          اختر الجلسات التي تمس عملك مباشرة، ورتب يومك حولها.""")
 p.rep("""            href="agenda.html"
             style="padding: 15px 28px; font-size: 16px"
           >

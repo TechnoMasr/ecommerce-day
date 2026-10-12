@@ -59,29 +59,28 @@ p.add_css("""
 p.rep("<span>ECommerce Day 2026 Partners</span>", "<span>شركاء يوم التجارة الإلكترونية 2026</span>")
 p.rep("""        The Sponsors Strengthening the
         <span style="color: #04c44e">Ecommerce</span> Ecosystem""",
-      """        الرعاة الذين يقوون سوق
-        <span style="color: #04c44e">التجارة الإلكترونية</span>""")
+      """        علامتك أمام من يديرون المتاجر الإلكترونية،
+        <span style="color: #04c44e">ليوم كامل</span>""")
 p.rep("""        Meet the partners building visibility, authority, and valuable
         relationships across the ecommerce ecosystem.""",
-      """        تعرف على الشركاء الذين يبنون حضوراً وثقة وعلاقات مفيدة في كل أطراف
-        سوق التجارة الإلكترونية.""")
+      """        يحضر اليوم مؤسسون ومديرو تجارة إلكترونية وفرق تسويق وتشغيل. الرعاية
+        تضعك أمامهم في يوم مخصص كله لقرارات النمو.""")
 p.rep('<a href="become-a-sponsor.html" class="btn-primary">Become a Sponsor</a>\n        <a href="#featured-partners"',
       '<a href="become-a-sponsor.html" data-ar-link class="btn-primary">كن راعياً</a>\n        <a href="#featured-partners"')
 p.rep('class="btn-secondary">View Our Partners</a>', 'class="btn-secondary">شاهد شركاءنا</a>')
 p.rep("""        Strategic opportunities are available across stages, workshops,
         content, and event experiences.""",
-      """        فرص الرعاية متاحة على المسارح وفي الورش والمحتوى وتجارب اليوم.""")
+      """        الرعاية متاحة على المسرحين، وفي قاعات الورش، والمحتوى، ومساحات اليوم.""")
 
 # ---------- SPONSORS ----------
 p.rep("<span>Our Sponsors</span>", "<span>رعاتنا</span>")
 p.rep("""          The Sponsors Behind ECommerce Day
-        </h2>""", """          الرعاة الداعمون ليوم التجارة الإلكترونية
+        </h2>""", """          الجهات التي تقف خلف اليوم
         </h2>""")
 p.rep("""          Strategic brands bringing expertise, innovation, and market influence
           to the Ecommerce Day experience.""",
-      """          علامات تجارية تضيف إلى اليوم خبرتها وأفكارها الجديدة وتأثيرها في
-          السوق.""")
-p.rep('id="sponsorsStatus">Sponsors will be announced soon.</p>', 'id="sponsorsStatus">سيعلن عن الرعاة قريباً.</p>')
+      """          علامات تشارك في اليوم بخبرتها، لا بشعارها فقط.""")
+p.rep('id="sponsorsStatus">Sponsors will be announced soon.</p>', 'id="sponsorsStatus">نعلن أسماء الرعاة قريباً.</p>')
 p.rep("""        <div class="band-cta">
           <a href="become-a-sponsor.html" class="btn-primary">Become a Sponsor</a>""",
       """        <div class="band-cta">
@@ -91,20 +90,20 @@ p.rep("""        <div class="band-cta">
 p.rep("<span>Sponsors Integration</span>", "<span>مكان علامتك في اليوم</span>")
 p.rep("""        Choose Where Your Brand
         <strong style="color: #04c44e; font-weight: 800">Takes the Lead</strong>""",
-      """        اختر المكان الذي
-        <strong style="color: #04c44e; font-weight: 800">تتصدر فيه علامتك</strong>""")
+      """        اختر أين
+        <strong style="color: #04c44e; font-weight: 800">تظهر علامتك</strong>""")
 p.rep("""        Position your brand within the experiences where attendees learn,
         engage, and build professional relationships.""",
-      """        ضع علامتك داخل التجارب التي يتعلم فيها الحضور ويتفاعلون ويبنون
-        علاقاتهم المهنية.""")
+      """        في القاعات التي يتعلم فيها الحضور ويسألون ويتعارفون، لا على لافتة في
+        الممر.""")
 p.rep("""        <a href="become-a-sponsor.html" class="btn-primary"
           >Exclusive Partnership Opportunity</a
         >""", """        <a href="become-a-sponsor.html" data-ar-link class="btn-primary"
-          >فرصة شراكة حصرية</a
+          >رعاية حصرية</a
         >""")
 p.s = p.s.replace('<span class="experience-kind-label">Stage</span>', '<span class="experience-kind-label">مسرح</span>')
 p.s = p.s.replace('<span class="experience-kind-label">Workshops</span>', '<span class="experience-kind-label">ورش عمل</span>')
-p.s = p.s.replace('<span class="experience-kind-label">Experience</span>', '<span class="experience-kind-label">تجربة</span>')
+p.s = p.s.replace('<span class="experience-kind-label">Experience</span>', '<span class="experience-kind-label">مساحة</span>')
 p.s = p.s.replace('<span class="experience-kind-label">Research</span>', '<span class="experience-kind-label">بحث</span>')
 for en, ar in [
     ('<div class="experience-name">Main Stage</div>', '<div class="experience-name">المسرح الرئيسي</div>'),
@@ -117,7 +116,7 @@ for en, ar in [
             ورش مسار التشغيل والشحن (Operations &amp; Logistics)
           </div>"""),
     ('<div class="experience-name">Leaders Lounge</div>', '<div class="experience-name">ركن القيادات</div>'),
-    ('<div class="experience-name">Registration Experience</div>', '<div class="experience-name">تجربة التسجيل</div>'),
+    ('<div class="experience-name">Registration Experience</div>', '<div class="experience-name">منطقة التسجيل</div>'),
     ('<div class="experience-name">Content Studio</div>', '<div class="experience-name">استوديو المحتوى</div>'),
     ('<div class="experience-name">ECommerce Research</div>', '<div class="experience-name">أبحاث التجارة الإلكترونية</div>'),
 ]:
@@ -135,20 +134,20 @@ p.rep("""        What the community has run so far
       </h2>""", """        ما قدمه المجتمع حتى الآن
       </h2>""")
 p.rep("""        Organizer record across previous programs, not a forecast for this
-        edition.""", """        أرقام المنظم من برامج سابقة، وليست توقعات لهذه الدورة.""")
+        edition.""", """        أرقام من برامج نظمناها سابقاً، لا توقعات لهذه الدورة.""")
 p.rep('<div class="stat-label">countries reached</div>', '<div class="stat-label">دولة وصلنا إليها</div>')
-p.rep('<div class="stat-label">offline workshops + online workshops</div>', '<div class="stat-label">ورش حضورية + ورش أونلاين</div>')
+p.rep('<div class="stat-label">offline workshops + online workshops</div>', '<div class="stat-label">3 ورش حضورية و5 أونلاين</div>')
 p.rep('<div class="stat-label">sessions delivered</div>', '<div class="stat-label">جلسة قدمناها</div>')
 p.rep('<div class="stat-label">speakers hosted</div>', '<div class="stat-label">متحدث استضفناه</div>')
 p.rep('<div class="stat-label">hours of content</div>', '<div class="stat-label">ساعة محتوى</div>')
 p.rep('<div class="stat-label">attendees, Ramadan Iftar community event</div>', '<div class="stat-label">حاضر في إفطار المجتمع الرمضاني</div>')
 
 # ---------- CTA ----------
-p.rep('<h2 class="cta-title">Put your brand inside the e-commerce journey.</h2>', '<h2 class="cta-title">ضع علامتك داخل رحلة التجارة الإلكترونية.</h2>')
+p.rep('<h2 class="cta-title">Put your brand inside the e-commerce journey.</h2>', '<h2 class="cta-title">كن جزءاً من اليوم، لا إعلاناً على هامشه.</h2>')
 p.rep("""          If your company serves merchants, stores or operators, let's build a
           partnership tied to a real experience inside the day.""",
-      """          لو شركتك تخدم التجار أو المتاجر أو فرق التشغيل، فلنبن معاً شراكة
-          مرتبطة بتجربة حقيقية داخل اليوم.""")
+      """          إن كانت شركتك تخدم التجار أو فرق التشغيل فراسلنا. نصمم معك رعاية
+          مرتبطة بجلسة أو ورشة أو مساحة يستخدمها الحضور فعلاً.""")
 p.rep("""            href="become-a-sponsor.html"
             class="btn-primary"
             style="padding: 15px 28px; font-size: 16px; text-decoration: none"
@@ -158,7 +157,7 @@ p.rep("""            href="become-a-sponsor.html"
             class="btn-primary"
             style="padding: 15px 28px; font-size: 16px; text-decoration: none"
           >
-            اكتشف فرص الرعاية""")
+            فرص الرعاية""")
 p.rep("""            href="agenda.html"
             class="btn-secondary\"""", """            href="agenda.html"
             data-ar-link
@@ -173,7 +172,7 @@ p.rep('style="padding:11px 18px;font-size:13px;text-decoration:none">Visit Partn
       'style="padding:11px 18px;font-size:13px;text-decoration:none">موقع الشريك</a>\'')
 p.rep("""text-decoration:none">Explore the Supported Experience →</a>'""", """text-decoration:none">التجربة التي يدعمها ←</a>'""")
 p.rep('<div class="supported-asset-label">Supported asset</div>', '<div class="supported-asset-label">ما يدعمه</div>')
-p.rep('''                : "Sponsors will be announced soon.";''', '''                : "سيعلن عن الرعاة قريباً.";''')
+p.rep('''                : "Sponsors will be announced soon.";''', '''                : "نعلن أسماء الرعاة قريباً.";''')
 p.rep('''grid-column:1/-1">Community partners will be announced soon.</p>';''', '''grid-column:1/-1">سيعلن عن شركاء المجتمع قريباً.</p>';''')
 
 p.write()

@@ -11,7 +11,7 @@
   var RTL = !!AR;
   var TXT = AR
     ? {
-        sponsorsSoon: "سيعلن عن الرعاة قريباً.",
+        sponsorsSoon: "نعلن أسماء الرعاة قريباً.",
         partnersSoon: "سيعلن عن الشركاء قريباً",
         speakersSoon: "سيعلن عن مزيد من المتحدثين قريباً",
       }

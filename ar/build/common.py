@@ -27,6 +27,13 @@ SHARED_SCRIPTS = [
 ARABIC_FONT = '"IBM Plex Sans Arabic", "Manrope", system-ui, -apple-system, sans-serif'
 
 
+def keep_names_together(s):
+    """English pass names in brackets must not break across lines in RTL text."""
+    for name in ["(All Access Pass)", "(Standard Pass)"]:
+        s = s.replace(name, name.replace(" ", "\u00a0"))
+    return s
+
+
 class Page:
     def __init__(self, name):
         self.name = name
@@ -123,6 +130,7 @@ class Page:
         # Arabic reads "7 إلى 10 أيام"; a "7-10" range also breaks badly at line ends in RTL
         self.s = self.s.replace("بـ 7-10 أيام", "بـ 7 إلى 10 أيام").replace("بـ\n                7-10 أيام", "بـ\n                7 إلى 10 أيام")
         self.s = self.s.replace("، 7-10 أيام", "، 7 إلى 10 أيام")
+        self.s = keep_names_together(self.s)
         out = ROOT / "ar" / self.name
         out.write_text(self.s, encoding="utf-8")
         print("wrote", out, len(self.s), "bytes")

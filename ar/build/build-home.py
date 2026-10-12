@@ -153,15 +153,15 @@ rep('<h1 class="hero-title">ECOMMERCE DAY</h1>', '<h1 class="hero-title">يوم 
 rep("              5 November 2026\n            </span>\n            <span class=\"badge\">", "              5 نوفمبر 2026\n            </span>\n            <span class=\"badge\">")
 rep("              Creativa Innovation Hub, Giza\n            </span>\n            <span class=\"badge badge-green\">",
     f"              {VENUE}\n            </span>\n            <span class=\"badge badge-green\">")
-rep("              Where MENA Ecommerce Meets Global Minds\n", "              خبرات المنطقة والعالم في مكان واحد\n")
-rep("<h2>Step Into the Ecommerce Growth Ecosystem</h2>", "<h2>يوم كامل مع من يصنعون نمو التجارة الإلكترونية</h2>")
+rep("              Where MENA Ecommerce Meets Global Minds\n", "              متحدثون من مصر والخليج، في يوم واحد\n")
+rep("<h2>Step Into the Ecommerce Growth Ecosystem</h2>", "<h2>يوم كامل مع من يبنون المتاجر الإلكترونية ويكبرونها</h2>")
 rep("""                Learn from MENA and global leaders through real decisions,
                 expert sessions, and focused workshops.<br />
                 Network with the operators, platforms, and partners shaping
                 ecommerce growth.""",
-    """                تعلم من قيادات في المنطقة ومن خارجها عبر قرارات حقيقية
-                اتخذوها بأنفسهم، وجلسات مع خبراء، وورش عمل مركزة.<br />
-                وتعرف على أصحاب المتاجر والمنصات والشركاء الذين يحركون السوق.""")
+    """                اسمع من قيادات في مصر والخليج عن قرارات اتخذوها بأنفسهم، ودفعوا
+                ثمنها أحياناً. جلسات مع خبراء، وورش عمل مميزة، وفرصة تقابل فيها
+                أصحاب المتاجر والمنصات والشركاء الذين يحركون السوق.""")
 rep("""                <a href="tickets.html" class="btn btn-primary btn-lg">
                   Get Your Ticket
                   <svg""",
@@ -173,7 +173,7 @@ rep("""                <a href="agenda.html" class="link-underline"
                   >Explore the Experience</a
                 >""",
     """                <a href="agenda.html" data-ar-link class="link-underline"
-                  >اكتشف تفاصيل اليوم</a
+                  >تفاصيل اليوم</a
                 >""")
 # Countdown left out of the Arabic page until the user decides (hard rule 9: no countdowns).
 s = re.sub(
@@ -185,18 +185,18 @@ s = re.sub(
 if 'id="countdown"' in s:
     raise SystemExit("countdown block still present")
 rep('alt="Aerial view of the venue plaza with the TrafficMENA mark"', 'alt="صورة من أعلى لساحة المكان وعليها شعار TrafficMENA"')
-rep('<div class="float-title">Real Operators</div>', '<div class="float-title">أصحاب تجربة فعلية</div>')
+rep('<div class="float-title">Real Operators</div>', '<div class="float-title">أصحاب تجربة فعلية حقيقية</div>')
 rep('<div class="float-sub">Not theory, not recycled slides</div>', '<div class="float-sub">لا كلام نظري ولا شرائح مكررة</div>')
 
 # ---------- SPONSORS ----------
 rep('<div class="eyebrow">Our Sponsors</div>', '<div class="eyebrow">رعاتنا</div>')
 rep("""            The Sponsors Behind ECommerce Day
-          </h2>""", """            الرعاة الداعمون ليوم التجارة الإلكترونية
+          </h2>""", """            الرعاة الرئيسيون لليوم
           </h2>""")
 rep("""            Meet the platforms, partners, and enablers supporting ecommerce
-            across the region.""", """            منصات وشركات وجهات تدعم التجارة الإلكترونية في المنطقة، وتقف خلف
-            هذا اليوم.""")
-rep('<p class="sr-only" id="sponsorsStatus">Sponsors will be announced soon.</p>', '<p class="sr-only" id="sponsorsStatus">سيعلن عن الرعاة قريباً.</p>')
+            across the region.""", """            منصات وشركات وجهات داعمة تعمل في التجارة الإلكترونية بالمنطقة،
+            واختارت أن تكون جزءاً من هذا اليوم.""")
+rep('<p class="sr-only" id="sponsorsStatus">Sponsors will be announced soon.</p>', '<p class="sr-only" id="sponsorsStatus">نعلن أسماء الرعاة قريباً.</p>')
 rep("""            <a href="become-a-sponsor.html" class="btn btn-primary"
               >Become a Sponsor</a
             >""", """            <a href="become-a-sponsor.html" data-ar-link class="btn btn-primary"
@@ -204,13 +204,12 @@ rep("""            <a href="become-a-sponsor.html" class="btn btn-primary"
             >""")
 
 # ---------- SPEAKERS ----------
-rep('<div class="eyebrow">Proven in Practice</div>', '<div class="eyebrow">خبرة من أرض الواقع</div>')
+rep('<div class="eyebrow">Proven in Practice</div>', '<div class="eyebrow">ماذا تستفيد</div>')
 rep("""            Meet the Leaders Behind the Decisions
-          </h2>""", """            تعرف على من اتخذوا القرارات بأنفسهم
+          </h2>""", """            متحدثون اتخذوا القرار بأنفسهم
           </h2>""")
 rep("""            Learn from experts building, growing, and operating ecommerce
-            businesses across MENA and global markets.""", """            خبراء يبنون متاجر إلكترونية ويديرونها ويكبرونها، في المنطقة وفي
-            أسواق عالمية.""")
+            businesses across MENA and global markets.""", """            يبنون متاجر إلكترونية ويديرونها ويكبرونها، في مصر وخارجها.""")
 rep('aria-label="Speaker carousel"', 'aria-label="شريط المتحدثين"')
 # In right-to-left, "previous" sits on the right and points right.
 rep("""                aria-label="Previous speakers"
@@ -241,19 +240,24 @@ rep("""            <a href="become-a-sponsor.html" class="btn btn-primary"
             >""")
 
 # ---------- EXPERIENCE ----------
-rep('<div class="eyebrow">One Day. The Whole Business.</div>', '<div class="eyebrow">يوم واحد. والصورة كاملة.</div>')
+rep('<div class="eyebrow">One Day. The Whole Business.</div>', '<div class="eyebrow">يوم واحد، والصورة كاملة</div>')
 rep("""                See What Moves Ecommerce Forward
-              </h2>""", """                اعرف ما الذي يدفع التجارة الإلكترونية للأمام
+              </h2>""", """                اعرف ما الذي يكبر المتجر، وما الذي يعطله
               </h2>""")
-rep("""                Understand how decisions connect across the entire ecommerce
-                business.""", """                افهم كيف ترتبط القرارات ببعضها في كل جزء من المتجر.""")
+rep("""              <p class="section-sub" data-reveal>
+                Understand how decisions connect across the entire ecommerce
+                business.
+              </p>
+""", "")
 rep("""                ECommerce Day powered by TrafficMENA brings together the
                 leaders, experts, and operators shaping ecommerce across Egypt
-                and the Gulf.""", """                يجمع يوم التجارة الإلكترونية من TrafficMENA القيادات والخبراء
-                وأصحاب التجربة الذين يشكلون السوق في مصر والخليج.""")
+                and the Gulf.""", """                قرار في الإعلانات يغير شيئاً في المخزن، وقرار في الشحن يظهر في
+                تقييمات العملاء. هنا ترى هذه الروابط كلها.""")
 rep("""                Across two stages and focused workshops, you will explore the
-                decisions, challenges, and experience behind real growth.""", """                على مسرحين وفي ورش عمل مركزة، ستقترب من القرارات والتحديات
-                والتجارب التي صنعت نمواً حقيقياً.""")
+                decisions, challenges, and experience behind real growth.""", """                يجمع TrafficMENA في هذا اليوم قيادات وخبراء وأصحاب متاجر يصنعون
+                سوق التجارة الإلكترونية في مصر والخليج. على مسرحين وفي ورش عمل
+                مركزة تسمع كيف اتخذوا قراراتهم، وأين تعثروا، وما الذي صنع لهم
+                نمواً حقيقياً.""")
 rep("""              <a href="agenda.html" class="btn btn-primary"
                 >View the Agenda</a
               >""", """              <a href="agenda.html" data-ar-link class="btn btn-primary"
@@ -263,10 +267,10 @@ rep("""              <a href="agenda.html" class="btn btn-primary"
 # ---------- COMPARE ----------
 rep('<div class="eyebrow">Beyond Online Learning</div>', '<div class="eyebrow">أكثر من دورة أونلاين</div>')
 rep("""            One Experience. Multiple Expert Perspectives.
-          </h2>""", """            تجربة واحدة. وزوايا نظر كثيرة.
+          </h2>""", """            الدورة تعلمك قناة واحدة. هذا اليوم يريك العمل كله
           </h2>""")
 rep("""            Access live expertise, regional context, and the wider business
-            picture.""", """            خبرة حية، وسياق السوق في منطقتنا، وصورة أوسع للعمل كله.""")
+            picture.""", """            تسمع الخبرة من صاحبها مباشرة، وفي سياق السوق الذي تعمل فيه.""")
 rep("<th>The Experience</th>", "<th>التجربة</th>")
 rep('<th class="col-day">ECommerce Day</th>', '<th class="col-day">يوم التجارة الإلكترونية</th>')
 rep("<th>A Typical Online Course</th>", "<th>دورة أونلاين معتادة</th>")
@@ -282,27 +286,27 @@ rep("""              <button role="tab" id="tabCourse" aria-selected="false">
                 دورة أونلاين
               </button>""")
 rep("""            ECommerce Day connects the expertise, functions, and decisions that
-            online learning often explores separately.""", """            يربط يوم التجارة الإلكترونية بين خبرات وأقسام وقرارات تتناولها
-            الدورات أونلاين عادة كل واحدة على حدة.""")
+            online learning often explores separately.""", """            يربط اليوم بين أقسام وقرارات تشرحها الدورات أونلاين عادة كلاً على
+            حدة.""")
 
 # ---------- OUTCOMES ----------
-rep('<div class="eyebrow">What You Take Back</div>', '<div class="eyebrow">ما ترجع به</div>')
+rep('<div class="eyebrow">What You Take Back</div>', '<div class="eyebrow">ما تعود به</div>')
 rep("""            Turn Expert Experience Into Better Business Decisions
-          </h2>""", """            حول خبرة غيرك إلى قرارات أفضل في عملك
+          </h2>""", """            تعلم من تجارب غيرك قبل أن تدفع ثمنها في متجرك
           </h2>""")
 rep("""            Build sharper priorities and a clearer view of what drives
-            profitable growth.""", """            أولويات أوضح، وفهم أدق لما يصنع نمواً مربحاً.""")
+            profitable growth.""", """            تعرف بماذا تبدأ، وتفرق بين النمو المربح والنمو الذي يأكل هامشك.""")
 rep('<a href="tickets.html" class="btn btn-primary">Choose Your Pass</a>', '<a href="tickets.html" data-ar-link class="btn btn-primary">اختر تذكرتك</a>')
 
 # ---------- MEDIA ----------
 rep('<div class="eyebrow">Proof From the Community</div>', '<div class="eyebrow">من المجتمع نفسه</div>')
 rep("""            The Experience Speaks for Itself
-          </h2>""", """            التجربة تتكلم عن نفسها
+          </h2>""", """            اسمعها من الحضور
           </h2>""")
 rep("""            Explore real events, feedback, and moments from the TrafficMENA
-            community.""", """            فعاليات حقيقية وآراء ولحظات من مجتمع TrafficMENA.""")
+            community.""", """            صور وآراء من فعاليات سابقة لمجتمع TrafficMENA.""")
 rep('aria-label="Media wall"', 'aria-label="آراء الحضور بالصور والفيديو"')
-rep('<div class="eyebrow">TrafficMENA in Numbers</div>', '<div class="eyebrow">TrafficMENA بالأرقام</div>')
+rep('<div class="eyebrow">TrafficMENA in Numbers</div>', '<div class="eyebrow">TrafficMENA حتى الآن</div>')
 
 # ---------- LIGHTBOX ----------
 rep('aria-label="Media preview"', 'aria-label="معاينة"')
@@ -312,13 +316,13 @@ rep('aria-label="Close preview"', 'aria-label="إغلاق المعاينة"')
 # ---------- FAQ ----------
 rep('<div class="eyebrow">Before You Book</div>', '<div class="eyebrow">قبل أن تحجز</div>')
 rep('<h2 class="section-title" data-reveal>Everything You Need to Know</h2>', '<h2 class="section-title" data-reveal>كل ما تحتاج معرفته</h2>')
-rep("""            Clear answers about the event, tickets, and access.""", """            إجابات واضحة عن اليوم والتذاكر والدخول.""")
+rep("""            Clear answers about the event, tickets, and access.""", """            عن اليوم والتذاكر والدخول.""")
 
 # ---------- FINAL CTA ----------
-rep('<div class="eyebrow">Access the Ecommerce Ecosystem</div>', '<div class="eyebrow">سوق التجارة الإلكترونية كله في يوم</div>')
-rep('<h2 class="final-cta-title">Be Where Ecommerce Decisions Connect</h2>', '<h2 class="final-cta-title">كن حيث تلتقي قرارات التجارة الإلكترونية</h2>')
+rep('<div class="eyebrow">Access the Ecommerce Ecosystem</div>', '<div class="eyebrow">السوق كله في يوم واحد</div>')
+rep('<h2 class="final-cta-title">Be Where Ecommerce Decisions Connect</h2>', '<h2 class="final-cta-title">قابلهم في 5 نوفمبر</h2>')
 rep("""            Access the leaders and expertise shaping growth across every
-            business function.""", """            قابل القيادات والخبرات التي تصنع النمو في كل قسم من أقسام العمل.""")
+            business function.""", """            قيادات وخبراء يصنعون النمو في كل قسم من أقسام المتجر، في مكان واحد.""")
 rep("              5 November 2026\n            </span>\n            <span>", "              5 نوفمبر 2026\n            </span>\n            <span>")
 rep("              Creativa Innovation Hub, Giza\n            </span>\n          </div>", f"              {VENUE}\n            </span>\n          </div>")
 rep('<a href="tickets.html" class="btn btn-primary">Get Your Ticket</a>', '<a href="tickets.html" data-ar-link class="btn btn-primary">احجز تذكرتك</a>')
@@ -350,17 +354,17 @@ def replace_block(start, end, new):
 replace_block("        var featureData = [", "        ];\n", """        var featureData = [
           {
             title: "مسرحان على مدار اليوم",
-            line: "نقاشات تغطي كل أطراف السوق، لا قسماً واحداً.",
+            line: "النقاش يغطي السوق كله، لا قسماً واحداً منه.",
             svg: '<rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M9 22h6"/>',
           },
           {
-            title: "جلسات يقودها خبراء",
-            line: "حالات حقيقية وقرارات ودروس من التنفيذ.",
+            title: "خبراء على المسرح",
+            line: "حالات حقيقية، وقرارات، ودروس خرجت من التنفيذ.",
             svg: '<path d="M9 18h6M10 22h4M12 2a6 6 0 0 0-4 10.4c.7.6 1 1.4 1 2.3v.3h6v-.3c0-.9.3-1.7 1-2.3A6 6 0 0 0 12 2Z"/>',
           },
           {
             title: "ورش عمل مركزة",
-            line: "تطبيق عملي لمن يريد أن يتعمق أكثر.",
+            line: "لمن يريد أن يجلس ويطبق، لا أن يسمع فقط.",
             svg: '<path d="M14.7 6.3a4 4 0 0 1 5.6 5.6l-8 8L7 21l1.1-5.3 8-8Z"/><path d="M9 15l-2 2"/>',
           },
           {
@@ -373,33 +377,33 @@ replace_block("        var featureData = [", "        ];\n", """        var feat
 
 replace_block("        var cmpData = [", "        ];\n", """        var cmpData = [
           {
-            f: "النطاق",
-            day: "تخصصات متعددة في التجارة الإلكترونية",
+            f: "ما يغطيه",
+            day: "التجارة الإلكترونية بكل أقسامها",
             course: "موضوع واحد غالباً",
           },
           {
-            f: "زاوية النظر",
-            day: "قيادات وأصحاب تجربة من كل أطراف السوق",
+            f: "من تسمع منه",
+            day: "قيادات وممارسون من كل جوانب السوق",
             course: "مدرب واحد غالباً",
           },
           {
             f: "سياق السوق",
-            day: "واقع السوق في مصر والخليج",
+            day: "السوق المصري والخليجي كما هو",
             course: "أمثلة عامة",
           },
           {
             f: "المحتوى",
-            day: "قرارات وحالات حقيقية، وثمن كل قرار",
+            day: "قرارات حقيقية، وما كلفته",
             course: "محتوى تعليمي منظم",
           },
           {
             f: "التفاعل",
-            day: "أسئلة ونقاشات مباشرة",
+            day: "تسأل وتناقش وجهاً لوجه",
             course: "تفاعل محدود",
           },
           {
             f: "العلاقات",
-            day: "خبراء ومنصات وشركاء محتملون",
+            day: "تقابل خبراء ومنصات وشركاء محتملين",
             course: "تعلم فردي في الأساس",
           },
         ];
@@ -408,38 +412,38 @@ replace_block("        var cmpData = [", "        ];\n", """        var cmpData 
 replace_block("        var outcomeData = [", "        ];\n", """        var outcomeData = [
           {
             num: "01",
-            title: "اربط محركات النمو ببعضها",
-            line: "شاهد كيف يؤثر جذب العملاء والتحويل والاحتفاظ بالعملاء والتشغيل وتجربة العميل كل منها في الآخر.",
+            title: "شاهد الحلقة كاملة",
+            line: "جذب العملاء، والتحويل، والاحتفاظ بهم، والتشغيل، وتجربة العميل. كل واحد منها يؤثر في الباقي، وسترى كيف.",
             svg: '<circle cx="12" cy="5" r="2.3"/><circle cx="5" cy="19" r="2.3"/><circle cx="19" cy="19" r="2.3"/><path d="M12 7.3V13M12 13l-5.6 4M12 13l5.6 4"/>',
           },
           {
             num: "02",
-            title: "وازن بين الخيارات بذكاء",
-            line: "تعرف كيف يوازن أصحاب الخبرة بين النمو والتكلفة والسرعة وتوقعات العملاء.",
+            title: "اعرف ثمن كل اختيار",
+            line: "كيف يوازن أصحاب الخبرة بين النمو والتكلفة والسرعة وما ينتظره العميل.",
             svg: '<path d="M4 6h16M4 12h10M4 18h7"/><circle cx="17" cy="12" r="2"/><circle cx="9" cy="18" r="2"/>',
           },
           {
             num: "03",
-            title: "اعثر على مواضع التعطيل",
-            line: "اعرف الأسئلة التي تكشف فجوات الأداء والفرص الضائعة.",
+            title: "اكتشف أين يتعطل متجرك",
+            line: "الأسئلة التي تكشف فجوات الأداء والفرص الضائعة.",
             svg: '<circle cx="10" cy="10" r="7"/><path d="M21 21l-4.3-4.3"/>',
           },
           {
             num: "04",
-            title: "شاهد الأثر على العمل كله",
-            line: "افهم كيف تؤثر قرارات كل فريق في باقي الشركة.",
+            title: "انظر أبعد من قسمك",
+            line: "قرار فريق التسويق يصل إلى المخزن وخدمة العملاء، وكذلك قرارات باقي الفرق.",
             svg: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/>',
           },
           {
             num: "05",
-            title: "طبق خبرة حقيقية",
-            line: "خذ دروس السوق وطوعها لعملك وفريقك ومرحلة نموك.",
+            title: "طبق ما تسمعه",
+            line: "خذ دروس السوق وطوعها لعملك وفريقك والمرحلة التي وصلت إليها.",
             svg: '<path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/>',
           },
           {
             num: "06",
-            title: "ابن علاقات تفيدك",
-            line: "قابل قيادات ومتخصصين ومنصات ووكالات وشركاء محتملين.",
+            title: "قابل من قد تعمل معهم",
+            line: "قيادات ومتخصصون ومنصات ووكالات وشركاء محتملون، ليوم كامل.",
             svg: '<circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.3 3-6 7-6s7 2.7 7 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 14c2.9.3 5.5 2.6 5.5 6"/>',
           },
         ];
@@ -448,8 +452,8 @@ replace_block("        var outcomeData = [", "        ];\n", """        var outc
 rep('{ n: 3000, suffix: "+", label: "Community Members" }', '{ n: 3000, suffix: "+", label: "عضو في المجتمع" }')
 rep('{ n: 80, suffix: "+", label: "Speakers and Practitioners" }', '{ n: 80, suffix: "+", label: "متحدث وخبير" }')
 rep('{ n: 90, suffix: "+", label: "Sessions" }', '{ n: 90, suffix: "+", label: "جلسة" }')
-rep('{ n: 400, suffix: "+", label: "Learning Hours" }', '{ n: 400, suffix: "+", label: "ساعة تعلم" }')
-rep('{ n: 13, suffix: "", label: "MENA Countries" }', '{ n: 13, suffix: "", label: "دولة في المنطقة" }')
+rep('{ n: 400, suffix: "+", label: "Learning Hours" }', '{ n: 400, suffix: "+", label: "ساعة محتوى" }')
+rep('{ n: 13, suffix: "", label: "MENA Countries" }', '{ n: 13, suffix: "", label: "دولة" }')
 rep('{ n: 10, suffix: "+", label: "Professional Disciplines" }', '{ n: 10, suffix: "+", label: "تخصص مهني" }')
 
 rep('''        var WA_URL =
@@ -462,43 +466,34 @@ replace_block("        var faqData = [", "        ];\n", """        var faqData 
             q: "ما يوم التجارة الإلكترونية؟",
             a: [
               {
-                p: "فعالية حضورية ليوم واحد من تنظيم TrafficMENA، تجمع المؤسسين والمتخصصين وأصحاب المتاجر ومقدمي الخدمات وشركات التكنولوجيا العاملين في التجارة الإلكترونية.",
-              },
-              {
-                p: "يغطي اليوم رحلة التجارة الإلكترونية كاملة: جذب العملاء، والتحويل، والاحتفاظ بالعملاء، والتشغيل، والشحن، وتجربة العميل، ونمو العمل.",
+                p: "فعالية حضورية ليوم واحد تنظمها TrafficMENA، يحضرها مؤسسون ومتخصصون وأصحاب متاجر ومقدمو خدمات وشركات تكنولوجيا تعمل في التجارة الإلكترونية. البرنامج يغطي الرحلة كلها: جذب العملاء، والتحويل، والاحتفاظ بهم، والتشغيل والشحن، وتجربة العميل، ونمو العمل.",
               },
             ],
           },
           {
-            q: "ما الذي يجعل التجربة مفيدة؟",
+            q: "ما الذي سأستفيده من الحضور؟",
             a: [
               {
-                p: "يجمع اليوم أطرافاً مختلفة من سوق التجارة الإلكترونية في مكان واحد.",
-              },
-              {
-                p: "فيه مسرحان، وورش عمل متخصصة، وحالات حقيقية من شركات، وجلسات يقودها خبراء، وفرص للتعارف، وشركات تقدم خدمات وتكنولوجيا للتجارة الإلكترونية.",
-              },
-              {
-                p: "وبدلاً من التركيز على قناة تسويق واحدة، يربط اليوم بين القرارات التي تؤثر في رحلة العميل والطلب من أولها لآخرها.",
+                p: "كثير من الفعاليات تركز على قناة تسويق واحدة. هنا ترى كيف تؤثر القرارات في رحلة العميل والطلب، من أول نقرة حتى التسليم. في اليوم مسرحان، وورش عمل متخصصة، وحالات حقيقية من شركات، وجلسات يقودها خبراء، ووقت للتعارف، وشركات تعرض خدماتها وأدواتها للتجارة الإلكترونية.",
               },
             ],
           },
           {
             q: "من يناسبه الحضور؟",
             a: [
-              { p: "صممنا اليوم لـ:" },
+              { p: "اليوم موجه إلى:" },
               {
                 ul: [
-                  "مؤسسي المتاجر الإلكترونية وأصحابها.",
-                  "مديري التجارة الإلكترونية.",
-                  "متخصصي التسويق والنمو.",
-                  "مشتري الإعلانات (Media Buyers) وفرق جذب العملاء.",
-                  "متخصصي CRO وتجربة العميل.",
-                  "فرق الاحتفاظ بالعملاء وCRM.",
-                  "فرق التشغيل والشحن.",
-                  "فرق المنتج والتكنولوجيا.",
-                  "الوكالات ومقدمي خدمات التجارة الإلكترونية.",
-                  "من يخطط لبدء متجر إلكتروني أو تكبيره.",
+                  "مؤسسي المتاجر الإلكترونية وأصحابها",
+                  "مديري التجارة الإلكترونية",
+                  "متخصصي التسويق والنمو",
+                  "مشتري الإعلانات (Media Buyers) وفرق جذب العملاء",
+                  "متخصصي CRO وتجربة العميل",
+                  "فرق الاحتفاظ بالعملاء وCRM",
+                  "فرق التشغيل والشحن",
+                  "فرق المنتج والتكنولوجيا",
+                  "الوكالات ومقدمي خدمات التجارة الإلكترونية",
+                  "من يخطط لإطلاق متجر إلكتروني أو توسيعه",
                 ],
               },
             ],
@@ -506,21 +501,16 @@ replace_block("        var faqData = [", "        ];\n", """        var faqData 
           {
             q: "هل اليوم للمسوقين فقط؟",
             a: [
-              { p: "لا." },
               {
-                p: "التسويق جزء من التجربة، لكن اليوم يغطي أيضاً CRO والاحتفاظ بالعملاء وتجربة العميل والتشغيل والشحن والتكنولوجيا وإدارة العمل ونمو التجارة الإلكترونية.",
+                p: "لا. التسويق جزء من البرنامج، ومعه CRO، والاحتفاظ بالعملاء، وتجربة العميل، والتشغيل والشحن، والتكنولوجيا، وإدارة العمل.",
               },
             ],
           },
           {
             q: "هل يناسب المبتدئين؟",
             a: [
-              { p: "نعم." },
               {
-                p: "في البرنامج جلسات لمن يدخل المجال حديثاً، ومحتوى أكثر تخصصاً لأصحاب الخبرة والمديرين وأصحاب الأعمال.",
-              },
-              {
-                p: "ويختار كل حاضر الجلسات والورش الأقرب لدوره ومستوى خبرته.",
+                p: "نعم. بعض الجلسات لمن دخل المجال حديثاً، وبعضها أعمق وموجه لأصحاب الخبرة والمديرين وأصحاب الأعمال. اختر ما يناسب دورك ومستواك.",
               },
             ],
           },
@@ -528,10 +518,7 @@ replace_block("        var faqData = [", "        ];\n", """        var faqData 
             q: "متى وأين يقام اليوم؟",
             a: [
               {
-                p: "يقام يوم التجارة الإلكترونية في 5 نوفمبر 2026 في مركز إبداع مصر الرقمية (كريتيفا)، الجيزة.",
-              },
-              {
-                p: "سنرسل العنوان الكامل والخريطة وتعليمات الدخول والمواصلات للحضور المؤكدين قبل الفعالية.",
+                p: "يوم الخميس 5 نوفمبر 2026، في مركز إبداع مصر الرقمية (كريتيفا) بالجيزة. قبل الفعالية نرسل للحضور المؤكدين العنوان الكامل والخريطة وتعليمات الدخول والمواصلات.",
               },
             ],
           },
@@ -539,34 +526,23 @@ replace_block("        var faqData = [", "        ];\n", """        var faqData 
             q: "متى يبدأ اليوم؟",
             a: [
               {
-                p: "يبدأ التسجيل الساعة 10:00 صباحاً، ويبدأ برنامج المسرح الساعة 11:00 صباحاً.",
-              },
-              {
-                p: "ننصحك بالوصول مبكراً لتنهي التسجيل وتتعرف على المكان قبل أول جلسة.",
+                p: "يفتح التسجيل الساعة 10:00 صباحاً، ويبدأ برنامج المسرح الساعة 11:00. تعال مبكراً لتنهي التسجيل وتعرف المكان قبل أول جلسة.",
               },
             ],
           },
           {
             q: "متى ينتهي اليوم؟",
             a: [
-              { p: "من المقرر أن ينتهي اليوم نحو الساعة 7:00 مساءً." },
               {
-                p: "وستجد مواعيد الجلسات والورش بالتفصيل في الأجندة.",
+                p: "نحو السابعة مساءً. مواعيد كل جلسة وورشة بالتفصيل في الأجندة.",
               },
             ],
           },
           {
             q: "هل تحتاج الورش إلى حجز مسبق؟",
             a: [
-              { p: "نعم." },
               {
-                p: "في اليوم أكثر من 15 ورشة عمل موزعة على 3 مسارات أساسية في التجارة الإلكترونية.",
-              },
-              {
-                p: "يفتح حجز الورش لحاملي التذكرة الشاملة (All Access Pass) قبل الفعالية بـ 7-10 أيام، وسنعلن طريقة الحجز.",
-              },
-              {
-                p: "نؤكد الحجوزات حسب الأماكن المتاحة. ولا يمكن حجز أكثر من 5 ورش، ولا حجز ورشتين في الوقت نفسه.",
+                p: "نعم. في اليوم أكثر من 15 ورشة عمل في 3 مسارات، ويفتح حجزها لحاملي التذكرة الشاملة (All Access Pass) قبل الفعالية بـ 7 إلى 10 أيام. سنعلن طريقة الحجز وقتها. الحد الأقصى 5 ورش، ولا يمكنك حجز ورشتين في التوقيت نفسه، ونؤكد الحجز حسب الأماكن المتاحة.",
               },
             ],
           },
@@ -574,7 +550,7 @@ replace_block("        var faqData = [", "        ];\n", """        var faqData 
             q: "كيف أستلم المحتوى بعد الفعالية؟",
             a: [
               {
-                p: "يستلم حاملو التذكرة الشاملة شرائح العروض وملفات ونماذج الورش (Workshop Templates & Files) بالبريد الإلكتروني بعد الفعالية.",
+                p: "بالبريد الإلكتروني. يصل لحاملي التذكرة الشاملة فقط، ويشمل شرائح العروض وملفات ونماذج الورش (Workshop Templates & Files).",
               },
             ],
           },
@@ -582,10 +558,7 @@ replace_block("        var faqData = [", "        ];\n", """        var faqData 
             q: "هل الجلسات عملية؟",
             a: [
               {
-                p: "يجمع البرنامج بين جلسات استراتيجية وحالات حقيقية من شركات ونقاشات مع خبراء وورش عمل مركزة.",
-              },
-              {
-                p: "هدفنا أن تخرج بأفكار قابلة للتطبيق ونقاط واضحة. ويختلف شكل كل جلسة حسب المتحدث والموضوع ونوع الجلسة.",
+                p: "هذا هو الهدف. البرنامج فيه جلسات عن الاستراتيجية، وحالات حقيقية من شركات، ونقاشات مع خبراء، وورش عمل مركزة. نريدك أن تخرج بأفكار تطبقها حين تعود إلى عملك، مع أن شكل كل جلسة يختلف حسب المتحدث والموضوع.",
               },
             ],
           },
@@ -593,10 +566,7 @@ replace_block("        var faqData = [", "        ];\n", """        var faqData 
             q: "كيف تختارون المتحدثين؟",
             a: [
               {
-                p: "نختار المتحدثين حسب خبرتهم، وصلتها بموضوعات اليوم، وقدرتهم على مشاركة معرفة مفيدة وأمثلة حقيقية وآراء مبنية على تجربة.",
-              },
-              {
-                p: "الأولوية للخبرة المهنية والتجربة العملية، لا للعروض الترويجية.",
+                p: "على أساس خبرتهم وصلتها بموضوعات اليوم، وقدرتهم على مشاركة أمثلة حقيقية وآراء خرجت من التجربة. الأولوية عندنا للتجربة العملية، لا للعروض الترويجية.",
               },
             ],
           },
@@ -604,22 +574,15 @@ replace_block("        var faqData = [", "        ];\n", """        var faqData 
             q: "متى تعلنون المتحدثين والأجندة؟",
             a: [
               {
-                p: "نعلن المتحدثين والجلسات المؤكدة تباعاً مع اكتمال البرنامج.",
-              },
-              {
-                p: "وننشر الأجندة كاملة، بمواعيد الجلسات وجداول الورش، قبل الفعالية.",
+                p: "نعلن المتحدثين والجلسات أولاً بأول كلما تأكدت، وننشر الأجندة كاملة بمواعيد الجلسات وجداول الورش قبل الفعالية.",
               },
             ],
           },
           {
             q: "هل هناك فرص للتعارف؟",
             a: [
-              { p: "نعم." },
               {
-                p: "يمكنك التعرف على الحضور طوال اليوم في منطقة المعرض (Expo Area) ومساحات التعارف وأوقات الاستراحة والمساحات المشتركة.",
-              },
-              {
-                p: "التعارف مفتوح وعفوي. ولا تشمل التذكرة ترتيب مقابلات أو لقاءات مضمونة مع حضور بعينهم.",
+                p: "نعم، طوال اليوم: في منطقة المعرض (Expo Area)، ومساحات التعارف، وأوقات الاستراحة. التعارف مفتوح ولا نرتبه مسبقاً، فالتذكرة لا تشمل لقاءات مضمونة مع حضور بعينهم.",
               },
             ],
           },
@@ -627,31 +590,19 @@ replace_block("        var faqData = [", "        ];\n", """        var faqData 
             q: "هل يمكنني استرداد ثمن التذكرة أو نقلها لشخص آخر؟",
             a: [
               {
-                p: "يمكنك استرداد المبلغ كاملاً حتى نهاية يوم 30 أكتوبر 2026، أي قبل الفعالية بخمسة أيام.",
+                p: "الاسترداد الكامل متاح حتى نهاية يوم 30 أكتوبر 2026، أي قبل الفعالية بخمسة أيام. أرسل طلبك إلى info@trafficmena.com من البريد الإلكتروني الذي حجزت به، ويعود المبلغ بوسيلة الدفع نفسها. بعد هذا التاريخ لا نقبل طلبات الاسترداد.",
               },
-              {
-                p: "لطلب الاسترداد، راسلنا على info@trafficmena.com قبل الموعد من البريد الإلكتروني الذي حجزت به.",
-              },
-              {
-                p: "لا نقبل الطلبات بعد هذا التاريخ. والتذاكر غير قابلة للتحويل، ولا يمكن نقلها لحاضر آخر.",
-              },
-              {
-                p: "يعود المبلغ المسترد بوسيلة الدفع الأصلية نفسها.",
-              },
-              { contact: "للمساعدة، تواصل معنا على" },
+              { p: "التذاكر شخصية ولا يمكن نقلها لحاضر آخر." },
+              { contact: "لأي مساعدة:" },
             ],
           },
           {
             q: "هل هناك فرص رعاية؟",
             a: [
-              { p: "نعم." },
               {
-                p: "نوفر فرص شراكة ورعاية لمنصات التجارة الإلكترونية ومزودي التكنولوجيا وشركات الخدمات والوكالات وشركات الشحن ومزودي الدفع، وكل شركة تخدم سوق التجارة الإلكترونية.",
+                p: "نعم. الرعاية مفتوحة لمنصات التجارة الإلكترونية، ومزودي التكنولوجيا والدفع، وشركات الشحن والخدمات، والوكالات، وأي شركة يعتمد عليها التجار.",
               },
-              {
-                p: "زر صفحة كن راعياً، أو تواصل معنا لتعرف الفرص المتاحة.",
-              },
-              { contact: "لاستفسارات الرعاية:" },
+              { contact: "تفاصيل الفرص في صفحة الرعاية، أو راسلنا على" },
             ],
           },
         ];
@@ -662,7 +613,7 @@ rep('html: "<span>Loading partners…</span>",', 'html: "<span>جار تحميل
 rep('line.appendChild(document.createTextNode(" or "));', 'line.appendChild(document.createTextNode(" أو "));')
 rep('"aria-label": "Chat with us on WhatsApp (opens in a new tab)",', '"aria-label": "تواصل معنا على واتساب (يفتح في نافذة جديدة)",')
 rep('wa.innerHTML = WA_ICON + "<span>WhatsApp</span>";', 'wa.innerHTML = WA_ICON + "<span>واتساب</span>";')
-rep('{ key: "highlights", name: "Past Reviews" },', '{ key: "highlights", name: "آراء سابقة" },')
+rep('{ key: "highlights", name: "Past Reviews" },', '{ key: "highlights", name: "آراء مكتوبة" },')
 rep('{ key: "videos", name: "Video Reviews" },', '{ key: "videos", name: "آراء بالفيديو" },')
 rep('''                  "Open attendee review " + (i + 1) + " of " + reviewShots.length,''',
     '''                  "افتح رأي الحضور رقم " + (i + 1) + " من " + reviewShots.length,''')
@@ -676,6 +627,8 @@ rep('''                      "Video review from a past TrafficMENA event (" +
 rep('var labels = ["Days", "Hours", "Mins", "Secs"];', 'var labels = ["يوم", "ساعة", "دقيقة", "ثانية"];')
 
 s = s.replace("بـ 7-10 أيام", "بـ 7 إلى 10 أيام")
+from common import keep_names_together
+s = keep_names_together(s)
 out = ROOT / "ar" / "index.html"
 out.write_text(s, encoding="utf-8")
 print("wrote", out, len(s), "bytes")

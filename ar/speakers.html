@@ -901,6 +901,22 @@
         unicode-bidi: plaintext;
         text-align: right;
       }
+      /* Speaker list: big heading with a line under it, no small label */
+      .featured-title.ar-has-sub {
+        margin-bottom: 12px;
+      }
+      .ar-section-sub {
+        font-size: 18px;
+        line-height: 1.7;
+        color: #4a5563;
+        max-width: 60ch;
+        margin: 0 0 40px;
+      }
+      @media (max-width: 768px) {
+        .ar-section-sub {
+          font-size: 16px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -914,17 +930,17 @@
         <span>متحدثو يوم التجارة الإلكترونية 2026</span>
       </div>
       <h1 class="hero-title">
-        تعرف على العقول التي تشكل
-        <span style="color: #04c44e">التجارة الإلكترونية</span> في المنطقة
+        من يبنون <span style="color: #04c44e">التجارة الإلكترونية</span> في
+        المنطقة، ويحكون كيف
       </h1>
       <p class="hero-sub">
-        خذ فهماً عملياً، واتخذ قرارات أوضح، وابن علاقات مفيدة مع مؤسسين
-        وقيادات ومتخصصين من كل أطراف سوق التجارة الإلكترونية.
+        مؤسسون وقيادات ومتخصصون من كل جوانب السوق. اسمع كيف يفكرون،
+        واسألهم، وابدأ علاقة قد تفيدك بعد اليوم بكثير.
       </p>
       <div
         style="display: flex; gap: 14px; margin-bottom: 32px; flex-wrap: wrap"
       >
-        <a class="btn-primary" href="#featured-speakers">تعرف على الخبراء</a>
+        <a class="btn-primary" href="#featured-speakers">تعرف على المتحدثين</a>
         <a class="btn-secondary" href="tickets.html" data-ar-link>احجز تذكرتك</a>
       </div>
       <div class="hero-meta">
@@ -939,10 +955,8 @@
     <!-- ==================== FEATURED ==================== -->
     <div class="featured-band" id="featured-speakers">
       <div class="featured-inner">
-        <div class="featured-label">
-          <span>متحدثون مميزون</span>
-        </div>
-        <h2 class="featured-title">تعلم من أصحاب التجربة، لا من أصحاب النظريات</h2>
+        <h2 class="featured-title ar-has-sub">المتحدثون</h2>
+        <p class="ar-section-sub">تعلم من أصحاب التجربة، لا من أصحاب النظريات</p>
 
         <div class="speakers-grid featured-speakers-grid" id="featuredSpeakers"></div>
       </div>
@@ -1052,7 +1066,7 @@
           data-ar-link
           style="padding: 12px 22px; font-size: 14px"
         >
-          تابع آخر الأخبار
+          تابع الجديد
         </a>
       </div>
     </div>
@@ -1061,7 +1075,7 @@
     <div class="cta-band">
       <div class="cta-inner">
         <h2>
-          رتب يومك حول الخبرات التي تحسن قراراتك وتنفيذك ونتائج عملك.
+          اختر الجلسات التي تمس عملك مباشرة، ورتب يومك حولها.
         </h2>
         <div class="cta-buttons">
           <a
