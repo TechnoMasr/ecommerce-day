@@ -1070,7 +1070,7 @@
               line-height: 1.6;
             "
           >
-            التشغيل، وتجربة العميل، وتجهيز الطلبات، والاحتفاظ بالعملاء
+            التشغيل، وتجربة العميل، وتجهيز الطلبات
           </div>
         </div>
       </div>
@@ -1324,19 +1324,19 @@
             <div style="display: flex; justify-content: space-between">
               <span>التسجيل</span
               ><span class="font-mono" style="font-size: 10px; color: #6b747e"
-                >يعلن الموعد قريباً</span
+                >10:00 صباحاً</span
               >
             </div>
             <div style="display: flex; justify-content: space-between">
               <span>الافتتاح</span
               ><span class="font-mono" style="font-size: 10px; color: #6b747e"
-                >يعلن الموعد قريباً</span
+                >11:00 صباحاً</span
               >
             </div>
             <div style="display: flex; justify-content: space-between">
               <span>الجلسات</span
               ><span class="font-mono" style="font-size: 10px; color: #6b747e"
-                >يعلن الموعد قريباً</span
+                >من 11:00 صباحاً إلى 7:00 مساءً</span
               >
             </div>
             <div style="display: flex; justify-content: space-between">
@@ -2050,7 +2050,7 @@
 
     <!-- Scripts -->
     <script src="../prices.js?v=20261008a"></script>
-    <script src="../ecd-api.js?v=20261010b"></script>
+    <script src="../ecd-api.js?v=20261012a"></script>
     <script src="../ecd-content.js?v=20261008a"></script>
     <script>
       // ==========================================
@@ -2129,7 +2129,7 @@
       }
 
       // Session times are stored as "H:MM" on a 12-hour clock. The event runs
-      // 10:30 AM to 7 PM, so 10 and 11 are morning, 12 is noon, 1-9 are PM.
+      // 11:00 AM to 7 PM (Main Stage from 10:30), so 10 and 11 are morning, 12 is noon, 1-9 are PM.
       function timeKey(t) {
         var m = String(t || "").match(/^(\d{1,2}):(\d{2})$/);
         if (!m) return 9999;

@@ -124,7 +124,7 @@ p.text("Turn visits into orders, and orders into repeat customers", "حول ال
 p.text("Product, design, CRO, growth", "المنتج، والتصميم، وCRO، والنمو")
 p.text("OPERATIONS & LOGISTICS", "مسار التشغيل والشحن (Operations & Logistics)")
 p.text("Deliver on time and protect the margin", "سلم في الموعد واحم هامش الربح")
-p.text("Operations, CX, fulfillment, retention", "التشغيل، وتجربة العميل، وتجهيز الطلبات، والاحتفاظ بالعملاء")
+p.text("Operations, CX, fulfillment", "التشغيل، وتجربة العميل، وتجهيز الطلبات")
 
 # ---------- TIMELINE / ROOM VIEW ----------
 p.text("Session topics and times are still being finalized, so a few may shift slightly over the coming days.",
@@ -142,7 +142,10 @@ p.text("Opening", "الافتتاح")
 p.text("Sessions", "الجلسات")
 p.text("Closing", "الختام")
 p.text("Networking", "التعارف")
-p.text("TIME COMING SOON", "يعلن الموعد قريباً", count=5)
+p.text("10:00 AM", "10:00 صباحاً")
+p.text("11:00 AM", "11:00 صباحاً")
+p.text("11:00 AM - 7:00 PM", "من 11:00 صباحاً إلى 7:00 مساءً")
+p.text("TIME COMING SOON", "يعلن الموعد قريباً", count=2)
 p.text("Venue", "المكان")
 p.rep('alt="Aerial view of Creativa Innovation Hub courtyard with the TrafficMENA logo"',
       'alt="صورة من أعلى لساحة كريتيفا وعليها شعار TrafficMENA"')
