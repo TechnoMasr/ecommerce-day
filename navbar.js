@@ -13,12 +13,14 @@
 // Main TrafficMENA platform (the logo goes to the ECommerce Day home page).
 const PLATFORM_URL = "https://www.trafficmena.com/";
 
-// Arabic pages (ar/) load ecd-i18n.js first. English pages don't, so
-// every string and path below stays exactly as it was for them.
+// Arabic pages load ecd-i18n.js first (Arabic strings). ecd-site.js, on
+// every page, turns page names into the right link for this page's
+// folder and language (Arabic at the root, English in en/).
 const NAV_I18N = window.EcdI18n || null;
+const NAV_SITE = window.EcdSite || null;
 const navT = (key, en) => (NAV_I18N ? NAV_I18N.t(key, en) : en);
-const navPage = (href) => (NAV_I18N ? NAV_I18N.page(href) : href);
-const navAsset = (path) => (NAV_I18N ? NAV_I18N.asset(path) : path);
+const navPage = (href) => (NAV_SITE ? NAV_SITE.page(href) : href);
+const navAsset = (path) => (NAV_SITE ? NAV_SITE.asset(path) : path);
 
 const EXTERNAL_ICON =
   '<svg class="ecdnav-ext-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>';
@@ -277,7 +279,7 @@ const NAVBAR_CSS = `
   }
 `;
 
-// Arabic pages only: right-to-left details and the language switcher.
+// Arabic pages only: right-to-left details.
 const NAVBAR_CSS_AR = `
   site-navbar .ecdnav-header {
     font-family: ${NAV_I18N ? NAV_I18N.font : "inherit"};
@@ -301,7 +303,10 @@ const NAVBAR_CSS_AR = `
     transform: scaleX(-1);
   }
 
-  /* Language switcher: always visible, desktop and mobile */
+`;
+
+// Language switcher, both languages: always visible, desktop and mobile.
+const NAVBAR_CSS_LANG = `
   site-navbar .ecdnav-lang {
     display: inline-flex;
     align-items: center;
@@ -348,6 +353,29 @@ const NAVBAR_CSS_AR = `
       display: none;
     }
   }
+
+  /* Narrow desktops (993-1100px): the English row is about 40px too wide
+     with the switcher, so it drops its globe and the gaps tighten a little */
+  @media (min-width: 993px) and (max-width: 1100px) {
+    site-navbar .ecdnav-lang {
+      padding: 0 10px;
+    }
+    site-navbar .ecdnav-lang svg {
+      display: none;
+    }
+    site-navbar .ecdnav-desktop ul {
+      gap: 14px;
+    }
+    site-navbar .ecdnav-actions {
+      gap: 8px;
+    }
+  }
+
+  /* "العربية" on the English pages: Arabic letters, Arabic face */
+  site-navbar .ecdnav-lang[lang="ar"] {
+    font-family: "IBM Plex Sans Arabic", Tahoma, "Segoe UI", sans-serif;
+    font-size: 15px;
+  }
 `;
 
 const GLOBE_ICON =
@@ -358,7 +386,7 @@ function ensureNavbarStyles() {
   if (document.getElementById("ecdnav-styles")) return;
   const style = document.createElement("style");
   style.id = "ecdnav-styles";
-  style.textContent = NAV_I18N ? NAVBAR_CSS + NAVBAR_CSS_AR : NAVBAR_CSS;
+  style.textContent = NAVBAR_CSS + NAVBAR_CSS_LANG + (NAV_I18N ? NAVBAR_CSS_AR : "");
   document.head.appendChild(style);
 }
 
@@ -393,11 +421,14 @@ class SiteNavbar extends HTMLElement {
     const desktopLinks = links.map(renderLink).join("") + platformLink(navT("nav.platform", "TrafficMENA"));
     const mobileLinks = links.map(renderLink).join("") + platformLink(navT("nav.platformMobile", "TrafficMENA Platform"));
 
-    // Arabic pages: link to the same page in English (English pages get
-    // their switcher when the Arabic site goes public).
-    const langSwitch = NAV_I18N
-      ? `<a href="${NAV_I18N.englishUrl()}" class="ecdnav-lang" lang="en" dir="ltr" hreflang="en" aria-label="${navT("nav.switchAria", "")}">${GLOBE_ICON}<span>${navT("nav.switch", "")}</span></a>`
-      : "";
+    // The same page in the other language: "English" on Arabic pages,
+    // "العربية" on English pages. None on Booking Confirmation.
+    const otherUrl = NAV_SITE ? NAV_SITE.otherLangUrl() : null;
+    const langSwitch = !otherUrl
+      ? ""
+      : NAV_I18N
+        ? `<a href="${otherUrl}" class="ecdnav-lang" lang="en" dir="ltr" hreflang="en" aria-label="${navT("nav.switchAria", "")}">${GLOBE_ICON}<span>${navT("nav.switch", "")}</span></a>`
+        : `<a href="${otherUrl}" class="ecdnav-lang" lang="ar" dir="rtl" hreflang="ar" aria-label="عرض هذه الصفحة بالعربية">${GLOBE_ICON}<span>العربية</span></a>`;
 
     this.innerHTML = `
       <header class="ecdnav-header" id="top">

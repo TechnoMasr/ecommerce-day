@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build ar/tickets.html from tickets.html.  Run: python3 ar/build/build-tickets.py"""
+"""Build tickets.html (Arabic, site root) from en/tickets.html.  Run: python3 build/build-tickets.py"""
 from common import Page, VENUE
 
 p = Page("tickets.html")

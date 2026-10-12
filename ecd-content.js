@@ -5,7 +5,7 @@
 (function (global) {
   "use strict";
 
-  // Arabic pages (ar/) load ecd-i18n.js first. Admin content (names, roles,
+  // Arabic pages load ecd-i18n.js first. Admin content (names, roles,
   // ticket cards) stays as entered; only these fixed strings change.
   var AR = global.EcdI18n || null;
   var RTL = !!AR;

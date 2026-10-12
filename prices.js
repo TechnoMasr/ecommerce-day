@@ -226,10 +226,12 @@
 
   function checkoutUrl(ticketId) {
     var id = ticketId === "ct" ? "ct" : "fj";
-    // Arabic pages (ar/): checkout stays English, one level up, and is told
-    // the buyer came from the Arabic site (breadcrumb + analytics language).
-    if (global.EcdI18n) return "../checkout.html?ticket=" + id + "&lang=ar";
-    return "checkout.html?ticket=" + id;
+    // Checkout stays English at the site root. Buyers from the Arabic site
+    // carry lang=ar (breadcrumb back to Arabic + analytics language).
+    var site = global.EcdSite;
+    var lang = site ? site.lang : global.EcdI18n ? "ar" : "en";
+    var url = "checkout.html?ticket=" + id + (lang === "ar" ? "&lang=ar" : "");
+    return site ? site.page(url) : url;
   }
 
   /** Wire any [data-checkout="ct|fj"] links/buttons */

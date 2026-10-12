@@ -1,22 +1,30 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>TrafficMENA | ECommerce Day 2026 · Agenda</title>
+    <title>الأجندة | يوم التجارة الإلكترونية 2026</title>
+    <link rel="canonical" href="https://www.trafficmena.com/ecommerce-day/agenda.html" />
+    <link rel="alternate" hreflang="ar" href="https://www.trafficmena.com/ecommerce-day/agenda.html" />
+    <link rel="alternate" hreflang="en" href="https://www.trafficmena.com/ecommerce-day/en/agenda.html" />
+    <link rel="alternate" hreflang="x-default" href="https://www.trafficmena.com/ecommerce-day/agenda.html" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
 
     <!-- ✅ Reusable navbar -->
-    <script src="ecd-analytics.js?v=20261008a"></script>
-    <script src="navbar.js?v=20261008a" defer></script>
-    <script src="breadcrumbs.js?v=20261008a" defer></script>
+    <script src="ecd-analytics.js?v=20261012b"></script>
+    <!-- Links between pages: Arabic at the root, English in en/ -->
+    <script src="ecd-site.js?v=20261012a"></script>
+    <!-- Arabic strings for the shared components (must load before them) -->
+    <script src="ecd-i18n.js?v=20261012a"></script>
+    <script src="navbar.js?v=20261012c" defer></script>
+    <script src="breadcrumbs.js?v=20261012b" defer></script>
     <script type="application/ld+json">
 {
       "@context": "https://schema.org",
@@ -25,22 +33,22 @@
         {
           "@type": "ListItem",
           "position": 1,
-          "name": "ECommerce Day",
+          "name": "يوم التجارة الإلكترونية",
           "item": "https://www.trafficmena.com/ecommerce-day/"
         },
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Agenda"
+          "name": "الأجندة"
         }
       ]
     }
     </script>
-    <script src="ecd-whatsapp.js?v=20261008a" defer></script>
+    <script src="ecd-whatsapp.js?v=20261012b" defer></script>
     <!-- ✅ Reusable footer -->
-    <script src="footer.js?v=20261008b" defer></script>
+    <script src="footer.js?v=20261012b" defer></script>
     <!-- Shared tickets section (same as index.html). Not deferred on purpose. -->
-    <script src="tickets-section.js?v=20261012a"></script>
+    <script src="tickets-section.js?v=20261012b"></script>
 
     <style>
       *,
@@ -333,21 +341,81 @@
         outline: 2px solid #101010;
         outline-offset: 2px;
       }
+
+      /* ============ ARABIC (RTL) ============ */
+      body {
+        font-family:
+          "IBM Plex Sans Arabic",
+          "Manrope",
+          system-ui,
+          -apple-system,
+          sans-serif;
+      }
+      /* Labels set in mono capitals become plain Arabic: letter-spacing and
+         capitals break Arabic letters (times keep their digits). */
+      .font-mono,
+      .hero-meta {
+        font-family: "IBM Plex Sans Arabic", "Manrope", sans-serif !important;
+        letter-spacing: 0 !important;
+        text-transform: none !important;
+      }
+      .section-label .font-mono {
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .hero-title,
+      .section-title {
+        line-height: 1.35;
+        letter-spacing: 0;
+      }
+      /* Buttons and chips were set in Manrope inline */
+      button,
+      .session-card {
+        font-family: "IBM Plex Sans Arabic", "Manrope", sans-serif !important;
+      }
+      /* The divider between the two view tabs sits on the inner side */
+      #btnRoom {
+        border-left: none !important;
+        border-right: 1px solid #d5dae0 !important;
+      }
+      /* English session titles from the admin panel keep their own order */
+      .session-card > div:nth-child(2) {
+        unicode-bidi: plaintext;
+        text-align: right;
+      }
+      .wa-btn {
+        font-family: "IBM Plex Sans Arabic", "Manrope", sans-serif;
+      }
+      /* Plan your day + FAQ: big heading with a line under it, no small label */
+      .section-title.ar-has-sub {
+        margin-bottom: 12px;
+      }
+      .ar-section-sub {
+        font-size: 18px;
+        line-height: 1.7;
+        color: #4a5563;
+        max-width: 60ch;
+        margin: 0 0 32px;
+      }
+      @media (max-width: 768px) {
+        .ar-section-sub {
+          font-size: 16px;
+        }
+      }
     </style>
   </head>
   <body>
     <!-- ✅ Reusable Navbar -->
     <site-navbar current="agenda"></site-navbar>
-    <ecd-breadcrumb id="ecdBreadcrumb" data-trail='[["ECommerce Day", "index.html"], ["Agenda"]]' style="display:block;min-height:44px"></ecd-breadcrumb>
+    <ecd-breadcrumb id="ecdBreadcrumb" data-trail='[["يوم التجارة الإلكترونية", "index.html"], ["الأجندة"]]' style="display:block;min-height:44px"></ecd-breadcrumb>
 
     <!-- Hero -->
     <div class="container" style="padding: 72px 24px 48px">
       <div class="section-label">
-        <span class="font-mono">ECommerce Day 2026 Agenda</span>
+        <span class="font-mono">أجندة يوم التجارة الإلكترونية 2026</span>
       </div>
       <h1 class="hero-title">
-        From First <span style="color: #04c44e">Click</span> to Profitable
-        Growth
+        من أول <span style="color: #04c44e">نقرة</span> إلى نمو مربح
       </h1>
       <p
         style="
@@ -358,19 +426,18 @@
           max-width: 62ch;
         "
       >
-        Meet market leaders, gain wider business insight, strengthen your
-        decisions, and build a high-value ecommerce network.
+        30 جلسة على مسرحين وثلاث قاعات ورش. اختر منها ما يخدم عملك، وقابل في الاستراحات من قد تعمل معهم لاحقاً.
       </p>
       <div class="hero-meta">
-        <span>5 November 2026</span>
+        <span>5 نوفمبر 2026</span>
         <span style="color: #d5dae0">·</span>
-        <span>Offline in Cairo</span>
+        <span>حضورياً في كريتيفا، الجيزة</span>
         <span style="color: #d5dae0">·</span>
-        <span>Two stages and three workshop rooms</span>
+        <span>مسرحان وثلاث قاعات ورش</span>
       </div>
       <div style="display: flex; gap: 14px; flex-wrap: wrap">
-        <a href="tickets.html" class="btn-primary">Book Your Ticket</a>
-        <a href="tickets.html" class="btn-secondary">Compare Tickets</a>
+        <a href="tickets.html" data-ar-link class="btn-primary">احجز تذكرتك</a>
+        <a href="tickets.html" data-ar-link class="btn-secondary">قارن بين التذاكر</a>
       </div>
     </div>
 
@@ -400,11 +467,7 @@
           <path d="M12 8h.01 M12 11v5" stroke-linecap="round"></path>
         </svg>
         <div style="font-size: 14px; line-height: 1.7; color: #1f2630">
-          ECommerce Day offers 15+ workshops covering 3 core ecommerce
-          functions. All Access Pass holders can select and attend up to 5
-          workshops, subject to availability. Workshop booking opens 7-10 days
-          before the event, and we will announce how to book. Workshops
-          scheduled at the same time cannot be selected together.
+          أكثر من 15 ورشة عمل في 3 مسارات. مع التذكرة الشاملة (All Access Pass) تختار منها حتى 5 ورش حسب الأماكن المتاحة. يفتح الحجز قبل الفعالية بـ 7 إلى 10 أيام وسنعلن طريقته، ولا يمكنك اختيار ورشتين في التوقيت نفسه.
         </div>
       </div>
     </div>
@@ -423,7 +486,7 @@
         >
           <div
             role="tablist"
-            aria-label="Agenda view"
+            aria-label="طريقة عرض الأجندة"
             style="
               display: inline-flex;
               border: 1px solid #d5dae0;
@@ -446,7 +509,7 @@
                 cursor: pointer;
               "
             >
-              Timeline View
+              عرض الجدول الزمني
             </button>
             <button
               id="btnRoom"
@@ -464,7 +527,7 @@
                 cursor: pointer;
               "
             >
-              Room View
+              عرض حسب القاعة
             </button>
           </div>
           <div style="display: flex; align-items: center; gap: 16px">
@@ -477,7 +540,7 @@
                 text-transform: uppercase;
                 color: #6b747e;
               "
-              >30 sessions</span
+              >30 جلسة</span
             >
             <button
               id="clearFilters"
@@ -492,7 +555,7 @@
                 padding: 0;
               "
             >
-              Clear filters
+              مسح الفلاتر
             </button>
           </div>
         </div>
@@ -506,7 +569,7 @@
               color: #6b747e;
               margin-right: 4px;
             "
-            >Workshops</span
+            >القاعة</span
           >
           <button
             class="room-chip active"
@@ -534,7 +597,7 @@
                 background: #6b747e;
               "
             ></span
-            >All Sessions
+            >كل الجلسات
           </button>
           <button
             class="room-chip"
@@ -562,7 +625,7 @@
                 background: #101010;
               "
             ></span
-            >Main Stage
+            >المسرح الرئيسي
           </button>
           <button
             class="room-chip"
@@ -590,7 +653,7 @@
                 background: #4a5563;
               "
             ></span
-            >Second Stage
+            >المسرح الثاني
           </button>
           <button
             class="room-chip"
@@ -618,7 +681,7 @@
                 background: #05ef62;
               "
             ></span
-            >Acquisition workshops
+            >ورش مسار جذب العملاء
           </button>
           <button
             class="room-chip"
@@ -646,7 +709,7 @@
                 background: #006681;
               "
             ></span
-            >CRO &amp; Retention workshops
+            >ورش مسار زيادة المبيعات والاحتفاظ بالعملاء
           </button>
           <button
             class="room-chip"
@@ -674,7 +737,7 @@
                 background: #ffb020;
               "
             ></span
-            >Operations &amp; Logistics workshops
+            >ورش مسار التشغيل والشحن
           </button>
           <span
             style="width: 1px; height: 20px; background: #e6eaee; margin: 0 6px"
@@ -688,7 +751,7 @@
               color: #6b747e;
               margin-right: 4px;
             "
-            >Formats</span
+            >نوع الجلسة</span
           >
           <button
             class="fmt-chip"
@@ -705,7 +768,7 @@
               cursor: pointer;
             "
           >
-            Keynotes
+            الكلمات الرئيسية
           </button>
           <button
             class="fmt-chip"
@@ -722,7 +785,7 @@
               cursor: pointer;
             "
           >
-            Panels
+            الجلسات النقاشية
           </button>
           <button
             class="fmt-chip"
@@ -739,7 +802,7 @@
               cursor: pointer;
             "
           >
-            Solo Talks
+            الجلسات الفردية
           </button>
           <button
             class="fmt-chip"
@@ -756,7 +819,7 @@
               cursor: pointer;
             "
           >
-            Workshops
+            ورش العمل
           </button>
           <span
             class="font-mono"
@@ -764,9 +827,9 @@
               font-size: 10px;
               letter-spacing: 0.06em;
               color: #6b747e;
-              margin-left: auto;
+              margin-right: auto;
             "
-            >* Selection updates the URL, filtered views are shareable</span
+            >* الفلاتر تحفظ في رابط الصفحة، فيمكنك مشاركته كما هو</span
           >
         </div>
       </div>
@@ -802,7 +865,7 @@
             <span
               class="font-mono"
               style="font-size: 11px; letter-spacing: 0.12em; color: #101010"
-              >MAIN STAGE</span
+              >المسرح الرئيسي</span
             >
           </div>
           <div
@@ -814,7 +877,7 @@
               line-height: 1.35;
             "
           >
-            The full picture of the business
+            الصورة الكبيرة
           </div>
           <div
             style="
@@ -823,7 +886,7 @@
               line-height: 1.6;
             "
           >
-            Founders, leaders, decision makers
+            مؤسسون وقيادات يتكلمون عن قرارات اتخذوها
           </div>
         </div>
         <div
@@ -853,7 +916,7 @@
             <span
               class="font-mono"
               style="font-size: 11px; letter-spacing: 0.12em; color: #4a5563"
-              >SECOND STAGE</span
+              >المسرح الثاني</span
             >
           </div>
           <div
@@ -865,7 +928,7 @@
               line-height: 1.35;
             "
           >
-            Local brands on what actually happened
+            علامات محلية تحكي ما حدث فعلاً
           </div>
           <div
             style="
@@ -874,7 +937,7 @@
               line-height: 1.6;
             "
           >
-            Anyone who wants the detail behind a result
+            لمن يسأل: وكيف وصلتم لهذا الرقم؟
           </div>
         </div>
         <div
@@ -904,7 +967,7 @@
             <span
               class="font-mono"
               style="font-size: 11px; letter-spacing: 0.12em; color: #04c44e"
-              >ACQUISITION</span
+              >مسار جذب العملاء (Acquisition)</span
             >
           </div>
           <div
@@ -916,7 +979,7 @@
               line-height: 1.35;
             "
           >
-            Build the system that brings demand
+            ابن نظاماً يجلب الطلبات باستمرار
           </div>
           <div
             style="
@@ -925,7 +988,7 @@
               line-height: 1.6;
             "
           >
-            Marketing, performance, SEO, content
+            التسويق، والإعلانات المدفوعة، وSEO، والمحتوى
           </div>
         </div>
         <div
@@ -955,7 +1018,7 @@
             <span
               class="font-mono"
               style="font-size: 11px; letter-spacing: 0.12em; color: #006681"
-              >CRO &amp; RETENTION</span
+              >مسار زيادة المبيعات والاحتفاظ بالعملاء (CRO & Retention)</span
             >
           </div>
           <div
@@ -967,7 +1030,7 @@
               line-height: 1.35;
             "
           >
-            Turn visits into orders, and orders into repeat customers
+            حول الزيارات إلى طلبات، والطلبات إلى عملاء يعودون
           </div>
           <div
             style="
@@ -976,7 +1039,7 @@
               line-height: 1.6;
             "
           >
-            Product, design, CRO, growth
+            المنتج، والتصميم، وCRO، والنمو
           </div>
         </div>
         <div
@@ -1006,7 +1069,7 @@
             <span
               class="font-mono"
               style="font-size: 11px; letter-spacing: 0.12em; color: #8a5a00"
-              >OPERATIONS &amp; LOGISTICS</span
+              >مسار التشغيل والشحن (Operations & Logistics)</span
             >
           </div>
           <div
@@ -1018,7 +1081,7 @@
               line-height: 1.35;
             "
           >
-            Deliver on time and protect the margin
+            سلم في الموعد واحم هامش الربح
           </div>
           <div
             style="
@@ -1027,7 +1090,7 @@
               line-height: 1.6;
             "
           >
-            Operations, CX, fulfillment
+            التشغيل، وتجربة العميل، وتجهيز الطلبات
           </div>
         </div>
       </div>
@@ -1060,8 +1123,7 @@
           <circle cx="12" cy="12" r="9"></circle>
           <path d="M12 7v5l3 2"></path>
         </svg>
-        Session topics and times are still being finalized, so a few may shift
-        slightly over the coming days.
+        نؤكد الآن موضوعات الجلسات ومواعيدها مع المتحدثين، فقد يتغير بعضها قليلاً في الأيام القادمة.
       </p>
       <div
         id="timelineColumns"
@@ -1074,7 +1136,7 @@
         "
       >
         <p id="timelineLoading" style="grid-column: 1 / -1; color: #6b747e; font-size: 14px; margin: 8px 0">
-          Loading agenda…
+          جار تحميل الأجندة...
         </p>
       </div>
     </div>
@@ -1114,7 +1176,7 @@
               background: #101010;
             "
           ></span
-          >Main Stage
+          >المسرح الرئيسي
         </button>
         <button
           class="tv-room-btn"
@@ -1142,7 +1204,7 @@
               background: #4a5563;
             "
           ></span
-          >Second Stage
+          >المسرح الثاني
         </button>
         <button
           class="tv-room-btn"
@@ -1170,7 +1232,7 @@
               background: #05ef62;
             "
           ></span
-          >Acquisition
+          >مسار جذب العملاء
         </button>
         <button
           class="tv-room-btn"
@@ -1198,7 +1260,7 @@
               background: #006681;
             "
           ></span
-          >CRO &amp; Retention
+          >مسار زيادة المبيعات والاحتفاظ بالعملاء
         </button>
         <button
           class="tv-room-btn"
@@ -1226,7 +1288,7 @@
               background: #ffb020;
             "
           ></span
-          >Operations &amp; Logistics
+          >مسار التشغيل والشحن
         </button>
       </div>
       <div id="roomPanels"></div>
@@ -1238,18 +1300,15 @@
           font-style: italic;
         "
       >
-        Times shown are working times and may change before the final run of
-        show.
+        المواعيد المعروضة مبدئية، وقد تتغير قبل الجدول النهائي.
       </div>
     </div>
 
     <!-- Plan Your Day (mint band, brand light green) -->
     <div style="background: #e6fbee; border-top: 1px solid #c3f7d7">
     <div class="container section-padding">
-      <div class="section-label">
-        <span class="font-mono">Plan Your Day</span>
-      </div>
-      <h2 class="section-title">Logistics, in one place</h2>
+      <h2 class="section-title ar-has-sub">خطط ليومك</h2>
+      <p class="ar-section-sub">ما تحتاجه قبل أن تخرج من البيت</p>
       <div class="grid-4-cols">
         <div
           style="
@@ -1269,7 +1328,7 @@
               margin-bottom: 14px;
             "
           >
-            Event Timing
+            مواعيد اليوم
           </div>
           <div
             style="
@@ -1281,33 +1340,33 @@
             "
           >
             <div style="display: flex; justify-content: space-between">
-              <span>Registration</span
+              <span>التسجيل</span
               ><span class="font-mono" style="font-size: 10px; color: #6b747e"
-                >10:00 AM</span
+                >10:00 صباحاً</span
               >
             </div>
             <div style="display: flex; justify-content: space-between">
-              <span>Opening</span
+              <span>الافتتاح</span
               ><span class="font-mono" style="font-size: 10px; color: #6b747e"
-                >11:00 AM</span
+                >11:00 صباحاً</span
               >
             </div>
             <div style="display: flex; justify-content: space-between">
-              <span>Sessions</span
+              <span>الجلسات</span
               ><span class="font-mono" style="font-size: 10px; color: #6b747e"
-                >11:00 AM - 7:00 PM</span
+                >من 11:00 صباحاً إلى 7:00 مساءً</span
               >
             </div>
             <div style="display: flex; justify-content: space-between">
-              <span>Closing</span
+              <span>الختام</span
               ><span class="font-mono" style="font-size: 10px; color: #6b747e"
-                >TIME COMING SOON</span
+                >يعلن الموعد قريباً</span
               >
             </div>
             <div style="display: flex; justify-content: space-between">
-              <span>Networking</span
+              <span>التعارف</span
               ><span class="font-mono" style="font-size: 10px; color: #6b747e"
-                >TIME COMING SOON</span
+                >يعلن الموعد قريباً</span
               >
             </div>
           </div>
@@ -1330,7 +1389,7 @@
               margin-bottom: 14px;
             "
           >
-            Venue
+            المكان
           </div>
           <div
             style="
@@ -1351,7 +1410,7 @@
               sizes="(max-width: 768px) calc(100vw - 48px), (max-width: 1024px) 45vw, 300px"
               width="640"
               height="640"
-              alt="Aerial view of Creativa Innovation Hub courtyard with the TrafficMENA logo"
+              alt="صورة من أعلى لساحة كريتيفا وعليها شعار TrafficMENA"
               loading="lazy"
               decoding="async"
               style="
@@ -1368,16 +1427,16 @@
               href="https://maps.app.goo.gl/LxbaM9baBAA8t9Pv9"
               target="_blank"
               rel="noopener"
-              aria-label="Creativa Innovation Hub, Giza (open in Google Maps, new tab)"
+              aria-label="مركز إبداع مصر الرقمية (كريتيفا)، الجيزة (يفتح في خرائط Google في نافذة جديدة)"
               style="
                 color: #101010;
                 font-weight: 600;
                 text-decoration: underline;
                 text-underline-offset: 2px;
               "
-              >Creativa Innovation Hub, Giza</a
+              >مركز إبداع مصر الرقمية (كريتيفا)، الجيزة</a
             ><br /><span style="color: #6b747e"
-              >Entrance, parking and accessibility info will follow.</span
+              >نرسل لك قبل الفعالية تفاصيل الدخول ومواقف السيارات وتسهيلات الحركة.</span
             >
           </div>
         </div>
@@ -1399,7 +1458,7 @@
               margin-bottom: 14px;
             "
           >
-            Room Guide
+            دليل القاعات
           </div>
           <div
             style="
@@ -1419,7 +1478,7 @@
                   background: #101010;
                 "
               ></span
-              >Main Stage
+              >المسرح الرئيسي
             </div>
             <div style="display: flex; align-items: center; gap: 8px">
               <span
@@ -1430,7 +1489,7 @@
                   background: #4a5563;
                 "
               ></span
-              >Second Stage
+              >المسرح الثاني
             </div>
             <div style="display: flex; align-items: center; gap: 8px">
               <span
@@ -1441,7 +1500,7 @@
                   background: #05ef62;
                 "
               ></span
-              >Acquisition workshops
+              >ورش مسار جذب العملاء
             </div>
             <div style="display: flex; align-items: center; gap: 8px">
               <span
@@ -1452,7 +1511,7 @@
                   background: #006681;
                 "
               ></span
-              >CRO &amp; Retention workshops
+              >ورش مسار زيادة المبيعات والاحتفاظ بالعملاء
             </div>
             <div style="display: flex; align-items: center; gap: 8px">
               <span
@@ -1463,10 +1522,10 @@
                   background: #ffb020;
                 "
               ></span
-              >Operations &amp; Logistics workshops
+              >ورش مسار التشغيل والشحن
             </div>
             <div style="color: #4a5563">
-              Registration · Sponsors Area · Prayer Room · Help Desk
+              التسجيل · منطقة الرعاة · مصلى · مكتب المساعدة
             </div>
           </div>
         </div>
@@ -1488,7 +1547,7 @@
               margin-bottom: 14px;
             "
           >
-            Before You Arrive
+            قبل أن تصل
           </div>
           <div
             style="
@@ -1501,20 +1560,16 @@
             "
           >
             <div style="display: flex; gap: 8px">
-              <span style="color: #04c44e">✓</span>Have your QR ticket ready on
-              your phone
+              <span style="color: #04c44e">✓</span>جهز تذكرتك (رمز QR) على هاتفك
             </div>
             <div style="display: flex; gap: 8px">
-              <span style="color: #04c44e">✓</span>Book your workshops when
-              booking opens, 7-10 days before the event
+              <span style="color: #04c44e">✓</span>احجز ورشك فور فتح الحجز، قبل الفعالية بـ 7 إلى 10 أيام
             </div>
             <div style="display: flex; gap: 8px">
-              <span style="color: #04c44e">✓</span>Bring a laptop if your
-              workshop needs one
+              <span style="color: #04c44e">✓</span>أحضر حاسوبك المحمول إن كانت ورشتك تحتاجه
             </div>
             <div style="display: flex; gap: 8px">
-              <span style="color: #04c44e">✓</span>Arrive early. Registration
-              takes time
+              <span style="color: #04c44e">✓</span>تعال مبكراً، التسجيل يأخذ وقتاً
             </div>
           </div>
         </div>
@@ -1531,10 +1586,8 @@
 
     <!-- FAQ -->
     <div class="container section-padding">
-      <div class="section-label">
-        <span class="font-mono">Agenda FAQ</span>
-      </div>
-      <h2 class="section-title">Plan Your Day With Confidence</h2>
+      <h2 class="section-title ar-has-sub">أسئلة عن الأجندة</h2>
+      <p class="ar-section-sub">حتى لا تفاجأ يوم الفعالية</p>
       <div style="max-width: 860px; border-top: 1px solid #e6eaee">
         <div style="border-bottom: 1px solid #e6eaee">
           <button
@@ -1556,7 +1609,7 @@
               border: none;
               padding: 20px 4px;
               cursor: pointer;
-              text-align: left;
+              text-align: right;
             "
           >
             <span
@@ -1566,7 +1619,7 @@
                 font-size: 16px;
                 color: #101010;
               "
-              >Which sessions can I access with each pass?</span
+              >ما الجلسات المتاحة مع كل تذكرة؟</span
             >
             <span style="color: #04c44e; font-size: 20px; flex: none">+</span>
           </button>
@@ -1580,8 +1633,7 @@
               max-width: 70ch;
             "
           >
-            <p style="margin: 0 0 12px">The Standard Pass includes access to the Main Stage and Second Stage.</p>
-            <p style="margin: 0">The All Access Pass includes both stages, plus the opportunity to select up to five workshops from more than 15 options across three core ecommerce functions.</p>
+            <p style="margin: 0">التذكرة الأساسية (Standard Pass) تدخلك المسرح الرئيسي والمسرح الثاني. والتذكرة الشاملة (All Access Pass) تدخلك المسرحين، ومعهما حتى خمس ورش تختارها من أكثر من 15 ورشة في ثلاثة مسارات.</p>
           </div>
         </div>
         <div style="border-bottom: 1px solid #e6eaee">
@@ -1604,7 +1656,7 @@
               border: none;
               padding: 20px 4px;
               cursor: pointer;
-              text-align: left;
+              text-align: right;
             "
           >
             <span
@@ -1614,7 +1666,7 @@
                 font-size: 16px;
                 color: #101010;
               "
-              >How do I select my workshops?</span
+              >كيف أختار ورشي؟</span
             >
             <span style="color: #04c44e; font-size: 20px; flex: none">+</span>
           </button>
@@ -1628,8 +1680,7 @@
               max-width: 70ch;
             "
           >
-            <p style="margin: 0 0 12px">Workshop booking opens 7-10 days before the event, and we will announce how to book. All Access holders can select up to five workshops, subject to availability.</p>
-            <p style="margin: 0">Your selected workshops must not overlap, allowing you to attend each one in full.</p>
+            <p style="margin: 0">يفتح الحجز قبل الفعالية بـ 7 إلى 10 أيام، وسنعلن طريقته. لحاملي التذكرة الشاملة حتى خمس ورش حسب الأماكن المتاحة، بشرط ألا تتداخل مواعيدها حتى تحضر كل ورشة من أولها لآخرها.</p>
           </div>
         </div>
         <div style="border-bottom: 1px solid #e6eaee">
@@ -1652,7 +1703,7 @@
               border: none;
               padding: 20px 4px;
               cursor: pointer;
-              text-align: left;
+              text-align: right;
             "
           >
             <span
@@ -1662,7 +1713,7 @@
                 font-size: 16px;
                 color: #101010;
               "
-              >Can I change my workshop selection after booking?</span
+              >هل يمكنني تغيير اختيار الورش بعد الحجز؟</span
             >
             <span style="color: #04c44e; font-size: 20px; flex: none">+</span>
           </button>
@@ -1676,8 +1727,7 @@
               max-width: 70ch;
             "
           >
-            <p style="margin: 0 0 12px">Workshop selections are final once your booking is confirmed.</p>
-            <p style="margin: 0">Each selection reserves a limited seat that immediately becomes unavailable to other attendees, so changes cannot be accommodated after confirmation. We recommend reviewing the workshop timings carefully before completing your booking.</p>
+            <p style="margin: 0">لا. يصبح اختيارك نهائياً بمجرد تأكيد الحجز، لأن كل مقعد تحجزه يخرج فوراً من المتاح لغيرك. راجع المواعيد جيداً قبل أن تؤكد.</p>
           </div>
         </div>
         <div style="border-bottom: 1px solid #e6eaee">
@@ -1700,7 +1750,7 @@
               border: none;
               padding: 20px 4px;
               cursor: pointer;
-              text-align: left;
+              text-align: right;
             "
           >
             <span
@@ -1710,7 +1760,7 @@
                 font-size: 16px;
                 color: #101010;
               "
-              >Can I upgrade from Standard to All Access?</span
+              >هل يمكنني الترقية من التذكرة الأساسية إلى الشاملة؟</span
             >
             <span style="color: #04c44e; font-size: 20px; flex: none">+</span>
           </button>
@@ -1724,234 +1774,211 @@
               max-width: 70ch;
             "
           >
-            <p style="margin: 0 0 12px">Yes. Our team upgrades passes on request before the event, subject to All Access availability.</p>
-            <p style="margin: 0 0 12px">Workshop selection will depend on the remaining capacity at the time your upgrade is confirmed.</p>
+            <p style="margin: 0">نعم، قبل الفعالية وحسب توفر التذكرة الشاملة. يرقي فريقنا تذكرتك عند الطلب، وتختار ورشك من الأماكن المتبقية وقت تأكيد الترقية.</p>
+          </div>
+        </div>
+        <div style="border-bottom: 1px solid #e6eaee">
+          <button
+            type="button"
+            onclick="
+              var open = this.nextElementSibling.style.display === 'block';
+              this.nextElementSibling.style.display = open ? 'none' : 'block';
+              this.setAttribute('aria-expanded', open ? 'false' : 'true');
+              this.lastElementChild.textContent = open ? '+' : '\u2212';
+            "
+            aria-expanded="false"
+            style="
+              width: 100%;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              gap: 16px;
+              background: none;
+              border: none;
+              padding: 20px 4px;
+              cursor: pointer;
+              text-align: right;
+            "
+          >
+            <span
+              style="
+                font-family: Manrope, sans-serif;
+                font-weight: 700;
+                font-size: 16px;
+                color: #101010;
+              "
+              >متى تعلن الأجندة النهائية؟</span
+            >
+            <span style="color: #04c44e; font-size: 20px; flex: none">+</span>
+          </button>
+          <div
+            style="
+              display: none;
+              font-size: 15px;
+              line-height: 1.8;
+              color: #4a5563;
+              padding: 0 4px 22px;
+              max-width: 70ch;
+            "
+          >
+            <p style="margin: 0">نحدثها كلما تأكد متحدث أو جلسة، وننشر الجدول الكامل قبل الفعالية. وأي تغيير مهم يصل للحضور المسجلين مباشرة.</p>
+          </div>
+        </div>
+        <div style="border-bottom: 1px solid #e6eaee">
+          <button
+            type="button"
+            onclick="
+              var open = this.nextElementSibling.style.display === 'block';
+              this.nextElementSibling.style.display = open ? 'none' : 'block';
+              this.setAttribute('aria-expanded', open ? 'false' : 'true');
+              this.lastElementChild.textContent = open ? '+' : '\u2212';
+            "
+            aria-expanded="false"
+            style="
+              width: 100%;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              gap: 16px;
+              background: none;
+              border: none;
+              padding: 20px 4px;
+              cursor: pointer;
+              text-align: right;
+            "
+          >
+            <span
+              style="
+                font-family: Manrope, sans-serif;
+                font-weight: 700;
+                font-size: 16px;
+                color: #101010;
+              "
+              >هل ملفات ونماذج الورش متاحة مع التذكرتين؟</span
+            >
+            <span style="color: #04c44e; font-size: 20px; flex: none">+</span>
+          </button>
+          <div
+            style="
+              display: none;
+              font-size: 15px;
+              line-height: 1.8;
+              color: #4a5563;
+              padding: 0 4px 22px;
+              max-width: 70ch;
+            "
+          >
+            <p style="margin: 0">لا، هي لحاملي التذكرة الشاملة فقط، وتصلهم بالبريد الإلكتروني بعد الفعالية.</p>
+          </div>
+        </div>
+        <div style="border-bottom: 1px solid #e6eaee">
+          <button
+            type="button"
+            onclick="
+              var open = this.nextElementSibling.style.display === 'block';
+              this.nextElementSibling.style.display = open ? 'none' : 'block';
+              this.setAttribute('aria-expanded', open ? 'false' : 'true');
+              this.lastElementChild.textContent = open ? '+' : '\u2212';
+            "
+            aria-expanded="false"
+            style="
+              width: 100%;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              gap: 16px;
+              background: none;
+              border: none;
+              padding: 20px 4px;
+              cursor: pointer;
+              text-align: right;
+            "
+          >
+            <span
+              style="
+                font-family: Manrope, sans-serif;
+                font-weight: 700;
+                font-size: 16px;
+                color: #101010;
+              "
+              >ما المحتوى الذي يصلني بعد الفعالية مع كل تذكرة؟</span
+            >
+            <span style="color: #04c44e; font-size: 20px; flex: none">+</span>
+          </button>
+          <div
+            style="
+              display: none;
+              font-size: 15px;
+              line-height: 1.8;
+              color: #4a5563;
+              padding: 0 4px 22px;
+              max-width: 70ch;
+            "
+          >
+            <p style="margin: 0">التذكرة الأساسية تغطي يوم الحضور على المسرحين فقط. والشاملة تضيف شرائح العروض وملفات ونماذج الورش، نرسلها بالبريد الإلكتروني بعد الفعالية.</p>
+          </div>
+        </div>
+        <div style="border-bottom: 1px solid #e6eaee">
+          <button
+            type="button"
+            onclick="
+              var open = this.nextElementSibling.style.display === 'block';
+              this.nextElementSibling.style.display = open ? 'none' : 'block';
+              this.setAttribute('aria-expanded', open ? 'false' : 'true');
+              this.lastElementChild.textContent = open ? '+' : '\u2212';
+            "
+            aria-expanded="false"
+            style="
+              width: 100%;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              gap: 16px;
+              background: none;
+              border: none;
+              padding: 20px 4px;
+              cursor: pointer;
+              text-align: right;
+            "
+          >
+            <span
+              style="
+                font-family: Manrope, sans-serif;
+                font-weight: 700;
+                font-size: 16px;
+                color: #101010;
+              "
+              >هل يمكنني استرداد ثمن التذكرة أو نقلها لشخص آخر؟</span
+            >
+            <span style="color: #04c44e; font-size: 20px; flex: none">+</span>
+          </button>
+          <div
+            style="
+              display: none;
+              font-size: 15px;
+              line-height: 1.8;
+              color: #4a5563;
+              padding: 0 4px 22px;
+              max-width: 70ch;
+            "
+          >
+            <p style="margin: 0 0 12px">الاسترداد الكامل متاح حتى نهاية يوم 30 أكتوبر 2026، أي قبل الفعالية بخمسة أيام. أرسل طلبك إلى info@trafficmena.com من البريد الإلكتروني الذي حجزت به، ويعود المبلغ بوسيلة الدفع نفسها. بعد هذا التاريخ لا نقبل طلبات الاسترداد.</p>
+            <p style="margin: 0 0 12px">التذاكر شخصية ولا يمكن نقلها لحاضر آخر.</p>
             <p style="margin: 0">
-              Contact us through email at
+              تواصل معنا:
               <a
                 href="mailto:info@trafficmena.com"
                 style="color: #101010; font-weight: 600; text-decoration: underline; text-underline-offset: 2px"
                 >info@trafficmena.com</a
               >
-              or
+              أو
               <a
                 class="wa-btn"
-                href="https://wa.me/201505437979?text=I%20need%20help%20for%20Ecommerce%20Day%202026"
+                href="https://wa.me/201505437979?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D9%85%D8%AD%D8%AA%D8%A7%D8%AC%20%D9%85%D8%B3%D8%A7%D8%B9%D8%AF%D8%A9%20%D8%A8%D8%AE%D8%B5%D9%88%D8%B5%20%D9%8A%D9%88%D9%85%20%D8%A7%D9%84%D8%AA%D8%AC%D8%A7%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A5%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A%D8%A9%202026"
                 target="_blank"
                 rel="noopener"
-                aria-label="Chat with us on WhatsApp (opens in a new tab)"
-                ><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35ZM12.05 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.41 9.41 0 0 1-1.44-5.02c0-5.2 4.23-9.43 9.43-9.43 2.52 0 4.89.98 6.67 2.77a9.37 9.37 0 0 1 2.76 6.67c0 5.2-4.23 9.43-9.43 9.43Zm8.02-17.45A11.27 11.27 0 0 0 12.05.73C5.8.73.72 5.81.72 12.06c0 2 .52 3.95 1.52 5.66L.62 23.6l6.02-1.58a11.3 11.3 0 0 0 5.41 1.38h.01c6.25 0 11.33-5.08 11.33-11.33 0-3.03-1.18-5.87-3.32-8.02Z"/></svg><span>WhatsApp</span></a
-              >
-            </p>
-          </div>
-        </div>
-        <div style="border-bottom: 1px solid #e6eaee">
-          <button
-            type="button"
-            onclick="
-              var open = this.nextElementSibling.style.display === 'block';
-              this.nextElementSibling.style.display = open ? 'none' : 'block';
-              this.setAttribute('aria-expanded', open ? 'false' : 'true');
-              this.lastElementChild.textContent = open ? '+' : '\u2212';
-            "
-            aria-expanded="false"
-            style="
-              width: 100%;
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              gap: 16px;
-              background: none;
-              border: none;
-              padding: 20px 4px;
-              cursor: pointer;
-              text-align: left;
-            "
-          >
-            <span
-              style="
-                font-family: Manrope, sans-serif;
-                font-weight: 700;
-                font-size: 16px;
-                color: #101010;
-              "
-              >When will the final agenda be announced?</span
-            >
-            <span style="color: #04c44e; font-size: 20px; flex: none">+</span>
-          </button>
-          <div
-            style="
-              display: none;
-              font-size: 15px;
-              line-height: 1.8;
-              color: #4a5563;
-              padding: 0 4px 22px;
-              max-width: 70ch;
-            "
-          >
-            <p style="margin: 0 0 12px">The agenda will continue to be updated as speakers and sessions are confirmed.</p>
-            <p style="margin: 0">The complete schedule will be shared before the event, and registered attendees will receive all key updates directly.</p>
-          </div>
-        </div>
-        <div style="border-bottom: 1px solid #e6eaee">
-          <button
-            type="button"
-            onclick="
-              var open = this.nextElementSibling.style.display === 'block';
-              this.nextElementSibling.style.display = open ? 'none' : 'block';
-              this.setAttribute('aria-expanded', open ? 'false' : 'true');
-              this.lastElementChild.textContent = open ? '+' : '\u2212';
-            "
-            aria-expanded="false"
-            style="
-              width: 100%;
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              gap: 16px;
-              background: none;
-              border: none;
-              padding: 20px 4px;
-              cursor: pointer;
-              text-align: left;
-            "
-          >
-            <span
-              style="
-                font-family: Manrope, sans-serif;
-                font-weight: 700;
-                font-size: 16px;
-                color: #101010;
-              "
-              >Are workshop templates and files included with both passes?</span
-            >
-            <span style="color: #04c44e; font-size: 20px; flex: none">+</span>
-          </button>
-          <div
-            style="
-              display: none;
-              font-size: 15px;
-              line-height: 1.8;
-              color: #4a5563;
-              padding: 0 4px 22px;
-              max-width: 70ch;
-            "
-          >
-            <p style="margin: 0 0 12px">Workshop templates and supporting files are exclusive to the All Access Pass.</p>
-            <p style="margin: 0">All Access holders will receive these resources by email after the event.</p>
-          </div>
-        </div>
-        <div style="border-bottom: 1px solid #e6eaee">
-          <button
-            type="button"
-            onclick="
-              var open = this.nextElementSibling.style.display === 'block';
-              this.nextElementSibling.style.display = open ? 'none' : 'block';
-              this.setAttribute('aria-expanded', open ? 'false' : 'true');
-              this.lastElementChild.textContent = open ? '+' : '\u2212';
-            "
-            aria-expanded="false"
-            style="
-              width: 100%;
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              gap: 16px;
-              background: none;
-              border: none;
-              padding: 20px 4px;
-              cursor: pointer;
-              text-align: left;
-            "
-          >
-            <span
-              style="
-                font-family: Manrope, sans-serif;
-                font-weight: 700;
-                font-size: 16px;
-                color: #101010;
-              "
-              >What post-event content is included with each pass?</span
-            >
-            <span style="color: #04c44e; font-size: 20px; flex: none">+</span>
-          </button>
-          <div
-            style="
-              display: none;
-              font-size: 15px;
-              line-height: 1.8;
-              color: #4a5563;
-              padding: 0 4px 22px;
-              max-width: 70ch;
-            "
-          >
-            <p style="margin: 0 0 12px">The Standard Pass covers the live day on both stages.</p>
-            <p style="margin: 0">The All Access Pass adds the presentation slides and the Workshop Templates &amp; Files, sent by email after the event.</p>
-          </div>
-        </div>
-        <div style="border-bottom: 1px solid #e6eaee">
-          <button
-            type="button"
-            onclick="
-              var open = this.nextElementSibling.style.display === 'block';
-              this.nextElementSibling.style.display = open ? 'none' : 'block';
-              this.setAttribute('aria-expanded', open ? 'false' : 'true');
-              this.lastElementChild.textContent = open ? '+' : '\u2212';
-            "
-            aria-expanded="false"
-            style="
-              width: 100%;
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              gap: 16px;
-              background: none;
-              border: none;
-              padding: 20px 4px;
-              cursor: pointer;
-              text-align: left;
-            "
-          >
-            <span
-              style="
-                font-family: Manrope, sans-serif;
-                font-weight: 700;
-                font-size: 16px;
-                color: #101010;
-              "
-              >Can I request a refund or transfer my ticket?</span
-            >
-            <span style="color: #04c44e; font-size: 20px; flex: none">+</span>
-          </button>
-          <div
-            style="
-              display: none;
-              font-size: 15px;
-              line-height: 1.8;
-              color: #4a5563;
-              padding: 0 4px 22px;
-              max-width: 70ch;
-            "
-          >
-            <p style="margin: 0 0 12px">A full refund is available until the end of 30 October 2026, five days before the event.</p>
-            <p style="margin: 0 0 12px">To request a refund, email info@trafficmena.com before the deadline using the email associated with your booking.</p>
-            <p style="margin: 0 0 12px">Requests received after this date cannot be accepted. Tickets are non-transferable and cannot be reassigned to another attendee.</p>
-            <p style="margin: 0 0 12px">Approved refunds will be returned through the original payment method.</p>
-            <p style="margin: 0">
-              For assistance, contact
-              <a
-                href="mailto:info@trafficmena.com"
-                style="color: #101010; font-weight: 600; text-decoration: underline; text-underline-offset: 2px"
-                >info@trafficmena.com</a
-              >
-              or
-              <a
-                class="wa-btn"
-                href="https://wa.me/201505437979?text=I%20need%20help%20for%20Ecommerce%20Day%202026"
-                target="_blank"
-                rel="noopener"
-                aria-label="Chat with us on WhatsApp (opens in a new tab)"
-                ><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35ZM12.05 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.41 9.41 0 0 1-1.44-5.02c0-5.2 4.23-9.43 9.43-9.43 2.52 0 4.89.98 6.67 2.77a9.37 9.37 0 0 1 2.76 6.67c0 5.2-4.23 9.43-9.43 9.43Zm8.02-17.45A11.27 11.27 0 0 0 12.05.73C5.8.73.72 5.81.72 12.06c0 2 .52 3.95 1.52 5.66L.62 23.6l6.02-1.58a11.3 11.3 0 0 0 5.41 1.38h.01c6.25 0 11.33-5.08 11.33-11.33 0-3.03-1.18-5.87-3.32-8.02Z"/></svg><span>WhatsApp</span></a
+                aria-label="تواصل معنا على واتساب (يفتح في نافذة جديدة)"
+                ><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35ZM12.05 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.41 9.41 0 0 1-1.44-5.02c0-5.2 4.23-9.43 9.43-9.43 2.52 0 4.89.98 6.67 2.77a9.37 9.37 0 0 1 2.76 6.67c0 5.2-4.23 9.43-9.43 9.43Zm8.02-17.45A11.27 11.27 0 0 0 12.05.73C5.8.73.72 5.81.72 12.06c0 2 .52 3.95 1.52 5.66L.62 23.6l6.02-1.58a11.3 11.3 0 0 0 5.41 1.38h.01c6.25 0 11.33-5.08 11.33-11.33 0-3.03-1.18-5.87-3.32-8.02Z"/></svg><span>واتساب</span></a
               >
             </p>
           </div>
@@ -1972,7 +1999,7 @@
             max-width: 30ch;
           "
         >
-          Pick the sessions you'll attend. Build your ECommerce Day.
+          اختر جلساتك، ورتب يومك بنفسك.
         </h2>
         <div
           style="
@@ -1984,13 +2011,15 @@
         >
           <a
             href="tickets.html"
+            data-ar-link
             class="btn-primary"
             style="padding: 15px 28px; font-size: 16px"
           >
-            Book Your Ticket
+            احجز تذكرتك
           </a>
           <a
             href="tickets.html"
+            data-ar-link
             class="btn-secondary"
             style="
               background: transparent;
@@ -2000,7 +2029,7 @@
               font-size: 16px;
             "
           >
-            Compare Ticket Types
+            قارن بين التذاكر
           </a>
         </div>
       </div>
@@ -2010,9 +2039,9 @@
     <site-footer></site-footer>
 
     <!-- Scripts -->
-    <script src="prices.js?v=20261008a"></script>
+    <script src="prices.js?v=20261012b"></script>
     <script src="ecd-api.js?v=20261012a"></script>
-    <script src="ecd-content.js?v=20261012a"></script>
+    <script src="ecd-content.js?v=20261012b"></script>
     <script>
       // ==========================================
       // 00. DATA
@@ -2059,14 +2088,14 @@
           time: s.timeLabel,
           fmt: s.format || "Session",
           cat: s.category || "",
-          title: s.title || "Will be announced",
+          title: s.title || "يعلن قريباً",
           speaker: s.speakerLabel || "Speaker will be announced",
           topics: s.topics || [],
           desc: s.description || "",
           learn: s.learn || [],
-          output: s.output || "Announced soon",
+          output: s.output || "يعلن قريباً",
           tools: s.tools || "None",
-          level: s.level || "All levels",
+          level: s.level || "كل المستويات",
           fullJourneyOnly: !!s.fullJourneyOnly,
         };
       }
@@ -2108,9 +2137,9 @@
 
       function accessPill(tr) {
         if (tr <= 1) {
-          return '<span style="border-radius:999px;padding:3px 10px;font-size:11px;font-weight:600;background:#f4f6f8;border:1px solid #e6eaee;color:#4a5563;">All Tickets</span>';
+          return '<span style="border-radius:999px;padding:3px 10px;font-size:11px;font-weight:600;background:#f4f6f8;border:1px solid #e6eaee;color:#4a5563;">كل التذاكر</span>';
         }
-        return '<span style="border-radius:999px;padding:3px 10px;font-size:11px;font-weight:600;background:#101010;border:1px solid #101010;color:#05ef62;">All Access Pass Only</span>';
+        return '<span style="border-radius:999px;padding:3px 10px;font-size:11px;font-weight:600;background:#101010;border:1px solid #101010;color:#05ef62;">التذكرة الشاملة فقط</span>';
       }
 
       // ==========================================
@@ -2122,15 +2151,15 @@
         return (
           '<div class="session-card" data-session="' +
           esc(s.id) +
-          '" style="text-align:left;background:#ffffff;border:1px solid #d5dae0;border-radius:12px;padding:' +
+          '" style="text-align:right;background:#ffffff;border:1px solid #d5dae0;border-radius:12px;padding:' +
           pad +
-          ';font-family:Manrope,sans-serif;display:block;width:100%;">' +
+          ';display:block;width:100%;">' +
           '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">' +
           '<span class="font-mono" style="font-size:10px;letter-spacing:.08em;color:#101010;">' +
           esc(s.time) +
           "</span>" +
-          "<span style=\"border:1px solid #e6eaee;border-radius:999px;padding:2px 8px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:#4a5563;\">" +
-          esc(s.fmt) +
+          "<span style=\"border:1px solid #e6eaee;border-radius:999px;padding:2px 8px;font-size:10px;color:#4a5563;\">" +
+          esc(EcdI18n.label(s.fmt)) +
           "</span></div>" +
           '<div style="font-weight:700;font-size:' +
           titleSize +
@@ -2138,7 +2167,7 @@
           esc(s.title) +
           "</div>" +
           '<div style="font-size:11px;color:#6b747e;margin-bottom:10px;">' +
-          esc(s.speaker) +
+          esc(EcdI18n.label(s.speaker)) +
           "</div>" +
           '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
           accessPill(s.tr) +
@@ -2153,23 +2182,23 @@
         var container = document.getElementById("timelineColumns");
         if (!container) return;
         var headers = [
-          "MAIN STAGE",
-          "SECOND STAGE",
-          "ACQUISITION",
-          "CRO & RETENTION",
-          "OPERATIONS & LOGISTICS",
+          "المسرح الرئيسي",
+          "المسرح الثاني",
+          "جذب العملاء",
+          "زيادة المبيعات والاحتفاظ بالعملاء",
+          "التشغيل والشحن",
         ];
         // Main Stage markers from data.text (Opening / Breaks / Closing)
         // Venue-wide breaks, shown in every column by time.
         // Prayer times: Giza, Thursday 5 November 2026, Egypt winter time (UTC+2):
         // Dhuhr 11:40 AM · Asr 2:43 PM · Maghrib 5:05 PM.
         var BREAKS = [
-          { start: "11:40", end: "12:00", label: "Dhuhr prayer break" },
-          { start: "1:00", end: "1:40", label: "Lunch break" },
-          { start: "2:45", end: "3:05", label: "Asr prayer break" },
-          { start: "5:15", end: "5:35", label: "Maghrib prayer break" },
+          { start: "11:40", end: "12:00", label: "استراحة صلاة الظهر" },
+          { start: "1:00", end: "1:40", label: "استراحة الغداء" },
+          { start: "2:45", end: "3:05", label: "استراحة صلاة العصر" },
+          { start: "5:15", end: "5:35", label: "استراحة صلاة المغرب" },
         ];
-        var CLOSING = { start: "6:40", end: "6:50", label: "Closing" };
+        var CLOSING = { start: "6:40", end: "6:50", label: "الختام" };
 
         function markerHtml(m) {
           return (
@@ -2208,7 +2237,7 @@
 
           if (!list.length) {
             html +=
-              '<p style="font-size:12px;color:#6b747e;margin:0;">Coming soon</p>';
+              '<p style="font-size:12px;color:#6b747e;margin:0;">قريباً</p>';
           } else {
             // Breaks that fall inside this column's day (after its first session)
             var first = timeKey(list[0].time);
@@ -2248,7 +2277,7 @@
             ';grid-template-columns:repeat(2,1fr);gap:14px;">';
           if (!list.length) {
             html +=
-              '<p style="grid-column:1/-1;font-size:13px;color:#6b747e;">Coming soon</p>';
+              '<p style="grid-column:1/-1;font-size:13px;color:#6b747e;">قريباً</p>';
           } else {
             list.forEach(function (s) {
               html += sessionCardHtml(s, r, false);
@@ -2259,20 +2288,28 @@
         container.innerHTML = html;
       }
 
+      // Arabic counting: 1 جلسة واحدة, 2 جلستان, 3-10 جلسات, 11+ جلسة
+      function arSessions(n) {
+        if (n === 0) return "لا توجد جلسات";
+        if (n === 1) return "جلسة واحدة";
+        if (n === 2) return "جلستان";
+        if (n <= 10) return n + " جلسات";
+        return n + " جلسة";
+      }
+
       function refreshAgendaViews() {
         renderTimeline();
         renderRoomView();
         var resultCount = document.getElementById("resultCount");
         if (resultCount) {
-          resultCount.textContent =
-            sessions.filter(matchSession).length + " sessions";
+          resultCount.textContent = arSessions(sessions.filter(matchSession).length);
         }
       }
 
       function loadSessionsFromApi() {
         if (!window.EcdApi || !EcdApi.fetchContent) {
           var el = document.getElementById("timelineLoading");
-          if (el) el.textContent = "Agenda unavailable (API not loaded).";
+          if (el) el.textContent = "الأجندة غير متاحة الآن.";
           return;
         }
         EcdApi.fetchContent()
@@ -2297,7 +2334,7 @@
             var el = document.getElementById("timelineLoading");
             if (el) {
               el.textContent =
-                "Could not load agenda. Refresh to try again.";
+                "تعذر تحميل الأجندة. حدث الصفحة وحاول مرة أخرى.";
             }
           });
       }

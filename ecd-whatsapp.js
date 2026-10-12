@@ -10,7 +10,7 @@
 (function () {
   "use strict";
 
-  // Arabic pages (ar/) load ecd-i18n.js first: Arabic message and label.
+  // Arabic pages load ecd-i18n.js first: Arabic message and label.
   var I18N = window.EcdI18n || null;
   var WHATSAPP_URL = I18N
     ? I18N.whatsappUrl

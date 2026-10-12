@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build ar/speakers.html from speakers.html.  Run: python3 ar/build/build-speakers.py"""
+"""Build speakers.html (Arabic, site root) from en/speakers.html.  Run: python3 build/build-speakers.py"""
 from common import Page
 
 p = Page("speakers.html")

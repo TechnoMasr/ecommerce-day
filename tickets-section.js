@@ -16,7 +16,7 @@
 (function () {
   if (customElements.get("ecd-tickets")) return;
 
-  // Arabic pages (ar/) load ecd-i18n.js first: the section's own text is
+  // Arabic pages load ecd-i18n.js first: the section's own text is
   // Arabic there. Card names, features, badge and CTA come from the admin
   // panel and stay as entered until the backend has Arabic fields.
   var AR = window.EcdI18n || null;

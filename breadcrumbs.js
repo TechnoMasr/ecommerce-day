@@ -16,7 +16,7 @@
   "use strict";
 
   var STYLE_ID = "ecd-breadcrumb-style";
-  // Arabic pages (ar/) load ecd-i18n.js first; English pages are unchanged.
+  // Arabic pages load ecd-i18n.js first; English pages are unchanged.
   var I18N = window.EcdI18n || null;
 
   function injectStyle() {
@@ -61,7 +61,9 @@
         el.addEventListener("click", item.onClick);
       } else {
         el = document.createElement("a");
-        el.href = item.href;
+        // Page names ("tickets.html") become the link for this page's
+        // folder and language (ecd-site.js).
+        el.href = window.EcdSite ? window.EcdSite.page(item.href) : item.href;
       }
       el.textContent = item.label;
       li.appendChild(el);

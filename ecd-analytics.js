@@ -38,6 +38,7 @@
     "": "ecd_home",
     "ecommerce-day": "ecd_home",
     ar: "ecd_home",
+    en: "ecd_home",
     index: "ecd_home",
     agenda: "ecd_agenda",
     speakers: "ecd_speakers",
@@ -77,7 +78,7 @@
   }
 
   /*
-   * language on every event: "ar" on the Arabic pages (ar/), "en" otherwise.
+   * language on every event: "ar" on the Arabic pages, "en" otherwise.
    * Checkout and Booking Confirmation are English-only pages; they report the
    * language the buyer came from: Arabic CTAs open checkout with ?lang=ar,
    * and that choice is kept in this tab (sessionStorage) for the payment trip

@@ -1,16 +1,21 @@
-"""Shared steps for building the Arabic pages in ar/ from the English pages.
+"""Shared steps for building the Arabic pages from the English pages.
 
-Each build-<page>.py reads the English page, calls these helpers, swaps
-the text with rep()/replace_block() (each must match exactly once, so a
-changed English line stops the build) and writes ar/<page>.html.
+Arabic is the main site (user decision, 12 Oct 2026): the English pages
+live in en/ and are the source; each build-<page>.py reads en/<page>,
+calls these helpers, swaps the text with rep()/replace_block() (each must
+match exactly once, so a changed English line stops the build) and writes
+the Arabic page to the site root as <page>.  Run from anywhere:
+    python3 build/build-home.py   (and the other build-*.py)
 """
 import pathlib
 import re
 import urllib.parse
 
-ROOT = pathlib.Path(__file__).resolve().parents[2]
+ROOT = pathlib.Path(__file__).resolve().parents[1]
 
-I18N_TAG = "../ecd-i18n.js?v=20261008g"
+I18N_TAG = "ecd-i18n.js?v=20261012a"
+SITE_TAG = '<script src="ecd-site.js?v=20261012a"></script>'
+BASE_URL = "https://www.trafficmena.com/ecommerce-day/"
 
 VENUE = "مركز إبداع مصر الرقمية (كريتيفا)، الجيزة"
 WA_TEXT = "مرحباً، محتاج مساعدة بخصوص يوم التجارة الإلكترونية 2026"
@@ -19,10 +24,6 @@ WA_EN = "https://wa.me/201505437979?text=I%20need%20help%20for%20Ecommerce%20Day
 WA_ARIA_EN = 'aria-label="Chat with us on WhatsApp (opens in a new tab)"'
 WA_ARIA_AR = 'aria-label="تواصل معنا على واتساب (يفتح في نافذة جديدة)"'
 
-SHARED_SCRIPTS = [
-    "navbar.js", "breadcrumbs.js", "ecd-whatsapp.js", "footer.js", "prices.js",
-    "ecd-api.js", "ecd-content.js", "tickets-section.js",
-]
 
 ARABIC_FONT = '"IBM Plex Sans Arabic", "Manrope", system-ui, -apple-system, sans-serif'
 
@@ -34,10 +35,29 @@ def keep_names_together(s):
     return s
 
 
+def finish_arabic(s):
+    """From an English page in en/ to the Arabic page at the site root:
+    shared files one level up become root paths, the canonical URL is the
+    Arabic one, pages without an Arabic copy open in English (en/), and
+    ecd-i18n.js loads right after ecd-site.js."""
+    # Every "../" in the English pages points from en/ to a root file.
+    s = s.replace("../", "")
+    s = s.replace(f'<link rel="canonical" href="{BASE_URL}en/', f'<link rel="canonical" href="{BASE_URL}')
+    s = re.sub(r"""(["'])(become-a-sponsor|faq|policy)\.html""", r"\1en/\2.html", s)
+    if s.count(SITE_TAG) != 1:
+        raise SystemExit("ecd-site.js tag not found once")
+    s = s.replace(
+        SITE_TAG,
+        SITE_TAG + "\n    <!-- Arabic strings for the shared components (must load before them) -->\n"
+        f'    <script src="{I18N_TAG}"></script>',
+    )
+    return keep_names_together(s)
+
+
 class Page:
     def __init__(self, name):
         self.name = name
-        self.s = (ROOT / name).read_text(encoding="utf-8")
+        self.s = (ROOT / "en" / name).read_text(encoding="utf-8")
 
     def rep(self, old, new, count=1):
         found = self.s.count(old)
@@ -73,14 +93,9 @@ class Page:
         self.s = self.s[:i] + new + self.s[j:]
 
     def head(self, title_en, title_ar, desc_en=None, desc_ar=None):
-        """lang/dir, Arabic title + noindex, Arabic font, ../ paths, ecd-i18n.js."""
+        """lang/dir, Arabic title and description, Arabic font."""
         self.rep('<html lang="en">', '<html lang="ar" dir="rtl">')
-        self.rep(
-            f"<title>{title_en}</title>",
-            f"<title>{title_ar}</title>\n"
-            "    <!-- Arabic preview: hidden from search engines until the team signs off -->\n"
-            '    <meta name="robots" content="noindex, nofollow" />',
-        )
+        self.rep(f"<title>{title_en}</title>", f"<title>{title_ar}</title>")
         if desc_en:
             self.rep(f'content="{desc_en}"', f'content="{desc_ar}"')
         # Arabic face first in every Google Fonts request
@@ -89,32 +104,14 @@ class Page:
             "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=",
             self.s,
         )
-        self.rep('<script src="ecd-analytics.js', '<script src="../ecd-analytics.js')
-        tag = re.search(r'<script src="\.\./ecd-analytics\.js\?v=[0-9a-z]+"></script>', self.s).group(0)
-        self.rep(
-            tag,
-            tag + "\n    <!-- Arabic mode for the shared components (must load before them) -->\n"
-            f'    <script src="{I18N_TAG}"></script>',
-        )
-        for name in SHARED_SCRIPTS:
-            self.s = self.s.replace(f'<script src="{name}', f'<script src="../{name}')
-        # every relative assets/ path (src, srcset lines, JS strings) moves up one level
-        self.s = re.sub(r"(?<![./\w-])assets/", "../assets/", self.s)
 
     def breadcrumb_schema(self, items):
         """Swap the BreadcrumbList JSON-LD names/URLs for the Arabic ones.
         items: list of (english_name, arabic_name, arabic_url_or_None)."""
         for en, ar, url in items:
             self.rep(f'"name": "{en}"', f'"name": "{ar}"')
-        self.s = self.s.replace(
-            '"item": "https://www.trafficmena.com/ecommerce-day/"',
-            '"item": "https://www.trafficmena.com/ecommerce-day/ar/"',
-        )
-        self.s = re.sub(
-            r'"item": "https://www\.trafficmena\.com/ecommerce-day/([a-z-]+\.html)"',
-            r'"item": "https://www.trafficmena.com/ecommerce-day/ar/\1"',
-            self.s,
-        )
+        # Arabic trail URLs are the root pages (the English ones are in en/)
+        self.s = self.s.replace(f'"item": "{BASE_URL}en/', f'"item": "{BASE_URL}')
 
     def whatsapp_links(self):
         """Arabic message and label on every inline WhatsApp link."""
@@ -130,7 +127,7 @@ class Page:
         # Arabic reads "7 إلى 10 أيام"; a "7-10" range also breaks badly at line ends in RTL
         self.s = self.s.replace("بـ 7-10 أيام", "بـ 7 إلى 10 أيام").replace("بـ\n                7-10 أيام", "بـ\n                7 إلى 10 أيام")
         self.s = self.s.replace("، 7-10 أيام", "، 7 إلى 10 أيام")
-        self.s = keep_names_together(self.s)
-        out = ROOT / "ar" / self.name
+        self.s = finish_arabic(self.s)
+        out = ROOT / self.name
         out.write_text(self.s, encoding="utf-8")
         print("wrote", out, len(self.s), "bytes")

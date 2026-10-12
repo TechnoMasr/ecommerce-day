@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Build ar/index.html (Arabic Home) from index.html.
+"""Build index.html (Arabic Home, the site root) from en/index.html.
 
 The Arabic page keeps the English page's layout, CSS and scripts; this
-script swaps the text, sets lang/dir, fixes paths for the ar/ folder and
-adds the right-to-left overrides. Re-run it after changing index.html so
-the two pages stay in step:  python3 ar/build/build-home.py
+script swaps the text, sets lang/dir, fixes paths for the site root and
+adds the right-to-left overrides. Re-run it after changing en/index.html
+so the two pages stay in step:  python3 build/build-home.py
 Every replacement must match exactly once, so a changed English line
 stops the build instead of being skipped silently.
 """
@@ -12,8 +12,8 @@ import pathlib
 import re
 import urllib.parse
 
-ROOT = pathlib.Path(__file__).resolve().parents[2]
-src = (ROOT / "index.html").read_text(encoding="utf-8")
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+src = (ROOT / "en" / "index.html").read_text(encoding="utf-8")
 s = src
 
 
@@ -34,9 +34,7 @@ WA_AR = "https://wa.me/201505437979?text=" + urllib.parse.quote(
 rep('<html lang="en">', '<html lang="ar" dir="rtl">')
 rep(
     "<title>ECommerce Day 2026 | TrafficMENA</title>",
-    "<title>يوم التجارة الإلكترونية 2026 | TrafficMENA</title>\n"
-    '    <!-- Arabic preview: hidden from search engines until the team signs off -->\n'
-    '    <meta name="robots" content="noindex, nofollow" />',
+    "<title>يوم التجارة الإلكترونية 2026 | TrafficMENA</title>",
 )
 rep(
     'content="ECommerce Day powered by TrafficMENA. 5 November 2026, Creativa Innovation Hub, Giza."',
@@ -48,20 +46,7 @@ rep(
     "family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap",
     count=2,
 )
-# Scripts and assets live one level up
-rep('<script src="ecd-analytics.js', '<script src="../ecd-analytics.js')
-rep(
-    '<script src="../ecd-analytics.js?v=20261008a"></script>',
-    '<script src="../ecd-analytics.js?v=20261008a"></script>\n'
-    '    <!-- Arabic mode for the shared components (must load before them) -->\n'
-    '    <script src="../ecd-i18n.js?v=20261008g"></script>',
-)
-for name in ["navbar.js", "ecd-whatsapp.js", "footer.js", "prices.js", "ecd-api.js", "ecd-content.js", "tickets-section.js"]:
-    rep(f'<script src="{name}', f'<script src="../{name}')
-s = s.replace('"assets/', '"../assets/')
-s = s.replace(" assets/hero-home-", " ../assets/hero-home-")
-s = s.replace("imagesrcset=\"../assets/hero-home-480.webp 480w, assets/", "imagesrcset=\"../assets/hero-home-480.webp 480w, ../assets/")
-s = re.sub(r"(\d+w), assets/", r"\1, ../assets/", s)
+# Paths, canonical URL and ecd-i18n.js: finish_arabic() at the end.
 
 # ---------- right-to-left + Arabic type ----------
 RTL_CSS = """
@@ -627,8 +612,8 @@ rep('''                      "Video review from a past TrafficMENA event (" +
 rep('var labels = ["Days", "Hours", "Mins", "Secs"];', 'var labels = ["يوم", "ساعة", "دقيقة", "ثانية"];')
 
 s = s.replace("بـ 7-10 أيام", "بـ 7 إلى 10 أيام")
-from common import keep_names_together
-s = keep_names_together(s)
-out = ROOT / "ar" / "index.html"
+from common import finish_arabic
+s = finish_arabic(s)
+out = ROOT / "index.html"
 out.write_text(s, encoding="utf-8")
 print("wrote", out, len(s), "bytes")

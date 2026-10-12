@@ -1,21 +1,15 @@
 /* ============================================================
-   ecd-i18n.js: Arabic mode for the shared components.
-   Loaded ONLY by the Arabic pages in ar/, before navbar.js:
-     <script src="../ecd-i18n.js?v=..."></script>
-   English pages never load it, so navbar.js, footer.js,
-   breadcrumbs.js and ecd-whatsapp.js keep their English output
-   unchanged there (they check for window.EcdI18n).
-
-   Arabic pages live in ar/ with the same file names as the
-   English ones. Shared assets and the English-only pages
-   (checkout, booking confirmation) are one level up.
+   ecd-i18n.js: Arabic strings for the shared components.
+   Loaded ONLY by the Arabic pages (the site root), after
+   ecd-site.js and before navbar.js:
+     <script src="ecd-i18n.js?v=..."></script>
+   English pages (en/) never load it, so navbar.js, footer.js,
+   breadcrumbs.js and ecd-whatsapp.js keep their English strings
+   there (they check for window.EcdI18n). Links between pages come
+   from ecd-site.js in both languages.
    ============================================================ */
 (function () {
   "use strict";
-
-  // Arabic pages that exist so far. Links to any other page go to its
-  // English version until the Arabic copy is added here.
-  var AR_PAGES = ["index.html", "tickets.html", "speakers.html", "sponsors.html", "agenda.html"];
 
   var WHATSAPP_TEXT = "مرحباً، محتاج مساعدة بخصوص يوم التجارة الإلكترونية 2026";
 
@@ -83,23 +77,10 @@
     return Object.prototype.hasOwnProperty.call(LABELS, key) ? LABELS[key] : value;
   }
 
-  function fileOf(href) {
-    return String(href || "").split("#")[0].split("?")[0];
-  }
-
-  // Link to another site page: the Arabic copy when it exists,
-  // otherwise the English page.
+  // Link to another site page: the Arabic copy when it exists, otherwise
+  // the English page in en/ (pages list in ecd-site.js).
   function page(href) {
-    var file = fileOf(href) || "index.html";
-    return AR_PAGES.indexOf(file) > -1 ? href : "../" + href;
-  }
-
-  // The same page in English, keeping the query (UTM tags) and the
-  // section the visitor is on.
-  function englishUrl() {
-    var file = location.pathname.split("/").pop() || "index.html";
-    var target = file === "index.html" ? "../" : "../" + file;
-    return target + location.search + location.hash;
+    return window.EcdSite ? window.EcdSite.page(href) : href;
   }
 
   // Links written in the page as href="agenda.html" data-ar-link go to the
@@ -127,9 +108,8 @@
     label: label,
     page: page,
     asset: function (path) {
-      return "../" + path;
+      return window.EcdSite ? window.EcdSite.asset(path) : path;
     },
-    englishUrl: englishUrl,
     whatsappUrl: "https://wa.me/201505437979?text=" + encodeURIComponent(WHATSAPP_TEXT),
   };
 })();

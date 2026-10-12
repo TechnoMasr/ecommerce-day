@@ -3,11 +3,12 @@
    Usage: <site-footer></site-footer>
    ============================================================ */
 
-// Arabic pages (ar/) load ecd-i18n.js first; English pages keep the
-// English strings and paths below unchanged.
+// Arabic pages load ecd-i18n.js first (Arabic strings). ecd-site.js, on
+// every page, gives the right link for this page's folder and language.
 const FOOTER_I18N = window.EcdI18n || null;
+const FOOTER_SITE = window.EcdSite || null;
 const footT = (key, en) => (FOOTER_I18N ? FOOTER_I18N.t(key, en) : en);
-const footPage = (href) => (FOOTER_I18N ? FOOTER_I18N.page(href) : href);
+const footPage = (href) => (FOOTER_SITE ? FOOTER_SITE.page(href) : href);
 const footWa = FOOTER_I18N
   ? FOOTER_I18N.whatsappUrl
   : "https://wa.me/201505437979?text=I%20need%20help%20for%20Ecommerce%20Day%202026";
@@ -134,7 +135,7 @@ class SiteFooter extends HTMLElement {
         <div class="container">
           <div class="footer-top">
             <a href="${footPage("index.html")}" class="footer-brand">
-              <img src="${FOOTER_I18N ? FOOTER_I18N.asset("assets/trafficmena-logo.webp") : "assets/trafficmena-logo.webp"}" width="113" height="52" alt="TrafficMENA" />
+              <img src="${FOOTER_SITE ? FOOTER_SITE.asset("assets/trafficmena-logo.webp") : "assets/trafficmena-logo.webp"}" width="113" height="52" alt="TrafficMENA" />
             </a>
             <ul class="footer-links">
               <li><a href="${footPage("index.html#experience")}">${footT("footer.experience", "Experience")}</a></li>

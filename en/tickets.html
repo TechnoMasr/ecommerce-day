@@ -1,0 +1,838 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TrafficMENA | Tickets</title>
+    <link rel="canonical" href="https://www.trafficmena.com/ecommerce-day/en/tickets.html" />
+    <link rel="alternate" hreflang="ar" href="https://www.trafficmena.com/ecommerce-day/tickets.html" />
+    <link rel="alternate" hreflang="en" href="https://www.trafficmena.com/ecommerce-day/en/tickets.html" />
+    <link rel="alternate" hreflang="x-default" href="https://www.trafficmena.com/ecommerce-day/tickets.html" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ✅ Reusable navbar -->
+    <script src="../ecd-analytics.js?v=20261012b"></script>
+    <!-- Links between pages: Arabic at the root, English in en/ -->
+    <script src="../ecd-site.js?v=20261012a"></script>
+    <script src="../navbar.js?v=20261012c" defer></script>
+    <script src="../breadcrumbs.js?v=20261012b" defer></script>
+    <script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ECommerce Day",
+          "item": "https://www.trafficmena.com/ecommerce-day/en/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tickets"
+        }
+      ]
+    }
+    </script>
+    <script src="../ecd-whatsapp.js?v=20261012b" defer></script>
+    <!-- ✅ Reusable footer -->
+    <script src="../footer.js?v=20261012b" defer></script>
+    <!-- ✅ Shared ticket prices + live CMS packages -->
+    <!-- Shared tickets section (same as index.html and agenda.html). Not deferred on purpose. -->
+    <script src="../tickets-section.js?v=20261012b"></script>
+    <script src="../prices.js?v=20261012b" defer></script>
+    <script src="../ecd-api.js?v=20261012a" defer></script>
+    <script src="../ecd-content.js?v=20261012b" defer></script>
+
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --ink: #101010;
+        --ink-soft: #1f2630;
+        --muted: #4a5563;
+        --muted-light: #6b747e;
+        --line: #e6eaee;
+        --line-strong: #d5dae0;
+        --bg-soft: #f4f6f8;
+        --green: #04c44e;
+        --green-bright: #05ef62;
+        --green-bg: #e6fbee;
+        --green-bd: #c3f7d7;
+        --white: #ffffff;
+        --radius: 12px;
+        --radius-lg: 16px;
+        --max-w: 1280px;
+        --pad-x: 24px;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family:
+          "Manrope",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        color: var(--ink);
+        background: var(--white);
+        -webkit-font-smoothing: antialiased;
+        line-height: 1.5;
+      }
+
+      a {
+        color: var(--green);
+        text-decoration: none;
+        transition: color 0.15s;
+      }
+      a:hover {
+        color: #006681;
+      }
+
+      button {
+        font-family: inherit;
+        cursor: pointer;
+        transition:
+          opacity 0.15s,
+          transform 0.1s;
+      }
+      button:hover {
+        opacity: 0.92;
+      }
+      button:active {
+        transform: translateY(1px);
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        text-wrap: pretty;
+      }
+
+      .container {
+        max-width: var(--max-w);
+        margin: 0 auto;
+        padding-left: var(--pad-x);
+        padding-right: var(--pad-x);
+      }
+
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+      .eyebrow span {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted-light);
+      }
+
+      /* Buttons (general page buttons, navbar has its own scoped styles) */
+      .btn {
+        border-radius: 10px;
+        padding: 10px 18px;
+        font-weight: 600;
+        font-size: 14px;
+        border: 1px solid transparent;
+        white-space: nowrap;
+      }
+      .btn-outline {
+        background: var(--white);
+        border-color: var(--ink);
+        color: var(--ink);
+      }
+      .btn-primary {
+        background: var(--green-bright);
+        border: none;
+        color: var(--ink);
+      }
+      .btn-lg {
+        padding: 14px 26px;
+        font-size: 15px;
+      }
+      .btn-full {
+        width: 100%;
+        padding: 15px;
+        font-size: 15px;
+      }
+
+      /* ===== HERO ===== */
+      .hero {
+        padding: 72px var(--pad-x) 64px !important;
+        text-align: center;
+      }
+      .hero .eyebrow {
+        justify-content: center;
+      }
+      .hero h1 {
+        font-size: clamp(32px, 5vw, 56px);
+        line-height: 1.05;
+        font-weight: 700;
+        margin: 0 auto 20px;
+        max-width: 18ch;
+      }
+      .hero h1 .accent {
+        color: var(--green);
+      }
+      .hero p {
+        font-size: clamp(15px, 2vw, 18px);
+        line-height: 1.7;
+        color: var(--muted);
+        margin: 0 auto 28px;
+        max-width: 56ch;
+      }
+      .hero-actions {
+        display: flex;
+        gap: 14px;
+        justify-content: center;
+        margin-bottom: 28px;
+        flex-wrap: wrap;
+      }
+      .hero-meta {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink);
+      }
+      .hero-meta .dot {
+        color: var(--line-strong);
+      }
+
+      .bg-soft {
+        background: var(--bg-soft);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+      .bg-green {
+        background: var(--green-bg);
+        border-top: 1px solid var(--green-bd);
+        border-bottom: 1px solid var(--green-bd);
+      }
+      .bg-dark {
+        background: var(--ink);
+      }
+
+      .section-heading {
+        font-size: clamp(24px, 3.5vw, 36px);
+        line-height: 1.1;
+        font-weight: 700;
+        margin: 0 0 12px;
+      }
+      .section-sub {
+        font-size: clamp(13px, 1.8vw, 16px);
+        line-height: 1.7;
+        color: var(--muted);
+        margin: 0 0 40px;
+        max-width: 58ch;
+      }
+
+      /* Why blocks */
+      .why-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .why-card {
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius);
+        padding: 24px 20px;
+        background: var(--white);
+      }
+      .why-card .num {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        color: var(--green);
+        margin-bottom: 12px;
+      }
+      .why-card .why-title {
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--ink);
+        margin-bottom: 10px;
+      }
+      .why-card .why-line {
+        font-size: 13px;
+        line-height: 1.7;
+        color: var(--muted);
+      }
+
+      /* Comparison */
+      .cmp-card {
+        background: var(--white);
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        max-width: 960px;
+      }
+      .cmp-head {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        background: var(--bg-soft);
+        border-bottom: 1px solid var(--line);
+        padding: 14px 24px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted-light);
+      }
+      .cmp-row {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        padding: 13px 24px;
+        border-bottom: 1px solid var(--line);
+        font-size: 14px;
+        align-items: center;
+      }
+      .cmp-row:last-child {
+        border-bottom: none;
+      }
+      .cmp-row .feature {
+        font-weight: 500;
+        color: var(--ink-soft);
+      }
+      .cmp-row .val {
+        font-weight: 600;
+      }
+      .cmp-row .val.muted {
+        color: var(--muted-light);
+      }
+
+      /* FAQ */
+      .faq-wrap {
+        max-width: 860px;
+        background: var(--white);
+        border-radius: 0 0 12px 12px;
+        border-top: 1px solid var(--line-strong);
+        overflow: hidden;
+      }
+      .faq-item {
+        border-bottom: 1px solid var(--line);
+      }
+      .faq-item:last-child {
+        border-bottom: none;
+      }
+      .faq-item summary {
+        list-style: none;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        padding: 18px 20px;
+        cursor: pointer;
+        user-select: none;
+      }
+      .faq-item summary::-webkit-details-marker {
+        display: none;
+      }
+      .faq-item summary span:first-child {
+        font-weight: 700;
+        font-size: 15px;
+        color: var(--ink);
+        line-height: 1.5;
+      }
+      .faq-item summary .faq-icon {
+        color: var(--green);
+        font-size: 20px;
+        flex: none;
+        line-height: 1;
+      }
+      .faq-item summary .faq-icon::before {
+        content: "+";
+      }
+      .faq-item[open] summary .faq-icon::before {
+        content: "−";
+      }
+      .faq-a {
+        font-size: 14px;
+        line-height: 1.8;
+        color: var(--muted);
+        padding: 0 20px 20px;
+        max-width: 70ch;
+      }
+
+      /* CTA */
+      .cta-section {
+        padding: 88px var(--pad-x);
+        text-align: center;
+      }
+      .cta-section h2 {
+        font-size: clamp(24px, 3.5vw, 38px);
+        line-height: 1.15;
+        font-weight: 700;
+        color: var(--white);
+        margin: 0 auto 16px;
+        max-width: 24ch;
+      }
+      .cta-section p {
+        font-size: clamp(13px, 1.8vw, 16px);
+        line-height: 1.7;
+        color: #9aa1a9;
+        margin: 0 auto 36px;
+        max-width: 52ch;
+      }
+      .cta-actions {
+        display: flex;
+        gap: 14px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .btn-on-dark-outline {
+        background: transparent;
+        border: 1px solid var(--white);
+        color: var(--white);
+        border-radius: 10px;
+        padding: 15px 28px;
+        font-weight: 600;
+        font-size: 16px;
+      }
+      .btn-on-dark-primary {
+        background: var(--green-bright);
+        border: none;
+        color: var(--ink);
+        border-radius: 10px;
+        padding: 15px 28px;
+        font-weight: 600;
+        font-size: 16px;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 1024px) {
+        :root {
+          --pad-x: 20px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero {
+          padding: 40px var(--pad-x);
+          text-align: left;
+        }
+        .hero .eyebrow {
+          justify-content: flex-start;
+        }
+        .hero h1 {
+          font-size: 32px;
+        }
+        .hero p {
+          font-size: 15px;
+        }
+        .hero-actions {
+          flex-direction: column;
+        }
+        .hero-actions .btn {
+          width: 100%;
+        }
+        .hero-meta {
+          flex-direction: column;
+          gap: 6px;
+          align-items: flex-start;
+        }
+        .hero-meta .dot {
+          display: none;
+        }
+
+
+        .why-grid {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+        .why-card {
+          padding: 16px 18px;
+        }
+
+        .cmp-head {
+          display: none;
+        }
+        .cmp-row {
+          grid-template-columns: 1fr;
+          gap: 6px;
+          padding: 12px 16px;
+        }
+        .cmp-row .feature {
+          font-weight: 600;
+          font-size: 13px;
+          margin-bottom: 4px;
+        }
+        .cmp-row .val {
+          display: inline;
+          font-size: 12px;
+        }
+        .cmp-row .val::before {
+          content: attr(data-label) ": ";
+          color: var(--muted-light);
+          font-weight: 400;
+        }
+        .cmp-row .val.muted {
+          color: var(--muted-light);
+        }
+
+
+        .faq-wrap {
+          border-radius: 12px;
+        }
+        .faq-item summary {
+          padding: 14px 16px;
+        }
+        .faq-item summary span:first-child {
+          font-size: 13px;
+        }
+        .faq-item summary .faq-icon {
+          font-size: 18px;
+        }
+        .faq-a {
+          font-size: 12px;
+          padding: 0 16px 16px;
+        }
+
+        .cta-section {
+          padding: 56px var(--pad-x);
+        }
+        .cta-actions {
+          flex-direction: column;
+        }
+        .cta-actions .btn {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero h1 {
+          font-size: 28px;
+        }
+        .section-heading {
+          font-size: 22px;
+        }
+      }
+      /* WhatsApp contact button (inline, text-sized) */
+      .wa-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        vertical-align: middle;
+        height: 28px;
+        padding: 0 10px;
+        border-radius: 8px;
+        background: #e6fbee;
+        border: 1px solid #c3f7d7;
+        color: #101010;
+        font-family: Manrope, sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: border-color 0.15s ease;
+      }
+      .wa-btn svg {
+        color: #04c44e;
+      }
+      .wa-btn:hover {
+        border-color: #05ef62;
+      }
+      .wa-btn:focus-visible {
+        outline: 2px solid #101010;
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ✅ Reusable Navbar: one line, no duplication -->
+    <site-navbar current="tickets"></site-navbar>
+    <ecd-breadcrumb id="ecdBreadcrumb" data-trail='[["ECommerce Day", "index.html"], ["Tickets"]]' style="display:block;min-height:44px"></ecd-breadcrumb>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero container">
+        <div class="eyebrow">
+          <span>ECommerce Day 2026 Tickets</span>
+        </div>
+        <h1>Choose how <span class="accent">deep</span> you want to go.</h1>
+        <p>
+          Select the pass that fits your goals: Standard Pass for both stages,
+          or All Access Pass for stages, workshops, and premium resources.
+        </p>
+        <div class="hero-actions">
+          <a href="#ticket-cards" class="btn btn-primary btn-lg"
+            >Choose Your Ticket ↓</a
+          >
+          <a href="agenda.html" class="btn btn-outline btn-lg"
+            >View the Agenda</a
+          >
+        </div>
+        <div class="hero-meta">
+          <span>2 Stages</span>
+          <span class="dot">·</span>
+          <span>15+ Workshops</span>
+          <span class="dot">·</span>
+          <span>Expertise</span>
+          <span class="dot">·</span>
+          <span>Professional Networking</span>
+        </div>
+      </section>
+
+      <!-- TICKET CARDS (shared: tickets-section.js, same as index.html and agenda.html) -->
+      <section id="ticket-cards" class="bg-soft">
+        <div class="container" style="padding-top: 80px; padding-bottom: 80px">
+          <ecd-tickets></ecd-tickets>
+        </div>
+      </section>
+
+      <!-- WHY ALL ACCESS COSTS MORE -->
+      <section
+        class="container"
+        style="padding-top: 80px; padding-bottom: 80px"
+      >
+        <div class="eyebrow">
+          <span>Why All Access Costs More</span>
+        </div>
+        <h2 class="section-heading" style="margin-bottom: 48px">
+          You're paying for the work, not the seat
+        </h2>
+        <div class="why-grid">
+          <div class="why-card">
+            <div class="num">01</div>
+            <div class="why-title">Workshop Access &amp; Reservation</div>
+            <div class="why-line">
+              Up to 5 workshops across the three workshop tracks, in
+              capacity-limited rooms.
+            </div>
+          </div>
+          <div class="why-card">
+            <div class="num">02</div>
+            <div class="why-title">Presentation Slides</div>
+            <div class="why-line">
+              The presentation slides from the sessions, sent by email after
+              the event.
+            </div>
+          </div>
+          <div class="why-card">
+            <div class="num">03</div>
+            <div class="why-title">Workshop Templates &amp; Files</div>
+            <div class="why-line">
+              The templates and files from the workshops, so you can apply the
+              work in your own business.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FULL COMPARISON -->
+      <section class="bg-soft">
+        <div class="container" style="padding-top: 80px; padding-bottom: 80px">
+          <div class="eyebrow">
+            <span>Full Comparison</span>
+          </div>
+          <h2 class="section-heading" style="margin-bottom: 40px">
+            Every feature, side by side
+          </h2>
+          <div class="cmp-card">
+            <div class="cmp-head">
+              <span>Feature</span>
+              <span>Standard Pass</span>
+              <span>All Access Pass</span>
+            </div>
+            <div class="cmp-row">
+              <span class="feature">Access to the Main Stage</span>
+              <span class="val" data-label="Standard">Yes</span>
+              <span class="val" data-label="All Access">Yes</span>
+            </div>
+            <div class="cmp-row">
+              <span class="feature">Access to the Second Stage</span>
+              <span class="val" data-label="Standard">Yes</span>
+              <span class="val" data-label="All Access">Yes</span>
+            </div>
+            <div class="cmp-row">
+              <span class="feature">Access to Workshop Tracks</span>
+              <span class="val muted" data-label="Standard">No</span>
+              <span class="val" data-label="All Access">Yes</span>
+            </div>
+            <div class="cmp-row">
+              <span class="feature">Workshop selection (up to 5)</span>
+              <span class="val muted" data-label="Standard">No</span>
+              <span class="val" data-label="All Access">Yes</span>
+            </div>
+            <div class="cmp-row">
+              <span class="feature">Workshop Templates &amp; Files</span>
+              <span class="val muted" data-label="Standard">No</span>
+              <span class="val" data-label="All Access">Yes</span>
+            </div>
+            <div class="cmp-row">
+              <span class="feature">Presentation slides</span>
+              <span class="val muted" data-label="Standard">No</span>
+              <span class="val" data-label="All Access">Yes</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section>
+        <div class="container" style="padding-top: 80px; padding-bottom: 80px">
+          <div class="eyebrow">
+            <span>FAQ &amp; Policies</span>
+          </div>
+          <h2 class="section-heading" style="margin-bottom: 40px">
+            Before you book
+          </h2>
+          <div class="faq-wrap">
+            <details class="faq-item">
+              <summary>
+                <span>What is the difference between the two tickets?</span>
+                <span class="faq-icon"></span>
+              </summary>
+              <p class="faq-a">
+                The Standard Pass covers full-day access to the Main Stage and
+                the Second Stage: keynotes, panels, case studies, sponsor
+                activations and networking. The All Access Pass adds up to 5
+                workshops across the three workshop tracks, the presentation
+                slides and the Workshop Templates &amp; Files.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>
+                <span>How do workshops work with the All Access Pass?</span>
+                <span class="faq-icon"></span>
+              </summary>
+              <p class="faq-a">
+                Workshops are offline and capacity-limited. Workshop booking
+                opens 7-10 days before the event, and we will announce how to
+                book. You can select up to 5 workshops; workshops at the same
+                time cannot be selected together.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>
+                <span>Do I get the Workshop Templates &amp; Files?</span>
+                <span class="faq-icon"></span>
+              </summary>
+              <p class="faq-a">
+                Workshop Templates &amp; Files are included with the All Access
+                Pass only.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>
+                <span
+                  >Can I upgrade from Standard to All Access later?</span
+                >
+                <span class="faq-icon"></span>
+              </summary>
+              <p class="faq-a">
+                Yes. Our team upgrades passes on request before the event,
+                subject to All Access availability. Workshop seats after
+                upgrading are subject to availability. Contact us through email
+                at info@trafficmena.com or <a class="wa-btn" href="https://wa.me/201505437979?text=I%20need%20help%20for%20Ecommerce%20Day%202026" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp (opens in a new tab)"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35ZM12.05 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.41 9.41 0 0 1-1.44-5.02c0-5.2 4.23-9.43 9.43-9.43 2.52 0 4.89.98 6.67 2.77a9.37 9.37 0 0 1 2.76 6.67c0 5.2-4.23 9.43-9.43 9.43Zm8.02-17.45A11.27 11.27 0 0 0 12.05.73C5.8.73.72 5.81.72 12.06c0 2 .52 3.95 1.52 5.66L.62 23.6l6.02-1.58a11.3 11.3 0 0 0 5.41 1.38h.01c6.25 0 11.33-5.08 11.33-11.33 0-3.03-1.18-5.87-3.32-8.02Z"/></svg><span>WhatsApp</span></a>.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>
+                <span>Can I transfer my ticket to someone else?</span>
+                <span class="faq-icon"></span>
+              </summary>
+              <p class="faq-a">
+                No. Tickets are non-transferable and cannot be reassigned to
+                another attendee. For help, contact info@trafficmena.com or
+                <a class="wa-btn" href="https://wa.me/201505437979?text=I%20need%20help%20for%20Ecommerce%20Day%202026" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp (opens in a new tab)"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35ZM12.05 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.41 9.41 0 0 1-1.44-5.02c0-5.2 4.23-9.43 9.43-9.43 2.52 0 4.89.98 6.67 2.77a9.37 9.37 0 0 1 2.76 6.67c0 5.2-4.23 9.43-9.43 9.43Zm8.02-17.45A11.27 11.27 0 0 0 12.05.73C5.8.73.72 5.81.72 12.06c0 2 .52 3.95 1.52 5.66L.62 23.6l6.02-1.58a11.3 11.3 0 0 0 5.41 1.38h.01c6.25 0 11.33-5.08 11.33-11.33 0-3.03-1.18-5.87-3.32-8.02Z"/></svg><span>WhatsApp</span></a>.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>
+                <span>What is the refund policy?</span>
+                <span class="faq-icon"></span>
+              </summary>
+              <p class="faq-a">
+                A full refund is available until the end of 30 October 2026, five
+                days before the event. To request one, email
+                info@trafficmena.com from the email associated with your
+                booking. Requests after this date cannot be accepted.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>
+                <span>Can I get an invoice for my company?</span>
+                <span class="faq-icon"></span>
+              </summary>
+              <p class="faq-a">
+                Yes. An invoice can be requested during checkout or afterwards
+                via info@trafficmena.com or <a class="wa-btn" href="https://wa.me/201505437979?text=I%20need%20help%20for%20Ecommerce%20Day%202026" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp (opens in a new tab)"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35ZM12.05 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.41 9.41 0 0 1-1.44-5.02c0-5.2 4.23-9.43 9.43-9.43 2.52 0 4.89.98 6.67 2.77a9.37 9.37 0 0 1 2.76 6.67c0 5.2-4.23 9.43-9.43 9.43Zm8.02-17.45A11.27 11.27 0 0 0 12.05.73C5.8.73.72 5.81.72 12.06c0 2 .52 3.95 1.52 5.66L.62 23.6l6.02-1.58a11.3 11.3 0 0 0 5.41 1.38h.01c6.25 0 11.33-5.08 11.33-11.33 0-3.03-1.18-5.87-3.32-8.02Z"/></svg><span>WhatsApp</span></a>.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>
+                <span>Where is the venue?</span>
+                <span class="faq-icon"></span>
+              </summary>
+              <p class="faq-a">
+                ECommerce Day takes place at
+                <a
+                  href="https://maps.app.goo.gl/LxbaM9baBAA8t9Pv9"
+                  target="_blank"
+                  rel="noopener"
+                  style="color: #101010; font-weight: 600; text-decoration: underline"
+                  >Creativa Innovation Hub, Giza</a
+                >, on 5 November 2026.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>
+                <span>Is there a certificate?</span>
+                <span class="faq-icon"></span>
+              </summary>
+              <p class="faq-a">
+                No, there is no certificate. All Access Pass holders receive the
+                presentation slides and the Workshop Templates &amp; Files by
+                email after the event.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- FINAL CTA -->
+      <section class="bg-dark cta-section">
+        <h2>Pick your pass. Build your ECommerce Day.</h2>
+        <p>
+          Start with the Main Stage, or take the full journey with workshops,
+          hands-on practice and Workshop Templates &amp; Files.
+        </p>
+        <div class="cta-actions">
+          <button class="btn-on-dark-outline" type="button" data-checkout="ct">
+            Book Standard Pass
+          </button>
+          <button class="btn-on-dark-primary" type="button" data-checkout="fj">
+            Book All Access Pass
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <site-footer></site-footer>
+  </body>
+</html>

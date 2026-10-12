@@ -10,13 +10,15 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <script src="ecd-analytics.js?v=20261008a"></script>
+    <script src="ecd-analytics.js?v=20261012b"></script>
+    <!-- Links between pages: Arabic at the root, English in en/ -->
+    <script src="ecd-site.js?v=20261012a"></script>
     <meta name="robots" content="noindex, nofollow" />
-    <script src="ecd-whatsapp.js?v=20261008a" defer></script>
-    <script src="breadcrumbs.js?v=20261008a"></script>
-    <script src="prices.js?v=20261008a"></script>
+    <script src="ecd-whatsapp.js?v=20261012b" defer></script>
+    <script src="breadcrumbs.js?v=20261012b"></script>
+    <script src="prices.js?v=20261012b"></script>
     <script src="ecd-api.js?v=20261012a"></script>
-    <script src="ecd-content.js?v=20261012a"></script>
+    <script src="ecd-content.js?v=20261012b"></script>
     <style>
       * {
         box-sizing: border-box;
@@ -1359,7 +1361,7 @@
     <!-- ============ HEADER ============ -->
     <header class="checkout-header">
       <div class="header-inner">
-        <a href="index.html" class="brand" aria-label="ECommerce Day home">
+        <a href="en/index.html" data-site-link="index.html" class="brand" aria-label="ECommerce Day home">
           <img
             src="assets/ecommerce-day-logo.png"
             alt="E-commerce Day by TrafficMENA"
@@ -1670,11 +1672,11 @@
               <input type="checkbox" id="consentCheck" checked />
               <span
                 >I agree to the
-                <a href="policy.html#terms" target="_blank" rel="noopener">Terms</a>,
-                <a href="policy.html#ticket" target="_blank" rel="noopener">Ticket Policy</a>,
-                <a href="policy.html#refund" target="_blank" rel="noopener">Refund Policy</a>,
+                <a href="en/policy.html#terms" target="_blank" rel="noopener">Terms</a>,
+                <a href="en/policy.html#ticket" target="_blank" rel="noopener">Ticket Policy</a>,
+                <a href="en/policy.html#refund" target="_blank" rel="noopener">Refund Policy</a>,
                 and
-                <a href="policy.html#privacy" target="_blank" rel="noopener">Privacy Policy</a>. *</span
+                <a href="en/policy.html#privacy" target="_blank" rel="noopener">Privacy Policy</a>. *</span
               >
             </label>
             <span

@@ -1,12 +1,16 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ECommerce Day 2026 | TrafficMENA</title>
+    <title>يوم التجارة الإلكترونية 2026 | TrafficMENA</title>
+    <link rel="canonical" href="https://www.trafficmena.com/ecommerce-day/" />
+    <link rel="alternate" hreflang="ar" href="https://www.trafficmena.com/ecommerce-day/" />
+    <link rel="alternate" hreflang="en" href="https://www.trafficmena.com/ecommerce-day/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.trafficmena.com/ecommerce-day/" />
     <meta
       name="description"
-      content="ECommerce Day powered by TrafficMENA. 5 November 2026, Creativa Innovation Hub, Giza."
+      content="يوم التجارة الإلكترونية من TrafficMENA. 5 نوفمبر 2026، مركز إبداع مصر الرقمية (كريتيفا)، الجيزة."
     />
 
     <!-- Hero image is the LCP element: start downloading it before CSS/JS -->
@@ -24,27 +28,31 @@
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
       onload="this.onload=null;this.rel='stylesheet'"
     />
     <noscript>
       <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
         rel="stylesheet"
       />
     </noscript>
 
     <!-- ✅ Reusable navbar -->
-    <script src="ecd-analytics.js?v=20261008a"></script>
-    <script src="navbar.js?v=20261008a" defer></script>
-    <script src="ecd-whatsapp.js?v=20261008a" defer></script>
+    <script src="ecd-analytics.js?v=20261012b"></script>
+    <!-- Links between pages: Arabic at the root, English in en/ -->
+    <script src="ecd-site.js?v=20261012a"></script>
+    <!-- Arabic strings for the shared components (must load before them) -->
+    <script src="ecd-i18n.js?v=20261012a"></script>
+    <script src="navbar.js?v=20261012c" defer></script>
+    <script src="ecd-whatsapp.js?v=20261012b" defer></script>
     <!-- ✅ Reusable footer -->
-    <script src="footer.js?v=20261008b" defer></script>
+    <script src="footer.js?v=20261012b" defer></script>
 
     <!-- Shared prices + ECD content (partners/speakers/packages) -->
-    <script src="prices.js?v=20261008a" defer></script>
+    <script src="prices.js?v=20261012b" defer></script>
     <script src="ecd-api.js?v=20261012a" defer></script>
-    <script src="ecd-content.js?v=20261012a" defer></script>
+    <script src="ecd-content.js?v=20261012b" defer></script>
 
     <style>
       /* Reserve the navbar's height before navbar.js renders it (prevents layout shift) */
@@ -1377,6 +1385,86 @@
           width: 100%;
         }
       }
+
+      /* ============ ARABIC (RTL) ============ */
+      body {
+        font-family:
+          "IBM Plex Sans Arabic",
+          "Manrope",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        line-height: 1.7;
+      }
+      /* Letter-spacing and capitals break Arabic letters: labels use the
+         Arabic face at a readable size instead of mono capitals. */
+      .eyebrow,
+      .badge,
+      .countdown-label,
+      .mono-eyebrow,
+      .partner-tile span,
+      .cmp-table thead th,
+      .cd-block .u {
+        font-family: "IBM Plex Sans Arabic", "Manrope", sans-serif;
+        letter-spacing: 0;
+        text-transform: none;
+      }
+      .eyebrow {
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .badge {
+        font-size: 13px;
+      }
+      .cmp-table thead th {
+        font-size: 13px;
+      }
+      .hero-title {
+        font-size: clamp(40px, 7.4vw, 84px);
+        line-height: 1.25;
+        letter-spacing: 0;
+      }
+      .section-title,
+      .hero-text h2,
+      .final-cta-title {
+        letter-spacing: 0;
+        line-height: 1.4;
+      }
+      .hero-media-float {
+        left: auto;
+        right: -6px;
+      }
+      .cmp-table th,
+      .cmp-table td,
+      .faq-item button {
+        text-align: right;
+      }
+      .faq-answer ul {
+        padding-left: 0;
+        padding-right: 20px;
+      }
+      /* Arrows point in the reading direction */
+      .ecd-flip {
+        transform: scaleX(-1);
+      }
+      /* The logo strip runs the other way */
+      @keyframes marqueeScrollRtl {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(50%);
+        }
+      }
+      .marquee {
+        animation-name: marqueeScrollRtl;
+      }
+      /* English names and roles from the admin panel keep their own order */
+      .speaker-name,
+      .speaker-role {
+        unicode-bidi: plaintext;
+        text-align: right;
+      }
     </style>
   </head>
   <body>
@@ -1387,8 +1475,8 @@
       <!-- ============ HERO ============ -->
       <section class="hero">
         <div class="container">
-          <div class="eyebrow">Powered by TrafficMENA</div>
-          <h1 class="hero-title">ECOMMERCE DAY</h1>
+          <div class="eyebrow">بتنظيم TrafficMENA</div>
+          <h1 class="hero-title">يوم التجارة الإلكترونية</h1>
 
           <div class="badges">
             <span class="badge">
@@ -1405,7 +1493,7 @@
                 <rect x="3" y="5" width="18" height="16" rx="2" />
                 <path d="M16 3v4M8 3v4M3 10h18" />
               </svg>
-              5 November 2026
+              5 نوفمبر 2026
             </span>
             <span class="badge">
               <svg
@@ -1421,7 +1509,7 @@
                 <path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11Z" />
                 <circle cx="12" cy="10" r="2.5" />
               </svg>
-              Creativa Innovation Hub, Giza
+              مركز إبداع مصر الرقمية (كريتيفا)، الجيزة
             </span>
             <span class="badge badge-green">
               <svg
@@ -1437,24 +1525,24 @@
                 <circle cx="12" cy="12" r="9" />
                 <path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" />
               </svg>
-              Where MENA Ecommerce Meets Global Minds
+              متحدثون من مصر والخليج، في يوم واحد
             </span>
           </div>
 
           <div class="hero-grid">
             <div class="hero-text">
-              <h2>Step Into the Ecommerce Growth Ecosystem</h2>
+              <h2>يوم كامل مع من يبنون المتاجر الإلكترونية ويكبرونها</h2>
               <p class="hero-lead">
-                Learn from MENA and global leaders through real decisions,
-                expert sessions, and focused workshops.<br />
-                Network with the operators, platforms, and partners shaping
-                ecommerce growth.
+                اسمع من قيادات في مصر والخليج عن قرارات اتخذوها بأنفسهم، ودفعوا
+                ثمنها أحياناً. جلسات مع خبراء، وورش عمل مميزة، وفرصة تقابل فيها
+                أصحاب المتاجر والمنصات والشركاء الذين يحركون السوق.
               </p>
 
               <div class="hero-cta-row">
-                <a href="tickets.html" class="btn btn-primary btn-lg">
-                  Get Your Ticket
+                <a href="tickets.html" data-ar-link class="btn btn-primary btn-lg">
+                  احجز تذكرتك
                   <svg
+                    class="ecd-flip"
                     width="16"
                     height="16"
                     viewBox="0 0 24 24"
@@ -1467,18 +1555,11 @@
                     <path d="M5 12h14M13 6l6 6-6 6" />
                   </svg>
                 </a>
-                <a href="agenda.html" class="link-underline"
-                  >Explore the Experience</a
+                <a href="agenda.html" data-ar-link class="link-underline"
+                  >تفاصيل اليوم</a
                 >
               </div>
 
-              <div class="countdown" id="countdown" aria-live="polite">
-                <div class="countdown-label">ECommerce Day starts in</div>
-                <div class="countdown-live" id="countdownLive" hidden>
-                  ECommerce Day is live
-                </div>
-                <div class="countdown-blocks" id="countdownBlocks"></div>
-              </div>
             </div>
 
             <div class="hero-media">
@@ -1495,7 +1576,7 @@
                   sizes="(max-width: 900px) calc(100vw - 48px), (max-width: 1320px) 43vw, 520px"
                   width="1254"
                   height="940"
-                  alt="Aerial view of the venue plaza with the TrafficMENA mark"
+                  alt="صورة من أعلى لساحة المكان وعليها شعار TrafficMENA"
                   fetchpriority="high"
                 />
               </div>
@@ -1513,8 +1594,8 @@
                   <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" />
                 </svg>
                 <div>
-                  <div class="float-title">Real Operators</div>
-                  <div class="float-sub">Not theory, not recycled slides</div>
+                  <div class="float-title">أصحاب تجربة فعلية حقيقية</div>
+                  <div class="float-sub">لا كلام نظري ولا شرائح مكررة</div>
                 </div>
               </div>
             </div>
@@ -1527,16 +1608,16 @@
            The gray tiles stay until real sponsor logos replace them. -->
       <section id="sponsors" class="section section-soft">
         <div class="container">
-          <div class="eyebrow">Our Sponsors</div>
+          <div class="eyebrow">رعاتنا</div>
           <h2 class="section-title" data-reveal>
-            The Sponsors Behind ECommerce Day
+            الرعاة الرئيسيون لليوم
           </h2>
           <p class="section-sub" data-reveal>
-            Meet the platforms, partners, and enablers supporting ecommerce
-            across the region.
+            منصات وشركات وجهات داعمة تعمل في التجارة الإلكترونية بالمنطقة،
+            واختارت أن تكون جزءاً من هذا اليوم.
           </p>
 
-          <p class="sr-only" id="sponsorsStatus">Sponsors will be announced soon.</p>
+          <p class="sr-only" id="sponsorsStatus">نعلن أسماء الرعاة قريباً.</p>
           <div class="sponsor-grid" id="sponsorsGrid">
               <div class="partner-tile is-placeholder" aria-hidden="true">
                 <svg viewBox="0 0 120 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="9" fill="#DDE2E7"/><rect x="42" y="6" width="78" height="9" rx="4.5" fill="#E6EAEE"/><rect x="42" y="19" width="50" height="7" rx="3.5" fill="#E6EAEE"/></svg>
@@ -1559,8 +1640,8 @@
           </div>
 
           <div class="mt-32 section-cta">
-            <a href="become-a-sponsor.html" class="btn btn-primary"
-              >Become a Sponsor</a
+            <a href="en/become-a-sponsor.html" data-ar-link class="btn btn-primary"
+              >كن راعياً</a
             >
           </div>
         </div>
@@ -1569,13 +1650,12 @@
       <!-- ============ SPEAKERS ============ -->
       <section id="speakers" class="section">
         <div class="container">
-          <div class="eyebrow">Proven in Practice</div>
+          <div class="eyebrow">ماذا تستفيد</div>
           <h2 class="section-title" data-reveal>
-            Meet the Leaders Behind the Decisions
+            متحدثون اتخذوا القرار بأنفسهم
           </h2>
           <p class="section-sub" data-reveal>
-            Learn from experts building, growing, and operating ecommerce
-            businesses across MENA and global markets.
+            يبنون متاجر إلكترونية ويديرونها ويكبرونها، في مصر وخارجها.
           </p>
 
           <div class="carousel-wrap">
@@ -1584,15 +1664,16 @@
               id="speakersTrack"
               tabindex="0"
               role="region"
-              aria-label="Speaker carousel"
+              aria-label="شريط المتحدثين"
             ></div>
             <div class="carousel-nav">
               <button
                 class="carousel-btn"
                 id="prevSpeaker"
-                aria-label="Previous speakers"
+                aria-label="المتحدثون السابقون"
               >
                 <svg
+                  class="ecd-flip"
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"
@@ -1608,9 +1689,10 @@
               <button
                 class="carousel-btn"
                 id="nextSpeaker"
-                aria-label="Next speakers"
+                aria-label="المتحدثون التاليون"
               >
                 <svg
+                  class="ecd-flip"
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"
@@ -1627,8 +1709,8 @@
           </div>
 
           <div class="mt-12">
-            <a href="speakers.html" class="btn btn-outline-dark"
-              >Meet All Speakers</a
+            <a href="speakers.html" data-ar-link class="btn btn-outline-dark"
+              >كل المتحدثين</a
             >
           </div>
         </div>
@@ -1638,16 +1720,16 @@
       <!-- Filled by ecd-content.js: partners whose admin tier is "community" -->
       <section id="community-partners" class="section section-divided">
         <div class="container">
-          <div class="eyebrow">Community</div>
-          <h2 class="section-title" data-reveal>Our Community Partners</h2>
+          <div class="eyebrow">المجتمع</div>
+          <h2 class="section-title" data-reveal>شركاء المجتمع</h2>
 
           <div class="marquee-wrap mt-24">
             <div class="marquee" id="communityMarquee"></div>
           </div>
 
           <div class="mt-32 section-cta">
-            <a href="become-a-sponsor.html" class="btn btn-primary"
-              >Become a Partner</a
+            <a href="en/become-a-sponsor.html" data-ar-link class="btn btn-primary"
+              >كن شريكاً</a
             >
           </div>
         </div>
@@ -1658,25 +1740,22 @@
         <div class="container">
           <div class="split">
             <div>
-              <div class="eyebrow">One Day. The Whole Business.</div>
+              <div class="eyebrow">يوم واحد، والصورة كاملة</div>
               <h2 class="section-title" data-reveal>
-                See What Moves Ecommerce Forward
+                اعرف ما الذي يكبر المتجر، وما الذي يعطله
               </h2>
-              <p class="section-sub" data-reveal>
-                Understand how decisions connect across the entire ecommerce
-                business.
+              <p class="body-lg">
+                قرار في الإعلانات يغير شيئاً في المخزن، وقرار في الشحن يظهر في
+                تقييمات العملاء. هنا ترى هذه الروابط كلها.
               </p>
               <p class="body-lg">
-                ECommerce Day powered by TrafficMENA brings together the
-                leaders, experts, and operators shaping ecommerce across Egypt
-                and the Gulf.
+                يجمع TrafficMENA في هذا اليوم قيادات وخبراء وأصحاب متاجر يصنعون
+                سوق التجارة الإلكترونية في مصر والخليج. على مسرحين وفي ورش عمل
+                مركزة تسمع كيف اتخذوا قراراتهم، وأين تعثروا، وما الذي صنع لهم
+                نمواً حقيقياً.
               </p>
-              <p class="body-lg">
-                Across two stages and focused workshops, you will explore the
-                decisions, challenges, and experience behind real growth.
-              </p>
-              <a href="agenda.html" class="btn btn-primary"
-                >View the Agenda</a
+              <a href="agenda.html" data-ar-link class="btn btn-primary"
+                >شاهد الأجندة</a
               >
             </div>
 
@@ -1688,22 +1767,21 @@
       <!-- ============ COMPARE TABLE ============ -->
       <section class="section">
         <div class="container">
-          <div class="eyebrow">Beyond Online Learning</div>
+          <div class="eyebrow">أكثر من دورة أونلاين</div>
           <h2 class="section-title" data-reveal>
-            One Experience. Multiple Expert Perspectives.
+            الدورة تعلمك قناة واحدة. هذا اليوم يريك العمل كله
           </h2>
           <p class="section-sub" data-reveal>
-            Access live expertise, regional context, and the wider business
-            picture.
+            تسمع الخبرة من صاحبها مباشرة، وفي سياق السوق الذي تعمل فيه.
           </p>
 
           <div class="cmp-table-wrap" id="cmpTableWrap">
             <table class="cmp-table">
               <thead>
                 <tr>
-                  <th>The Experience</th>
-                  <th class="col-day">ECommerce Day</th>
-                  <th>A Typical Online Course</th>
+                  <th>التجربة</th>
+                  <th class="col-day">يوم التجارة الإلكترونية</th>
+                  <th>دورة أونلاين معتادة</th>
                 </tr>
               </thead>
               <tbody id="cmpTableBody"></tbody>
@@ -1714,21 +1792,21 @@
             <div
               class="tab-pill"
               role="tablist"
-              aria-label="Compare experience"
+              aria-label="مقارنة التجربة"
             >
               <button role="tab" id="tabDay" aria-selected="true">
-                ECommerce Day
+                يوم التجارة الإلكترونية
               </button>
               <button role="tab" id="tabCourse" aria-selected="false">
-                Online Course
+                دورة أونلاين
               </button>
             </div>
             <div role="tabpanel" id="cmpMobileBody"></div>
           </div>
 
           <p class="body-lg mt-26">
-            ECommerce Day connects the expertise, functions, and decisions that
-            online learning often explores separately.
+            يربط اليوم بين أقسام وقرارات تشرحها الدورات أونلاين عادة كلاً على
+            حدة.
           </p>
         </div>
       </section>
@@ -1736,19 +1814,18 @@
       <!-- ============ OUTCOMES ============ -->
       <section id="outcomes" class="section section-soft">
         <div class="container">
-          <div class="eyebrow">What You Take Back</div>
+          <div class="eyebrow">ما تعود به</div>
           <h2 class="section-title" data-reveal>
-            Turn Expert Experience Into Better Business Decisions
+            تعلم من تجارب غيرك قبل أن تدفع ثمنها في متجرك
           </h2>
           <p class="section-sub" data-reveal>
-            Build sharper priorities and a clearer view of what drives
-            profitable growth.
+            تعرف بماذا تبدأ، وتفرق بين النمو المربح والنمو الذي يأكل هامشك.
           </p>
 
           <div class="outcomes-grid" id="outcomesGrid"></div>
 
           <div class="mt-32">
-            <a href="tickets.html" class="btn btn-primary">Choose Your Pass</a>
+            <a href="tickets.html" data-ar-link class="btn btn-primary">اختر تذكرتك</a>
           </div>
         </div>
       </section>
@@ -1759,7 +1836,7 @@
           <!-- Shared tickets section (also used on agenda.html). Loaded here, not in <head>,
                so it no longer blocks the first paint; still NOT deferred on purpose: it must
                define <ecd-tickets> before the inline reveal script, prices.js and ecd-content.js run. -->
-          <script src="tickets-section.js?v=20261012a"></script>
+          <script src="tickets-section.js?v=20261012b"></script>
           <ecd-tickets></ecd-tickets>
         </div>
       </section>
@@ -1767,25 +1844,24 @@
       <!-- ============ MEDIA ============ -->
       <section id="media" class="section section-soft">
         <div class="container">
-          <div class="eyebrow">Proof From the Community</div>
+          <div class="eyebrow">من المجتمع نفسه</div>
           <h2 class="section-title" data-reveal>
-            The Experience Speaks for Itself
+            اسمعها من الحضور
           </h2>
           <p class="section-sub" data-reveal>
-            Explore real events, feedback, and moments from the TrafficMENA
-            community.
+            صور وآراء من فعاليات سابقة لمجتمع TrafficMENA.
           </p>
 
           <div
             class="tab-row"
             role="tablist"
-            aria-label="Media wall"
+            aria-label="آراء الحضور بالصور والفيديو"
             id="mediaTabs"
           ></div>
           <div class="media-panel" id="mediaPanel"></div>
 
           <div class="stats-block">
-            <div class="eyebrow">TrafficMENA in Numbers</div>
+            <div class="eyebrow">TrafficMENA حتى الآن</div>
             <div class="stats-grid" id="statsGrid"></div>
           </div>
         </div>
@@ -1798,15 +1874,15 @@
         hidden
         role="dialog"
         aria-modal="true"
-        aria-label="Media preview"
+        aria-label="معاينة"
       >
         <div class="modal" data-modal-stop>
           <div class="modal-head">
-            <h3 class="mono-eyebrow">Media preview</h3>
+            <h3 class="mono-eyebrow">معاينة</h3>
             <button
               class="modal-close"
               id="closeLightbox"
-              aria-label="Close preview"
+              aria-label="إغلاق المعاينة"
             >
               <svg
                 width="16"
@@ -1842,10 +1918,10 @@
       <!-- ============ FAQ ============ -->
       <section id="faq" class="section">
         <div class="container">
-          <div class="eyebrow">Before You Book</div>
-          <h2 class="section-title" data-reveal>Everything You Need to Know</h2>
+          <div class="eyebrow">قبل أن تحجز</div>
+          <h2 class="section-title" data-reveal>كل ما تحتاج معرفته</h2>
           <p class="section-sub" data-reveal>
-            Clear answers about the event, tickets, and access.
+            عن اليوم والتذاكر والدخول.
           </p>
 
           <div class="faq-grid" id="faqGrid"></div>
@@ -1855,11 +1931,10 @@
       <!-- ============ FINAL CTA ============ -->
       <section class="section final-cta">
         <div class="container center">
-          <div class="eyebrow">Access the Ecommerce Ecosystem</div>
-          <h2 class="final-cta-title">Be Where Ecommerce Decisions Connect</h2>
+          <div class="eyebrow">السوق كله في يوم واحد</div>
+          <h2 class="final-cta-title">قابلهم في 5 نوفمبر</h2>
           <p class="final-cta-sub">
-            Access the leaders and expertise shaping growth across every
-            business function.
+            قيادات وخبراء يصنعون النمو في كل قسم من أقسام المتجر، في مكان واحد.
           </p>
 
           <div class="arrow-pulse" aria-hidden="true">
@@ -1890,7 +1965,7 @@
                 <rect x="3" y="5" width="18" height="16" rx="2" />
                 <path d="M16 3v4M8 3v4M3 10h18" />
               </svg>
-              5 November 2026
+              5 نوفمبر 2026
             </span>
             <span>
               <svg
@@ -1906,14 +1981,14 @@
                 <path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11Z" />
                 <circle cx="12" cy="10" r="2.5" />
               </svg>
-              Creativa Innovation Hub, Giza
+              مركز إبداع مصر الرقمية (كريتيفا)، الجيزة
             </span>
           </div>
 
           <div class="final-actions">
-            <a href="tickets.html" class="btn btn-primary">Get Your Ticket</a>
-            <a href="become-a-sponsor.html" class="btn btn-outline-dark"
-              >Become a Partner</a
+            <a href="tickets.html" data-ar-link class="btn btn-primary">احجز تذكرتك</a>
+            <a href="en/become-a-sponsor.html" data-ar-link class="btn btn-outline-dark"
+              >كن شريكاً</a
             >
           </div>
         </div>
@@ -1923,7 +1998,7 @@
     <!-- FOOTER -->
     <site-footer></site-footer>
 
-    <button class="back-to-top" id="backToTop" aria-label="Back to top" hidden>
+    <button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى" hidden>
       <svg
         width="18"
         height="18"
@@ -1940,10 +2015,10 @@
 
     <div class="mobile-cta" id="mobileCta" data-ecd-bottom-bar hidden>
       <div class="mobile-cta-text">
-        ECommerce Day, 5 Nov 2026
-        <span class="price-fj" data-suffix=" EGP">[Final Price] EGP</span>
+        يوم التجارة الإلكترونية، 5 نوفمبر 2026
+        <span class="price-fj" data-suffix=" جنيه">[السعر النهائي] جنيه</span>
       </div>
-      <a href="tickets.html" class="btn btn-primary">Get Ticket</a>
+      <a href="tickets.html" data-ar-link class="btn btn-primary">احجز تذكرتك</a>
     </div>
 
     <script>
@@ -1956,308 +2031,255 @@
 
         var featureData = [
           {
-            title: "2 Main Stages",
-            line: "Business-wide conversations across the ecosystem.",
+            title: "مسرحان على مدار اليوم",
+            line: "النقاش يغطي السوق كله، لا قسماً واحداً منه.",
             svg: '<rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M9 22h6"/>',
           },
           {
-            title: "Expert-Led Sessions",
-            line: "Real cases, decisions, and execution lessons.",
+            title: "خبراء على المسرح",
+            line: "حالات حقيقية، وقرارات، ودروس خرجت من التنفيذ.",
             svg: '<path d="M9 18h6M10 22h4M12 2a6 6 0 0 0-4 10.4c.7.6 1 1.4 1 2.3v.3h6v-.3c0-.9.3-1.7 1-2.3A6 6 0 0 0 12 2Z"/>',
           },
           {
-            title: "Focused Workshops",
-            line: "Practical learning designed for deeper application.",
+            title: "ورش عمل مركزة",
+            line: "لمن يريد أن يجلس ويطبق، لا أن يسمع فقط.",
             svg: '<path d="M14.7 6.3a4 4 0 0 1 5.6 5.6l-8 8L7 21l1.1-5.3 8-8Z"/><path d="M9 15l-2 2"/>',
           },
           {
-            title: "One Connected Ecosystem",
-            line: "Leaders, operators, platforms, agencies, and enablers.",
+            title: "السوق كله في مكان واحد",
+            line: "قيادات وأصحاب متاجر ومنصات ووكالات وجهات داعمة.",
             svg: '<circle cx="12" cy="5" r="2.3"/><circle cx="5" cy="19" r="2.3"/><circle cx="19" cy="19" r="2.3"/><path d="M12 7.3V13M12 13l-5.6 4M12 13l5.6 4"/>',
           },
         ];
 
         var cmpData = [
           {
-            f: "Scope",
-            day: "Multiple ecommerce disciplines",
-            course: "Usually one topic",
+            f: "ما يغطيه",
+            day: "التجارة الإلكترونية بكل أقسامها",
+            course: "موضوع واحد غالباً",
           },
           {
-            f: "Perspective",
-            day: "Leaders and operators across the ecosystem",
-            course: "Usually one instructor",
+            f: "من تسمع منه",
+            day: "قيادات وممارسون من كل جوانب السوق",
+            course: "مدرب واحد غالباً",
           },
           {
-            f: "Market Context",
-            day: "Egypt and Gulf market realities",
-            course: "Broader general examples",
+            f: "سياق السوق",
+            day: "السوق المصري والخليجي كما هو",
+            course: "أمثلة عامة",
           },
           {
-            f: "Content",
-            day: "Real decisions, cases, and trade-offs",
-            course: "Structured educational content",
+            f: "المحتوى",
+            day: "قرارات حقيقية، وما كلفته",
+            course: "محتوى تعليمي منظم",
           },
           {
-            f: "Interaction",
-            day: "Live questions and conversations",
-            course: "Limited interaction",
+            f: "التفاعل",
+            day: "تسأل وتناقش وجهاً لوجه",
+            course: "تفاعل محدود",
           },
           {
-            f: "Connections",
-            day: "Experts, platforms, and potential partners",
-            course: "Primarily individual learning",
+            f: "العلاقات",
+            day: "تقابل خبراء ومنصات وشركاء محتملين",
+            course: "تعلم فردي في الأساس",
           },
         ];
 
         var outcomeData = [
           {
             num: "01",
-            title: "Connect the Growth Engine",
-            line: "See how acquisition, conversion, retention, operations, and customer experience influence one another.",
+            title: "شاهد الحلقة كاملة",
+            line: "جذب العملاء، والتحويل، والاحتفاظ بهم، والتشغيل، وتجربة العميل. كل واحد منها يؤثر في الباقي، وسترى كيف.",
             svg: '<circle cx="12" cy="5" r="2.3"/><circle cx="5" cy="19" r="2.3"/><circle cx="19" cy="19" r="2.3"/><path d="M12 7.3V13M12 13l-5.6 4M12 13l5.6 4"/>',
           },
           {
             num: "02",
-            title: "Make Smarter Trade-Offs",
-            line: "Understand how experienced operators balance growth, cost, speed, and customer expectations.",
+            title: "اعرف ثمن كل اختيار",
+            line: "كيف يوازن أصحاب الخبرة بين النمو والتكلفة والسرعة وما ينتظره العميل.",
             svg: '<path d="M4 6h16M4 12h10M4 18h7"/><circle cx="17" cy="12" r="2"/><circle cx="9" cy="18" r="2"/>',
           },
           {
             num: "03",
-            title: "Find the Friction",
-            line: "Identify the questions that reveal performance gaps and missed opportunities.",
+            title: "اكتشف أين يتعطل متجرك",
+            line: "الأسئلة التي تكشف فجوات الأداء والفرص الضائعة.",
             svg: '<circle cx="10" cy="10" r="7"/><path d="M21 21l-4.3-4.3"/>',
           },
           {
             num: "04",
-            title: "See the Business Impact",
-            line: "Understand how every team\u2019s decisions affect the wider business.",
+            title: "انظر أبعد من قسمك",
+            line: "قرار فريق التسويق يصل إلى المخزن وخدمة العملاء، وكذلك قرارات باقي الفرق.",
             svg: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/>',
           },
           {
             num: "05",
-            title: "Apply Real Experience",
-            line: "Adapt market lessons to your business, team, and growth stage.",
+            title: "طبق ما تسمعه",
+            line: "خذ دروس السوق وطوعها لعملك وفريقك والمرحلة التي وصلت إليها.",
             svg: '<path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/>',
           },
           {
             num: "06",
-            title: "Build Relevant Connections",
-            line: "Meet leaders, specialists, platforms, agencies, and potential partners.",
+            title: "قابل من قد تعمل معهم",
+            line: "قيادات ومتخصصون ومنصات ووكالات وشركاء محتملون، ليوم كامل.",
             svg: '<circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.3 3-6 7-6s7 2.7 7 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 14c2.9.3 5.5 2.6 5.5 6"/>',
           },
         ];
 
         var statData = [
-          { n: 3000, suffix: "+", label: "Community Members" },
-          { n: 80, suffix: "+", label: "Speakers and Practitioners" },
-          { n: 90, suffix: "+", label: "Sessions" },
-          { n: 400, suffix: "+", label: "Learning Hours" },
-          { n: 13, suffix: "", label: "MENA Countries" },
-          { n: 10, suffix: "+", label: "Professional Disciplines" },
+          { n: 3000, suffix: "+", label: "عضو في المجتمع" },
+          { n: 80, suffix: "+", label: "متحدث وخبير" },
+          { n: 90, suffix: "+", label: "جلسة" },
+          { n: 400, suffix: "+", label: "ساعة محتوى" },
+          { n: 13, suffix: "", label: "دولة" },
+          { n: 10, suffix: "+", label: "تخصص مهني" },
         ];
 
         var WA_URL =
-          "https://wa.me/201505437979?text=I%20need%20help%20for%20Ecommerce%20Day%202026";
+          "https://wa.me/201505437979?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D9%85%D8%AD%D8%AA%D8%A7%D8%AC%20%D9%85%D8%B3%D8%A7%D8%B9%D8%AF%D8%A9%20%D8%A8%D8%AE%D8%B5%D9%88%D8%B5%20%D9%8A%D9%88%D9%85%20%D8%A7%D9%84%D8%AA%D8%AC%D8%A7%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A5%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A%D8%A9%202026";
         var WA_ICON =
           '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35ZM12.05 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.41 9.41 0 0 1-1.44-5.02c0-5.2 4.23-9.43 9.43-9.43 2.52 0 4.89.98 6.67 2.77a9.37 9.37 0 0 1 2.76 6.67c0 5.2-4.23 9.43-9.43 9.43Zm8.02-17.45A11.27 11.27 0 0 0 12.05.73C5.8.73.72 5.81.72 12.06c0 2 .52 3.95 1.52 5.66L.62 23.6l6.02-1.58a11.3 11.3 0 0 0 5.41 1.38h.01c6.25 0 11.33-5.08 11.33-11.33 0-3.03-1.18-5.87-3.32-8.02Z"/></svg>';
 
         var faqData = [
           {
-            q: "What is ECommerce Day?",
+            q: "ما يوم التجارة الإلكترونية؟",
             a: [
               {
-                p: "ECommerce Day is a one-day offline event by TrafficMENA that brings together founders, professionals, operators, service providers, and technology companies working across the ecommerce ecosystem.",
-              },
-              {
-                p: "The event covers the full ecommerce journey, from customer acquisition and conversion to retention, operations, logistics, customer experience, and business growth.",
+                p: "فعالية حضورية ليوم واحد تنظمها TrafficMENA، يحضرها مؤسسون ومتخصصون وأصحاب متاجر ومقدمو خدمات وشركات تكنولوجيا تعمل في التجارة الإلكترونية. البرنامج يغطي الرحلة كلها: جذب العملاء، والتحويل، والاحتفاظ بهم، والتشغيل والشحن، وتجربة العميل، ونمو العمل.",
               },
             ],
           },
           {
-            q: "What makes the experience valuable?",
+            q: "ما الذي سأستفيده من الحضور؟",
             a: [
               {
-                p: "ECommerce Day brings different parts of the ecommerce ecosystem together in one place.",
-              },
-              {
-                p: "The experience includes two stages, specialized workshops, real business case studies, expert-led sessions, networking opportunities, and access to companies providing ecommerce services and technology.",
-              },
-              {
-                p: "Instead of focusing on one marketing channel, the event connects the decisions that influence the complete customer and order journey.",
+                p: "كثير من الفعاليات تركز على قناة تسويق واحدة. هنا ترى كيف تؤثر القرارات في رحلة العميل والطلب، من أول نقرة حتى التسليم. في اليوم مسرحان، وورش عمل متخصصة، وحالات حقيقية من شركات، وجلسات يقودها خبراء، ووقت للتعارف، وشركات تعرض خدماتها وأدواتها للتجارة الإلكترونية.",
               },
             ],
           },
           {
-            q: "Who should attend?",
+            q: "من يناسبه الحضور؟",
             a: [
-              { p: "ECommerce Day is designed for:" },
+              { p: "اليوم موجه إلى:" },
               {
                 ul: [
-                  "Ecommerce founders and business owners.",
-                  "Ecommerce managers.",
-                  "Marketing and growth professionals.",
-                  "Media buyers and acquisition teams.",
-                  "CRO and customer experience professionals.",
-                  "Retention and CRM teams.",
-                  "Operations and logistics teams.",
-                  "Product and technology teams.",
-                  "Agencies and ecommerce service providers.",
-                  "Professionals planning to start or grow an ecommerce business.",
+                  "مؤسسي المتاجر الإلكترونية وأصحابها",
+                  "مديري التجارة الإلكترونية",
+                  "متخصصي التسويق والنمو",
+                  "مشتري الإعلانات (Media Buyers) وفرق جذب العملاء",
+                  "متخصصي CRO وتجربة العميل",
+                  "فرق الاحتفاظ بالعملاء وCRM",
+                  "فرق التشغيل والشحن",
+                  "فرق المنتج والتكنولوجيا",
+                  "الوكالات ومقدمي خدمات التجارة الإلكترونية",
+                  "من يخطط لإطلاق متجر إلكتروني أو توسيعه",
                 ],
               },
             ],
           },
           {
-            q: "Is it only for marketing professionals?",
+            q: "هل اليوم للمسوقين فقط؟",
             a: [
-              { p: "No." },
               {
-                p: "Marketing is one part of the experience, but the event also covers CRO, retention, customer experience, operations, logistics, technology, business management, and ecommerce growth.",
+                p: "لا. التسويق جزء من البرنامج، ومعه CRO، والاحتفاظ بالعملاء، وتجربة العميل، والتشغيل والشحن، والتكنولوجيا، وإدارة العمل.",
               },
             ],
           },
           {
-            q: "Is it suitable for beginners?",
+            q: "هل يناسب المبتدئين؟",
             a: [
-              { p: "Yes." },
               {
-                p: "The program includes sessions for people entering the ecommerce industry, as well as more specialized content for experienced professionals, managers, and business owners.",
-              },
-              {
-                p: "Attendees can choose the sessions and workshops that best match their role and experience level.",
+                p: "نعم. بعض الجلسات لمن دخل المجال حديثاً، وبعضها أعمق وموجه لأصحاب الخبرة والمديرين وأصحاب الأعمال. اختر ما يناسب دورك ومستواك.",
               },
             ],
           },
           {
-            q: "When and where is the event?",
+            q: "متى وأين يقام اليوم؟",
             a: [
               {
-                p: "ECommerce Day will take place on 5 November 2026 at Creativa Innovation Hub, Giza.",
-              },
-              {
-                p: "The full address, map, entry instructions, and transportation details will be shared with confirmed attendees before the event.",
+                p: "يوم الخميس 5 نوفمبر 2026، في مركز إبداع مصر الرقمية (كريتيفا) بالجيزة. قبل الفعالية نرسل للحضور المؤكدين العنوان الكامل والخريطة وتعليمات الدخول والمواصلات.",
               },
             ],
           },
           {
-            q: "What time does the event start?",
+            q: "متى يبدأ اليوم؟",
             a: [
               {
-                p: "Registration opens at 10:00 AM, and the stage program begins at 11:00 AM.",
-              },
-              {
-                p: "Attendees are encouraged to arrive early to complete check-in and explore the venue before the first sessions begin.",
+                p: "يفتح التسجيل الساعة 10:00 صباحاً، ويبدأ برنامج المسرح الساعة 11:00. تعال مبكراً لتنهي التسجيل وتعرف المكان قبل أول جلسة.",
               },
             ],
           },
           {
-            q: "What time does the event end?",
+            q: "متى ينتهي اليوم؟",
             a: [
-              { p: "The event is scheduled to end at approximately 7:00 PM." },
               {
-                p: "The final timing of individual sessions and workshops will be available in the event agenda.",
+                p: "نحو السابعة مساءً. مواعيد كل جلسة وورشة بالتفصيل في الأجندة.",
               },
             ],
           },
           {
-            q: "Do workshops require advance booking?",
+            q: "هل تحتاج الورش إلى حجز مسبق؟",
             a: [
-              { p: "Yes." },
               {
-                p: "ECommerce Day features 15+ workshops across 3 core ecommerce functions.",
-              },
-              {
-                p: "Workshop booking for All Access Pass holders opens 7-10 days before the event. We will announce how to book.",
-              },
-              {
-                p: "Bookings are confirmed according to available capacity, and attendees cannot reserve more than 5 workshops, or workshops that take place at the same time.",
+                p: "نعم. في اليوم أكثر من 15 ورشة عمل في 3 مسارات، ويفتح حجزها لحاملي التذكرة الشاملة (All Access Pass) قبل الفعالية بـ 7 إلى 10 أيام. سنعلن طريقة الحجز وقتها. الحد الأقصى 5 ورش، ولا يمكنك حجز ورشتين في التوقيت نفسه، ونؤكد الحجز حسب الأماكن المتاحة.",
               },
             ],
           },
           {
-            q: "How will I receive the content after the event?",
+            q: "كيف أستلم المحتوى بعد الفعالية؟",
             a: [
               {
-                p: "All Access Pass holders receive the presentation slides and the Workshop Templates & Files by email after the event.",
+                p: "بالبريد الإلكتروني. يصل لحاملي التذكرة الشاملة فقط، ويشمل شرائح العروض وملفات ونماذج الورش (Workshop Templates & Files).",
               },
             ],
           },
           {
-            q: "Will the sessions be practical?",
+            q: "هل الجلسات عملية؟",
             a: [
               {
-                p: "The program combines strategic sessions, real business case studies, expert discussions, and focused workshops.",
-              },
-              {
-                p: "The content is designed to provide applicable insights and clear takeaways. However, the exact format will vary depending on the speaker, subject, and session type.",
+                p: "هذا هو الهدف. البرنامج فيه جلسات عن الاستراتيجية، وحالات حقيقية من شركات، ونقاشات مع خبراء، وورش عمل مركزة. نريدك أن تخرج بأفكار تطبقها حين تعود إلى عملك، مع أن شكل كل جلسة يختلف حسب المتحدث والموضوع.",
               },
             ],
           },
           {
-            q: "How are speakers selected?",
+            q: "كيف تختارون المتحدثين؟",
             a: [
               {
-                p: "Speakers are selected based on their experience, relevance to the event themes, and ability to share useful knowledge, real examples, and informed perspectives.",
-              },
-              {
-                p: "The selection process prioritizes professional expertise and practical industry experience rather than promotional presentations.",
+                p: "على أساس خبرتهم وصلتها بموضوعات اليوم، وقدرتهم على مشاركة أمثلة حقيقية وآراء خرجت من التجربة. الأولوية عندنا للتجربة العملية، لا للعروض الترويجية.",
               },
             ],
           },
           {
-            q: "When will the speakers and agenda be announced?",
+            q: "متى تعلنون المتحدثين والأجندة؟",
             a: [
               {
-                p: "Confirmed speakers and sessions will be announced gradually as the program is finalized.",
-              },
-              {
-                p: "The complete agenda, including session times and workshop schedules, will be published before the event.",
+                p: "نعلن المتحدثين والجلسات أولاً بأول كلما تأكدت، وننشر الأجندة كاملة بمواعيد الجلسات وجداول الورش قبل الفعالية.",
               },
             ],
           },
           {
-            q: "Will there be networking opportunities?",
+            q: "هل هناك فرص للتعارف؟",
             a: [
-              { p: "Yes." },
               {
-                p: "Attendees will be able to connect throughout the day in the Expo Area, networking spaces, breaks, and shared event areas.",
-              },
-              {
-                p: "Networking is open and organic. The ticket does not include curated introductions or guaranteed meetings with specific attendees.",
+                p: "نعم، طوال اليوم: في منطقة المعرض (Expo Area)، ومساحات التعارف، وأوقات الاستراحة. التعارف مفتوح ولا نرتبه مسبقاً، فالتذكرة لا تشمل لقاءات مضمونة مع حضور بعينهم.",
               },
             ],
           },
           {
-            q: "Can I request a refund or transfer my ticket?",
+            q: "هل يمكنني استرداد ثمن التذكرة أو نقلها لشخص آخر؟",
             a: [
               {
-                p: "A full refund is available until the end of 30 October 2026, five days before the event.",
+                p: "الاسترداد الكامل متاح حتى نهاية يوم 30 أكتوبر 2026، أي قبل الفعالية بخمسة أيام. أرسل طلبك إلى info@trafficmena.com من البريد الإلكتروني الذي حجزت به، ويعود المبلغ بوسيلة الدفع نفسها. بعد هذا التاريخ لا نقبل طلبات الاسترداد.",
               },
-              {
-                p: "To request a refund, email info@trafficmena.com before the deadline using the email associated with your booking.",
-              },
-              {
-                p: "Requests received after this date cannot be accepted. Tickets are non-transferable and cannot be reassigned to another attendee.",
-              },
-              {
-                p: "Approved refunds will be returned through the original payment method.",
-              },
-              { contact: "For assistance, contact" },
+              { p: "التذاكر شخصية ولا يمكن نقلها لحاضر آخر." },
+              { contact: "لأي مساعدة:" },
             ],
           },
           {
-            q: "Are sponsorship opportunities available?",
+            q: "هل هناك فرص رعاية؟",
             a: [
-              { p: "Yes." },
               {
-                p: "ECommerce Day offers partnership and sponsorship opportunities for ecommerce platforms, technology providers, service companies, agencies, logistics businesses, payment providers, and other companies serving the ecommerce ecosystem.",
+                p: "نعم. الرعاية مفتوحة لمنصات التجارة الإلكترونية، ومزودي التكنولوجيا والدفع، وشركات الشحن والخدمات، والوكالات، وأي شركة يعتمد عليها التجار.",
               },
-              {
-                p: "Visit the Become a Partner page or contact us to discuss the available opportunities.",
-              },
-              { contact: "Sponsorship enquiries:" },
+              { contact: "تفاصيل الفرص في صفحة الرعاية، أو راسلنا على" },
             ],
           },
         ];
@@ -2319,7 +2341,7 @@
           wrap.appendChild(
             el("div", {
               class: "partner-tile",
-              html: "<span>Loading partners…</span>",
+              html: "<span>جار تحميل الشركاء...</span>",
             }),
           );
         })();
@@ -2458,15 +2480,15 @@
                     text: "info@trafficmena.com",
                   }),
                 );
-                line.appendChild(document.createTextNode(" or "));
+                line.appendChild(document.createTextNode(" أو "));
                 var wa = el("a", {
                   class: "wa-btn",
                   href: WA_URL,
                   target: "_blank",
                   rel: "noopener",
-                  "aria-label": "Chat with us on WhatsApp (opens in a new tab)",
+                  "aria-label": "تواصل معنا على واتساب (يفتح في نافذة جديدة)",
                 });
-                wa.innerHTML = WA_ICON + "<span>WhatsApp</span>";
+                wa.innerHTML = WA_ICON + "<span>واتساب</span>";
                 line.appendChild(wa);
                 ans.appendChild(line);
               } else {
@@ -2499,8 +2521,8 @@
           var panel = document.getElementById("mediaPanel");
           if (!tabsEl || !panel) return;
           var tabs = [
-            { key: "highlights", name: "Past Reviews" },
-            { key: "videos", name: "Video Reviews" },
+            { key: "highlights", name: "آراء مكتوبة" },
+            { key: "videos", name: "آراء بالفيديو" },
           ];
           // Video Reviews: Bunny Stream (library 465597), montage first. Each row fills
           // the width. autoplay=false and no "autoplay" in allow: never plays on its own;
@@ -2540,11 +2562,11 @@
                 var btn = el("button", { type: "button", class: "review-shot" });
                 btn.setAttribute(
                   "aria-label",
-                  "Open attendee review " + (i + 1) + " of " + reviewShots.length,
+                  "افتح رأي الحضور رقم " + (i + 1) + " من " + reviewShots.length,
                 );
                 var img = el("img", {
                   src: r.src,
-                  alt: "Attendee review from a past TrafficMENA event",
+                  alt: "رأي أحد الحضور في فعالية سابقة لـ TrafficMENA",
                   width: r.w,
                   height: r.h,
                   loading: "lazy",
@@ -2576,9 +2598,9 @@
                   var frame = el("iframe", {
                     src: BUNNY_EMBED + v.id + BUNNY_PARAMS,
                     title:
-                      "Video review from a past TrafficMENA event (" +
+                      "رأي بالفيديو من فعالية سابقة لـ TrafficMENA (" +
                       vNum +
-                      " of " +
+                      " من " +
                       vTotal +
                       ")",
                     loading: "lazy",
@@ -2684,7 +2706,7 @@
           var blocksEl = document.getElementById("countdownBlocks");
           if (!blocksEl) return;
           var target = new Date("2026-11-05T10:00:00+02:00").getTime();
-          var labels = ["Days", "Hours", "Mins", "Secs"];
+          var labels = ["يوم", "ساعة", "دقيقة", "ثانية"];
 
           function pad(n) {
             return String(n).padStart(2, "0");

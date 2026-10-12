@@ -1,9 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>TrafficMENA | ECommerce Day 2026 · Speakers</title>
+    <title>المتحدثون | يوم التجارة الإلكترونية 2026</title>
+    <link rel="canonical" href="https://www.trafficmena.com/ecommerce-day/speakers.html" />
+    <link rel="alternate" hreflang="ar" href="https://www.trafficmena.com/ecommerce-day/speakers.html" />
+    <link rel="alternate" hreflang="en" href="https://www.trafficmena.com/ecommerce-day/en/speakers.html" />
+    <link rel="alternate" hreflang="x-default" href="https://www.trafficmena.com/ecommerce-day/speakers.html" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -29,20 +33,24 @@
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
       onload="this.onload=null;this.rel='stylesheet'"
     />
     <noscript>
       <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
         rel="stylesheet"
       />
     </noscript>
 
     <!-- ✅ Reusable navbar -->
-    <script src="ecd-analytics.js?v=20261008a"></script>
-    <script src="navbar.js?v=20261008a" defer></script>
-    <script src="breadcrumbs.js?v=20261008a" defer></script>
+    <script src="ecd-analytics.js?v=20261012b"></script>
+    <!-- Links between pages: Arabic at the root, English in en/ -->
+    <script src="ecd-site.js?v=20261012a"></script>
+    <!-- Arabic strings for the shared components (must load before them) -->
+    <script src="ecd-i18n.js?v=20261012a"></script>
+    <script src="navbar.js?v=20261012c" defer></script>
+    <script src="breadcrumbs.js?v=20261012b" defer></script>
     <script type="application/ld+json">
 {
       "@context": "https://schema.org",
@@ -51,20 +59,20 @@
         {
           "@type": "ListItem",
           "position": 1,
-          "name": "ECommerce Day",
+          "name": "يوم التجارة الإلكترونية",
           "item": "https://www.trafficmena.com/ecommerce-day/"
         },
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Speakers"
+          "name": "المتحدثون"
         }
       ]
     }
     </script>
-    <script src="ecd-whatsapp.js?v=20261008a" defer></script>
+    <script src="ecd-whatsapp.js?v=20261012b" defer></script>
     <!-- ✅ Reusable footer -->
-    <script src="footer.js?v=20261008b" defer></script>
+    <script src="footer.js?v=20261012b" defer></script>
     <script src="ecd-api.js?v=20261012a" defer></script>
 
     <style>
@@ -845,49 +853,114 @@
         gap: 12px;
         padding-top: 14px;
       }
+
+      /* ============ ARABIC (RTL) ============ */
+      body {
+        font-family:
+          "IBM Plex Sans Arabic",
+          "Manrope",
+          system-ui,
+          -apple-system,
+          sans-serif;
+      }
+      /* Letter-spacing and capitals break Arabic letters */
+      .hero-label span,
+      .hero-meta,
+      .featured-label span,
+      .filter-search label,
+      .filter-meta-count,
+      .filter-row-label,
+      .lineup-progress-label {
+        font-family: "IBM Plex Sans Arabic", "Manrope", sans-serif;
+        letter-spacing: 0;
+        text-transform: none;
+      }
+      .hero-label span,
+      .featured-label span,
+      .lineup-progress-label {
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .hero-meta {
+        font-size: 14px;
+      }
+      .filter-meta {
+        margin-left: 0;
+        margin-right: auto;
+      }
+      .filter-row-label {
+        margin-right: 0;
+        margin-left: 4px;
+      }
+      .hero-title,
+      .featured-title,
+      .cta-inner h2 {
+        line-height: 1.35;
+        letter-spacing: 0;
+      }
+      /* English names, roles and companies from the admin panel */
+      .speaker-name,
+      .speaker-role,
+      .speaker-company {
+        unicode-bidi: plaintext;
+        text-align: right;
+      }
+      /* Speaker list: big heading with a line under it, no small label */
+      .featured-title.ar-has-sub {
+        margin-bottom: 12px;
+      }
+      .ar-section-sub {
+        font-size: 18px;
+        line-height: 1.7;
+        color: #4a5563;
+        max-width: 60ch;
+        margin: 0 0 40px;
+      }
+      @media (max-width: 768px) {
+        .ar-section-sub {
+          font-size: 16px;
+        }
+      }
     </style>
   </head>
   <body>
     <!-- ✅ Reusable Navbar: one line, no duplication -->
     <site-navbar current="speakers"></site-navbar>
-    <ecd-breadcrumb id="ecdBreadcrumb" data-trail='[["ECommerce Day", "index.html"], ["Speakers"]]' style="display:block;min-height:44px"></ecd-breadcrumb>
+    <ecd-breadcrumb id="ecdBreadcrumb" data-trail='[["يوم التجارة الإلكترونية", "index.html"], ["المتحدثون"]]' style="display:block;min-height:44px"></ecd-breadcrumb>
 
     <!-- ==================== HERO ==================== -->
     <div class="hero">
       <div class="hero-label">
-        <span>ECommerce Day 2026 Speaker Lineup</span>
+        <span>متحدثو يوم التجارة الإلكترونية 2026</span>
       </div>
       <h1 class="hero-title">
-        Meet the Minds Shaping
-        <span style="color: #04c44e">Ecommerce</span> Across MENA
+        من يبنون <span style="color: #04c44e">التجارة الإلكترونية</span> في
+        المنطقة، ويحكون كيف
       </h1>
       <p class="hero-sub">
-        Gain practical insight, strengthen your decisions, and build a valuable
-        network with founders, business leaders, and specialists across the
-        ecommerce ecosystem.
+        مؤسسون وقيادات ومتخصصون من كل جوانب السوق. اسمع كيف يفكرون،
+        واسألهم، وابدأ علاقة قد تفيدك بعد اليوم بكثير.
       </p>
       <div
         style="display: flex; gap: 14px; margin-bottom: 32px; flex-wrap: wrap"
       >
-        <a class="btn-primary" href="#featured-speakers">Meet the Experts</a>
-        <a class="btn-secondary" href="tickets.html">Secure Your Ticket</a>
+        <a class="btn-primary" href="#featured-speakers">تعرف على المتحدثين</a>
+        <a class="btn-secondary" href="tickets.html" data-ar-link>احجز تذكرتك</a>
       </div>
       <div class="hero-meta">
-        <span>Ecommerce Founders</span>
+        <span>مؤسسو متاجر إلكترونية</span>
         <span style="color: #d5dae0">·</span>
-        <span>Business Leaders</span>
+        <span>قيادات أعمال</span>
         <span style="color: #d5dae0">·</span>
-        <span>Industry Experts</span>
+        <span>خبراء في المجال</span>
       </div>
     </div>
 
     <!-- ==================== FEATURED ==================== -->
     <div class="featured-band" id="featured-speakers">
       <div class="featured-inner">
-        <div class="featured-label">
-          <span>Featured Speakers</span>
-        </div>
-        <h2 class="featured-title">Learn from operators, not theorists</h2>
+        <h2 class="featured-title ar-has-sub">المتحدثون</h2>
+        <p class="ar-section-sub">تعلم من أصحاب التجربة، لا من أصحاب النظريات</p>
 
         <div class="speakers-grid featured-speakers-grid" id="featuredSpeakers"></div>
       </div>
@@ -898,54 +971,51 @@
       <div class="filter-bar-inner">
         <div class="filter-search-row">
           <div class="filter-search">
-            <label for="spk-search">Search by name or company</label>
+            <label for="spk-search">ابحث بالاسم أو الشركة</label>
             <input
               id="spk-search"
               type="text"
-              placeholder="e.g. Mohamed, Meriin"
+              placeholder="مثال: Mohamed أو Meriin"
             />
           </div>
           <div class="filter-meta">
-            <span class="filter-meta-count" id="resultCount">1 speaker</span>
+            <span class="filter-meta-count" id="resultCount">متحدث واحد</span>
             <button class="filter-meta-clear" id="clearFilters">
-              Clear Filters
+              مسح الفلاتر
             </button>
           </div>
         </div>
 
         <!-- Desktop / default filter row: Room + Type -->
         <div class="filter-row filter-row-desktop-only" id="roomRow">
-          <span class="filter-row-label">Room</span>
+          <span class="filter-row-label">القاعة</span>
           <button class="chip active" data-room="" data-dot="#6b747e">
-            <span class="chip-dot" style="background: #6b747e"></span>All Rooms
+            <span class="chip-dot" style="background: #6b747e"></span>كل القاعات
           </button>
           <button class="chip" data-room="0" data-dot="#101010">
-            <span class="chip-dot" style="background: #101010"></span>Main Stage
+            <span class="chip-dot" style="background: #101010"></span>المسرح الرئيسي
           </button>
           <button class="chip" data-room="1" data-dot="#4a5563">
-            <span class="chip-dot" style="background: #4a5563"></span>Second
-            Stage
+            <span class="chip-dot" style="background: #4a5563"></span>المسرح الثاني
           </button>
           <button class="chip" data-room="2" data-dot="#05ef62">
             <span class="chip-dot" style="background: #05ef62"></span
-            >Acquisition workshops
+            >ورش مسار جذب العملاء (Acquisition)
           </button>
           <button class="chip" data-room="3" data-dot="#006681">
-            <span class="chip-dot" style="background: #006681"></span>CRO &amp;
-            Retention workshops
+            <span class="chip-dot" style="background: #006681"></span>ورش مسار زيادة المبيعات والاحتفاظ بالعملاء (CRO &amp; Retention)
           </button>
           <button class="chip" data-room="4" data-dot="#ffb020">
-            <span class="chip-dot" style="background: #ffb020"></span>Operations
-            &amp; Logistics workshops
+            <span class="chip-dot" style="background: #ffb020"></span>ورش مسار التشغيل والشحن (Operations &amp; Logistics)
           </button>
 
           <span class="filter-divider"></span>
-          <span class="filter-row-label">Type</span>
-          <button class="chip chip-sm" data-type="Founder">Founder</button>
-          <button class="chip chip-sm" data-type="Operator">Operator</button>
-          <button class="chip chip-sm" data-type="Executive">Executive</button>
+          <span class="filter-row-label">النوع</span>
+          <button class="chip chip-sm" data-type="Founder">مؤسس</button>
+          <button class="chip chip-sm" data-type="Operator">خبير تشغيل</button>
+          <button class="chip chip-sm" data-type="Executive">قيادي تنفيذي</button>
           <button class="chip chip-sm" data-type="Specialist">
-            Specialist
+            متخصص
           </button>
         </div>
 
@@ -962,11 +1032,11 @@
           >
             <path d="M4 6h16 M7 12h10 M10 18h4"></path>
           </svg>
-          Filters
+          الفلاتر
         </button>
         <div class="mobile-filter-panel" id="mobileFilterPanel">
           <div>
-            <div class="filter-row-label" style="margin-bottom: 8px">Room</div>
+            <div class="filter-row-label" style="margin-bottom: 8px">القاعة</div>
             <div
               style="display: flex; gap: 6px; flex-wrap: wrap"
               id="roomRowMobile"
@@ -974,7 +1044,7 @@
           </div>
           <div>
             <div class="filter-row-label" style="margin-bottom: 8px">
-              Speaker Type
+              نوع المتحدث
             </div>
             <div
               style="display: flex; gap: 6px; flex-wrap: wrap"
@@ -990,16 +1060,17 @@
       <div class="speakers-grid" id="speakersGrid"></div>
 
       <div class="lineup-progress">
-        <div class="lineup-progress-label">Lineup in progress</div>
+        <div class="lineup-progress-label">القائمة تكتمل تباعاً</div>
         <div class="lineup-progress-title" id="lineupTitle">
-          More speakers will be announced soon.
+          سيعلن عن مزيد من المتحدثين قريباً.
         </div>
         <a
           class="btn-secondary"
           href="tickets.html"
+          data-ar-link
           style="padding: 12px 22px; font-size: 14px"
         >
-          Get updates
+          تابع الجديد
         </a>
       </div>
     </div>
@@ -1008,20 +1079,21 @@
     <div class="cta-band">
       <div class="cta-inner">
         <h2>
-          Build your day around the expertise that can improve your decisions,
-          execution, and business results.
+          اختر الجلسات التي تمس عملك مباشرة، ورتب يومك حولها.
         </h2>
         <div class="cta-buttons">
           <a
             class="btn-primary"
             href="agenda.html"
+            data-ar-link
             style="padding: 15px 28px; font-size: 16px"
           >
-            View the Agenda
+            شاهد الأجندة
           </a>
           <a
             class="btn-secondary"
             href="tickets.html"
+            data-ar-link
             style="
               background: transparent;
               color: #ffffff;
@@ -1030,7 +1102,7 @@
               font-size: 16px;
             "
           >
-            Book Your Ticket
+            احجز تذكرتك
           </a>
         </div>
       </div>
@@ -1102,7 +1174,7 @@
           .slice(0, 6);
         if (!featured.length) {
           host.innerHTML =
-            '<p style="color:#6b747e;font-size:14px;grid-column:1/-1;margin:0">Featured speakers will be announced soon.</p>';
+            '<p style="color:#6b747e;font-size:14px;grid-column:1/-1;margin:0">سيعلن عن المتحدثين المميزين قريباً.</p>';
           return;
         }
         host.innerHTML = featured.map(speakerCardHtml).join("");
@@ -1136,8 +1208,8 @@
         var el = document.getElementById("lineupTitle");
         if (!el) return;
         el.textContent = speakers.length
-          ? "The lineup is impressive. More speakers will be announced soon."
-          : "More speakers will be announced soon.";
+          ? "قائمة المتحدثين قوية، وسنعلن عن المزيد قريباً."
+          : "سيعلن عن مزيد من المتحدثين قريباً.";
       }
 
       // One speaker card, used by the Featured Speakers section and the full list.
@@ -1149,7 +1221,7 @@
           '" alt="' +
           esc(s.name) +
           '" width="800" height="1000" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover" />'
-        : "Portrait 4:5";
+        : "";
         return (
         '<div class="speaker-card">' +
         '<div class="speaker-media">' +
@@ -1172,17 +1244,26 @@
             '<span class="track-dot" style="background:' +
             t.color +
             ';"></span>' +
-            esc(t.name) +
+            esc(EcdI18n.label(t.name)) +
             "</span>"
           : "") +
         (s.session
-          ? '<a href="agenda.html" class="speaker-session">' +
+          ? '<a href="' + EcdI18n.page("agenda.html") + '" class="speaker-session">' +
             esc(s.session) +
-            " →</a>"
+            " ←</a>"
           : "") +
         "</div>" +
         "</div>"
         );
+      }
+
+      // Arabic counting: 1 متحدث واحد, 2 متحدثان, 3-10 متحدثين, 11+ متحدثاً
+      function arCount(n) {
+        if (n === 0) return "لا يوجد متحدثون";
+        if (n === 1) return "متحدث واحد";
+        if (n === 2) return "متحدثان";
+        if (n <= 10) return n + " متحدثين";
+        return n + " متحدثاً";
       }
 
       function renderGrid() {
@@ -1207,8 +1288,7 @@
 
         // Update count
         var count = filtered.length;
-        document.getElementById("resultCount").textContent =
-          count + (count === 1 ? " speaker" : " speakers");
+        document.getElementById("resultCount").textContent = arCount(count);
       }
 
       // ==========================================
@@ -1220,7 +1300,7 @@
         var roomHtml =
           '<button class="chip chip-sm' +
           (state.fRoom === null ? " active" : "") +
-          '" data-room="">All Rooms</button>';
+          '" data-room="">كل القاعات</button>';
         workshops.forEach(function (t, i) {
           var active = state.fRoom === i ? " active" : "";
           roomHtml +=
@@ -1232,7 +1312,7 @@
             '<span class="chip-dot" style="background:' +
             t.color +
             ';"></span>' +
-            esc(t.name) +
+            esc(EcdI18n.label(t.name)) +
             "</button>";
         });
         roomRow.innerHTML = roomHtml;
@@ -1249,7 +1329,7 @@
               '" data-type="' +
               n +
               '">' +
-              n +
+              EcdI18n.label(n) +
               "</button>"
             );
           })
