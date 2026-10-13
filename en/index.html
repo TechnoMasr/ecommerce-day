@@ -50,7 +50,7 @@
     <!-- Shared prices + ECD content (partners/speakers/packages) -->
     <script src="../prices.js?v=20261012b" defer></script>
     <script src="../ecd-api.js?v=20261012a" defer></script>
-    <script src="../ecd-content.js?v=20261012b" defer></script>
+    <script src="../ecd-content.js?v=20261012c" defer></script>
 
     <style>
       /* Reserve the navbar's height before navbar.js renders it (prevents layout shift) */
@@ -1285,7 +1285,7 @@
         font-weight: 700;
         line-height: 1.3;
       }
-      .mobile-cta-text .price-fj {
+      .mobile-cta-text .price-ct {
         display: block;
         color: var(--muted);
         font-weight: 600;
@@ -1765,7 +1765,7 @@
           <!-- Shared tickets section (also used on agenda.html). Loaded here, not in <head>,
                so it no longer blocks the first paint; still NOT deferred on purpose: it must
                define <ecd-tickets> before the inline reveal script, prices.js and ecd-content.js run. -->
-          <script src="../tickets-section.js?v=20261012b"></script>
+          <script src="../tickets-section.js?v=20261012c"></script>
           <ecd-tickets></ecd-tickets>
         </div>
       </section>
@@ -1947,7 +1947,7 @@
     <div class="mobile-cta" id="mobileCta" data-ecd-bottom-bar hidden>
       <div class="mobile-cta-text">
         ECommerce Day, 5 Nov 2026
-        <span class="price-fj" data-suffix=" EGP">[Final Price] EGP</span>
+        <span class="price-ct" data-prefix="Standard Pass · " data-suffix=" EGP">Standard Pass · [Final Price] EGP</span>
       </div>
       <a href="tickets.html" class="btn btn-primary">Get Ticket</a>
     </div>

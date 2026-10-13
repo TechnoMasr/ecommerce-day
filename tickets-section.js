@@ -16,6 +16,11 @@
 (function () {
   if (customElements.get("ecd-tickets")) return;
 
+  // All Access Pass is sold out: its card is grayed, the price stays, the
+  // button is disabled and has no checkout link. Set to false (with the same
+  // switch in checkout.html) to reopen sales.
+  var ALL_ACCESS_SOLD_OUT = true;
+
   // Arabic pages load ecd-i18n.js first: the section's own text is
   // Arabic there. Card names, features, badge and CTA come from the admin
   // panel and stay as entered until the backend has Arabic fields.
@@ -40,6 +45,7 @@
         suffix: " جنيه",
         token: "[السعر النهائي] جنيه",
         limited: "العدد محدود",
+        soldOut: "نفدت التذاكر",
         compare: "قارن بين التذاكر",
         close: "إغلاق المقارنة",
         feature: "الميزة",
@@ -55,6 +61,7 @@
         suffix: " EGP",
         token: "[Final Price] EGP",
         limited: "Limited Tickets",
+        soldOut: "Sold Out",
         compare: "Compare Passes",
         close: "Close comparison",
         feature: "Feature",
@@ -130,6 +137,13 @@
     ".ecdt-btn-outline{background:#fff;border-color:#1e2422;color:#1e2422}",
     ".ecdt-btn-outline:hover{background:#1e2422;color:#fff}",
     ".ecdt-btn-full{width:100%}",
+    ".ecdt-card.sold-out{background:#f4f6f8;border:1px solid #d5dae0;box-shadow:none}",
+    ".ecdt-card.sold-out .ecdt-card-title,.ecdt-card.sold-out .ecdt-price{color:#4a5563}",
+    ".ecdt-card.sold-out .ecdt-card-eyebrow,.ecdt-card.sold-out .ecdt-card-desc,.ecdt-card.sold-out .ecdt-list{color:#4a5563}",
+    ".ecdt-card.sold-out .ecdt-list svg{stroke:#8a939d}",
+    ".ecdt-card.sold-out .ecdt-badge{background:#d5dae0;color:#4a5563}",
+    ".ecdt-limited.ecdt-soldout{color:#4a5563;background:#fff;border-color:#d5dae0}",
+    ".ecdt-btn-soldout,.ecdt-btn-soldout:hover{background:#e6eaee;border-color:#d5dae0;color:#4a5563;cursor:not-allowed;box-shadow:none}",
     ".ecdt-card .ecdt-btn{margin-top:auto}",
     ".ecdt-btn:focus-visible,.ecdt-close:focus-visible{outline:3px solid #2f6fed;outline-offset:2px}",
     ".ecdt-btn:hover,.ecdt-btn:active,.ecdt-close:hover,.ecdt-close:active{opacity:1;transform:none}",
@@ -215,7 +229,9 @@
       '<button type="button" class="ecdt-btn ecdt-btn-outline ecdt-btn-full" data-checkout="ct" data-pkg-cta>Get Standard Pass</button>' +
       "</article>" +
       // All Access Pass (fj)
-      '<article class="ecdt-card featured" data-ticket-card="fj" data-reveal>' +
+      (ALL_ACCESS_SOLD_OUT
+        ? '<article class="ecdt-card sold-out" data-ticket-card="fj" data-sold-out data-reveal>'
+        : '<article class="ecdt-card featured" data-ticket-card="fj" data-reveal>') +
       '<span class="ecdt-badge" data-pkg-badge>Complete Access</span>' +
       '<div class="ecdt-card-eyebrow" data-pkg-eyebrow>All Access Pass</div>' +
       '<h3 class="ecdt-card-title" data-pkg-title>The Full ECommerce Day Experience</h3>' +
@@ -223,9 +239,13 @@
       '<ul class="ecdt-list" id="allAccess" aria-label="' + UI.inAllAccess + '">' + listItems(FJ_INCLUDED, CHECK) + "</ul>" +
       '<div class="ecdt-price-row">' +
       '<div class="ecdt-price price-fj" data-suffix="' + UI.suffix + '">' + UI.token + "</div>" +
-      '<span class="ecdt-limited">' + UI.limited + "</span>" +
+      (ALL_ACCESS_SOLD_OUT
+        ? '<span class="ecdt-limited ecdt-soldout">' + UI.soldOut + "</span>"
+        : '<span class="ecdt-limited">' + UI.limited + "</span>") +
       "</div>" +
-      '<button type="button" class="ecdt-btn ecdt-btn-primary ecdt-btn-full" data-checkout="fj" data-pkg-cta>Get All Access Pass</button>' +
+      (ALL_ACCESS_SOLD_OUT
+        ? '<button type="button" class="ecdt-btn ecdt-btn-soldout ecdt-btn-full" disabled data-pkg-cta>' + UI.soldOut + "</button>"
+        : '<button type="button" class="ecdt-btn ecdt-btn-primary ecdt-btn-full" data-checkout="fj" data-pkg-cta>Get All Access Pass</button>') +
       "</article>" +
       "</div>" +
       '<div class="ecdt-actions">' +

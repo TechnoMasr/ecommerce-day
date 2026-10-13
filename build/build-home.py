@@ -320,9 +320,9 @@ rep("""            <a href="become-a-sponsor.html" class="btn btn-outline-dark"
 # ---------- floating bits ----------
 rep('aria-label="Back to top"', 'aria-label="العودة إلى الأعلى"')
 rep("""        ECommerce Day, 5 Nov 2026
-        <span class="price-fj" data-suffix=" EGP">[Final Price] EGP</span>""",
+        <span class="price-ct" data-prefix="Standard Pass · " data-suffix=" EGP">Standard Pass · [Final Price] EGP</span>""",
     """        يوم التجارة الإلكترونية، 5 نوفمبر 2026
-        <span class="price-fj" data-suffix=" جنيه">[السعر النهائي] جنيه</span>""")
+        <span class="price-ct" data-prefix="التذكرة الأساسية · " data-suffix=" جنيه">التذكرة الأساسية · [السعر النهائي] جنيه</span>""")
 rep('<a href="tickets.html" class="btn btn-primary">Get Ticket</a>', '<a href="tickets.html" data-ar-link class="btn btn-primary">احجز تذكرتك</a>')
 
 # ---------- DATA (inline script) ----------

@@ -188,6 +188,6 @@ p.rep("""          Start with the Main Stage, or take the full journey with work
           hands-on practice and Workshop Templates &amp; Files.""",
       """          ابدأ بالمسرحين، أو خذ اليوم كله مع الورش والتطبيق العملي والملفات.""")
 p.rep("            Book Standard Pass\n", "            احجز التذكرة الأساسية\n")
-p.rep("            Book All Access Pass\n", "            احجز التذكرة الشاملة\n")
+p.rep("            All Access Pass · Sold Out\n", "            التذكرة الشاملة · نفدت التذاكر\n")
 
 p.write()

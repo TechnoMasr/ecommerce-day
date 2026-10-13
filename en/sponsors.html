@@ -664,8 +664,8 @@
     </div>
 
     <!-- ==================== SPONSORS ==================== -->
-    <!-- Featured partners whose admin tier is not "community".
-         The gray cards stay until real sponsor logos replace them. -->
+    <!-- Every partner whose admin tier is not "community", Featured or not
+         (same list as Home). The gray cards stay until real sponsor logos replace them. -->
     <div class="featured-band" id="featured-partners">
       <div class="featured-inner">
         <div class="section-label section-label-strong">
@@ -1072,7 +1072,9 @@
               return (a.featuredSortOrder || 0) - (b.featuredSortOrder || 0);
             });
 
-          // Sponsors: tier order first (Top Player → Empowerment), then Featured sort
+          // Sponsors: every sponsor-tier partner shows (Featured only orders them, like Home
+          // which never filters on it). Tier order first (Top Player → Empowerment), then
+          // Featured ones first, then Featured sort.
           var order = tiers.map(function (t) {
             return t.id;
           });
@@ -1080,8 +1082,12 @@
             var i = order.indexOf(p.tier);
             return i === -1 ? order.length : i;
           }
-          var sponsors = featured.filter(isSponsor).sort(function (a, b) {
-            return rank(a) - rank(b);
+          var sponsors = (partners || []).filter(isSponsor).sort(function (a, b) {
+            return (
+              rank(a) - rank(b) ||
+              (b.featured ? 1 : 0) - (a.featured ? 1 : 0) ||
+              (a.featuredSortOrder || 0) - (b.featuredSortOrder || 0)
+            );
           });
           var community = featured.filter(function (p) {
             return !isSponsor(p);

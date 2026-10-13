@@ -45,10 +45,10 @@
     <script src="../footer.js?v=20261012b" defer></script>
     <!-- ✅ Shared ticket prices + live CMS packages -->
     <!-- Shared tickets section (same as index.html and agenda.html). Not deferred on purpose. -->
-    <script src="../tickets-section.js?v=20261012b"></script>
+    <script src="../tickets-section.js?v=20261012c"></script>
     <script src="../prices.js?v=20261012b" defer></script>
     <script src="../ecd-api.js?v=20261012a" defer></script>
-    <script src="../ecd-content.js?v=20261012b" defer></script>
+    <script src="../ecd-content.js?v=20261012c" defer></script>
 
     <style>
       *,
@@ -410,6 +410,16 @@
         padding: 15px 28px;
         font-weight: 600;
         font-size: 16px;
+      }
+      .btn-on-dark-soldout {
+        background: #2a2f35;
+        border: 1px solid #3a4048;
+        color: #b7bec6;
+        border-radius: 10px;
+        padding: 15px 28px;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: not-allowed;
       }
       .btn-on-dark-primary {
         background: var(--green-bright);
@@ -825,8 +835,9 @@
           <button class="btn-on-dark-outline" type="button" data-checkout="ct">
             Book Standard Pass
           </button>
-          <button class="btn-on-dark-primary" type="button" data-checkout="fj">
-            Book All Access Pass
+          <!-- All Access Pass sold out (ALL_ACCESS_SOLD_OUT in tickets-section.js) -->
+          <button class="btn-on-dark-soldout" type="button" disabled>
+            All Access Pass · Sold Out
           </button>
         </div>
       </section>

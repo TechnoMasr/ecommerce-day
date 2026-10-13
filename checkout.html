@@ -18,7 +18,7 @@
     <script src="breadcrumbs.js?v=20261012b"></script>
     <script src="prices.js?v=20261012b"></script>
     <script src="ecd-api.js?v=20261012a"></script>
-    <script src="ecd-content.js?v=20261012b"></script>
+    <script src="ecd-content.js?v=20261012c"></script>
     <style>
       * {
         box-sizing: border-box;
@@ -456,6 +456,13 @@
         background: var(--black);
         border-color: var(--black);
         color: #ffffff;
+      }
+      .btn-chip.sold-out,
+      .btn-chip.sold-out:hover {
+        background: #f4f6f8;
+        border-color: #e6eaee;
+        color: #6b747e;
+        cursor: not-allowed;
       }
 
       /* ============ PROMO ============ */
@@ -1834,9 +1841,13 @@
     <script>
       (function () {
         const DRAFT_STORAGE_KEY = "ecd2026_checkout_draft_v1";
+        // All Access Pass is sold out: checkout only sells the Standard Pass.
+        // Old ?ticket=fj links and saved drafts land on Standard. Set to
+        // false (with ALL_ACCESS_SOLD_OUT in tickets-section.js) to reopen.
+        const ALL_ACCESS_SOLD_OUT = true;
 
         const state = {
-          ticket: "fj",
+          ticket: ALL_ACCESS_SOLD_OUT ? "ct" : "fj",
           cc: "+20",
           buyer: {
             name: "",
@@ -2028,6 +2039,7 @@
             if (urlT === "ct" || urlT === "fj") state.ticket = urlT;
           } catch (e3) {}
         }
+        if (ALL_ACCESS_SOLD_OUT && state.ticket === "fj") state.ticket = "ct";
 
         function getTicketName() {
           if (window.EventPrices) {
@@ -2450,6 +2462,14 @@
             btn.setAttribute("aria-pressed", isActive ? "true" : "false");
             btn.textContent = name;
             btn.setAttribute("data-ticket", id);
+            if (ALL_ACCESS_SOLD_OUT && id === "fj") {
+              btn.disabled = true;
+              btn.className = "btn-chip sold-out";
+              btn.removeAttribute("aria-pressed");
+              btn.textContent = name + " · Sold Out";
+              chips.appendChild(btn);
+              return;
+            }
             btn.onclick = function () {
               state.ticket = id;
               state.sessionReady = false;
@@ -3298,6 +3318,15 @@
 
         async function ensureCheckoutSession(force) {
           if (!window.EcdApi) throw new Error("EcdApi not loaded");
+          if (ALL_ACCESS_SOLD_OUT && state.ticket === "fj") {
+            state.ticket = "ct";
+            state.sessionReady = false;
+            persistCheckoutDraft();
+            renderAll();
+            throw new Error(
+              "The All Access Pass is sold out. Your checkout now shows the Standard Pass.",
+            );
+          }
           if (window.EcdContent && EcdContent.ready) {
             try {
               await EcdContent.ready();
