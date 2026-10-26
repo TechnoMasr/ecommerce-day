@@ -24,12 +24,14 @@ p.add_css("""
       .section-label span,
       .hero-note,
       .supported-asset-label,
-      .experience-kind-label {
+      .experience-kind-label,
+      .tier-name {
         font-family: "IBM Plex Sans Arabic", "Manrope", sans-serif;
         letter-spacing: 0;
         text-transform: none;
       }
-      .section-label span {
+      .section-label span,
+      .tier-name {
         font-size: 14px;
         font-weight: 600;
       }
@@ -106,8 +108,8 @@ p.s = p.s.replace('<span class="experience-kind-label">Workshops</span>', '<span
 p.s = p.s.replace('<span class="experience-kind-label">Experience</span>', '<span class="experience-kind-label">مساحة</span>')
 p.s = p.s.replace('<span class="experience-kind-label">Research</span>', '<span class="experience-kind-label">بحث</span>')
 for en, ar in [
-    ('<div class="experience-name">Main Stage</div>', '<div class="experience-name">المسرح الرئيسي</div>'),
-    ('<div class="experience-name">Second Stage</div>', '<div class="experience-name">المسرح الثاني</div>'),
+    ('<div class="experience-name">Stage 1</div>', '<div class="experience-name">المسرح 1</div>'),
+    ('<div class="experience-name">Stage 2</div>', '<div class="experience-name">المسرح 2</div>'),
     ('<div class="experience-name">Acquisition workshops</div>', '<div class="experience-name">ورش مسار جذب العملاء (Acquisition)</div>'),
     ('<div class="experience-name">CRO &amp; Retention workshops</div>', '<div class="experience-name">ورش مسار زيادة المبيعات والاحتفاظ بالعملاء (CRO &amp; Retention)</div>'),
     ("""          <div class="experience-name">
@@ -167,6 +169,15 @@ p.rep("""            View the Agenda
           </a>""")
 
 # ---------- SCRIPT ----------
+# Sponsor line names (admin types); one / several logos
+for en_one, en_many, ar_one, ar_many in [
+    ("Main Sponsor", "Main Sponsors", "الراعي الرئيسي", "الرعاة الرئيسيون"),
+    ("Strategic Partner", "Strategic Partners", "شريك استراتيجي", "شركاء استراتيجيون"),
+    ("Growth Partner", "Growth Partners", "شريك النمو", "شركاء النمو"),
+    ("Fintech Partner", "Fintech Partners", "شريك التكنولوجيا المالية", "شركاء التكنولوجيا المالية"),
+    ("Exhibitor Partner", "Exhibitor Partners", "شريك عارض", "العارضون"),
+]:
+    p.rep(f'one: "{en_one}", many: "{en_many}"', f'one: "{ar_one}", many: "{ar_many}"')
 p.rep(': "<span>Partner logo</span>";', ': "<span>شعار الشريك</span>";')
 p.rep('style="padding:11px 18px;font-size:13px;text-decoration:none">Visit Partner Website</a>\'',
       'style="padding:11px 18px;font-size:13px;text-decoration:none">موقع الشريك</a>\'')

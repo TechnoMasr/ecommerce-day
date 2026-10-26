@@ -18,11 +18,11 @@
     />
 
     <!-- ✅ Reusable navbar -->
-    <script src="ecd-analytics.js?v=20261012b"></script>
+    <script src="ecd-analytics.js?v=20261026a"></script>
     <!-- Links between pages: Arabic at the root, English in en/ -->
-    <script src="ecd-site.js?v=20261012a"></script>
+    <script src="ecd-site.js?v=20261026b"></script>
     <!-- Arabic strings for the shared components (must load before them) -->
-    <script src="ecd-i18n.js?v=20261012a"></script>
+    <script src="ecd-i18n.js?v=20261026a"></script>
     <script src="navbar.js?v=20261012c" defer></script>
     <script src="breadcrumbs.js?v=20261012b" defer></script>
     <script type="application/ld+json">
@@ -223,7 +223,7 @@
         width: 100%;
         height: 128px;
         border: 1px solid #e6eaee;
-        padding: 16px;
+        padding: 12px 16px;
       }
       .featured-card .partner-logo-slot img {
         display: block;
@@ -245,6 +245,76 @@
       .band-cta {
         margin-top: 32px;
       }
+      /* Sponsor lines: one per type, tiles get smaller down the list */
+      .tier-rows[hidden],
+      .featured-grid[hidden] {
+        display: none;
+      }
+      .tier-row + .tier-row {
+        margin-top: 48px;
+      }
+      .tier-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 0 20px;
+      }
+      .tier-head::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #d5dae0;
+      }
+      .tier-dot {
+        flex: none;
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+      }
+      .tier-name {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #101010;
+        margin: 0;
+      }
+      .tier-grid {
+        display: grid;
+        gap: 20px;
+      }
+      /* Main Sponsor line: label and card centred */
+      .tier-row-main .tier-head::before {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #d5dae0;
+      }
+      .tier-grid.size-main {
+        grid-template-columns: minmax(0, 560px);
+        justify-content: center;
+      }
+      .tier-grid.size-main .featured-card-actions {
+        justify-content: center;
+      }
+      .tier-grid.size-main .featured-card {
+        padding: 24px;
+      }
+      .tier-grid.size-main .partner-logo-slot {
+        height: 200px;
+        padding: 20px 40px;
+      }
+      .tier-grid.size-large {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .tier-grid.size-compact {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .tier-grid.size-compact .partner-mini {
+        width: auto;
+      }
       /* Non-featured community partners: compact light logo tiles */
       .partner-mini-grid {
         display: flex;
@@ -261,7 +331,7 @@
       .partner-mini {
         width: 208px;
         height: 104px;
-        padding: 14px 18px;
+        padding: 10px 14px;
         background: #ffffff;
         border: 1px solid #e6eaee;
         border-radius: 12px;
@@ -517,6 +587,9 @@
         .featured-grid {
           grid-template-columns: repeat(2, 1fr);
         }
+        .tier-grid.size-compact {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
         .experiences-grid {
           grid-template-columns: repeat(2, 1fr);
         }
@@ -565,6 +638,39 @@
         .band-cta .btn-primary {
           width: 100%;
         }
+        .tier-row + .tier-row {
+          margin-top: 32px;
+        }
+        .tier-head {
+          margin-bottom: 12px;
+        }
+        .tier-grid {
+          gap: 12px;
+        }
+        .tier-grid.size-main {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .tier-grid.size-main .featured-card {
+          padding: 16px;
+        }
+        .tier-grid.size-main .partner-logo-slot {
+          height: 168px;
+          padding: 14px 32px;
+        }
+        .tier-grid.size-large {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .tier-grid.size-compact {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 10px;
+        }
+        .tier-grid .featured-card-actions .btn-secondary {
+          flex: 1;
+          text-align: center;
+          white-space: nowrap;
+          padding: 10px 12px !important;
+          font-size: 12px !important;
+        }
         .partner-mini-grid {
           display: grid;
           grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -574,7 +680,7 @@
         .partner-mini {
           width: auto;
           height: 76px;
-          padding: 10px 12px;
+          padding: 8px 10px;
           border-radius: 10px;
         }
         .featured-card .level-pill {
@@ -649,12 +755,14 @@
       .section-label span,
       .hero-note,
       .supported-asset-label,
-      .experience-kind-label {
+      .experience-kind-label,
+      .tier-name {
         font-family: "IBM Plex Sans Arabic", "Manrope", sans-serif;
         letter-spacing: 0;
         text-transform: none;
       }
-      .section-label span {
+      .section-label span,
+      .tier-name {
         font-size: 14px;
         font-weight: 600;
       }
@@ -708,8 +816,9 @@
     </div>
 
     <!-- ==================== SPONSORS ==================== -->
-    <!-- Every partner whose admin tier is not "community", Featured or not
-         (same list as Home). The gray cards stay until real sponsor logos replace them. -->
+    <!-- Every partner whose admin type is not "community", Featured or not
+         (same list as Home), one line per type. The gray cards stay until real
+         sponsor logos replace them. -->
     <div class="featured-band" id="featured-partners">
       <div class="featured-inner">
         <div class="section-label section-label-strong">
@@ -756,6 +865,10 @@
           </div>
         </div>
 
+        <!-- One line per sponsor type (Main, Strategic, Growth, Fintech, Exhibitor);
+             a type shows once the admin has a logo of that type -->
+        <div class="tier-rows" id="sponsorTiers" hidden></div>
+
         <div class="band-cta">
           <a href="en/become-a-sponsor.html" data-ar-link class="btn-primary">كن راعياً</a>
         </div>
@@ -787,7 +900,7 @@
             <span class="experience-dot" style="background: #101010"></span>
             <span class="experience-kind-label">مسرح</span>
           </div>
-          <div class="experience-name">المسرح الرئيسي</div>
+          <div class="experience-name">المسرح 1</div>
           <div class="experience-formula">بالشراكة مع [اسم الشريك]</div>
         </div>
         <div class="experience-card">
@@ -795,7 +908,7 @@
             <span class="experience-dot" style="background: #4a5563"></span>
             <span class="experience-kind-label">مسرح</span>
           </div>
-          <div class="experience-name">المسرح الثاني</div>
+          <div class="experience-name">المسرح 2</div>
           <div class="experience-formula">بالشراكة مع [اسم الشريك]</div>
         </div>
         <div class="experience-card">
@@ -960,51 +1073,30 @@
     <script>
       (function () {
         var DEFAULT_TIERS = [
-          {
-            id: "title",
-            name: "Top Player Partner",
-            color: "#101010",
-            focus:
-              "One brand only. Named across the event, on the Main Stage, and in the room where the audience gathers.",
-          },
-          {
-            id: "strategic",
-            name: "Strategic Partner",
-            color: "#04c44e",
-            focus:
-              "A brand tied to one part of the day, with a stand and a way to talk to the people who run stores.",
-          },
-          {
-            id: "innovation",
-            name: "Innovation Partner",
-            color: "#006681",
-            focus:
-              "For companies bringing a product or a platform that solves a specific problem in the order.",
-          },
-          {
-            id: "empowerment",
-            name: "Empowerment Partner",
-            color: "#8a5a00",
-            focus:
-              "For teams that support merchants and want to be in the room without owning a stage.",
-          },
+          { id: "main", name: "Main Sponsor", color: "#101010", focus: "" },
+          { id: "strategic", name: "Strategic Partner", color: "#04c44e", focus: "" },
+          { id: "growth", name: "Growth Partner", color: "#006681", focus: "" },
+          { id: "fintech", name: "Fintech Partner", color: "#8a5a00", focus: "" },
+          { id: "exhibitor", name: "Exhibitor Partner", color: "#4a5563", focus: "" },
           {
             id: "community",
             name: "Community Partner",
-            color: "#4a5563",
+            color: "#6b747e",
             focus:
               "The entry level. Your brand listed, your team in the room, and a way to collect leads.",
           },
         ];
 
         var PILL = {
-          title: "background:#101010;border:1px solid #101010;color:#05ef62",
+          main: "background:#101010;border:1px solid #101010;color:#05ef62",
           strategic:
             "background:#e6fbee;border:1px solid #c3f7d7;color:#04c44e",
-          innovation:
+          growth:
             "background:#e8f4f7;border:1px solid #b2d6e0;color:#006681",
-          empowerment:
+          fintech:
             "background:#fff4de;border:1px solid #ffb020;color:#8a5a00",
+          exhibitor:
+            "background:#f4f6f8;border:1px solid #d5dae0;color:#4a5563",
           community:
             "background:#f4f6f8;border:1px solid #d5dae0;color:#4a5563",
         };
@@ -1017,6 +1109,16 @@
             .replace(/"/g, "&quot;");
         }
 
+        // Sponsor lines in display order. Labels stay here (not from the API)
+        // so the Arabic page can show its own; size sets the tile size.
+        var SPONSOR_ROWS = [
+          { id: "main", one: "الراعي الرئيسي", many: "الرعاة الرئيسيون", color: "#101010", size: "main" },
+          { id: "strategic", one: "شريك استراتيجي", many: "شركاء استراتيجيون", color: "#04c44e", size: "large" },
+          { id: "growth", one: "شريك النمو", many: "شركاء النمو", color: "#006681", size: "large" },
+          { id: "fintech", one: "شريك التكنولوجيا المالية", many: "شركاء التكنولوجيا المالية", color: "#ffb020", size: "large" },
+          { id: "exhibitor", one: "شريك عارض", many: "العارضون", color: "#4a5563", size: "compact" },
+        ];
+
         function tierMeta(tiers, id) {
           for (var i = 0; i < tiers.length; i++) {
             if (tiers[i].id === id) return tiers[i];
@@ -1024,7 +1126,7 @@
           return { id: id, name: id, color: "#4a5563", focus: "" };
         }
 
-        function partnerCard(p, tiers) {
+        function partnerCard(p, tiers, noPill) {
           var t = tierMeta(tiers, p.tier || "community");
           var pillStyle = PILL[p.tier] || PILL.community;
           var logo = p.logoUrl
@@ -1053,11 +1155,13 @@
             '<h3 class="visually-hidden">' +
             esc(p.name) +
             "</h3>" +
-            '<span class="level-pill" style="' +
-            pillStyle +
-            '">' +
-            esc(t.name) +
-            "</span>" +
+            (noPill
+              ? ""
+              : '<span class="level-pill" style="' +
+                pillStyle +
+                '">' +
+                esc(t.name) +
+                "</span>") +
             (p.blurb
               ? '<div class="featured-line">' + esc(p.blurb) + "</div>"
               : "") +
@@ -1116,21 +1220,15 @@
               return (a.featuredSortOrder || 0) - (b.featuredSortOrder || 0);
             });
 
-          // Sponsors: every sponsor-tier partner shows (Featured only orders them, like Home
-          // which never filters on it). Tier order first (Top Player → Empowerment), then
-          // Featured ones first, then Featured sort.
-          var order = tiers.map(function (t) {
-            return t.id;
-          });
-          function rank(p) {
-            var i = order.indexOf(p.tier);
-            return i === -1 ? order.length : i;
-          }
+          // Sponsors: every sponsor-type partner shows (Featured only orders them, like
+          // Home which never filters on it). Within a line: Featured first, Featured
+          // sort, admin sort order, then name.
           var sponsors = (partners || []).filter(isSponsor).sort(function (a, b) {
             return (
-              rank(a) - rank(b) ||
               (b.featured ? 1 : 0) - (a.featured ? 1 : 0) ||
-              (a.featuredSortOrder || 0) - (b.featuredSortOrder || 0)
+              (a.featuredSortOrder || 0) - (b.featuredSortOrder || 0) ||
+              (a.sortOrder || 0) - (b.sortOrder || 0) ||
+              String(a.name || "").localeCompare(String(b.name || ""))
             );
           });
           var community = featured.filter(function (p) {
@@ -1138,12 +1236,42 @@
           });
 
           var sponsorHost = document.getElementById("featuredSponsors");
-          if (sponsorHost) {
-            var html = sponsors
-              .map(function (p) {
-                return partnerCard(p, tiers);
-              })
-              .join("");
+          var rowsHost = document.getElementById("sponsorTiers");
+          if (sponsorHost && rowsHost) {
+            // A type the page does not know yet joins the Exhibitor line
+            var known = SPONSOR_ROWS.map(function (r) {
+              return r.id;
+            });
+            rowsHost.innerHTML = SPONSOR_ROWS.map(function (r) {
+              var list = sponsors.filter(function (p) {
+                return (
+                  p.tier === r.id ||
+                  (r.id === "exhibitor" && known.indexOf(p.tier) === -1)
+                );
+              });
+              if (!list.length) return "";
+              var cells = list
+                .map(function (p) {
+                  return r.size === "compact" ? miniTile(p) : partnerCard(p, tiers, true);
+                })
+                .join("");
+              return (
+                '<section class="tier-row' +
+                (r.size === "main" ? " tier-row-main" : "") +
+                '"><div class="tier-head"><span class="tier-dot" style="background:' +
+                r.color +
+                '"></span><h3 class="tier-name">' +
+                esc(list.length > 1 ? r.many : r.one) +
+                '</h3></div><div class="tier-grid size-' +
+                r.size +
+                '">' +
+                cells +
+                "</div></section>"
+              );
+            }).join("");
+            rowsHost.hidden = !sponsors.length;
+            sponsorHost.hidden = !!sponsors.length;
+            var html = "";
             for (var i = sponsors.length; i < SPONSOR_SLOTS; i++) {
               html += PLACEHOLDER_CARD;
             }

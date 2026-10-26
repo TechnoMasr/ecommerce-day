@@ -67,13 +67,17 @@ RTL_CSS = """
       .countdown-label,
       .mono-eyebrow,
       .partner-tile span,
+      #sponsors .tier-name,
+      #sponsors .supported-asset-label,
+      .main-speaker-pill,
       .cmp-table thead th,
       .cd-block .u {
         font-family: "IBM Plex Sans Arabic", "Manrope", sans-serif;
         letter-spacing: 0;
         text-transform: none;
       }
-      .eyebrow {
+      .eyebrow,
+      #sponsors .tier-name {
         font-size: 14px;
         font-weight: 600;
       }
@@ -125,9 +129,18 @@ RTL_CSS = """
       }
       /* English names and roles from the admin panel keep their own order */
       .speaker-name,
-      .speaker-role {
+      .speaker-role,
+      #sponsors .featured-line,
+      #sponsors .supported-asset-value,
+      .main-speaker-name,
+      .main-speaker-role,
+      .main-speaker-company {
         unicode-bidi: plaintext;
         text-align: right;
+      }
+      .main-speaker-pill {
+        font-size: 13px;
+        font-weight: 600;
       }
     </style>"""
 rep("    </style>\n  </head>", RTL_CSS + "\n  </head>")

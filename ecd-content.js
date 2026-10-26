@@ -12,11 +12,37 @@
   var TXT = AR
     ? {
         sponsorsSoon: "نعلن أسماء الرعاة قريباً.",
+        mainSpeaker: "متحدث رئيسي",
+        aboutSession: "عن الجلسة ←",
+        visitSite: "موقع الشريك",
+        supportedAsset: "ما يدعمه",
+        explore: "التجربة التي يدعمها ←",
+        partnerLogo: "شعار الشريك",
+        tiers: {
+          main: ["الراعي الرئيسي", "الرعاة الرئيسيون"],
+          strategic: ["شريك استراتيجي", "شركاء استراتيجيون"],
+          growth: ["شريك النمو", "شركاء النمو"],
+          fintech: ["شريك التكنولوجيا المالية", "شركاء التكنولوجيا المالية"],
+          exhibitor: ["شريك عارض", "العارضون"],
+        },
         partnersSoon: "سيعلن عن الشركاء قريباً",
         speakersSoon: "سيعلن عن مزيد من المتحدثين قريباً",
       }
     : {
         sponsorsSoon: "Sponsors will be announced soon.",
+        mainSpeaker: "Main Speaker",
+        aboutSession: "About the session →",
+        visitSite: "Visit Partner Website",
+        supportedAsset: "Supported asset",
+        explore: "Explore the Supported Experience →",
+        partnerLogo: "Partner logo",
+        tiers: {
+          main: ["Main Sponsor", "Main Sponsors"],
+          strategic: ["Strategic Partner", "Strategic Partners"],
+          growth: ["Growth Partner", "Growth Partners"],
+          fintech: ["Fintech Partner", "Fintech Partners"],
+          exhibitor: ["Exhibitor Partner", "Exhibitor Partners"],
+        },
         partnersSoon: "Partners announced soon",
         speakersSoon: "More speakers will be announced soon",
       };
@@ -90,39 +116,121 @@
     return tile;
   }
 
-  var SPONSOR_SLOTS = 6;
-  var PLACEHOLDER_SVG =
-    '<svg viewBox="0 0 120 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="9" fill="#DDE2E7"/><rect x="42" y="6" width="78" height="9" rx="4.5" fill="#E6EAEE"/><rect x="42" y="19" width="50" height="7" rx="3.5" fill="#E6EAEE"/></svg>';
+  // Sponsor lines in display order (admin "Type"), same as the Sponsors page:
+  // label color, tile size (main = one large card, large = 3 per row,
+  // compact = small logo tiles)
+  var SPONSOR_ROWS = [
+    { id: "main", color: "#101010", size: "main" },
+    { id: "strategic", color: "#04c44e", size: "large" },
+    { id: "growth", color: "#006681", size: "large" },
+    { id: "fintech", color: "#ffb020", size: "large" },
+    { id: "exhibitor", color: "#4a5563", size: "compact" },
+  ];
 
-  // Home "Our Sponsors" grid: sponsor logos by tier order, gray tiles fill up to 6 slots
-  function renderSponsors(sponsors, tiers) {
+  function logoImg(p) {
+    return p.logoUrl
+      ? el("img", {
+          src: p.logoUrl,
+          alt: p.name || "Partner",
+          loading: "lazy",
+          decoding: "async",
+        })
+      : el("span", { text: p.name || TXT.partnerLogo });
+  }
+
+  // Large / main card: logo, optional blurb, supported asset and links
+  function sponsorCard(p) {
+    var card = el("div", { class: "featured-card" });
+    var slot = el("div", { class: "partner-logo-slot" });
+    slot.appendChild(logoImg(p));
+    card.appendChild(slot);
+    card.appendChild(el("h3", { class: "sr-only", text: p.name || "" }));
+    if (p.blurb) card.appendChild(el("div", { class: "featured-line", text: p.blurb }));
+    if (p.supportedAsset) {
+      var asset = el("div", { class: "supported-asset" });
+      asset.appendChild(el("div", { class: "supported-asset-label", text: TXT.supportedAsset }));
+      asset.appendChild(el("div", { class: "supported-asset-value", text: p.supportedAsset }));
+      card.appendChild(asset);
+    }
+    if (p.websiteUrl || p.experienceUrl) {
+      var actions = el("div", { class: "featured-card-actions" });
+      if (p.websiteUrl) {
+        actions.appendChild(
+          el("a", {
+            class: "btn-secondary",
+            href: p.websiteUrl,
+            target: "_blank",
+            rel: "noopener noreferrer",
+            text: TXT.visitSite,
+          }),
+        );
+      }
+      if (p.experienceUrl) {
+        actions.appendChild(
+          el("a", { class: "experience-link", href: p.experienceUrl, text: TXT.explore }),
+        );
+      }
+      card.appendChild(actions);
+    }
+    return card;
+  }
+
+  // Compact tile (Exhibitors): logo only, links to the website when set
+  function sponsorMini(p) {
+    var tile = el(p.websiteUrl ? "a" : "div", { class: "partner-mini", title: p.name || "" });
+    if (p.websiteUrl) {
+      tile.setAttribute("href", p.websiteUrl);
+      tile.setAttribute("target", "_blank");
+      tile.setAttribute("rel", "noopener noreferrer");
+    }
+    tile.appendChild(logoImg(p));
+    return tile;
+  }
+
+  // Home "Our Sponsors": one line per type, same layout as the Sponsors page;
+  // gray tiles hold 6 slots until the first sponsor is added
+  function renderSponsors(sponsors) {
     var grid = document.getElementById("sponsorsGrid");
-    if (!grid) return;
-    var order = (tiers || []).map(function (t) {
-      return t.id;
-    });
-    function rank(p) {
-      var i = order.indexOf(p.tier);
-      return i === -1 ? order.length : i;
-    }
+    var rowsHost = document.getElementById("sponsorTiers");
+    if (!grid || !rowsHost) return;
     var list = sponsors.slice().sort(function (a, b) {
-      return rank(a) - rank(b);
-    });
-    var frag = document.createDocumentFragment();
-    list.forEach(function (p) {
-      frag.appendChild(makePartnerTile(p));
-    });
-    for (var i = list.length; i < SPONSOR_SLOTS; i++) {
-      frag.appendChild(
-        el("div", {
-          class: "partner-tile is-placeholder",
-          "aria-hidden": "true",
-          html: PLACEHOLDER_SVG,
-        }),
+      return (
+        (b.featured ? 1 : 0) - (a.featured ? 1 : 0) ||
+        (a.featuredSortOrder || 0) - (b.featuredSortOrder || 0) ||
+        (a.sortOrder || 0) - (b.sortOrder || 0) ||
+        String(a.name || "").localeCompare(String(b.name || ""))
       );
-    }
-    grid.innerHTML = "";
-    grid.appendChild(frag);
+    });
+    // A type the page does not know yet joins the Exhibitor line
+    var known = SPONSOR_ROWS.map(function (r) {
+      return r.id;
+    });
+    rowsHost.innerHTML = "";
+    SPONSOR_ROWS.forEach(function (r) {
+      var items = list.filter(function (p) {
+        return p.tier === r.id || (r.id === "exhibitor" && known.indexOf(p.tier) === -1);
+      });
+      if (!items.length) return;
+      var row = el("section", {
+        class: "tier-row" + (r.size === "main" ? " tier-row-main" : ""),
+      });
+      var head = el("div", { class: "tier-head" });
+      var dot = el("span", { class: "tier-dot" });
+      dot.style.background = r.color;
+      head.appendChild(dot);
+      head.appendChild(
+        el("h3", { class: "tier-name", text: TXT.tiers[r.id][items.length > 1 ? 1 : 0] }),
+      );
+      row.appendChild(head);
+      var cells = el("div", { class: "tier-grid size-" + r.size });
+      items.forEach(function (p) {
+        cells.appendChild(r.size === "compact" ? sponsorMini(p) : sponsorCard(p));
+      });
+      row.appendChild(cells);
+      rowsHost.appendChild(row);
+    });
+    rowsHost.hidden = !list.length;
+    grid.hidden = !!list.length;
     var status = document.getElementById("sponsorsStatus");
     if (status) {
       status.textContent = list.length ? "" : TXT.sponsorsSoon;
@@ -151,11 +259,11 @@
     wrap.appendChild(frag);
   }
 
-  function renderPartners(partners, tiers) {
+  function renderPartners(partners) {
     var list = (partners || []).filter(function (p) {
       return p.showOnHome !== false;
     });
-    renderSponsors(list.filter(isSponsor), tiers);
+    renderSponsors(list.filter(isSponsor));
     renderCommunity(
       list.filter(function (p) {
         return !isSponsor(p);
@@ -204,9 +312,68 @@
     setTimeout(updateButtons, 0);
   }
 
-  function renderSpeakers(speakers) {
+  // Main Speakers (admin "Main Speaker" switch, stored as featured): big
+  // cards above the carousel, same card as the Speakers page. They move
+  // out of the carousel, they are not repeated in it.
+  function renderMainSpeakers(main) {
+    var host = document.getElementById("mainSpeakers");
+    if (!host) return;
+    host.innerHTML = "";
+    main.forEach(function (s) {
+      var card = el("article", { class: "main-speaker" });
+      var photo = el("div", { class: "main-speaker-photo" });
+      if (s.photoUrl) {
+        photo.appendChild(
+          el("img", {
+            src: s.photoUrl,
+            alt: s.name || "Speaker",
+            width: 800,
+            height: 1000,
+            loading: "lazy",
+            decoding: "async",
+          }),
+        );
+      } else {
+        photo.innerHTML = silhouetteSvg();
+      }
+      var body = el("div", { class: "main-speaker-body" });
+      body.appendChild(el("span", { class: "main-speaker-pill", text: TXT.mainSpeaker }));
+      // A speaker with a landing page: the name is the link, and its click
+      // area covers the whole card (CSS .main-speaker-link::after)
+      var href = global.EcdSite && global.EcdSite.speakerPage ? global.EcdSite.speakerPage(s.id) : null;
+      var name = el("h3", { class: "main-speaker-name" });
+      if (href) {
+        name.appendChild(el("a", { class: "main-speaker-link", href: href, text: s.name || "" }));
+      } else {
+        name.textContent = s.name || "";
+      }
+      body.appendChild(name);
+      if (s.role) body.appendChild(el("p", { class: "main-speaker-role", text: s.role }));
+      if (s.company) body.appendChild(el("p", { class: "main-speaker-company", text: s.company }));
+      if (href) {
+        body.appendChild(el("span", { class: "main-speaker-more", "aria-hidden": "true", text: TXT.aboutSession }));
+      }
+      card.appendChild(photo);
+      card.appendChild(body);
+      host.appendChild(card);
+    });
+    host.hidden = !main.length;
+  }
+
+  function renderSpeakers(all) {
     var track = document.getElementById("speakersTrack");
     if (!track) return;
+    var main = (all || [])
+      .filter(function (s) {
+        return s.featured;
+      })
+      .sort(function (a, b) {
+        return (a.featuredSortOrder || 0) - (b.featuredSortOrder || 0);
+      });
+    renderMainSpeakers(main);
+    var speakers = (all || []).filter(function (s) {
+      return !s.featured;
+    });
     track.innerHTML = "";
     if (!speakers || !speakers.length) {
       var empty = el("article", { class: "speaker-card" });
@@ -253,6 +420,11 @@
     wireSpeakerCarousel(track);
   }
 
+  // Old stage names saved in the admin show as Stage 1 / Stage 2 (ecd-site.js)
+  function stages(text) {
+    return global.EcdSite && global.EcdSite.stages ? global.EcdSite.stages(text) : text;
+  }
+
   function fillFeatureList(listEl, features, kind) {
     if (!listEl) return;
     listEl.innerHTML = "";
@@ -270,7 +442,7 @@
               '<span style="font-weight:' +
               weight +
               '">' +
-              f.label +
+              stages(f.label) +
               "</span>",
           }),
         );
@@ -317,7 +489,7 @@
     if (global.EventPrices && global.EventPrices.applyFromPackages) {
       global.EventPrices.applyFromPackages(content.packages, activeTicketId);
     }
-    renderPartners(content.partners, content.partnerTiers);
+    renderPartners(content.partners);
     renderSpeakers(content.speakers);
     if (content.packages) {
       applyPackageCard("ct", content.packages.ct);

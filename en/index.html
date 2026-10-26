@@ -39,9 +39,9 @@
     </noscript>
 
     <!-- ✅ Reusable navbar -->
-    <script src="../ecd-analytics.js?v=20261012b"></script>
+    <script src="../ecd-analytics.js?v=20261026a"></script>
     <!-- Links between pages: Arabic at the root, English in en/ -->
-    <script src="../ecd-site.js?v=20261012a"></script>
+    <script src="../ecd-site.js?v=20261026b"></script>
     <script src="../navbar.js?v=20261012c" defer></script>
     <script src="../ecd-whatsapp.js?v=20261012b" defer></script>
     <!-- ✅ Reusable footer -->
@@ -50,7 +50,7 @@
     <!-- Shared prices + ECD content (partners/speakers/packages) -->
     <script src="../prices.js?v=20261012b" defer></script>
     <script src="../ecd-api.js?v=20261012a" defer></script>
-    <script src="../ecd-content.js?v=20261012c" defer></script>
+    <script src="../ecd-content.js?v=20261026d" defer></script>
 
     <style>
       /* Reserve the navbar's height before navbar.js renders it (prevents layout shift) */
@@ -544,8 +544,174 @@
       .sponsor-grid .partner-tile {
         width: auto;
       }
-      .sponsor-grid a.partner-tile:hover {
-        box-shadow: 0 14px 40px rgba(16, 16, 16, 0.08);
+      .sponsor-grid[hidden],
+      .tier-rows[hidden] {
+        display: none;
+      }
+      /* Sponsor lines: same layout and cards as the Sponsors page (keep in step) */
+      #sponsors .tier-row + .tier-row {
+        margin-top: 48px;
+      }
+      #sponsors .tier-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 0 20px;
+      }
+      #sponsors .tier-head::after,
+      #sponsors .tier-row-main .tier-head::before {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #d5dae0;
+      }
+      #sponsors .tier-dot {
+        flex: none;
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+      }
+      #sponsors .tier-name {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #101010;
+        margin: 0;
+      }
+      #sponsors .tier-grid {
+        display: grid;
+        gap: 20px;
+      }
+      #sponsors .tier-grid.size-main {
+        grid-template-columns: minmax(0, 560px);
+        justify-content: center;
+      }
+      #sponsors .tier-grid.size-large {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      #sponsors .tier-grid.size-compact {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 16px;
+      }
+      #sponsors .featured-card {
+        background: #ffffff;
+        border: 1px solid #d5dae0;
+        border-radius: 16px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        min-width: 0;
+      }
+      #sponsors .size-main .featured-card {
+        padding: 24px;
+      }
+      #sponsors .partner-logo-slot {
+        width: 100%;
+        height: 128px;
+        border: 1px solid #e6eaee;
+        border-radius: 10px;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #ffffff;
+      }
+      #sponsors .size-main .partner-logo-slot {
+        height: 200px;
+        padding: 20px 40px;
+      }
+      #sponsors .partner-logo-slot img,
+      #sponsors .partner-mini img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 8px;
+      }
+      #sponsors .partner-logo-slot span,
+      #sponsors .partner-mini span {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #6b747e;
+        text-align: center;
+      }
+      #sponsors .featured-line {
+        font-size: 14px;
+        line-height: 1.7;
+        color: #4a5563;
+      }
+      #sponsors .supported-asset {
+        border: 1px solid #e6eaee;
+        background: #f4f6f8;
+        border-radius: 10px;
+        padding: 12px 14px;
+      }
+      #sponsors .supported-asset-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #04c44e;
+        margin-bottom: 4px;
+      }
+      #sponsors .supported-asset-value {
+        font-size: 13px;
+        font-weight: 600;
+        color: #101010;
+      }
+      #sponsors .featured-card-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      #sponsors .size-main .featured-card-actions {
+        justify-content: center;
+      }
+      #sponsors .btn-secondary {
+        background: #ffffff;
+        border: 1px solid #101010;
+        color: #101010;
+        border-radius: 10px;
+        padding: 11px 18px;
+        font-weight: 600;
+        font-size: 13px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+      #sponsors .btn-secondary:hover {
+        background: #f4f6f8;
+      }
+      #sponsors .experience-link {
+        color: #04c44e;
+        font-weight: 600;
+        font-size: 13px;
+        padding: 11px 0;
+        text-decoration: none;
+      }
+      #sponsors .partner-mini {
+        height: 104px;
+        padding: 10px 14px;
+        background: #ffffff;
+        border: 1px solid #e6eaee;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          box-shadow 0.2s,
+          border-color 0.2s;
+      }
+      #sponsors a.partner-mini:hover {
+        border-color: #d5dae0;
+        box-shadow: 0 8px 24px rgba(16, 16, 16, 0.08);
       }
       .partner-tile.is-placeholder svg {
         display: block;
@@ -576,6 +742,57 @@
           grid-template-columns: repeat(3, minmax(0, 1fr));
           gap: 16px;
         }
+        #sponsors .tier-grid.size-compact {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+      }
+      @media (max-width: 768px) {
+        #sponsors .tier-row + .tier-row {
+          margin-top: 32px;
+        }
+        #sponsors .tier-head {
+          margin-bottom: 12px;
+        }
+        #sponsors .tier-grid {
+          gap: 12px;
+        }
+        #sponsors .tier-grid.size-main {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        #sponsors .featured-card {
+          padding: 12px;
+          gap: 12px;
+          border-radius: 14px;
+        }
+        #sponsors .size-main .featured-card {
+          padding: 16px;
+        }
+        #sponsors .partner-logo-slot {
+          height: 88px;
+          padding: 10px;
+        }
+        #sponsors .size-main .partner-logo-slot {
+          height: 168px;
+          padding: 14px 32px;
+        }
+        #sponsors .tier-grid.size-large {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        #sponsors .tier-grid.size-compact {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 10px;
+        }
+        #sponsors .partner-mini {
+          height: 76px;
+          padding: 8px 10px;
+          border-radius: 10px;
+        }
+        #sponsors .featured-card-actions .btn-secondary {
+          flex: 1;
+          white-space: nowrap;
+          padding: 10px 12px;
+          font-size: 12px;
+        }
       }
       @media (max-width: 520px) {
         .sponsor-grid {
@@ -587,6 +804,151 @@
         }
         .section-cta .btn {
           width: 100%;
+        }
+      }
+
+      /* ============ MAIN SPEAKERS ============ */
+      /* Same card as the Speakers page (keep in step) */
+      .main-speakers {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+        margin-bottom: 32px;
+      }
+      .main-speakers[hidden] {
+        display: none;
+      }
+      .main-speaker {
+        display: grid;
+        grid-template-columns: 240px minmax(0, 1fr);
+        background: #ffffff;
+        border: 1px solid #101010;
+        border-radius: 16px;
+        overflow: hidden;
+        transition: box-shadow 0.2s;
+      }
+      .main-speaker:hover {
+        box-shadow: 0 14px 40px rgba(16, 16, 16, 0.1);
+      }
+      .main-speaker-photo {
+        aspect-ratio: 4/5;
+        background: #f4f6f8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .main-speaker-photo img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .main-speaker-body {
+        padding: 28px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 8px;
+        min-width: 0;
+      }
+      .main-speaker-pill {
+        background: #101010;
+        color: #05ef62;
+        border-radius: 999px;
+        padding: 5px 12px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .main-speaker-name {
+        font-size: 26px;
+        line-height: 1.2;
+        font-weight: 700;
+        color: #101010;
+        margin: 0;
+      }
+      .main-speaker-role {
+        font-size: 15px;
+        line-height: 1.6;
+        color: #4a5563;
+        margin: 0;
+      }
+      .main-speaker-company {
+        font-size: 15px;
+        font-weight: 600;
+        color: #101010;
+        margin: 0;
+      }
+      /* Card of a speaker with a landing page: the name link covers the card */
+      .main-speaker {
+        position: relative;
+      }
+      .main-speaker-link,
+      .main-speaker-link:hover {
+        color: inherit;
+      }
+      .main-speaker-link::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+      }
+      /* Keyboard focus rings the whole card where :has() works */
+      @supports selector(:has(a)) {
+        .main-speaker-link:focus-visible {
+          outline: none;
+        }
+        .main-speaker:has(.main-speaker-link:focus-visible) {
+          outline: 3px solid #2f6fed;
+          outline-offset: 2px;
+        }
+        .main-speaker:has(.main-speaker-link):hover .main-speaker-more {
+          text-decoration: underline;
+        }
+      }
+      .main-speaker-more {
+        margin-top: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #04c44e;
+      }
+      @media (max-width: 1024px) {
+        .main-speakers {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+      @media (max-width: 520px) {
+        .main-speakers {
+          gap: 16px;
+          margin-bottom: 24px;
+        }
+        /* Phones: photo on top, full width, so the card stays the biggest */
+        .main-speaker {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .main-speaker-photo {
+          aspect-ratio: 1/1;
+        }
+        .main-speaker-photo img {
+          object-position: center 20%;
+        }
+        .main-speaker-body {
+          padding: 18px;
+          gap: 6px;
+        }
+        .main-speaker-pill {
+          font-size: 10px;
+          padding: 4px 10px;
+          margin-bottom: 4px;
+        }
+        .main-speaker-name {
+          font-size: 22px;
+        }
+        .main-speaker-role,
+        .main-speaker-company {
+          font-size: 13px;
         }
       }
 
@@ -1529,8 +1891,9 @@
       </section>
 
       <!-- ============ SPONSORS ============ -->
-      <!-- Filled by ecd-content.js: partners whose admin tier is not "community".
-           The gray tiles stay until real sponsor logos replace them. -->
+      <!-- Filled by ecd-content.js: partners whose admin type is not "community",
+           one line per type like the Sponsors page (keep the two in step).
+           The gray tiles stay until the first sponsor logo is added. -->
       <section id="sponsors" class="section section-soft">
         <div class="container">
           <div class="eyebrow">Our Sponsors</div>
@@ -1543,6 +1906,8 @@
           </p>
 
           <p class="sr-only" id="sponsorsStatus">Sponsors will be announced soon.</p>
+          <!-- One line per sponsor type, same layout as the Sponsors page -->
+          <div class="tier-rows" id="sponsorTiers" hidden></div>
           <div class="sponsor-grid" id="sponsorsGrid">
               <div class="partner-tile is-placeholder" aria-hidden="true">
                 <svg viewBox="0 0 120 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="9" fill="#DDE2E7"/><rect x="42" y="6" width="78" height="9" rx="4.5" fill="#E6EAEE"/><rect x="42" y="19" width="50" height="7" rx="3.5" fill="#E6EAEE"/></svg>
@@ -1583,6 +1948,9 @@
             Learn from experts building, growing, and operating ecommerce
             businesses across MENA and global markets.
           </p>
+
+          <!-- Main Speakers (admin "Main Speaker" switch): big cards, moved out of the carousel -->
+          <div class="main-speakers" id="mainSpeakers" hidden></div>
 
           <div class="carousel-wrap">
             <div
@@ -1765,7 +2133,7 @@
           <!-- Shared tickets section (also used on agenda.html). Loaded here, not in <head>,
                so it no longer blocks the first paint; still NOT deferred on purpose: it must
                define <ecd-tickets> before the inline reveal script, prices.js and ecd-content.js run. -->
-          <script src="../tickets-section.js?v=20261012c"></script>
+          <script src="../tickets-section.js?v=20261026a"></script>
           <ecd-tickets></ecd-tickets>
         </div>
       </section>
@@ -1962,7 +2330,7 @@
 
         var featureData = [
           {
-            title: "2 Main Stages",
+            title: "2 Stages",
             line: "Business-wide conversations across the ecosystem.",
             svg: '<rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M9 22h6"/>',
           },

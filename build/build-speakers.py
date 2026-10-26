@@ -24,6 +24,7 @@ p.add_css("""
       .hero-label span,
       .hero-meta,
       .featured-label span,
+      .main-speaker-pill,
       .filter-search label,
       .filter-meta-count,
       .filter-row-label,
@@ -58,9 +59,16 @@ p.add_css("""
       /* English names, roles and companies from the admin panel */
       .speaker-name,
       .speaker-role,
-      .speaker-company {
+      .speaker-company,
+      .main-speaker-name,
+      .main-speaker-role,
+      .main-speaker-company {
         unicode-bidi: plaintext;
         text-align: right;
+      }
+      .main-speaker-pill {
+        font-size: 13px;
+        font-weight: 600;
       }
       /* Speaker list: big heading with a line under it, no small label */
       .featured-title.ar-has-sub {
@@ -99,9 +107,9 @@ p.rep("<span>Industry Experts</span>", "<span>خبراء في المجال</span
 
 # ---------- FEATURED ----------
 p.rep("""        <div class="featured-label">
-          <span>Featured Speakers</span>
+          <span>Main Speakers</span>
         </div>
-        <h2 class="featured-title">Learn from operators, not theorists</h2>""", """        <h2 class="featured-title ar-has-sub">المتحدثون</h2>
+        <h2 class="featured-title">Learn from operators, not theorists</h2>""", """        <h2 class="featured-title ar-has-sub">المتحدثون الرئيسيون</h2>
         <p class="ar-section-sub">تعلم من أصحاب التجربة، لا من أصحاب النظريات</p>""")
 
 # ---------- FILTERS ----------
@@ -113,9 +121,8 @@ p.rep("""              Clear Filters
             </button>""")
 p.rep('<span class="filter-row-label">Room</span>', '<span class="filter-row-label">القاعة</span>')
 p.rep('></span>All Rooms\n', '></span>كل القاعات\n')
-p.rep('></span>Main Stage\n', '></span>المسرح الرئيسي\n')
-p.rep("""></span>Second
-            Stage""", """></span>المسرح الثاني""")
+p.rep('></span>Stage 1\n', '></span>المسرح 1\n')
+p.rep('></span>Stage 2\n', '></span>المسرح 2\n')
 p.rep("""            >Acquisition workshops""", """            >ورش مسار جذب العملاء (Acquisition)""")
 p.rep("""></span>CRO &amp;
             Retention workshops""", """></span>ورش مسار زيادة المبيعات والاحتفاظ بالعملاء (CRO &amp; Retention)""")
@@ -178,7 +185,14 @@ p.rep("""            Book Your Ticket
           </a>""")
 
 # ---------- SCRIPT ----------
-p.rep("""Featured speakers will be announced soon.</p>';""", """سيعلن عن المتحدثين المميزين قريباً.</p>';""")
+p.rep("""Main speakers will be announced soon.</p>';""", """سيعلن عن المتحدثين الرئيسيين قريباً.</p>';""")
+p.rep("""'<span class="main-speaker-pill">Main Speaker</span>' +""", """'<span class="main-speaker-pill">متحدث رئيسي</span>' +""")
+p.rep("""'<span class="main-speaker-more" aria-hidden="true">About the session →</span>'""", """'<span class="main-speaker-more" aria-hidden="true">عن الجلسة ←</span>'""")
+p.rep('''            ? '<a href="agenda.html" class="speaker-session">' +
+              esc(s.session) +
+              " →</a>"''', '''            ? '<a href="' + EcdI18n.page("agenda.html") + '" class="speaker-session">' +
+              esc(s.session) +
+              " ←</a>"''')
 p.rep('''          ? "The lineup is impressive. More speakers will be announced soon."
           : "More speakers will be announced soon.";''', '''          ? "قائمة المتحدثين قوية، وسنعلن عن المزيد قريباً."
           : "سيعلن عن مزيد من المتحدثين قريباً.";''')
