@@ -18,9 +18,9 @@
     />
 
     <!-- ✅ Reusable navbar -->
-    <script src="../ecd-analytics.js?v=20261012b"></script>
+    <script src="../ecd-analytics.js?v=20261026a"></script>
     <!-- Links between pages: Arabic at the root, English in en/ -->
-    <script src="../ecd-site.js?v=20261012a"></script>
+    <script src="../ecd-site.js?v=20261026b"></script>
     <script src="../navbar.js?v=20261012c" defer></script>
     <script src="../breadcrumbs.js?v=20261012b" defer></script>
     <script type="application/ld+json">
@@ -46,7 +46,7 @@
     <!-- ✅ Reusable footer -->
     <script src="../footer.js?v=20261012b" defer></script>
     <!-- Shared tickets section (same as index.html). Not deferred on purpose. -->
-    <script src="../tickets-section.js?v=20261012c"></script>
+    <script src="../tickets-section.js?v=20261026a"></script>
 
     <style>
       *,
@@ -568,7 +568,7 @@
                 background: #101010;
               "
             ></span
-            >Main Stage
+            >Stage 1
           </button>
           <button
             class="room-chip"
@@ -596,7 +596,7 @@
                 background: #4a5563;
               "
             ></span
-            >Second Stage
+            >Stage 2
           </button>
           <button
             class="room-chip"
@@ -808,7 +808,7 @@
             <span
               class="font-mono"
               style="font-size: 11px; letter-spacing: 0.12em; color: #101010"
-              >MAIN STAGE</span
+              >STAGE 1</span
             >
           </div>
           <div
@@ -859,7 +859,7 @@
             <span
               class="font-mono"
               style="font-size: 11px; letter-spacing: 0.12em; color: #4a5563"
-              >SECOND STAGE</span
+              >STAGE 2</span
             >
           </div>
           <div
@@ -1120,7 +1120,7 @@
               background: #101010;
             "
           ></span
-          >Main Stage
+          >Stage 1
         </button>
         <button
           class="tv-room-btn"
@@ -1148,7 +1148,7 @@
               background: #4a5563;
             "
           ></span
-          >Second Stage
+          >Stage 2
         </button>
         <button
           class="tv-room-btn"
@@ -1425,7 +1425,7 @@
                   background: #101010;
                 "
               ></span
-              >Main Stage
+              >Stage 1
             </div>
             <div style="display: flex; align-items: center; gap: 8px">
               <span
@@ -1436,7 +1436,7 @@
                   background: #4a5563;
                 "
               ></span
-              >Second Stage
+              >Stage 2
             </div>
             <div style="display: flex; align-items: center; gap: 8px">
               <span
@@ -1586,7 +1586,7 @@
               max-width: 70ch;
             "
           >
-            <p style="margin: 0 0 12px">The Standard Pass includes access to the Main Stage and Second Stage.</p>
+            <p style="margin: 0 0 12px">The Standard Pass includes access to Stage 1 and Stage 2.</p>
             <p style="margin: 0">The All Access Pass includes both stages, plus the opportunity to select up to five workshops from more than 15 options across three core ecommerce functions.</p>
           </div>
         </div>
@@ -2018,20 +2018,20 @@
     <!-- Scripts -->
     <script src="../prices.js?v=20261012b"></script>
     <script src="../ecd-api.js?v=20261012a"></script>
-    <script src="../ecd-content.js?v=20261012c"></script>
+    <script src="../ecd-content.js?v=20261026d"></script>
     <script>
       // ==========================================
       // 00. DATA
       // ==========================================
       var rooms = [
         {
-          name: "Main Stage",
+          name: "Stage 1",
           color: "#101010",
           text: "#101010",
           kind: "Stage",
         },
         {
-          name: "Second Stage",
+          name: "Stage 2",
           color: "#4a5563",
           text: "#4a5563",
           kind: "Stage",
@@ -2058,17 +2058,22 @@
 
       var sessions = []; // hydrated from GET /api/ecd/content
 
+      // Old stage names saved in the admin show as Stage 1 / Stage 2 (ecd-site.js)
+      function stageText(t) {
+        return window.EcdSite && EcdSite.stages ? EcdSite.stages(t) : t;
+      }
+
       function mapApiSession(s) {
         return {
           id: s.slug,
           tr: s.trackIndex,
           time: s.timeLabel,
           fmt: s.format || "Session",
-          cat: s.category || "",
-          title: s.title || "Will be announced",
+          cat: stageText(s.category || ""),
+          title: stageText(s.title || "Will be announced"),
           speaker: s.speakerLabel || "Speaker will be announced",
           topics: s.topics || [],
-          desc: s.description || "",
+          desc: stageText(s.description || ""),
           learn: s.learn || [],
           output: s.output || "Announced soon",
           tools: s.tools || "None",
@@ -2159,13 +2164,13 @@
         var container = document.getElementById("timelineColumns");
         if (!container) return;
         var headers = [
-          "MAIN STAGE",
-          "SECOND STAGE",
+          "STAGE 1",
+          "STAGE 2",
           "ACQUISITION",
           "CRO & RETENTION",
           "OPERATIONS & LOGISTICS",
         ];
-        // Main Stage markers from data.text (Opening / Breaks / Closing)
+        // Stage 1 markers from data.text (Opening / Breaks / Closing)
         // Venue-wide breaks, shown in every column by time.
         // Prayer times: Giza, Thursday 5 November 2026, Egypt winter time (UTC+2):
         // Dhuhr 11:40 AM · Asr 2:43 PM · Maghrib 5:05 PM.
@@ -2288,7 +2293,7 @@
             if (data && data.rooms && data.rooms.length) {
               data.rooms.forEach(function (apiRoom) {
                 if (rooms[apiRoom.index]) {
-                  rooms[apiRoom.index].name = apiRoom.name
+                  rooms[apiRoom.index].name = stageText(apiRoom.name)
                     .replace(/\s+workshops$/i, "")
                     .trim();
                   if (apiRoom.color) rooms[apiRoom.index].color = apiRoom.color;

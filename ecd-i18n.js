@@ -53,8 +53,11 @@
   // Fixed labels that come from the admin panel (R12, user-approved list).
   // A value not listed here shows as entered until it is added.
   var LABELS = {
-    "main stage": "المسرح الرئيسي",
-    "second stage": "المسرح الثاني",
+    // Stage 1 / Stage 2 (26 Oct 2026); the old admin names map to them too
+    "stage 1": "المسرح\u00a01",
+    "stage 2": "المسرح\u00a02",
+    "main stage": "المسرح\u00a01",
+    "second stage": "المسرح\u00a02",
     "acquisition workshops": "ورش مسار جذب العملاء",
     "cro & retention workshops": "ورش مسار زيادة المبيعات والاحتفاظ بالعملاء",
     "operations & logistics workshops": "ورش مسار التشغيل والشحن",

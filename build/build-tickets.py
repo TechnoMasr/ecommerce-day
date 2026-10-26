@@ -104,8 +104,8 @@ p.rep("""              <span>Feature</span>
               <span>التذكرة الأساسية</span>
               <span>التذكرة الشاملة</span>""")
 for en, ar in [
-    ("Access to the Main Stage", "حضور المسرح الرئيسي"),
-    ("Access to the Second Stage", "حضور المسرح الثاني"),
+    ("Access to Stage 1", "حضور المسرح 1"),
+    ("Access to Stage 2", "حضور المسرح 2"),
     ("Access to Workshop Tracks", "حضور مسارات الورش"),
     ("Workshop selection (up to 5)", "اختيار الورش (حتى 5)"),
     ("Workshop Templates &amp; Files", "ملفات ونماذج الورش"),
@@ -122,12 +122,12 @@ if 'data-label="Standard"' in p.s or 'data-label="All Access"' in p.s:
 p.rep("<span>FAQ &amp; Policies</span>", "<span>الأسئلة الشائعة والسياسات</span>")
 p.rep("            Before you book\n", "            قبل أن تحجز\n")
 p.rep("<span>What is the difference between the two tickets?</span>", "<span>ما الفرق بين التذكرتين؟</span>")
-p.rep("""                The Standard Pass covers full-day access to the Main Stage and
-                the Second Stage: keynotes, panels, case studies, sponsor
+p.rep("""                The Standard Pass covers full-day access to Stage 1 and
+                Stage 2: keynotes, panels, case studies, sponsor
                 activations and networking. The All Access Pass adds up to 5
                 workshops across the three workshop tracks, the presentation
                 slides and the Workshop Templates &amp; Files.""",
-      """                الأساسية تدخلك المسرح الرئيسي والمسرح الثاني طوال اليوم: الكلمات
+      """                الأساسية تدخلك المسرح 1 والمسرح 2 طوال اليوم: الكلمات
                 الرئيسية، والجلسات النقاشية، ودراسات الحالة، وأنشطة الرعاة،
                 والتعارف. والشاملة تضيف حتى 5 ورش عمل من المسارات الثلاثة، وشرائح
                 العروض، وملفات ونماذج الورش (Workshop Templates &amp; Files).""")
@@ -184,7 +184,7 @@ p.rep("""                No, there is no certificate. All Access Pass holders re
 
 # ---------- FINAL CTA ----------
 p.rep("<h2>Pick your pass. Build your ECommerce Day.</h2>", "<h2>المسرحان فقط، أم اليوم كاملاً؟</h2>")
-p.rep("""          Start with the Main Stage, or take the full journey with workshops,
+p.rep("""          Start with Stage 1, or take the full journey with workshops,
           hands-on practice and Workshop Templates &amp; Files.""",
       """          ابدأ بالمسرحين، أو خذ اليوم كله مع الورش والتطبيق العملي والملفات.""")
 p.rep("            Book Standard Pass\n", "            احجز التذكرة الأساسية\n")

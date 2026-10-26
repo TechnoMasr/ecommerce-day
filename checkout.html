@@ -10,15 +10,15 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <script src="ecd-analytics.js?v=20261012b"></script>
+    <script src="ecd-analytics.js?v=20261026a"></script>
     <!-- Links between pages: Arabic at the root, English in en/ -->
-    <script src="ecd-site.js?v=20261012a"></script>
+    <script src="ecd-site.js?v=20261026b"></script>
     <meta name="robots" content="noindex, nofollow" />
     <script src="ecd-whatsapp.js?v=20261012b" defer></script>
     <script src="breadcrumbs.js?v=20261012b"></script>
     <script src="prices.js?v=20261012b"></script>
     <script src="ecd-api.js?v=20261012a"></script>
-    <script src="ecd-content.js?v=20261012c"></script>
+    <script src="ecd-content.js?v=20261026d"></script>
     <style>
       * {
         box-sizing: border-box;
@@ -2063,16 +2063,20 @@
           if (window.EventPrices) {
             var pkg = EventPrices.getPackage(state.ticket);
             if (pkg) {
-              if (pkg.description) return pkg.description;
+              if (pkg.description) {
+                return window.EcdSite && EcdSite.stages ? EcdSite.stages(pkg.description) : pkg.description;
+              }
               var included = (pkg.features || [])
                 .filter(function (f) { return f.kind === "included"; })
-                .map(function (f) { return f.label; });
+                .map(function (f) {
+                  return window.EcdSite && EcdSite.stages ? EcdSite.stages(f.label) : f.label;
+                });
               if (included.length) return included.join(" · ");
             }
           }
           return state.ticket === "fj"
             ? "Both stages, up to 5 workshops, and Workshop Templates & Files."
-            : "Full-day access to the Main Stage and the Second Stage.";
+            : "Full-day access to Stage 1 and Stage 2.";
         }
 
         /* ---------- Mobile number rules ----------

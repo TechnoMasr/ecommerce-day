@@ -75,8 +75,8 @@
       };
 
   var CT_INCLUDED = [
-    "Main Stage",
-    "Second Stage",
+    "Stage 1",
+    "Stage 2",
     "Keynotes and panels",
     "Ecommerce case studies",
     "Sponsor activations",

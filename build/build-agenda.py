@@ -110,8 +110,8 @@ p.rep(""">Workshops</span
           >""", """>القاعة</span
           >""")
 p.text("All Sessions", "كل الجلسات")
-p.text("Main Stage", "المسرح الرئيسي", count=3)
-p.text("Second Stage", "المسرح الثاني", count=3)
+p.text("Stage 1", "المسرح 1", count=3)
+p.text("Stage 2", "المسرح 2", count=3)
 p.text("Acquisition workshops", "ورش مسار جذب العملاء", count=2)
 p.text("CRO & Retention workshops", "ورش مسار زيادة المبيعات والاحتفاظ بالعملاء", count=2)
 p.text("Operations & Logistics workshops", "ورش مسار التشغيل والشحن", count=2)
@@ -126,10 +126,10 @@ p.text("Workshops", "ورش العمل")
 p.text("* Selection updates the URL, filtered views are shareable", "* الفلاتر تحفظ في رابط الصفحة، فيمكنك مشاركته كما هو")
 
 # ---------- ROOM INTRO CARDS ----------
-p.text("MAIN STAGE", "المسرح الرئيسي")
+p.text("STAGE 1", "المسرح 1")
 p.text("The full picture of the business", "الصورة الكبيرة")
 p.text("Founders, leaders, decision makers", "مؤسسون وقيادات يتكلمون عن قرارات اتخذوها")
-p.text("SECOND STAGE", "المسرح الثاني")
+p.text("STAGE 2", "المسرح 2")
 p.text("Local brands on what actually happened", "علامات محلية تحكي ما حدث فعلاً")
 p.text("Anyone who wants the detail behind a result", "لمن يسأل: وكيف وصلتم لهذا الرقم؟")
 p.text("ACQUISITION", "مسار جذب العملاء (Acquisition)")
@@ -204,9 +204,9 @@ P1 = '<p style="margin: 0 0 12px">'
 P0 = '<p style="margin: 0">'
 def one(en1, en2, ar):
     p.rep(f"{P1}{en1}</p>\n            {P0}{en2}</p>", f"{P0}{ar}</p>")
-one("The Standard Pass includes access to the Main Stage and Second Stage.",
+one("The Standard Pass includes access to Stage 1 and Stage 2.",
     "The All Access Pass includes both stages, plus the opportunity to select up to five workshops from more than 15 options across three core ecommerce functions.",
-    "التذكرة الأساسية (Standard Pass) تدخلك المسرح الرئيسي والمسرح الثاني. والتذكرة الشاملة (All Access Pass) تدخلك المسرحين، ومعهما حتى خمس ورش تختارها من أكثر من 15 ورشة في ثلاثة مسارات.")
+    "التذكرة الأساسية (Standard Pass) تدخلك المسرح 1 والمسرح 2. والتذكرة الشاملة (All Access Pass) تدخلك المسرحين، ومعهما حتى خمس ورش تختارها من أكثر من 15 ورشة في ثلاثة مسارات.")
 one("Workshop booking opens 7-10 days before the event, and we will announce how to book. All Access holders can select up to five workshops, subject to availability.",
     "Your selected workshops must not overlap, allowing you to attend each one in full.",
     "يفتح الحجز قبل الفعالية بـ 7 إلى 10 أيام، وسنعلن طريقته. لحاملي التذكرة الشاملة حتى خمس ورش حسب الأماكن المتاحة، بشرط ألا تتداخل مواعيدها حتى تحضر كل ورشة من أولها لآخرها.")
@@ -260,7 +260,7 @@ p.rep("""            href="tickets.html"
 p.text("Compare Ticket Types", "قارن بين التذاكر")
 
 # ---------- SCRIPT ----------
-p.rep('title: s.title || "Will be announced",', 'title: s.title || "يعلن قريباً",')
+p.rep('title: stageText(s.title || "Will be announced"),', 'title: stageText(s.title || "يعلن قريباً"),')
 p.rep('output: s.output || "Announced soon",', 'output: s.output || "يعلن قريباً",')
 p.rep('level: s.level || "All levels",', 'level: s.level || "كل المستويات",')
 p.rep('font-weight:600;background:#f4f6f8;border:1px solid #e6eaee;color:#4a5563;">All Tickets</span>\';',
@@ -273,12 +273,12 @@ p.rep('''          esc(s.fmt) +
 p.rep('''          esc(s.speaker) +
           "</div>" +''', '''          esc(EcdI18n.label(s.speaker)) +
           "</div>" +''')
-p.rep('''          "MAIN STAGE",
-          "SECOND STAGE",
+p.rep('''          "STAGE 1",
+          "STAGE 2",
           "ACQUISITION",
           "CRO & RETENTION",
-          "OPERATIONS & LOGISTICS",''', '''          "المسرح الرئيسي",
-          "المسرح الثاني",
+          "OPERATIONS & LOGISTICS",''', '''          "المسرح 1",
+          "المسرح 2",
           "جذب العملاء",
           "زيادة المبيعات والاحتفاظ بالعملاء",
           "التشغيل والشحن",''')

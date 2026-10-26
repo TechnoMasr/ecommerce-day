@@ -13,8 +13,8 @@ import urllib.parse
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
-I18N_TAG = "ecd-i18n.js?v=20261012a"
-SITE_TAG = '<script src="ecd-site.js?v=20261012a"></script>'
+I18N_TAG = "ecd-i18n.js?v=20261026a"
+SITE_TAG = '<script src="ecd-site.js?v=20261026b"></script>'
 BASE_URL = "https://www.trafficmena.com/ecommerce-day/"
 
 VENUE = "مركز إبداع مصر الرقمية (كريتيفا)، الجيزة"
@@ -32,6 +32,8 @@ def keep_names_together(s):
     """English pass names in brackets must not break across lines in RTL text."""
     for name in ["(All Access Pass)", "(Standard Pass)"]:
         s = s.replace(name, name.replace(" ", "\u00a0"))
+    # "المسرح 1" / "المسرح 2" (Stage 1 / Stage 2) stay on one line too
+    s = re.sub(r"المسرح ([12])(?![0-9])", "المسرح\u00a0\\1", s)
     return s
 
 
