@@ -462,7 +462,7 @@
 
     if (eyebrow) eyebrow.textContent = pkg.eyebrow || pkg.displayName;
     if (title) title.textContent = pkg.title;
-    if (desc) desc.textContent = pkg.description;
+    if (desc) desc.textContent = stages(pkg.description);
     // A sold-out card keeps its "Sold Out" button (tickets-section.js)
     if (cta && !card.hasAttribute("data-sold-out")) {
       cta.textContent = pkg.ctaLabel || ("Get " + pkg.displayName);
