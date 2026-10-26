@@ -74,7 +74,16 @@
   function getPageType(pathname) {
     var parts = String(pathname || "").replace(/\/+$/, "").split("/");
     var slug = parts[parts.length - 1].replace(/\.html$/, "");
+    // Main Speaker landing pages: speaker-<name>.html (user approved, 26 Oct 2026)
+    if (/^speaker-/.test(slug)) return "ecd_speaker";
     return PAGE_TYPES[slug] || "ecd_other";
+  }
+
+  // speaker_name on Main Speaker pages, from <meta name="ecd-speaker"> (placed
+  // before this script so it is already parsed). Same English name in both languages.
+  function getSpeakerName() {
+    var meta = document.querySelector('meta[name="ecd-speaker"]');
+    return meta ? meta.getAttribute("content") || "" : "";
   }
 
   /*
@@ -318,13 +327,15 @@
   // user_role) are deliberately omitted: this static site cannot know them,
   // and pushing placeholders would overwrite the real values the main app
   // sets for the same visitor.
-  push({
+  var pageVars = {
     event: "global_variables",
     event_source: "Web",
     page_type: getPageType(global.location.pathname),
     page_path: global.location.pathname,
     currency: CURRENCY,
-  });
+  };
+  if (pageVars.page_type === "ecd_speaker") pageVars.speaker_name = getSpeakerName();
+  push(pageVars);
 
   (function (w, d, s, l, i) {
     w[l] = w[l] || [];

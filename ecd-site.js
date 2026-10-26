@@ -21,7 +21,23 @@
   "use strict";
 
   // Pages with an Arabic copy at the root.
-  var AR_PAGES = ["index.html", "agenda.html", "speakers.html", "sponsors.html", "tickets.html"];
+  // Main Speaker pages (build/build-speaker-pages.py) are pairs too.
+  var AR_PAGES = [
+    "index.html",
+    "agenda.html",
+    "speakers.html",
+    "sponsors.html",
+    "tickets.html",
+    "speaker-mohamed-hossam-khedr.html",
+    "speaker-mohamed-neamatalla.html",
+  ];
+  // Main Speaker landing pages by admin speaker id (the id stays when the
+  // name or photo is edited). The Main Speaker cards on Home and Speakers
+  // link to them.
+  var SPEAKER_PAGES = {
+    "9cc11fc4-5260-4e29-82eb-194152bd092a": "speaker-mohamed-hossam-khedr.html",
+    "882a03b4-5481-4c41-b852-0d7c94c0a078": "speaker-mohamed-neamatalla.html",
+  };
   // English-only pages that stay at the root.
   var ROOT_ONLY = ["checkout.html", "booking-confirmation.html"];
   var LANG_KEY = "ecd_checkout_lang";
@@ -77,6 +93,12 @@
     return fromHere(target);
   }
 
+  // The landing page of a Main Speaker in this visitor's language, or null.
+  function speakerPage(id) {
+    var file = Object.prototype.hasOwnProperty.call(SPEAKER_PAGES, id) ? SPEAKER_PAGES[id] : "";
+    return file ? page(file) : null;
+  }
+
   // Shared files (scripts, assets/) live at the root.
   function asset(p) {
     return fromHere(String(p));
@@ -95,6 +117,16 @@
       return (current === "index.html" ? "../" : "../" + current) + keep;
     }
     return (current === "index.html" ? "en/" : "en/" + current) + keep;
+  }
+
+  // Stage names (user decision, 26 Oct 2026): "Stage 1" and "Stage 2"
+  // replace the retired Main Stage and Second Stage everywhere. Text saved
+  // in the admin panel may still carry the old names; it shows the new ones.
+  function stages(text) {
+    if (text == null) return text;
+    return String(text)
+      .replace(/\bmain stage\b/gi, "Stage 1")
+      .replace(/\bsecond stage\b/gi, "Stage 2");
   }
 
   // Links written in a page as <a href="tickets.html" data-site-link>
@@ -118,5 +150,7 @@
     page: page,
     asset: asset,
     otherLangUrl: otherLangUrl,
+    stages: stages,
+    speakerPage: speakerPage,
   };
 })();
