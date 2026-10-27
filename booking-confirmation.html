@@ -1624,7 +1624,7 @@
             >
           </div>
           <h2 class="section-title" style="color: #ffffff">
-            One workshop per slot. Seats are capacity-limited.
+            One workshop per slot, up to 5. Seats are capacity-limited. Your selection is final once confirmed.
           </h2>
           <p style="font-size: 14px; color: #9aa1a9; margin: 0 0 32px">
             No selection? Your ticket remains valid for both stages.
@@ -1727,8 +1727,19 @@
                   margin-bottom: 12px;
                 "
               >
-                WORKSHOP BOOKING <span id="wbIdDisplay">WB-ECD26-0000</span>
+                WORKSHOP BOOKING <span id="wbIdDisplay"></span>
               </div>
+              <ul
+                id="wbList"
+                style="
+                  list-style: none;
+                  margin: 0 0 16px;
+                  padding: 0;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 8px;
+                "
+              ></ul>
               <div
                 style="
                   font-size: 13px;
@@ -1737,8 +1748,9 @@
                   margin-bottom: 16px;
                 "
               >
-                A confirmation email is on its way with your workshop schedule.
-                Each workshop was added to your calendar file.
+                Your workshops are saved to your booking. Show your ticket QR at
+                the entrance; our team will see your workshops when they scan it.
+                Selections are final.
               </div>
               <div style="display: flex; gap: 10px; flex-wrap: wrap">
                 <button
@@ -1748,14 +1760,6 @@
                   style="padding: 11px 18px; font-size: 13px"
                 >
                   Add to Calendar
-                </button>
-                <button
-                  type="button"
-                  class="btn-secondary"
-                  id="editWorkshopsBtn"
-                  style="padding: 11px 18px; font-size: 13px"
-                >
-                  Edit Selection
                 </button>
               </div>
             </div>
@@ -2483,11 +2487,12 @@
     <script src="ecd-api.js?v=20261012a"></script>
     <script src="ecd-frame-editor.js?v=20260928e"></script>
     <!-- Real scannable QR (encodes ticket serial) -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <!-- Self-hosted (MIT, kazuhikoarase/qrcode-generator 1.4.4): no third-party script on the ticket page. -->
+    <script src="vendor/qrcode-generator-1.4.4.js"></script>
     <script>
       // Workshop booking switch. Booking opens 7-10 days before the event:
       // set to true then to show the reservation UI again (backend unchanged).
-      var WORKSHOP_BOOKING_OPEN = false;
+      var WORKSHOP_BOOKING_OPEN = true;
 
       // ==========================================
       // 01. HYDRATE FROM ECD API
@@ -2574,6 +2579,13 @@
           var name = t.attendeeName || "Attendee " + (idx + 1);
           var pass = t.ticketName || ticketName || "Pass";
           var status = t.status === "active" ? "Active" : t.status || "Held";
+          // Everything below comes from the buyer or the server: escape before innerHTML
+          // (27 Oct 2026: a name like <img onerror=...> ran script on this page).
+          name = escHtml(name);
+          pass = escHtml(pass);
+          status = escHtml(status);
+          var serialText = escHtml(serial);
+          var emailAttr = escHtml(t.attendeeEmail || "");
           card.innerHTML =
             '<div class="ticket-card-head"><div>' +
             '<div style="font-weight:700;font-size:16px;color:#ffffff">' +
@@ -2589,31 +2601,31 @@
             renderQrSvg(qrPayload) +
             "</div>" +
             '<div style="text-align:center;font-family:JetBrains Mono,monospace;font-size:10px;letter-spacing:.06em;color:#6b747e;margin-top:8px">' +
-            serial +
+            serialText +
             "</div></div>" +
             '<div style="display:flex;flex-direction:column;gap:12px">' +
             '<div style="display:flex;align-items:center;gap:8px">' +
             '<span class="font-mono" style="font-size:12px;letter-spacing:.06em;color:#101010">' +
-            serial +
+            serialText +
             "</span>" +
             '<button type="button" class="copy-ticket-btn" data-copy="' +
-            serial +
+            serialText +
             '" style="background:none;border:none;color:#04c44e;font-family:Manrope,sans-serif;font-weight:600;font-size:12px;cursor:pointer">Copy</button></div>' +
             '<div style="font-size:13px;color:#4a5563;line-height:1.7">ECommerce Day 2026 · 5 November 2026<br />Creativa Innovation Hub, Giza</div>' +
             (bookingUrl
               ? '<div style="font-family:JetBrains Mono,monospace;font-size:10px;color:#6b747e;word-break:break-all;line-height:1.4">' +
-                bookingUrl +
+                escHtml(bookingUrl) +
                 "</div>"
               : "") +
             '<div style="display:flex;flex-direction:column;gap:8px">' +
             '<button type="button" class="btn-primary ecd-print-ticket" style="padding:10px;font-size:13px">Download PDF</button>' +
             '<div style="display:flex;gap:8px">' +
             '<button type="button" class="btn-secondary ecd-email-ticket" data-copy="' +
-            serial +
+            serialText +
             '" data-email="' +
-            (t.attendeeEmail || "") +
+            emailAttr +
             '" data-name="' +
-            name.replace(/"/g, "&quot;") +
+            name +
             '" style="flex:1;padding:9px;font-size:12px">Email Ticket</button>' +
             '<button type="button" class="btn-secondary" disabled title="Coming soon" style="flex:1;padding:9px;font-size:12px;opacity:.5;cursor:not-allowed">Add to Wallet</button>' +
             "</div></div></div></div>";
@@ -2689,6 +2701,13 @@
 
       function applyHydratedBooking(data, urlStatus, order, access) {
         window.__ecdBooking = data;
+        // Paid: the checkout draft (name, email, mobile, links) has done its job; do not keep
+        // the buyer's details in this browser.
+        if (data && data.paymentStatus === "paid") {
+          try {
+            localStorage.removeItem("ecd2026_checkout_draft_v1");
+          } catch (e) {}
+        }
         try {
           applyBookingToSuccessUi(data);
         } catch (uiErr) {
@@ -3285,14 +3304,52 @@
           .replace(/"/g, "&quot;");
       }
 
+      // Same rule as the server (workshopRules.ts): "11:00" and "11:00 AM" are one slot;
+      // 1-9 without AM/PM are afternoon hours (the day runs 10:00 to 19:00).
       function timeSortKey(t) {
-        var m = String(t || "").match(/^(\d{1,2}):(\d{2})$/);
+        var m = String(t || "").trim().toLowerCase().match(/^(\d{1,2})[:.](\d{2})\s*(am|pm)?$/);
         if (!m) return 9999;
         var h = Number(m[1]);
         var min = Number(m[2]);
-        // 10 and 11 are morning, 12 is noon, 1-9 are afternoon/evening
-        if (h >= 1 && h <= 9) h += 12;
+        if (m[3] === "pm" && h < 12) h += 12;
+        if (m[3] === "am" && h === 12) h = 0;
+        if (!m[3] && h >= 1 && h <= 9) h += 12;
         return h * 60 + min;
+      }
+
+      function slotKeyOf(t) {
+        var k = timeSortKey(t);
+        return k === 9999 ? String(t || "").trim().toLowerCase() : String(k);
+      }
+
+      function workshopReferenceFor(orderCode, fromServer) {
+        return fromServer || "WB-" + String(orderCode || "");
+      }
+
+      function renderBookedWorkshops(workshops) {
+        var listEl = document.getElementById("wbList");
+        if (!listEl) return;
+        var rows = (workshops || []).slice().sort(function (a, b) {
+          return timeSortKey(a.timeLabel) - timeSortKey(b.timeLabel);
+        });
+        listEl.innerHTML = rows
+          .map(function (w) {
+            var meta = TRACK_META[w.trackIndex] || { label: "", color: "#6b747e" };
+            return (
+              '<li style="display:flex;gap:12px;align-items:flex-start;border:1px solid #e6eaee;border-radius:12px;padding:10px 12px">' +
+              '<span style="font-family:JetBrains Mono,monospace;font-size:12px;color:#101010;min-width:64px">' +
+              escHtml(w.timeLabel) +
+              "</span>" +
+              '<span style="display:flex;flex-direction:column;gap:2px"><span style="font-weight:700;font-size:14px;color:#101010">' +
+              escHtml(w.title) +
+              '</span><span style="font-size:12px;color:#4a5563"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;background:' +
+              meta.color +
+              '"></span>' +
+              escHtml(meta.label) +
+              "</span></span></li>"
+            );
+          })
+          .join("");
       }
 
       function updateReservationUI() {
@@ -3323,6 +3380,14 @@
             if (resSelection[slot] === slug) {
               delete resSelection[slot];
             } else {
+              // Up to 5 workshops (the server refuses more).
+              if (
+                resSelection[slot] === undefined &&
+                Object.keys(resSelection).length >= 5
+              ) {
+                alert("You can pick up to 5 workshops. Unselect one to choose another.");
+                return;
+              }
               resSelection[slot] = slug;
             }
 
@@ -3382,12 +3447,11 @@
           if (slotIdx >= 0) selection[slotIdx] = w.slug;
         });
         resSelection = selection;
-        var wbId =
-          "WB-" +
-          String(orderCode || "")
-            .replace(/^ECD-?/i, "")
-            .slice(0, 12);
-        if (!wbId || wbId === "WB-") wbId = "WB-SAVED";
+        var wbId = workshopReferenceFor(
+          orderCode,
+          window.__ecdBooking && window.__ecdBooking.workshopReference,
+        );
+        renderBookedWorkshops(workshops);
         var wbEl = document.getElementById("wbIdDisplay");
         if (wbEl) wbEl.textContent = wbId;
         var notC = document.getElementById("resNotConfirmed");
@@ -3423,8 +3487,13 @@
         }
 
         var times = [];
+        var seenSlots = {};
         list.forEach(function (w) {
-          if (times.indexOf(w.timeLabel) === -1) times.push(w.timeLabel);
+          var key = slotKeyOf(w.timeLabel);
+          if (!seenSlots[key]) {
+            seenSlots[key] = true;
+            times.push(w.timeLabel);
+          }
         });
         times.sort(function (a, b) {
           return timeSortKey(a) - timeSortKey(b);
@@ -3434,7 +3503,7 @@
         times.forEach(function (time, slotIdx) {
           var atTime = list
             .filter(function (w) {
-              return w.timeLabel === time;
+              return slotKeyOf(w.timeLabel) === slotKeyOf(time);
             })
             .sort(function (a, b) {
               return a.trackIndex - b.trackIndex;
@@ -3562,9 +3631,10 @@
           btn.textContent = "Saving…";
           try {
             var result = await EcdApi.reserveWorkshops(order, slugs);
-            var wbId =
-              "WB-ECD26-" + String(1000 + Math.floor(Math.random() * 9000));
+            // Reference from the server (WB-<order>), the same one staff see when scanning.
+            var wbId = workshopReferenceFor(order, result && result.reference);
             document.getElementById("wbIdDisplay").textContent = wbId;
+            renderBookedWorkshops((result && result.workshops) || []);
             document.getElementById("resNotConfirmed").style.display = "none";
             document.getElementById("resConfirmed").style.display = "block";
             try {
@@ -3588,38 +3658,20 @@
             if (err && err.code === "WORKSHOP_FULL") {
               loadWorkshopsFromApi();
             }
+            // Already confirmed (another tab or device): show the saved selection.
+            if (err && err.code === "SELECTION_FINAL") {
+              window.location.reload();
+            }
           }
         });
 
-      document
-        .getElementById("editWorkshopsBtn")
-        .addEventListener("click", function () {
-          document.getElementById("resNotConfirmed").style.display = "block";
-          document.getElementById("resConfirmed").style.display = "none";
-        });
 
       // ==========================================
-      // 06. INITIAL STATE + restore local workshop hold
+      // 06. INITIAL STATE
       // ==========================================
+      // The confirmed selection comes from the booking (server), not from this tab's storage,
+      // so the page never shows a selection the server does not have.
       updateReservationUI();
-      try {
-        var savedWs = sessionStorage.getItem("ecd2026_workshops");
-        if (savedWs) {
-          var parsed = JSON.parse(savedWs);
-          if (
-            parsed &&
-            parsed.orderCode &&
-            parsed.orderCode === currentOrderCode() &&
-            parsed.selection
-          ) {
-            resSelection = parsed.selection;
-            document.getElementById("wbIdDisplay").textContent =
-              parsed.bookingId || "WB-ECD26-0000";
-            document.getElementById("resNotConfirmed").style.display = "none";
-            document.getElementById("resConfirmed").style.display = "block";
-          }
-        }
-      } catch (e) {}
 
       (function applyWorkshopBookingState() {
         var ui = document.getElementById("resBookingUI");
