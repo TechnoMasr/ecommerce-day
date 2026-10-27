@@ -1,0 +1,1974 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>استبيان جلسة محمد نعمة الله | يوم التجارة الإلكترونية 2026</title>
+    <!-- Hand-edited Arabic page (no en/ twin, not made by build/). Answers go
+         to the TrafficMENA backend (POST /api/ecd/survey-responses), which
+         forwards them to a private Google Sheet; the sheet link is only on
+         the server. SAVE_ON in the script below switches saving on. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="استبيان قصير قبل جلسة محمد نعمة الله عن الـCRO في يوم التجارة الإلكترونية 2026." />
+    <script src="ecd-analytics.js?v=20261026a"></script>
+    <script src="ecd-site.js?v=20261026b"></script>
+    <script src="ecd-i18n.js?v=20261026a"></script>
+    <script src="ecd-api.js?v=20261012a"></script>
+    <script src="ecd-whatsapp.js?v=20261012b" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    />
+    <style>
+      /* Layout: centred intro, then a progress rail (steps as a narrowing
+         funnel) beside one focused step card; one column with a top
+         progress bar on phones. */
+      :root {
+        color-scheme: light;
+        --white: #ffffff;
+        --fog: #f4f6f8;
+        --ink: #101010;
+        --body: #1f2630;
+        --secondary: #4a5563;
+        --caption: #6b747e;
+        --border: #e6eaee;
+        --card-border: #d5dae0;
+        --green: #05ef62;
+        --mint: #e6fbee;
+        --mint-border: #c3f7d7;
+        --teal: #00fdc2;
+        --red: #b42318;
+        --grad: linear-gradient(135deg, #05ef62, #29cf9f);
+        --shadow-hover: 0 12px 28px -14px rgba(16, 16, 16, 0.22);
+        --f-ar: "IBM Plex Sans Arabic", "Manrope", Tahoma, system-ui, sans-serif;
+        --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        background: var(--white);
+      }
+      body {
+        margin: 0;
+        background: var(--white);
+        color: var(--body);
+        font-family: var(--f-ar);
+        font-size: 16px;
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      .mono {
+        font-family: var(--f-mono);
+        font-variant-numeric: tabular-nums;
+      }
+      :focus-visible {
+        outline: 2px solid var(--ink);
+        outline-offset: 2px;
+      }
+
+      /* ---------- header (minimal, like checkout) ---------- */
+      .sv-header {
+        background: var(--white);
+        border-bottom: 1px solid var(--border);
+        padding: 14px 24px;
+      }
+      .sv-header-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .sv-brand img {
+        height: 38px;
+        width: auto;
+        display: block;
+      }
+      .sv-help {
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--ink);
+        text-decoration: none;
+        border: 1px solid var(--ink);
+        border-radius: 10px;
+        padding: 8px 14px;
+        white-space: nowrap;
+      }
+      .sv-help:hover {
+        background: var(--ink);
+        color: var(--white);
+      }
+
+      .wrap {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 32px 24px 96px;
+      }
+
+      .eyebrow {
+        font-family: var(--f-mono);
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--caption);
+        direction: ltr;
+        unicode-bidi: isolate;
+      }
+
+      /* ---------- intro (centred) ---------- */
+      .intro {
+        max-width: 760px;
+        margin: 0 auto;
+        padding-top: 40px;
+        text-align: center;
+      }
+      h1 {
+        font-weight: 700;
+        font-size: 48px;
+        line-height: 1.25;
+        color: var(--ink);
+        margin: 14px 0 20px;
+        text-wrap: balance;
+      }
+      h1 .accent {
+        color: var(--ink);
+        background: linear-gradient(transparent 62%, var(--mint-border) 62%);
+      }
+      .intro p {
+        color: var(--secondary);
+        max-width: 60ch;
+        margin: 0 auto 14px;
+        font-size: 18px;
+      }
+      .meta {
+        display: flex;
+        justify-content: center;
+        margin: 24px 0 32px;
+      }
+      .meta span {
+        font-size: 14px;
+        border: 1px solid var(--card-border);
+        background: var(--white);
+        border-radius: 999px;
+        padding: 6px 14px;
+        color: var(--ink);
+      }
+      .intro .btn {
+        min-width: 320px;
+        padding: 16px 32px;
+        font-size: 17px;
+      }
+
+      /* ---------- survey shell ---------- */
+      .shell {
+        display: grid;
+        grid-template-columns: 280px minmax(0, 1fr);
+        gap: 32px;
+        align-items: start;
+      }
+      .rail {
+        position: sticky;
+        top: 16px;
+        background: var(--white);
+        border: 1px solid var(--card-border);
+        border-radius: 16px;
+        padding: 20px;
+      }
+      .rail h2 {
+        margin: 0 0 4px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--caption);
+      }
+      .pct {
+        font-family: var(--f-mono);
+        font-size: 40px;
+        line-height: 1;
+        font-weight: 600;
+        color: var(--ink);
+        margin: 6px 0 18px;
+        direction: ltr;
+        text-align: right;
+      }
+      .pct small {
+        font-size: 16px;
+        color: var(--caption);
+      }
+      .funnel {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .funnel li {
+        margin-inline: auto;
+        width: var(--w);
+        position: relative;
+        border-radius: 10px;
+        background: var(--fog);
+        border: 1px solid var(--border);
+        min-height: 42px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        font-size: 13px;
+        line-height: 1.35;
+        color: var(--secondary);
+        overflow: hidden;
+        transition: border-color 0.3s, width 0.4s;
+      }
+      .funnel li::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--green);
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
+        z-index: 0;
+      }
+      .funnel li > * {
+        position: relative;
+        z-index: 1;
+      }
+      .funnel li .n {
+        font-family: var(--f-mono);
+        font-size: 11px;
+        color: var(--caption);
+        flex: none;
+      }
+      .funnel li .t {
+        min-width: 0;
+      }
+      .funnel li.done::before {
+        transform: scaleX(1);
+      }
+      .funnel li.done {
+        color: var(--ink);
+        border-color: transparent;
+      }
+      .funnel li.done .n {
+        color: var(--ink);
+      }
+      .funnel li.cur {
+        border-color: var(--ink);
+        color: var(--ink);
+        font-weight: 600;
+        background: var(--white);
+      }
+      .funnel li.skip {
+        opacity: 0.45;
+      }
+      .funnel li.skip .t {
+        text-decoration: line-through;
+      }
+      .rail-note {
+        margin-top: 16px;
+        font-size: 13px;
+        color: var(--ink);
+        background: var(--mint);
+        border: 1px solid var(--mint-border);
+        border-radius: 10px;
+        padding: 10px 12px;
+      }
+
+      .mbar {
+        display: none;
+      }
+
+      .stage {
+        background: var(--white);
+        border: 1px solid var(--card-border);
+        border-radius: 16px;
+        overflow: hidden;
+        min-width: 0;
+      }
+      .stage-head {
+        padding: 28px 32px 4px;
+      }
+      .stage-head .eyebrow {
+        margin-bottom: 8px;
+        display: block;
+        text-align: right;
+      }
+      .stage-head h2 {
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 1.3;
+        color: var(--ink);
+        margin: 0;
+        text-wrap: balance;
+      }
+      .stage-head p {
+        margin: 8px 0 0;
+        color: var(--secondary);
+        max-width: 60ch;
+        font-size: 16px;
+      }
+      .qs {
+        padding: 16px 32px 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+      }
+      .anim-in {
+        animation: stepIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      }
+      .anim-back {
+        animation: stepBack 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      }
+
+      .q {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+        scroll-margin-top: 96px;
+      }
+      .q:first-child {
+        border-top: 0;
+        padding-top: 8px;
+      }
+      .q.sub {
+        border-top: 0;
+        padding-top: 0;
+        margin-top: -16px;
+      }
+      .q-l {
+        display: flex;
+        gap: 12px;
+        align-items: baseline;
+        flex-wrap: wrap;
+      }
+      .q-num {
+        font-family: var(--f-mono);
+        font-size: 12px;
+        color: var(--caption);
+        flex: none;
+      }
+      .q-title {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 1.55;
+        color: var(--ink);
+        margin: 0;
+        flex: 1 1 300px;
+        min-width: 0;
+        text-wrap: pretty;
+      }
+      .q.sub .q-title {
+        font-size: 16px;
+      }
+      .tag {
+        font-size: 12px;
+        border: 1px solid var(--card-border);
+        border-radius: 999px;
+        padding: 2px 10px;
+        color: var(--caption);
+        white-space: nowrap;
+      }
+      .help {
+        font-size: 14px;
+        color: var(--secondary);
+        margin: -4px 0 0;
+        max-width: 62ch;
+      }
+      .help.ctx {
+        color: var(--ink);
+        background: var(--mint);
+        border: 1px solid var(--mint-border);
+        border-radius: 10px;
+        padding: 8px 12px;
+        max-width: none;
+        margin: 0;
+      }
+
+      .opts {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+        gap: 10px;
+      }
+      .opts.wide {
+        grid-template-columns: 1fr;
+      }
+      .opt {
+        font: inherit;
+        text-align: start;
+        color: var(--ink);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 13px 14px;
+        border-radius: 12px;
+        border: 1px solid var(--card-border);
+        background: var(--white);
+        font-size: 15px;
+        line-height: 1.5;
+        min-width: 0;
+        transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+      }
+      .opt:hover {
+        border-color: var(--ink);
+      }
+      .opt .mk {
+        flex: none;
+        width: 22px;
+        height: 22px;
+        border: 1.5px solid var(--card-border);
+        display: grid;
+        place-items: center;
+        background: var(--white);
+        transition: background 0.2s, border-color 0.2s;
+      }
+      .opt[role="radio"] .mk {
+        border-radius: 50%;
+      }
+      .opt[role="checkbox"] .mk {
+        border-radius: 6px;
+      }
+      .opt .mk svg {
+        width: 13px;
+        height: 13px;
+        opacity: 0;
+        stroke: var(--ink);
+        transition: opacity 0.2s;
+      }
+      .opt[aria-checked="true"] {
+        border-color: var(--ink);
+        background: var(--mint);
+        box-shadow: 0 0 0 1px var(--ink) inset;
+      }
+      .opt[aria-checked="true"] .mk {
+        background: var(--green);
+        border-color: var(--green);
+      }
+      .opt[aria-checked="true"] .mk svg {
+        opacity: 1;
+      }
+      .opt .ot {
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
+
+      .inp {
+        width: 100%;
+        font: inherit;
+        font-size: 16px;
+        color: var(--ink);
+        background: var(--white);
+        border: 1px solid var(--card-border);
+        border-radius: 10px;
+        padding: 12px 14px;
+        transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      }
+      .inp::placeholder {
+        color: var(--caption);
+      }
+      .inp:focus {
+        outline: none;
+        border-color: var(--ink);
+        box-shadow: 0 0 0 3px var(--mint-border);
+      }
+      .inp:disabled {
+        background: var(--fog);
+        color: var(--caption);
+        cursor: not-allowed;
+      }
+      textarea.inp {
+        min-height: 120px;
+        resize: vertical;
+        line-height: 1.6;
+      }
+      .ltr {
+        direction: ltr;
+        text-align: left;
+      }
+      .counter {
+        font-family: var(--f-mono);
+        font-size: 12px;
+        color: var(--caption);
+        text-align: left;
+        margin-top: -6px;
+      }
+      .skipbox {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 15px;
+        color: var(--ink);
+        cursor: pointer;
+        align-self: flex-start;
+        padding: 4px 0;
+      }
+      .skipbox input {
+        width: 20px;
+        height: 20px;
+        margin: 0;
+        accent-color: var(--ink);
+        flex: none;
+      }
+      .pctbox {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        max-width: 240px;
+        direction: ltr;
+      }
+      .pctbox .inp {
+        text-align: left;
+        font-family: var(--f-mono);
+        font-size: 20px;
+      }
+      .pctbox span {
+        font-family: var(--f-mono);
+        font-size: 20px;
+        color: var(--caption);
+      }
+      .phone {
+        display: flex;
+        gap: 8px;
+        direction: ltr;
+        max-width: 420px;
+      }
+      .phone select {
+        flex: 0 0 104px;
+        font-family: var(--f-mono);
+      }
+      .phone input {
+        flex: 1;
+        min-width: 0;
+        font-family: var(--f-mono);
+      }
+      select.inp {
+        appearance: none;
+        background-image: linear-gradient(45deg, transparent 50%, var(--caption) 50%),
+          linear-gradient(135deg, var(--caption) 50%, transparent 50%);
+        background-position: calc(100% - 16px) 52%, calc(100% - 11px) 52%;
+        background-size: 5px 5px;
+        background-repeat: no-repeat;
+        padding-right: 30px;
+      }
+      .store-saved {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        border: 1px solid var(--mint-border);
+        background: var(--mint);
+        border-radius: 12px;
+        padding: 12px 14px;
+      }
+      .store-saved .link {
+        font-family: var(--f-mono);
+        font-size: 15px;
+        color: var(--ink);
+        direction: ltr;
+        overflow-wrap: anywhere;
+        min-width: 0;
+      }
+      .btn-s {
+        font: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--ink);
+        background: var(--white);
+        border: 1px solid var(--ink);
+        border-radius: 10px;
+        padding: 6px 14px;
+        cursor: pointer;
+      }
+      .btn-s:hover {
+        background: var(--fog);
+      }
+
+      /* Error right under the question title, so it is seen before the options. */
+      .err {
+        display: none;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--red);
+        gap: 8px;
+        align-items: center;
+        margin-top: -4px;
+      }
+      .err::before {
+        content: "!";
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--red);
+        color: var(--white);
+        display: grid;
+        place-items: center;
+        font-size: 12px;
+        font-weight: 700;
+        flex: none;
+      }
+      .q.bad .err {
+        display: flex;
+      }
+      .q.bad .opts .opt,
+      .q.bad .inp:not(:disabled) {
+        border-color: var(--red);
+      }
+
+      /* Pop-up message pinned to the top of the screen (errors, failed send). */
+      .toast {
+        position: fixed;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 60;
+        width: min(560px, calc(100% - 32px));
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: var(--ink);
+        color: var(--white);
+        border-radius: 12px;
+        padding: 12px 14px;
+        font-size: 15px;
+        line-height: 1.5;
+        box-shadow: 0 16px 36px -12px rgba(16, 16, 16, 0.45);
+        animation: toastIn 0.25s ease-out both;
+      }
+      .toast .tx {
+        flex: 1;
+        min-width: 0;
+      }
+      .toast .tx::before {
+        content: "!";
+        display: inline-grid;
+        place-items: center;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--green);
+        color: var(--ink);
+        font-weight: 700;
+        font-size: 13px;
+        margin-inline-end: 8px;
+        vertical-align: -3px;
+      }
+      .toast button {
+        font: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 10px;
+        cursor: pointer;
+        flex: none;
+      }
+      .toast .go {
+        background: var(--green);
+        color: var(--ink);
+        border: 0;
+        padding: 8px 12px;
+      }
+      .toast .x {
+        background: transparent;
+        color: var(--white);
+        border: 0;
+        width: 32px;
+        height: 32px;
+        font-size: 20px;
+        line-height: 1;
+      }
+      .toast :focus-visible {
+        outline-color: var(--green);
+      }
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 20px 32px 24px;
+        border-top: 1px solid var(--border);
+        margin-top: 20px;
+      }
+      .navbar .side {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .btn {
+        font: inherit;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-weight: 600;
+        font-size: 16px;
+        border-radius: 10px;
+        padding: 13px 24px;
+        border: 1px solid transparent;
+        text-decoration: none;
+        transition: background 0.2s, box-shadow 0.2s, opacity 0.2s;
+      }
+      .btn-p {
+        background: var(--green);
+        color: var(--ink);
+      }
+      .btn-p:hover {
+        background: var(--teal);
+      }
+      .btn-grad {
+        background: var(--grad);
+        color: var(--ink);
+      }
+      .btn-grad:hover {
+        box-shadow: var(--shadow-hover);
+      }
+      .btn[aria-busy="true"] {
+        opacity: 0.7;
+        pointer-events: none;
+      }
+      .btn-g {
+        background: var(--white);
+        border-color: var(--ink);
+        color: var(--ink);
+        padding: 12px 20px;
+      }
+      .btn-g:hover {
+        background: var(--fog);
+      }
+      .btn svg {
+        width: 18px;
+        height: 18px;
+        flex: none;
+      }
+      .kbd {
+        font-family: var(--f-mono);
+        font-size: 12px;
+        color: var(--caption);
+        direction: ltr;
+      }
+
+      /* ---------- done ---------- */
+      .done {
+        max-width: 760px;
+        margin: 0 auto;
+        text-align: center;
+        padding-top: 24px;
+      }
+      .badge {
+        width: 80px;
+        height: 80px;
+        border-radius: 20px;
+        background: var(--green);
+        display: grid;
+        place-items: center;
+        margin: 0 auto 24px;
+        animation: pop 0.6s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+      }
+      .badge svg {
+        width: 38px;
+        height: 38px;
+        stroke: var(--ink);
+      }
+      .done h2 {
+        font-weight: 700;
+        font-size: 36px;
+        line-height: 1.3;
+        color: var(--ink);
+        margin: 0 0 12px;
+        text-wrap: balance;
+      }
+      .done > p {
+        color: var(--secondary);
+        margin: 0 auto 24px;
+        max-width: 56ch;
+        font-size: 18px;
+      }
+      .recap {
+        text-align: start;
+        background: var(--white);
+        border: 1px solid var(--card-border);
+        border-radius: 16px;
+        padding: 8px 24px;
+        margin: 0 0 24px;
+      }
+      .recap div {
+        display: grid;
+        grid-template-columns: 180px minmax(0, 1fr);
+        gap: 16px;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 15px;
+      }
+      .recap div:last-child {
+        border-bottom: 0;
+      }
+      .recap dt {
+        color: var(--caption);
+        font-size: 14px;
+      }
+      .recap dd {
+        margin: 0;
+        color: var(--ink);
+        overflow-wrap: anywhere;
+      }
+
+      @keyframes stepIn {
+        from {
+          opacity: 0;
+          transform: translateX(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes stepBack {
+        from {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes toastIn {
+        from {
+          opacity: 0;
+          transform: translate(-50%, -8px);
+        }
+        to {
+          opacity: 1;
+          transform: translate(-50%, 0);
+        }
+      }
+      @keyframes pop {
+        from {
+          transform: scale(0.6);
+          opacity: 0;
+        }
+        to {
+          transform: none;
+          opacity: 1;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+
+      @media (max-width: 960px) {
+        .shell {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        .rail {
+          display: none;
+        }
+        .mbar {
+          display: block;
+          position: sticky;
+          top: 0;
+          z-index: 5;
+          background: var(--white);
+          padding: 10px 0;
+          border-bottom: 1px solid var(--border);
+        }
+        .mbar .row {
+          display: flex;
+          justify-content: space-between;
+          gap: 12px;
+          font-size: 13px;
+          color: var(--secondary);
+          margin-bottom: 8px;
+        }
+        .mbar .segs {
+          display: grid;
+          grid-template-columns: repeat(var(--count, 6), 1fr);
+          gap: 5px;
+        }
+        .mbar .segs i {
+          height: 6px;
+          border-radius: 4px;
+          background: var(--border);
+          overflow: hidden;
+          position: relative;
+        }
+        .mbar .segs i::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: var(--green);
+          transform: scaleX(0);
+          transform-origin: right;
+          transition: transform 0.5s;
+        }
+        .mbar .segs i.done::after {
+          transform: scaleX(1);
+        }
+        .mbar .segs i.cur::after {
+          transform: scaleX(0.45);
+        }
+        .mbar .segs i.skip {
+          opacity: 0.35;
+        }
+      }
+      @media (max-width: 600px) {
+        .sv-header {
+          padding: 12px 16px;
+        }
+        .sv-brand img {
+          height: 32px;
+        }
+        .wrap {
+          padding: 24px 16px 96px;
+        }
+        .intro {
+          padding-top: 16px;
+        }
+        h1 {
+          font-size: 32px;
+        }
+        .intro p {
+          font-size: 16px;
+        }
+        /* Full-width start button on phones, inside the 16px page gutter. */
+        .intro .btn {
+          width: 100%;
+          min-width: 0;
+        }
+        .stage-head {
+          padding: 22px 18px 4px;
+        }
+        .stage-head h2 {
+          font-size: 24px;
+        }
+        .qs {
+          padding: 12px 18px 6px;
+        }
+        .navbar {
+          padding: 16px 18px 20px;
+        }
+        .kbd {
+          display: none;
+        }
+        .opts {
+          grid-template-columns: 1fr;
+        }
+        .recap {
+          padding: 8px 16px;
+        }
+        .recap div {
+          grid-template-columns: 1fr;
+          gap: 2px;
+        }
+        .done h2 {
+          font-size: 28px;
+        }
+        .btn {
+          padding: 12px 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="sv-header">
+      <div class="sv-header-inner">
+        <a href="index.html" class="sv-brand" aria-label="الصفحة الرئيسية ليوم التجارة الإلكترونية">
+          <img src="assets/ecommerce-day-logo.png" alt="يوم التجارة الإلكترونية من TrafficMENA" />
+        </a>
+        <a
+          class="sv-help"
+          href="https://wa.me/201505437979?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D9%85%D8%AD%D8%AA%D8%A7%D8%AC%20%D9%85%D8%B3%D8%A7%D8%B9%D8%AF%D8%A9%20%D8%A8%D8%AE%D8%B5%D9%88%D8%B5%20%D9%8A%D9%88%D9%85%20%D8%A7%D9%84%D8%AA%D8%AC%D8%A7%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A5%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A%D8%A9%202026"
+          target="_blank"
+          rel="noopener"
+          aria-label="محتاج مساعدة؟ كلمنا على واتساب (يفتح في تبويب جديد)"
+          >محتاج مساعدة؟</a
+        >
+      </div>
+    </header>
+
+    <div class="toast" id="toast" role="alert" hidden>
+      <span class="tx" id="toastTx"></span>
+      <button class="go" id="toastGo" type="button" hidden>وريني السؤال</button>
+      <button class="x" id="toastX" type="button" aria-label="اقفل الرسالة">×</button>
+    </div>
+
+    <main class="wrap">
+      <!-- INTRO -->
+      <section id="intro" class="intro" aria-labelledby="introTitle">
+        <div class="eyebrow">ECommerce Day 2026 · CRO Talk</div>
+        <h1 id="introTitle">
+          استفد بأقصى وأفضل طريقة ممكنة من خبرة <span class="accent">محمد نعمة الله</span> في الـCRO
+        </h1>
+        <p>
+          محمد نعمة الله، Founder &amp; CEO of Optimizers، عنده خبرة تتجاوز 20 سنة في الـDigital Marketing
+          والـECommerce، وتخصص عميق في Conversion Rate Optimization.
+        </p>
+        <p>
+          إجاباتك هتساعدك تخلي الـTalk أقرب للتحديات والـCases اللي بتواجهك فعلًا. وكل ما إجاباتك تكون مبنية على
+          تجارب حقيقية، كل ما استفادتك من الـTalk تكون أكبر.
+        </p>
+        <div class="meta"><span>حوالي 3 دقايق</span></div>
+        <button class="btn btn-grad" id="startBtn" type="button">
+          <span id="startTxt">ابدأ الإجابة</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>
+        </button>
+      </section>
+
+      <!-- SURVEY -->
+      <section id="survey" class="shell" hidden aria-label="الاستبيان">
+        <aside class="rail" aria-label="التقدم">
+          <h2>اكتمال الاستبيان</h2>
+          <div class="pct"><span id="pctNum">0</span><small>%</small></div>
+          <ol class="funnel" id="funnel"></ol>
+          <div class="rail-note">مفيش إجابات صح وغلط. اكتب من تجربتك الحقيقية.</div>
+        </aside>
+        <div class="mbar" id="mbar">
+          <div class="row"><span id="mStep"></span><span class="mono" id="mPct"></span></div>
+          <div class="segs" id="mSegs"></div>
+        </div>
+        <div class="stage">
+          <div id="stepBody"></div>
+          <div class="navbar">
+            <div class="side">
+              <button class="btn btn-g" id="backBtn" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+                رجوع
+              </button>
+            </div>
+            <div class="side">
+              <span class="kbd">Enter ↵</span>
+              <button class="btn btn-p" id="nextBtn" type="button">
+                <span id="nextTxt">التالي</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DONE -->
+      <section id="done" class="done" hidden aria-labelledby="doneTitle">
+        <div class="badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+        </div>
+        <h2 id="doneTitle" tabindex="-1">شكرًا، إجاباتك وصلت</h2>
+        <p>هنستخدم إجاباتك علشان نقرب محتوى الـTalk من التحديات اللي بتواجهك فعلًا. نشوفك في ECommerce Day.</p>
+        <dl class="recap" id="recap"></dl>
+        <button class="btn btn-g" id="editBtn" type="button">عدل إجاباتك</button>
+      </section>
+    </main>
+
+    <script>
+      (function () {
+        "use strict";
+
+        /* Saving: answers go to the TrafficMENA backend, which forwards them
+           to the private Google Sheet (its link is only on the server).
+           false = review mode: answers stay on this device only. */
+        var SAVE_ON = true;
+
+        // Bump when questions or options change, so old answers saved in
+        // visitors' browsers are not sent again.
+        var KEY = "ecd-cro-survey-v2";
+        var NONE5 = "مفيش مشكلة من دول بتواجهني";
+        var NOTHING7 = "لسه ماجربتش حاجة";
+        var STORE_OPTS = [
+          "عندي متجر إلكتروني وبيحقق مبيعات بانتظام",
+          "عندي متجر إلكتروني لكن المبيعات لسه محدودة",
+          "بنجهز للإطلاق",
+          "بشتغل داخل Brand عنده متجر إلكتروني",
+          "بشتغل مع متاجر إلكترونية كـAgency / Freelancer",
+        ];
+        var CASE_YES = ["أيوه، عايز متجري يتحلل على المسرح", "أيوه، بس تواصلوا معايا الأول قبل ما يتعرض"];
+        function problems(a) {
+          return (a.q5 || []).filter(function (x) {
+            return x !== NONE5;
+          });
+        }
+        function topProblem(a) {
+          return a.q6 || problems(a)[0] || "";
+        }
+        function hasStore(a) {
+          return STORE_OPTS.indexOf(a.q2) > -1;
+        }
+        function caseOn(a) {
+          return CASE_YES.indexOf(a.q11) > -1;
+        }
+
+        var STEPS = [
+          {
+            key: "s1",
+            rail: "خبرتك الحالية",
+            title: "خبرتك الحالية",
+            sub: "خلينا نعرف أنت جاي من أنهي زاوية في الـECommerce.",
+            qs: [
+              { id: "q1", n: 1, type: "single", req: true, title: "كام سنة خبرة عندك في الـECommerce أو الـDigital Marketing؟", opts: ["لسه ببدأ", "أقل من سنتين", "من سنتين لـ5 سنين", "من 6 لـ10 سنين", "أكتر من 10 سنين"] },
+              { id: "q2", n: 2, type: "single", wide: true, req: true, title: "إيه أقرب وصف لطبيعة تعاملك مع الـECommerce حاليًا؟", opts: STORE_OPTS.concat(["مش بتعامل مع متجر إلكتروني حاليًا"]) },
+              { id: "q3", n: 3, type: "url", title: "عايز فرصة تاخد خدمة مجانية هدية من Optimizers ومحمد نعمة الله؟ سيب لينك متجرك", help: "هنختار عدد من المتاجر اللي هتسيب اللينك بتاعها، ولو متجرك اتختار هنتواصل معاك", ph: "https://yourstore.com", show: hasStore },
+              { id: "q4", n: 4, type: "pct", title: "متوسط الـConversion Rate عندك خلال آخر 6 شهور كان كام؟", help: "اكتب المتوسط التقريبي لو متاح. مثال: 1.8", show: function (a) { return hasStore(a) && a.q2 !== "بنجهز للإطلاق"; } },
+            ],
+          },
+          {
+            key: "s2",
+            rail: "المشاكل اللي بتواجهك",
+            title: "المشاكل اللي بتواجهك",
+            sub: "اختار من تجربتك الحقيقية، مش من اللي ممكن يحصل.",
+            qs: [
+              { id: "q5", n: 5, type: "multi", wide: true, req: true, exclusive: NONE5, title: "أي من المشاكل دي بتواجهك؟", help: "اختار كل اللي ينطبق عليك.", opts: ["الناس بتدخل المتجر كتير، بس الطلبات قليلة", "الناس بتحط المنتج في السلة ومبتكملش الشراء", "الإعلان شغال كويس، بس الصفحة مش بتبيع", "مش عارف أبدأ أحسن إيه الأول", "مش فاهم العميل بيعمل إيه جوه المتجر", "مش واثق في الأرقام اللي في التقارير", "بغير حاجات في المتجر ومش عارف هي فرقت ولا لأ", NONE5] },
+              { id: "q6", n: 6, type: "single", wide: true, req: true, title: "اختار المشكلة اللي مأثرة عليك أكتر", help: "الاختيارات دي من المشاكل اللي حددتها فوق.", dyn: function (a) { return problems(a); }, show: function (a) { return problems(a).length > 1; } },
+            ],
+          },
+          {
+            key: "s3",
+            rail: "جربت إيه لحد دلوقتي؟",
+            title: "جربت إيه لحد دلوقتي؟",
+            sub: "مهم نفهم عملت إيه في المشكلة دي، وإزاي بتعرف إذا كان فرق.",
+            // Skipped only once q5 is answered with "none" (not before q5 is answered).
+            show: function (a) { return !(a.q5 && a.q5.length) || problems(a).length > 0; },
+            qs: [
+              { id: "q7", n: 7, type: "multi", wide: true, req: true, exclusive: NOTHING7, title: "إيه اللي جربته لحد دلوقتي علشان تحل المشكلة دي؟", help: "اختار كل اللي ينطبق عليك.", ctx: topProblem, opts: ["عدلت في الإعلانات (Creatives أو Targeting)", "زودت أو قللت الـAd Spend", "غيرت السعر أو الـOffer", "عدلت في Product Page أو Landing Page", "عدلت في الـCart أو الـCheckout", "رجعت للـData علشان أفهم العميل بيعمل إيه جوه المتجر", "راجعت الـTracking والتقارير علشان أتأكد من الأرقام", "عملت A/B Test بين أكتر من Version", "جمعت Feedback من العملاء", "استعنت بمتخصص أو Agency", "جربت حاجة تانية", NOTHING7] },
+              { id: "q7o", sub: true, type: "text", req: true, title: "جربت إيه بالظبط؟", ph: "اكتب باختصار", show: function (a) { return (a.q7 || []).indexOf("جربت حاجة تانية") > -1; } },
+              { id: "q8", n: 8, type: "multi", wide: true, req: true, exclusive: "لسه مش عارف أقيس ده", title: "إزاي بتعرف إذا كان اللي جربته فرق ولا لأ؟", help: "اختار كل اللي ينطبق عليك.", opts: ["بقارن عدد الـOrders قبل وبعد", "بقارن الـConversion Rate قبل وبعد", "بتابع خطوة معينة في الـFunnel (Add to Cart أو Checkout)", "بتابع الـRevenue أو الأرباح", "بعتمد على نتائج الحملات", "بعتمد على Feedback العملاء", "طريقة تانية", "لسه مش عارف أقيس ده"], show: function (a) { return (a.q7 || []).length > 0 && (a.q7 || []).indexOf(NOTHING7) === -1; } },
+              { id: "q8o", sub: true, type: "text", req: true, title: "إيه الطريقة؟", ph: "اكتب باختصار", show: function (a) { return (a.q8 || []).indexOf("طريقة تانية") > -1 && (a.q7 || []).indexOf(NOTHING7) === -1; } },
+            ],
+          },
+          {
+            key: "s4",
+            rail: "اللي عايزه من الـTalk",
+            title: "اللي عايز تخرج بيه من الـTalk",
+            sub: "ده الجزء اللي هيشكل محتوى الـTalk أكتر حاجة.",
+            qs: [
+              { id: "q9", n: 9, type: "long", req: true, max: 600, skip: "مفيش عندي سؤال دلوقتي", title: function (a) { return topProblem(a) ? "لو محمد نعمة الله هيجاوب على سؤال واحد مرتبط بالمشكلة دي، هتسأله إيه؟" : "لو محمد نعمة الله هيجاوب على سؤال واحد، هتسأله إيه؟"; }, ctx: topProblem, ph: "اكتب سؤالك زي ما هتسأله بالظبط" },
+              { id: "q10", n: 10, type: "long", req: true, max: 600, skip: "مش متأكد لسه", title: "إيه النتيجة اللي لو خرجت بيها من الـTalk هتعتبر إنها حققت لك قيمة فعلية؟", ph: "مثلًا: أعرف أحدد أكبر نقطة تسريب في الـCheckout عندي" },
+            ],
+          },
+          {
+            key: "s5",
+            rail: "هدية لمتجرك",
+            title: "هدية: Teardown لمتجرك على المسرح",
+            sub: "لو متجرك مناسب للـTalk، محمد نعمة الله ممكن يحلله على المسرح كـCase حقيقية ويطلع منه خطوات عملية، من غير ما نذكر اسمك.",
+            qs: [
+              { id: "q11", n: 11, type: "single", wide: true, req: true, title: "عايز متجرك يدخل ضمن المتاجر اللي ممكن تتحلل على المسرح؟", help: "هنختار من المتاجر اللي تناسب محتوى الـTalk.", opts: CASE_YES.concat(["مش المرة دي"]) },
+              // Same answer as q3 (one store link column): shown when already
+              // given, asked here when not.
+              { id: "q3", sub: true, type: "storelink", req: true, title: "لينك المتجر", ph: "https://yourstore.com", show: caseOn },
+              { id: "q12", n: 12, type: "long", req: true, max: 800, title: "اكتب Brief صغير عن المتجر", help: "اكتب باختصار المنتج أو الخدمة، الجمهور المستهدف، وأهم حاجة شايف إنها مميزة أو مختلفة في المتجر.", ph: "المنتج، الجمهور، وإيه اللي بيميزكم", show: caseOn },
+              { id: "q13", n: 13, type: "single", req: true, title: "المتجر شغال بشكل أساسي في أنهي دولة أو سوق؟", opts: ["مصر", "السعودية", "الإمارات", "الكويت", "قطر", "البحرين", "عُمان", "أكتر من دولة في الخليج", "سوق عالمي", "دولة أو سوق تاني"], show: caseOn },
+              { id: "q13o", sub: true, type: "text", req: true, title: "أنهي دولة أو سوق؟", ph: "اكتب اسم الدولة أو السوق", show: function (a) { return caseOn(a) && a.q13 === "دولة أو سوق تاني"; } },
+            ],
+          },
+          {
+            key: "s6",
+            rail: "مطابقة بيانات التذكرة",
+            title: "مطابقة بيانات التذكرة",
+            sub: "الخطوة الأخيرة هدفها مطابقة إجاباتك مع بيانات حجز ECommerce Day.",
+            qs: [
+              { id: "q14", n: 14, type: "email", req: true, title: "الإيميل المستخدم في حجز الـTicket", ph: "name@company.com" },
+              { id: "q15", n: 15, type: "tel", req: true, title: "رقم التليفون المستخدم في حجز الـTicket", help: "اكتب نفس الرقم المستخدم أثناء حجز التذكرة." },
+            ],
+          },
+        ];
+
+        /* ---------- mobile number: same rules as checkout.html ----------
+           Checkout only takes these six codes, so a ticket holder's number is
+           always one of them. Saved as one clean number, e.g. +201002754217. */
+        var PHONE_RULES = {
+          "20": { name: "مصري", nsn: /^1[0125]\d{8}$/, digits: 10, example: "1012345678" },
+          "966": { name: "سعودي", nsn: /^5\d{8}$/, digits: 9, example: "512345678" },
+          "971": { name: "إماراتي", nsn: /^5\d{8}$/, digits: 9, example: "501234567" },
+          "965": { name: "كويتي", nsn: /^[4569]\d{7}$/, digits: 8, example: "51234567" },
+          "974": { name: "قطري", nsn: /^[3567]\d{7}$/, digits: 8, example: "33123456" },
+          "962": { name: "أردني", nsn: /^7[789]\d{7}$/, digits: 9, example: "791234567" },
+        };
+        var CODES = ["+20", "+966", "+971", "+965", "+974", "+962"];
+
+        function ccDigits(cc) {
+          return String(cc || "+20").replace(/\D/g, "") || "20";
+        }
+        function toAsciiDigits(value) {
+          return String(value || "")
+            .replace(/[٠-٩]/g, function (d) {
+              return String(d.charCodeAt(0) - 0x0660);
+            })
+            .replace(/[۰-۹]/g, function (d) {
+              return String(d.charCodeAt(0) - 0x06f0);
+            });
+        }
+        function normalizeLocalMobile(raw, cc) {
+          var code = ccDigits(cc);
+          var rule = PHONE_RULES[code];
+          var d = toAsciiDigits(raw).replace(/\D/g, "");
+          if (!d) return "";
+          if (d.indexOf("00" + code) === 0) {
+            d = d.slice(2 + code.length);
+          } else if (rule && d.indexOf(code) === 0 && d.length >= code.length + rule.digits) {
+            d = d.slice(code.length);
+          }
+          if (d.charAt(0) === "0") d = d.slice(1);
+          return d;
+        }
+        function isValidMobile(raw, cc) {
+          var rule = PHONE_RULES[ccDigits(cc)];
+          var nsn = normalizeLocalMobile(raw, cc);
+          return rule ? rule.nsn.test(nsn) : /^\d{7,12}$/.test(nsn);
+        }
+        function mobileE164(v) {
+          if (!v || !isValidMobile(v.num, v.cc)) return "";
+          return "+" + ccDigits(v.cc) + normalizeLocalMobile(v.num, v.cc);
+        }
+        function mobileErrorText(cc) {
+          var code = ccDigits(cc);
+          var rule = PHONE_RULES[code];
+          return (
+            "اكتب رقم موبايل " + rule.name + " كامل: " + rule.digits + " أرقام بعد +" + code +
+            "، مثلاً " + rule.example + ". لو رقمك من دولة تانية، غير الكود الأول."
+          );
+        }
+        // The server's email check, same as checkout.
+        var EMAIL_RE = /^(?!\.)(?!.*\.\.)([A-Z0-9_'+\-\.]*)[A-Z0-9_+-]@([A-Z0-9][A-Z0-9\-]*\.)+[A-Z]{2,}$/i;
+
+        var A = {};
+        var cur = 0;
+        var doneSteps = {};
+        var completed = false;
+        var dir = 1;
+        var rid = "";
+        var started = "";
+        var editStore = false;
+        function $(id) {
+          return document.getElementById(id);
+        }
+        function titleOf(q) {
+          return typeof q.title === "function" ? q.title(A) : q.title;
+        }
+
+        /* ---------- persistence ---------- */
+        function newId() {
+          try {
+            if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+          } catch (e) {}
+          return "r" + Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+        }
+        function loadLocal() {
+          try {
+            var r = localStorage.getItem(KEY);
+            return r ? JSON.parse(r) : null;
+          } catch (e) {
+            return null;
+          }
+        }
+        function saveLocal() {
+          try {
+            localStorage.setItem(KEY, JSON.stringify({ A: A, cur: cur, doneSteps: doneSteps, completed: completed, rid: rid, started: started }));
+          } catch (e) {}
+        }
+
+        // What the sheet gets: only answers to questions the visitor can see,
+        // lists joined, the phone as one clean number, the email lowercased,
+        // a ticked "skip" box as its own text.
+        function clean(a) {
+          var o = {};
+          STEPS.forEach(function (s) {
+            var sv = !s.show || s.show(a);
+            s.qs.forEach(function (q) {
+              if (!sv || (q.show && !q.show(a))) return;
+              var v = a[q.id];
+              if (q.skip && a[q.id + "skip"]) v = q.skip;
+              if (v === undefined || v === "") return;
+              if (q.type === "tel") v = mobileE164(v);
+              else if (q.type === "email") v = String(v).trim().toLowerCase();
+              else if (Array.isArray(v)) v = v.join(" | ");
+              else if (q.type === "url" || q.type === "storelink") v = normUrl(v);
+              else v = String(v).trim();
+              if (v) o[q.id] = v;
+            });
+          });
+          return o;
+        }
+
+        // One request at a time, in order, so an older step never lands
+        // after a newer one and overwrites it.
+        var chain = Promise.resolve(true);
+        function postAnswers(stepKey) {
+          var body = JSON.stringify({
+            survey: "cro-talk",
+            id: rid,
+            started: started || null,
+            lastStep: stepKey,
+            completed: completed,
+            answers: clean(A),
+          });
+          var run = function () {
+            if (!window.EcdApi || !EcdApi.CONFIG) return Promise.resolve(false);
+            var ctl = window.AbortController ? new AbortController() : null;
+            var timer = setTimeout(function () {
+              if (ctl) ctl.abort();
+            }, 25000);
+            return fetch(EcdApi.CONFIG.API_BASE + "/survey-responses", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: body,
+              credentials: "omit",
+              signal: ctl ? ctl.signal : undefined,
+            })
+              .then(function (res) {
+                return res.json().then(function (j) {
+                  return res.ok && !!(j && j.data && j.data.ok);
+                });
+              })
+              .catch(function () {
+                return false;
+              })
+              .then(function (ok) {
+                clearTimeout(timer);
+                return ok;
+              });
+          };
+          chain = chain.then(run, run);
+          return chain;
+        }
+        function saveRemote(stepKey) {
+          saveLocal();
+          if (!SAVE_ON) return Promise.resolve(true);
+          return postAnswers(stepKey);
+        }
+
+        /* ---------- pop-up message ---------- */
+        var toastTimer = null;
+        var toastTarget = null;
+        function toast(msg, target, stay) {
+          clearTimeout(toastTimer);
+          toastTarget = target || null;
+          $("toastTx").textContent = msg;
+          $("toastGo").hidden = !target;
+          $("toast").hidden = false;
+          if (!stay) toastTimer = setTimeout(hideToast, 7000);
+        }
+        function hideToast() {
+          clearTimeout(toastTimer);
+          $("toast").hidden = true;
+        }
+        function focusBox(box) {
+          box.scrollIntoView({ behavior: reduced() ? "auto" : "smooth", block: "start" });
+          var f = box.querySelector(".opt,.inp:not(:disabled)");
+          if (f) f.focus({ preventScroll: true });
+        }
+        $("toastX").addEventListener("click", hideToast);
+        $("toastGo").addEventListener("click", function () {
+          hideToast();
+          if (toastTarget) focusBox(toastTarget);
+        });
+
+        /* ---------- visibility & progress ---------- */
+        function stepOn(i) {
+          return !STEPS[i].show || STEPS[i].show(A);
+        }
+        function visible() {
+          return STEPS.map(function (s, i) {
+            return i;
+          }).filter(stepOn);
+        }
+        function nextIdx(i, d) {
+          var j = i + d;
+          while (j >= 0 && j < STEPS.length && !stepOn(j)) j += d;
+          return j;
+        }
+        function renderProgress() {
+          var vis = visible();
+          var pos = vis.indexOf(cur);
+          var doneCount = vis.filter(function (i) {
+            return doneSteps[STEPS[i].key];
+          }).length;
+          var pct = completed ? 100 : Math.round((doneCount / vis.length) * 100);
+          animateNum($("pctNum"), pct);
+          var f = $("funnel");
+          f.textContent = "";
+          STEPS.forEach(function (s, i) {
+            var li = document.createElement("li");
+            li.style.setProperty("--w", 100 - i * 8.5 + "%");
+            if (!stepOn(i)) li.className = "skip";
+            else if (i === cur && !completed) {
+              li.className = "cur";
+              li.setAttribute("aria-current", "step");
+            } else if (doneSteps[s.key]) li.className = "done";
+            li.append(el("span", "n", "0" + (i + 1)), el("span", "t", s.rail));
+            f.append(li);
+          });
+          $("mStep").textContent = "خطوة " + (pos + 1) + " من " + vis.length + " · " + STEPS[cur].rail;
+          $("mPct").textContent = pct + "%";
+          var m = $("mSegs");
+          m.textContent = "";
+          m.style.setProperty("--count", STEPS.length);
+          STEPS.forEach(function (s, i) {
+            var x = document.createElement("i");
+            if (!stepOn(i)) x.className = "skip";
+            else if (i === cur) x.className = "cur";
+            else if (doneSteps[s.key]) x.className = "done";
+            m.append(x);
+          });
+        }
+        var numT;
+        function animateNum(node, to) {
+          var from = +node.textContent || 0;
+          cancelAnimationFrame(numT);
+          var t0 = performance.now();
+          var tick = function (t) {
+            var k = Math.min(1, (t - t0) / 600);
+            node.textContent = Math.round(from + (to - from) * (1 - Math.pow(1 - k, 3)));
+            if (k < 1) numT = requestAnimationFrame(tick);
+          };
+          numT = requestAnimationFrame(tick);
+        }
+
+        /* ---------- rendering ---------- */
+        var CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+        function el(tag, cls, txt) {
+          var e = document.createElement(tag);
+          if (cls) e.className = cls;
+          if (txt != null) e.textContent = txt;
+          return e;
+        }
+        function isLast() {
+          return nextIdx(cur, 1) >= STEPS.length;
+        }
+        function renderStep() {
+          var s = STEPS[cur];
+          var vis = visible();
+          var pos = vis.indexOf(cur);
+          var body = $("stepBody");
+          body.textContent = "";
+          hideToast();
+          editStore = !okUrl(A.q3);
+          var wrap = el("div", dir > 0 ? "anim-in" : "anim-back");
+          var head = el("div", "stage-head");
+          var h = el("h2", null, s.title);
+          h.id = "stepTitle";
+          h.tabIndex = -1;
+          head.append(el("div", "eyebrow", "Step " + (pos + 1) + " / " + vis.length), h, el("p", null, s.sub));
+          var qs = el("div", "qs");
+          s.qs.forEach(function (q) {
+            qs.append(renderQ(q));
+          });
+          wrap.append(head, qs);
+          body.append(wrap);
+          refresh();
+          renderProgress();
+        }
+        function textInput(q, errId, value, onInput) {
+          var long = q.type === "long";
+          var tin = el(long ? "textarea" : "input", "inp");
+          tin.id = "f_" + q.id;
+          tin.setAttribute("aria-labelledby", "t_" + q.id);
+          tin.setAttribute("aria-describedby", errId);
+          if (!long) {
+            tin.type = q.type === "url" || q.type === "storelink" ? "url" : q.type === "email" ? "email" : "text";
+            if (q.type !== "text") tin.classList.add("ltr");
+          }
+          if (q.type === "email") tin.autocomplete = "email";
+          if (q.type === "url" || q.type === "storelink") tin.inputMode = "url";
+          tin.maxLength = q.max || (long ? 2000 : 300);
+          tin.placeholder = q.ph || "";
+          tin.value = value || "";
+          tin.addEventListener("input", function () {
+            onInput(tin.value);
+          });
+          return tin;
+        }
+        function renderQ(q) {
+          var box = el("div", "q" + (q.sub ? " sub" : ""));
+          box.dataset.q = q.id;
+          var lab = el("div", "q-l");
+          if (q.n) lab.append(el("span", "q-num", String(q.n).padStart(2, "0")));
+          var t = el("h3", "q-title", titleOf(q));
+          t.id = "t_" + q.id;
+          lab.append(t);
+          if (!q.req && !q.sub) lab.append(el("span", "tag", "اختياري"));
+          box.append(lab);
+          var errId = "e_" + q.id;
+          var err = el("div", "err", "");
+          err.id = errId;
+          box.append(err);
+          if (q.ctx) {
+            var c = el("p", "help ctx");
+            c.dataset.ctx = "1";
+            box.append(c);
+          }
+          if (q.help) box.append(el("p", "help", q.help));
+          if (q.type === "single" || q.type === "multi") {
+            var g = el("div", "opts" + (q.wide ? " wide" : ""));
+            g.setAttribute("role", q.type === "single" ? "radiogroup" : "group");
+            g.setAttribute("aria-labelledby", "t_" + q.id);
+            g.setAttribute("aria-describedby", errId);
+            g.dataset.opts = q.id;
+            box.append(g);
+            buildOpts(q, g);
+          } else if (q.type === "tel") {
+            var row = el("div", "phone");
+            var sel = el("select", "inp");
+            sel.id = "f_" + q.id + "_cc";
+            sel.setAttribute("aria-label", "كود الدولة");
+            CODES.forEach(function (code) {
+              var o = el("option", null, code);
+              o.value = code;
+              sel.append(o);
+            });
+            var v = A[q.id] || {};
+            sel.value = CODES.indexOf(v.cc) > -1 ? v.cc : "+20";
+            var inp = el("input", "inp");
+            inp.id = "f_" + q.id;
+            inp.type = "tel";
+            inp.inputMode = "tel";
+            inp.autocomplete = "tel-national";
+            inp.value = v.num || "";
+            inp.setAttribute("aria-labelledby", "t_" + q.id);
+            inp.setAttribute("aria-describedby", errId);
+            var setPh = function () {
+              inp.placeholder = PHONE_RULES[ccDigits(sel.value)].example;
+            };
+            setPh();
+            var up = function () {
+              A[q.id] = { cc: sel.value, num: inp.value };
+              setPh();
+              unbad(q.id);
+              saveLocal();
+            };
+            sel.addEventListener("change", up);
+            inp.addEventListener("input", up);
+            // Show the clean number once it is valid, like checkout.
+            inp.addEventListener("blur", function () {
+              if (isValidMobile(inp.value, sel.value)) {
+                inp.value = normalizeLocalMobile(inp.value, sel.value);
+                up();
+              }
+            });
+            row.append(sel, inp);
+            box.append(row);
+          } else if (q.type === "pct") {
+            var prow = el("div", "pctbox");
+            var pin = el("input", "inp");
+            pin.id = "f_" + q.id;
+            pin.type = "text";
+            pin.inputMode = "decimal";
+            pin.placeholder = "1.8";
+            pin.value = A[q.id] != null ? A[q.id] : "";
+            pin.setAttribute("aria-labelledby", "t_" + q.id);
+            pin.setAttribute("aria-describedby", errId);
+            pin.addEventListener("input", function () {
+              var val = toAsciiDigits(pin.value).replace("٫", ".").replace(",", ".").replace(/[^\d.]/g, "");
+              pin.value = val;
+              A[q.id] = val;
+              unbad(q.id);
+              saveLocal();
+            });
+            prow.append(pin, el("span", null, "%"));
+            box.append(prow);
+          } else if (q.type === "storelink") {
+            // Step 5: the link from step 1 is shown with a "change" button;
+            // without one, it is asked here.
+            var slot = el("div");
+            var draw = function () {
+              slot.textContent = "";
+              if (!editStore) {
+                var saved = el("div", "store-saved");
+                saved.append(el("span", "link", normUrl(A.q3)));
+                var ch = el("button", "btn-s", "تغيير");
+                ch.type = "button";
+                ch.setAttribute("aria-label", "تغيير لينك المتجر");
+                ch.addEventListener("click", function () {
+                  editStore = true;
+                  draw();
+                  var f = $("f_q3");
+                  if (f) f.focus();
+                });
+                saved.append(ch);
+                slot.append(saved);
+              } else {
+                slot.append(
+                  textInput(q, errId, A.q3, function (val) {
+                    A.q3 = val;
+                    unbad(q.id);
+                    saveLocal();
+                  }),
+                );
+              }
+            };
+            draw();
+            box.append(slot);
+          } else {
+            var cnt = null;
+            var tin = textInput(q, errId, A[q.id], function (val) {
+              A[q.id] = val;
+              if (cnt) cnt.textContent = val.length + " / " + q.max;
+              unbad(q.id);
+              saveLocal();
+            });
+            box.append(tin);
+            if (q.max) {
+              cnt = el("div", "counter");
+              cnt.setAttribute("aria-hidden", "true");
+              cnt.textContent = (tin.value || "").length + " / " + q.max;
+              box.append(cnt);
+            }
+            if (q.skip) {
+              // Ticking the box answers the question without writing:
+              // the text box clears and is disabled.
+              var sk = el("label", "skipbox");
+              var cb = el("input");
+              cb.type = "checkbox";
+              cb.id = "f_" + q.id + "_skip";
+              cb.checked = !!A[q.id + "skip"];
+              sk.append(cb, el("span", null, q.skip));
+              var applySkip = function () {
+                tin.disabled = cb.checked;
+                if (cb.checked) {
+                  tin.value = "";
+                  A[q.id] = "";
+                  if (cnt) cnt.textContent = "0 / " + q.max;
+                }
+              };
+              cb.addEventListener("change", function () {
+                A[q.id + "skip"] = cb.checked;
+                applySkip();
+                unbad(q.id);
+                saveLocal();
+              });
+              applySkip();
+              box.append(sk);
+            }
+          }
+          return box;
+        }
+        function buildOpts(q, g) {
+          g.textContent = "";
+          var opts = q.dyn ? q.dyn(A) : q.opts;
+          if (q.dyn && A[q.id] && opts.indexOf(A[q.id]) === -1) delete A[q.id];
+          opts.forEach(function (o) {
+            var b = el("button", "opt");
+            b.type = "button";
+            b.setAttribute("role", q.type === "single" ? "radio" : "checkbox");
+            var on = q.type === "single" ? A[q.id] === o : (A[q.id] || []).indexOf(o) > -1;
+            b.setAttribute("aria-checked", on ? "true" : "false");
+            var mk = el("span", "mk");
+            mk.innerHTML = CHECK;
+            b.append(mk, el("span", "ot", o));
+            b.addEventListener("click", function () {
+              pick(q, o);
+            });
+            g.append(b);
+          });
+        }
+        function pick(q, o) {
+          if (q.type === "single") {
+            A[q.id] = o;
+          } else {
+            var arr = (A[q.id] || []).slice();
+            if (arr.indexOf(o) > -1) {
+              arr = arr.filter(function (x) {
+                return x !== o;
+              });
+            } else if (o === q.exclusive) {
+              arr = [o];
+            } else {
+              arr = arr.filter(function (x) {
+                return x !== q.exclusive;
+              });
+              arr.push(o);
+            }
+            A[q.id] = arr;
+          }
+          if (q.id === "q5") {
+            var p = problems(A);
+            if (p.length === 1) A.q6 = p[0];
+            else if (A.q6 && p.indexOf(A.q6) === -1) delete A.q6;
+          }
+          var g = document.querySelector('[data-opts="' + q.id + '"]');
+          g.querySelectorAll(".opt").forEach(function (b) {
+            var v = b.querySelector(".ot").textContent;
+            var on = q.type === "single" ? A[q.id] === v : A[q.id].indexOf(v) > -1;
+            b.setAttribute("aria-checked", on ? "true" : "false");
+          });
+          unbad(q.id);
+          refresh(q.id === "q5");
+          saveLocal();
+          if (q.id === "q5") renderProgress();
+        }
+        function refresh(rebuild) {
+          var s = STEPS[cur];
+          s.qs.forEach(function (q) {
+            var box = document.querySelector('[data-q="' + q.id + '"]');
+            if (!box) return;
+            var show = !q.show || q.show(A);
+            if (box.hidden === show) {
+              box.hidden = !show;
+              if (show) {
+                box.classList.remove("anim-in");
+                void box.offsetWidth;
+                box.classList.add("anim-in");
+              }
+            }
+            if (q.dyn && show && rebuild) buildOpts(q, box.querySelector(".opts"));
+            if (q.ctx) {
+              var c = box.querySelector("[data-ctx]");
+              var v = q.ctx(A);
+              c.hidden = !v;
+              if (v) c.textContent = "المشكلة: " + v;
+            }
+          });
+          $("nextTxt").textContent = isLast() ? "ابعت إجاباتك" : "التالي";
+        }
+        function unbad(id) {
+          var b = document.querySelector('[data-q="' + id + '"]');
+          if (b) b.classList.remove("bad");
+        }
+
+        /* ---------- validation ---------- */
+        // Store links are accepted in any usual form: with or without
+        // https:// or http://, with or without www, with a path. Pasted text
+        // often carries invisible direction marks (WhatsApp, Arabic
+        // keyboards) or a broken start like "https:/" or "https//"; both are
+        // cleaned before the check, and the clean link is what gets saved.
+        function normUrl(v) {
+          v = toAsciiDigits(v)
+            .replace(/[​-‏‪-‮⁠-⁩﻿\s]+/g, "")
+            .replace(/،/g, ".");
+          if (!v) return "";
+          // A start like "https://", "http:/", "https//", "htps:" or "://".
+          var m = v.match(/^(h*t*p+(s?))?(:+\/*|\/\/+)/i);
+          var scheme = m && m[1] && !m[2] ? "http://" : "https://";
+          if (m) v = v.slice(m[0].length);
+          if (!v) return "";
+          // Arabic domains stay readable (the URL parser would save "xn--...").
+          if (/[؀-ۿ]/.test(v.split("/")[0])) return scheme + v.replace(/\/$/, "");
+          try {
+            var u = new URL(scheme + v);
+            var host = u.hostname.replace(/\.+$/, "");
+            return u.protocol + "//" + host + (u.port ? ":" + u.port : "") + (u.pathname === "/" ? "" : u.pathname) + u.search + u.hash;
+          } catch (e) {
+            return scheme + v;
+          }
+        }
+        function okUrl(v) {
+          if (!v) return false;
+          try {
+            var u = new URL(normUrl(v));
+            return /^[^.]+(\.[^.]+)*\.([a-z]{2,}|xn--[a-z0-9-]+|[؀-ۿ]{2,})$/i.test(u.hostname);
+          } catch (e) {
+            return false;
+          }
+        }
+        function check(q) {
+          var v = A[q.id];
+          if (q.skip && A[q.id + "skip"]) return null;
+          var empty =
+            v == null ||
+            (typeof v === "string" && !v.trim()) ||
+            (Array.isArray(v) && !v.length) ||
+            (q.type === "tel" && !(v && String(v.num || "").trim()));
+          if (empty) {
+            if (!q.req) return null;
+            if (q.type === "single") return "اختار إجابة علشان نكمل.";
+            if (q.type === "multi") return "اختار إجابة واحدة على الأقل.";
+            if (q.skip) return "اكتب إجابتك، أو علم على \"" + q.skip + "\".";
+            return "السؤال ده مطلوب.";
+          }
+          if ((q.type === "url" || q.type === "storelink") && !okUrl(v)) return "اللينك مش مكتمل. اكتبه بالشكل ده: yourstore.com";
+          if (q.type === "email" && !EMAIL_RE.test(String(v).trim())) return "الإيميل مش مكتوب صح. اتأكد من الـ@ والدومين.";
+          if (q.type === "tel" && !isValidMobile(v.num, v.cc)) return mobileErrorText(v.cc);
+          if (q.type === "pct") {
+            var n = parseFloat(v);
+            if (isNaN(n) || n < 0 || n > 100) return "اكتب نسبة بين 0 و 100، مثلاً 1.8";
+          }
+          return null;
+        }
+        function reduced() {
+          return window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+        }
+        function validate() {
+          var first = null;
+          var count = 0;
+          STEPS[cur].qs.forEach(function (q) {
+            var box = document.querySelector('[data-q="' + q.id + '"]');
+            if (!box || box.hidden) return;
+            var msg = check(q);
+            box.classList.toggle("bad", !!msg);
+            box.querySelector(".err").textContent = msg || "";
+            if (msg) {
+              count++;
+              if (!first) first = box;
+            }
+          });
+          if (first) {
+            focusBox(first);
+            toast(
+              count === 1
+                ? "فيه سؤال محتاج إجابة قبل ما نكمل."
+                : "فيه " + count + " أسئلة محتاجة إجابة قبل ما نكمل.",
+              first,
+            );
+          }
+          return !first;
+        }
+
+        /* ---------- navigation ---------- */
+        var busy = false;
+        function next() {
+          if (busy || !validate()) return;
+          hideToast();
+          if (A.q3) A.q3 = normUrl(A.q3);
+          var s = STEPS[cur];
+          doneSteps[s.key] = true;
+          var n = nextIdx(cur, 1);
+          if (n >= STEPS.length) {
+            finish(s.key);
+            return;
+          }
+          // Steps before the last are saved in the background.
+          saveRemote(s.key);
+          dir = 1;
+          cur = n;
+          saveLocal();
+          renderStep();
+          toTop();
+        }
+        // The last step waits for the server: the thank-you screen only shows
+        // once the answers are really saved.
+        function finish(stepKey) {
+          var btn = $("nextBtn");
+          busy = true;
+          btn.setAttribute("aria-busy", "true");
+          $("nextTxt").textContent = "بنبعت إجاباتك...";
+          completed = true;
+          saveRemote(stepKey).then(function (ok) {
+            busy = false;
+            btn.removeAttribute("aria-busy");
+            if (!ok) {
+              completed = false;
+              saveLocal();
+              $("nextTxt").textContent = "جرب تاني";
+              toast(
+                "إجاباتك ماوصلتش لسه، غالباً بسبب الاتصال. إجاباتك محفوظة على جهازك، اتأكد من الإنترنت ودوس \"جرب تاني\". لو المشكلة فضلت، كلمنا على واتساب.",
+                null,
+                true,
+              );
+              renderProgress();
+              return;
+            }
+            saveLocal();
+            showDone();
+          });
+        }
+        function back() {
+          hideToast();
+          var p = nextIdx(cur, -1);
+          if (p < 0) {
+            show("intro");
+            toTop();
+            return;
+          }
+          dir = -1;
+          cur = p;
+          saveLocal();
+          renderStep();
+          toTop();
+        }
+        function toTop(focusId) {
+          window.scrollTo({ top: 0, behavior: reduced() ? "auto" : "smooth" });
+          var h = $(focusId || "stepTitle");
+          if (h) h.focus({ preventScroll: true });
+        }
+        function show(id) {
+          ["intro", "survey", "done"].forEach(function (x) {
+            $(x).hidden = x !== id;
+          });
+        }
+        function showDone() {
+          show("done");
+          hideToast();
+          renderProgress();
+          var r = $("recap");
+          r.textContent = "";
+          var rows = [
+            ["أكتر مشكلة مأثرة عليك", topProblem(A) || NONE5],
+            ["سؤالك لمحمد نعمة الله", A.q9skip ? "مفيش عندي سؤال دلوقتي" : A.q9],
+            ["النتيجة اللي عايزها", A.q10skip ? "مش متأكد لسه" : A.q10],
+            ["Teardown لمتجرك", A.q11],
+          ];
+          rows.forEach(function (row) {
+            if (!row[1]) return;
+            var d = el("div");
+            d.append(el("dt", null, row[0]), el("dd", null, row[1]));
+            r.append(d);
+          });
+          toTop("doneTitle");
+        }
+
+        $("startBtn").addEventListener("click", function () {
+          if (!started) started = new Date().toISOString();
+          show("survey");
+          renderStep();
+          saveLocal();
+          toTop();
+        });
+        $("nextBtn").addEventListener("click", next);
+        $("backBtn").addEventListener("click", back);
+        $("editBtn").addEventListener("click", function () {
+          completed = false;
+          cur = visible()[0];
+          dir = -1;
+          show("survey");
+          renderStep();
+          saveLocal();
+          toTop();
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && !$("toast").hidden) {
+            hideToast();
+            return;
+          }
+          if ($("survey").hidden || e.key !== "Enter" || e.shiftKey || e.isComposing) return;
+          var tg = e.target;
+          if (tg.tagName === "TEXTAREA" || tg.tagName === "SELECT" || tg.tagName === "BUTTON" || tg.tagName === "A") return;
+          if (tg.type === "checkbox") return;
+          e.preventDefault();
+          next();
+        });
+
+        /* ---------- boot ---------- */
+        var local = loadLocal();
+        if (local) {
+          A = local.A || {};
+          cur = Math.min(local.cur || 0, STEPS.length - 1);
+          doneSteps = local.doneSteps || {};
+          completed = !!local.completed;
+          rid = local.rid || "";
+          started = local.started || "";
+        }
+        if (!rid) rid = newId();
+        if (completed) $("startTxt").textContent = "راجع إجاباتك";
+        else if (Object.keys(doneSteps).length) $("startTxt").textContent = "كمل من حيث وقفت";
+        if (completed && local) showDone();
+        renderProgress();
+        saveLocal();
+      })();
+    </script>
+  </body>
+</html>
