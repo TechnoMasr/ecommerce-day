@@ -1630,7 +1630,7 @@
             </div>
             <div class="method-row" id="methodRow"></div>
             <div id="ecdWalletField" class="wallet-field-wrap" style="display: none">
-              <label class="label" for="ecd-wallet-phone">Wallet mobile number</label>
+              <label class="label" for="ecd-wallet-phone" id="ecdWalletLabel">Wallet mobile number</label>
               <div class="wallet-input-row" id="ecdWalletInputRow">
                 <span class="wallet-prefix">+20</span>
                 <input
@@ -1895,6 +1895,7 @@
           // been sent, the server has already tied that booking to a payment,
           // so the next Pay must start a fresh session.
           sessionUsed: false,
+          forcePaymentPhone: false,
           pendingOrderCode: "",
           pendingBookingId: "",
           pendingAccess: "",
@@ -2307,20 +2308,52 @@
           return m ? isWalletMethodName(m.name_en || m.name_ar) : false;
         }
 
+        // Fawry, Aman and Masary only accept an Egyptian mobile (27 Oct 2026: a Saudi or Gulf
+        // number made Fawry fail). A buyer with a non-Egyptian mobile gives one for the payment
+        // only; the booking keeps the number from step 1.
+        function selectedMethodIsOfflineCode() {
+          var methods = state.paymentMethods || [];
+          var m = methods.find(function (x) {
+            return x.paymentId === state.paymentMethodId;
+          });
+          var key = String((m && (m.name_en || m.name_ar)) || "")
+            .toLowerCase()
+            .replace(/[^a-z]/g, "");
+          return key.indexOf("fawry") >= 0 || key.indexOf("aman") >= 0 || key.indexOf("masary") >= 0;
+        }
+
+        function paymentPhoneMode() {
+          if (selectedMethodIsWallet()) return "wallet";
+          if (selectedMethodIsOfflineCode() && (state.cc !== "+20" || state.forcePaymentPhone)) {
+            return "offline";
+          }
+          return "";
+        }
+
+        var WALLET_HINT =
+          "Enter the number your mobile wallet is registered on. We will send an SMS to this number to confirm the payment.";
+        var OFFLINE_HINT =
+          "Fawry, Aman and Masary need an Egyptian mobile number. It is used for this payment only.";
+
         function syncWalletUi() {
           var wrap = document.getElementById("ecdWalletField");
           var row = document.getElementById("ecdWalletInputRow");
           var hint = document.getElementById("ecdWalletHint");
           var input = document.getElementById("ecd-wallet-phone");
-          var show = selectedMethodIsWallet();
+          var label = document.getElementById("ecdWalletLabel");
+          var mode = paymentPhoneMode();
+          var show = !!mode;
+          var baseHint = mode === "offline" ? OFFLINE_HINT : WALLET_HINT;
+          if (label) {
+            label.textContent = mode === "offline" ? "Egyptian mobile number for this payment" : "Wallet mobile number";
+          }
           if (wrap) wrap.style.display = show ? "block" : "none";
           if (!show) {
             state.walletPhone = "";
             if (row) row.classList.remove("error");
             if (hint) {
               hint.classList.remove("error");
-              hint.textContent =
-                "Enter the number your mobile wallet is registered on. We will send an SMS to this number to confirm the payment.";
+              hint.textContent = WALLET_HINT;
             }
             return;
           }
@@ -2338,7 +2371,7 @@
             hint.classList.toggle("error", invalid);
             hint.textContent = invalid
               ? "Enter a valid Egyptian mobile number (10 digits, e.g. 1012345678)."
-              : "Enter the number your mobile wallet is registered on. We will send an SMS to this number to confirm the payment.";
+              : baseHint;
           }
         }
 
@@ -2703,7 +2736,7 @@
 
         function renderPayButtons() {
           const walletOk =
-            !selectedMethodIsWallet() || Boolean(assembleWalletE164(state.walletLocal));
+            !paymentPhoneMode() || Boolean(assembleWalletE164(state.walletLocal));
           const canPay =
             state.consent && state.sub === 2 && !state.paying && walletOk;
           const payIdle = payButtonIdleHtml();
@@ -3148,7 +3181,7 @@
             focusFirstError({ consent: true });
             return;
           }
-          if (selectedMethodIsWallet() && !assembleWalletE164(state.walletLocal)) {
+          if (paymentPhoneMode() && !assembleWalletE164(state.walletLocal)) {
             state.walletTouched = true;
             syncWalletUi();
             var wallet = document.getElementById("ecd-wallet-phone");
@@ -3821,14 +3854,14 @@
             focusFirstError(errs);
             return;
           }
-          if (selectedMethodIsWallet()) {
+          if (paymentPhoneMode()) {
             state.walletTouched = true;
             syncWalletUi();
             var walletE164 = assembleWalletE164(state.walletLocal);
             if (!walletE164) {
               showEcdModal(
-                "Enter a valid Egyptian mobile wallet number (10 digits after +20).",
-                "Wallet number required",
+                "Enter a valid Egyptian mobile number (10 digits after +20).",
+                "Mobile number required",
               );
               renderPayButtons();
               return;
@@ -3884,11 +3917,11 @@
               return;
             }
             state.sessionUsed = true;
+            var phoneMode = paymentPhoneMode();
             var result = await EcdApi.pay({
               paymentMethodId: state.paymentMethodId,
-              walletPhone: selectedMethodIsWallet()
-                ? state.walletPhone || undefined
-                : undefined,
+              walletPhone: phoneMode === "wallet" ? state.walletPhone || undefined : undefined,
+              paymentPhone: phoneMode === "offline" ? state.walletPhone || undefined : undefined,
             });
 
             if (result && result.status === "duplicate") {
@@ -3959,6 +3992,18 @@
               msg =
                 "Your checkout session timed out. Your details are saved, so just tap Pay again.";
               state.sessionReady = false;
+            }
+            // The provider needs an Egyptian number for this method: ask for one.
+            if (
+              err &&
+              (err.code === "EGYPT_PHONE_REQUIRED" || err.code === "GATEWAY_PHONE_REJECTED") &&
+              selectedMethodIsOfflineCode()
+            ) {
+              state.forcePaymentPhone = true;
+              state.walletTouched = false;
+              syncWalletUi();
+              var phoneWrap = document.getElementById("ecdWalletField");
+              if (phoneWrap) phoneWrap.scrollIntoView({ behavior: "smooth", block: "center" });
             }
             if (err && err.code === "price_changed") {
               msg = "Price changed. Totals refreshed. Try Pay again.";
