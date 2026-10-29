@@ -123,11 +123,9 @@ p.rep('<span class="filter-row-label">Room</span>', '<span class="filter-row-lab
 p.rep('></span>All Rooms\n', '></span>كل القاعات\n')
 p.rep('></span>Stage 1\n', '></span>المسرح 1\n')
 p.rep('></span>Stage 2\n', '></span>المسرح 2\n')
-p.rep("""            >Acquisition workshops""", """            >ورش مسار جذب العملاء (Acquisition)""")
-p.rep("""></span>CRO &amp;
-            Retention workshops""", """></span>ورش مسار زيادة المبيعات والاحتفاظ بالعملاء (CRO &amp; Retention)""")
-p.rep("""></span>Operations
-            &amp; Logistics workshops""", """></span>ورش مسار التشغيل والشحن (Operations &amp; Logistics)""")
+p.rep("""            >Room 1\n""", """            >القاعة 1\n""")
+p.rep("""></span>Room 2\n""", """></span>القاعة 2\n""")
+p.rep("""></span>Room 3\n""", """></span>القاعة 3\n""")
 p.rep('<span class="filter-row-label">Type</span>', '<span class="filter-row-label">النوع</span>')
 p.rep('data-type="Founder">Founder</button>', 'data-type="Founder">مؤسس</button>')
 p.rep('data-type="Operator">Operator</button>', 'data-type="Operator">خبير تشغيل</button>')

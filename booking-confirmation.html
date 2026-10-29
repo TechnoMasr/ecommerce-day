@@ -15,7 +15,7 @@
 
     <script src="ecd-analytics.js?v=20261026a"></script>
     <!-- Links between pages: Arabic at the root, English in en/ -->
-    <script src="ecd-site.js?v=20261026b"></script>
+    <script src="ecd-site.js?v=20261029a"></script>
     <!-- ✅ Reusable navbar -->
     <script src="navbar.js?v=20261012c" defer></script>
     <script src="breadcrumbs.js?v=20261012b" defer></script>
@@ -545,6 +545,114 @@
       }
       .res-btn:disabled {
         cursor: not-allowed;
+      }
+
+      /* "Are you sure" step before the selection becomes final (29 Oct 2026) */
+      .wbc-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        background: rgba(16, 16, 16, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+      }
+      .wbc-overlay[hidden] {
+        display: none;
+      }
+      .wbc-card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 28px;
+        width: 100%;
+        max-width: 520px;
+        max-height: calc(100vh - 32px);
+        overflow-y: auto;
+        color: #1f2630;
+        font-family: "Manrope", sans-serif;
+      }
+      .wbc-title {
+        font-weight: 700;
+        font-size: 22px;
+        line-height: 1.25;
+        color: #101010;
+        margin: 0 0 16px;
+      }
+      .wbc-title:focus {
+        outline: none;
+      }
+      .wbc-list {
+        list-style: none;
+        margin: 0 0 16px;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .wbc-list li {
+        border: 1px solid #e6eaee;
+        border-radius: 12px;
+        padding: 10px 12px;
+      }
+      .wbc-meta {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #6b747e;
+        margin-bottom: 2px;
+      }
+      .wbc-name {
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 1.4;
+        color: #101010;
+      }
+      .wbc-note {
+        background: #e6fbee;
+        border: 1px solid #c3f7d7;
+        border-radius: 12px;
+        padding: 12px 14px;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #101010;
+        margin: 0 0 20px;
+      }
+      .wbc-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .wbc-actions button {
+        border-radius: 10px;
+        padding: 13px 22px;
+        font-family: "Manrope", sans-serif;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+      }
+      .wbc-yes {
+        background: #05ef62;
+        border: 1px solid #05ef62;
+        color: #101010;
+      }
+      .wbc-no {
+        background: #ffffff;
+        border: 1px solid #101010;
+        color: #101010;
+      }
+      .wbc-actions button:focus-visible {
+        outline: 2px solid #006681;
+        outline-offset: 2px;
+      }
+      @media (max-width: 480px) {
+        .wbc-card {
+          padding: 22px 18px;
+        }
+        .wbc-actions button {
+          flex: 1 1 100%;
+        }
       }
 
       /* ==========================================
@@ -1682,6 +1790,31 @@
             </button>
           </div>
 
+          <!-- "Are you sure" step: nothing is saved until "Confirm workshops" -->
+          <div id="wbConfirm" class="wbc-overlay" hidden>
+            <div
+              class="wbc-card"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="wbConfirmTitle"
+              aria-describedby="wbConfirmNote"
+            >
+              <h2 id="wbConfirmTitle" class="wbc-title" tabindex="-1">
+                Confirm your workshops?
+              </h2>
+              <ul id="wbConfirmList" class="wbc-list"></ul>
+              <p id="wbConfirmNote" class="wbc-note"></p>
+              <div class="wbc-actions">
+                <button type="button" id="wbConfirmYes" class="wbc-yes">
+                  Confirm workshops
+                </button>
+                <button type="button" id="wbConfirmNo" class="wbc-no">
+                  Go back
+                </button>
+              </div>
+            </div>
+          </div>
+
           <div id="resConfirmed" style="display: none">
             <div
               style="
@@ -2214,7 +2347,7 @@
           </div>
           <div style="font-size: 13px; color: #4a5563; margin-bottom: 20px">
             Your tickets and QR codes appear here the moment the payment is
-            confirmed. We're checking automatically — you can also use the
+            confirmed. We're checking automatically. You can also use the
             button below.
           </div>
           <button
@@ -3290,10 +3423,13 @@
       // 05. WORKSHOP RESERVATION, from GET /api/ecd/content workshops
       // ==========================================
       var resSelection = {}; // { slotIndex: sessionSlug }
+      var resWorkshopBySlug = {}; // slug -> workshop, for the confirm step
+      var resSlotTimes = []; // slot index -> time label
       var TRACK_META = {
-        2: { label: "Acquisition", color: "#05ef62", text: "#04c44e" },
-        3: { label: "CRO & Retention", color: "#006681", text: "#4fc3e0" },
-        4: { label: "Operations & Logistics", color: "#ffb020", text: "#ffb020" },
+        // Workshop rooms (29 Oct 2026: the tracks became Room 1, Room 2, Room 3)
+        2: { label: "Room 1", color: "#05ef62", text: "#04c44e" },
+        3: { label: "Room 2", color: "#006681", text: "#4fc3e0" },
+        4: { label: "Room 3", color: "#ffb020", text: "#ffb020" },
       };
 
       function escHtml(s) {
@@ -3498,6 +3634,11 @@
         times.sort(function (a, b) {
           return timeSortKey(a) - timeSortKey(b);
         });
+        resSlotTimes = times;
+        resWorkshopBySlug = {};
+        list.forEach(function (w) {
+          resWorkshopBySlug[w.slug] = w;
+        });
 
         var html = "";
         times.forEach(function (time, slotIdx) {
@@ -3517,7 +3658,7 @@
 
           atTime.forEach(function (w) {
             var meta = TRACK_META[w.trackIndex] || {
-              label: "TRACK",
+              label: "ROOM",
               color: "#6b747e",
               text: "#6b747e",
             };
@@ -3616,8 +3757,84 @@
 
       document
         .getElementById("confirmWorkshopsBtn")
-        .addEventListener("click", async function () {
-          var btn = this;
+        .addEventListener("click", function () {
+          if (!currentOrderCode() || !Object.keys(resSelection).length) return;
+          openWorkshopConfirm();
+        });
+
+      // Selections are final once confirmed (server rule), so the buyer sees
+      // the picks and confirms them before anything is saved.
+      function openWorkshopConfirm() {
+        var slots = Object.keys(resSelection).sort(function (a, b) {
+          return Number(a) - Number(b);
+        });
+        var count = slots.length;
+        document.getElementById("wbConfirmList").innerHTML = slots
+          .map(function (slot) {
+            var w = resWorkshopBySlug[resSelection[slot]] || {};
+            var meta = TRACK_META[w.trackIndex] || { label: "" };
+            var time = w.timeLabel || resSlotTimes[slot] || "";
+            return (
+              '<li><div class="wbc-meta">Slot ' +
+              (Number(slot) + 1) +
+              (time ? " · " + escHtml(time) : "") +
+              (meta.label ? " · " + escHtml(meta.label) : "") +
+              '</div><div class="wbc-name">' +
+              escHtml(w.title || resSelection[slot]) +
+              "</div></li>"
+            );
+          })
+          .join("");
+        document.getElementById("wbConfirmNote").textContent =
+          count < 5
+            ? "You picked " +
+              count +
+              " of 5 workshops. Your selection is final: you can't change it or add workshops after you confirm."
+            : "Your selection is final: you can't change it after you confirm.";
+        var dlg = document.getElementById("wbConfirm");
+        // Fixed overlay at body level, so no parent section can clip or hide it.
+        if (dlg.parentNode !== document.body) document.body.appendChild(dlg);
+        dlg.hidden = false;
+        document.body.style.overflow = "hidden";
+        document.getElementById("wbConfirmTitle").focus();
+      }
+
+      function closeWorkshopConfirm() {
+        document.getElementById("wbConfirm").hidden = true;
+        document.body.style.overflow = "";
+        var btn = document.getElementById("confirmWorkshopsBtn");
+        if (btn && !btn.disabled) btn.focus();
+      }
+
+      document.getElementById("wbConfirmNo").addEventListener("click", closeWorkshopConfirm);
+      document.getElementById("wbConfirmYes").addEventListener("click", function () {
+        closeWorkshopConfirm();
+        saveWorkshops();
+      });
+      document.getElementById("wbConfirm").addEventListener("click", function (e) {
+        if (e.target === this) closeWorkshopConfirm();
+      });
+      document.getElementById("wbConfirm").addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          e.preventDefault();
+          closeWorkshopConfirm();
+          return;
+        }
+        if (e.key !== "Tab") return;
+        // Keep the keyboard inside the dialog (two buttons).
+        var yes = document.getElementById("wbConfirmYes");
+        var no = document.getElementById("wbConfirmNo");
+        if (e.shiftKey && (document.activeElement === yes || document.activeElement === document.getElementById("wbConfirmTitle"))) {
+          e.preventDefault();
+          no.focus();
+        } else if (!e.shiftKey && document.activeElement === no) {
+          e.preventDefault();
+          yes.focus();
+        }
+      });
+
+      async function saveWorkshops() {
+          var btn = document.getElementById("confirmWorkshopsBtn");
           var order = currentOrderCode();
           var slugs = Object.keys(resSelection).map(function (k) {
             return resSelection[k];
@@ -3663,7 +3880,7 @@
               window.location.reload();
             }
           }
-        });
+      }
 
 
       // ==========================================

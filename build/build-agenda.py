@@ -97,8 +97,8 @@ p.rep('<a href="tickets.html" class="btn-primary">Book Your Ticket</a>', '<a hre
 p.rep('<a href="tickets.html" class="btn-secondary">Compare Tickets</a>', '<a href="tickets.html" data-ar-link class="btn-secondary">قارن بين التذاكر</a>')
 
 # ---------- NOTICE ----------
-p.text("ECommerce Day offers 15+ workshops covering 3 core ecommerce functions. All Access Pass holders can select and attend up to 5 workshops, subject to availability. Workshop booking opens 7-10 days before the event, and we will announce how to book. Workshops scheduled at the same time cannot be selected together.",
-       "أكثر من 15 ورشة عمل في 3 مسارات. مع التذكرة الشاملة (All Access Pass) تختار منها حتى 5 ورش حسب الأماكن المتاحة. يفتح الحجز قبل الفعالية بـ 7 إلى 10 أيام وسنعلن طريقته، ولا يمكنك اختيار ورشتين في التوقيت نفسه.")
+p.text("ECommerce Day offers 15+ workshops in 3 workshop rooms. All Access Pass holders can select and attend up to 5 workshops, subject to availability. Workshop booking opens 7-10 days before the event, and we will announce how to book. Workshops scheduled at the same time cannot be selected together.",
+       "أكثر من 15 ورشة عمل في 3 قاعات. مع التذكرة الشاملة (All Access Pass) تختار منها حتى 5 ورش حسب الأماكن المتاحة. يفتح الحجز قبل الفعالية بـ 7 إلى 10 أيام وسنعلن طريقته، ولا يمكنك اختيار ورشتين في التوقيت نفسه.")
 
 # ---------- VIEW SWITCHER + FILTERS ----------
 p.rep('aria-label="Agenda view"', 'aria-label="طريقة عرض الأجندة"')
@@ -112,12 +112,10 @@ p.rep(""">Workshops</span
 p.text("All Sessions", "كل الجلسات")
 p.text("Stage 1", "المسرح 1", count=3)
 p.text("Stage 2", "المسرح 2", count=3)
-p.text("Acquisition workshops", "ورش مسار جذب العملاء", count=2)
-p.text("CRO & Retention workshops", "ورش مسار زيادة المبيعات والاحتفاظ بالعملاء", count=2)
-p.text("Operations & Logistics workshops", "ورش مسار التشغيل والشحن", count=2)
-p.text("Acquisition", "مسار جذب العملاء")
-p.text("CRO & Retention", "مسار زيادة المبيعات والاحتفاظ بالعملاء")
-p.text("Operations & Logistics", "مسار التشغيل والشحن")
+# Workshop rooms (29 Oct 2026): filter chips, room view headers and the room guide
+p.text("Room 1", "القاعة 1", count=3)
+p.text("Room 2", "القاعة 2", count=3)
+p.text("Room 3", "القاعة 3", count=3)
 p.text("Formats", "نوع الجلسة")
 p.text("Keynotes", "الكلمات الرئيسية")
 p.text("Panels", "الجلسات النقاشية")
@@ -132,15 +130,11 @@ p.text("Founders, leaders, decision makers", "مؤسسون وقيادات يتك
 p.text("STAGE 2", "المسرح 2")
 p.text("Local brands on what actually happened", "علامات محلية تحكي ما حدث فعلاً")
 p.text("Anyone who wants the detail behind a result", "لمن يسأل: وكيف وصلتم لهذا الرقم؟")
-p.text("ACQUISITION", "مسار جذب العملاء (Acquisition)")
-p.text("Build the system that brings demand", "ابن نظاماً يجلب الطلبات باستمرار")
-p.text("Marketing, performance, SEO, content", "التسويق، والإعلانات المدفوعة، وSEO، والمحتوى")
-p.text("CRO & RETENTION", "مسار زيادة المبيعات والاحتفاظ بالعملاء (CRO & Retention)")
-p.text("Turn visits into orders, and orders into repeat customers", "حول الزيارات إلى طلبات، والطلبات إلى عملاء يعودون")
-p.text("Product, design, CRO, growth", "المنتج، والتصميم، وCRO، والنمو")
-p.text("OPERATIONS & LOGISTICS", "مسار التشغيل والشحن (Operations & Logistics)")
-p.text("Deliver on time and protect the margin", "سلم في الموعد واحم هامش الربح")
-p.text("Operations, CX, fulfillment", "التشغيل، وتجربة العميل، وتجهيز الطلبات")
+p.text("ROOM 1", "القاعة 1")
+p.text("ROOM 2", "القاعة 2")
+p.text("ROOM 3", "القاعة 3")
+p.text("Hands-on workshops", "ورش عمل تطبيقية", count=3)
+p.text("All Access Pass holders", "لحاملي التذكرة الشاملة", count=3)
 
 # ---------- TIMELINE / ROOM VIEW ----------
 p.text("Session topics and times are still being finalized, so a few may shift slightly over the coming days.",
@@ -205,8 +199,8 @@ P0 = '<p style="margin: 0">'
 def one(en1, en2, ar):
     p.rep(f"{P1}{en1}</p>\n            {P0}{en2}</p>", f"{P0}{ar}</p>")
 one("The Standard Pass includes access to Stage 1 and Stage 2.",
-    "The All Access Pass includes both stages, plus the opportunity to select up to five workshops from more than 15 options across three core ecommerce functions.",
-    "التذكرة الأساسية (Standard Pass) تدخلك المسرح 1 والمسرح 2. والتذكرة الشاملة (All Access Pass) تدخلك المسرحين، ومعهما حتى خمس ورش تختارها من أكثر من 15 ورشة في ثلاثة مسارات.")
+    "The All Access Pass includes both stages, plus the opportunity to select up to five workshops from more than 15 options in three workshop rooms.",
+    "التذكرة الأساسية (Standard Pass) تدخلك المسرح 1 والمسرح 2. والتذكرة الشاملة (All Access Pass) تدخلك المسرحين، ومعهما حتى خمس ورش تختارها من أكثر من 15 ورشة في ثلاث قاعات.")
 one("Workshop booking opens 7-10 days before the event, and we will announce how to book. All Access holders can select up to five workshops, subject to availability.",
     "Your selected workshops must not overlap, allowing you to attend each one in full.",
     "يفتح الحجز قبل الفعالية بـ 7 إلى 10 أيام، وسنعلن طريقته. لحاملي التذكرة الشاملة حتى خمس ورش حسب الأماكن المتاحة، بشرط ألا تتداخل مواعيدها حتى تحضر كل ورشة من أولها لآخرها.")
@@ -275,13 +269,13 @@ p.rep('''          esc(s.speaker) +
           "</div>" +''')
 p.rep('''          "STAGE 1",
           "STAGE 2",
-          "ACQUISITION",
-          "CRO & RETENTION",
-          "OPERATIONS & LOGISTICS",''', '''          "المسرح 1",
+          "ROOM 1",
+          "ROOM 2",
+          "ROOM 3",''', '''          "المسرح 1",
           "المسرح 2",
-          "جذب العملاء",
-          "زيادة المبيعات والاحتفاظ بالعملاء",
-          "التشغيل والشحن",''')
+          "القاعة 1",
+          "القاعة 2",
+          "القاعة 3",''')
 p.rep('label: "Dhuhr prayer break" }', 'label: "استراحة صلاة الظهر" }')
 p.rep('label: "Lunch break" }', 'label: "استراحة الغداء" }')
 p.rep('label: "Asr prayer break" }', 'label: "استراحة صلاة العصر" }')

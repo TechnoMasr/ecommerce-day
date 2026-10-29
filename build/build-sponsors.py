@@ -110,12 +110,12 @@ p.s = p.s.replace('<span class="experience-kind-label">Research</span>', '<span 
 for en, ar in [
     ('<div class="experience-name">Stage 1</div>', '<div class="experience-name">المسرح 1</div>'),
     ('<div class="experience-name">Stage 2</div>', '<div class="experience-name">المسرح 2</div>'),
-    ('<div class="experience-name">Acquisition workshops</div>', '<div class="experience-name">ورش مسار جذب العملاء (Acquisition)</div>'),
-    ('<div class="experience-name">CRO &amp; Retention workshops</div>', '<div class="experience-name">ورش مسار زيادة المبيعات والاحتفاظ بالعملاء (CRO &amp; Retention)</div>'),
+    ('<div class="experience-name">Room 1</div>', '<div class="experience-name">القاعة 1</div>'),
+    ('<div class="experience-name">Room 2</div>', '<div class="experience-name">القاعة 2</div>'),
     ("""          <div class="experience-name">
-            Operations &amp; Logistics workshops
+            Room 3
           </div>""", """          <div class="experience-name">
-            ورش مسار التشغيل والشحن (Operations &amp; Logistics)
+            القاعة 3
           </div>"""),
     ('<div class="experience-name">Leaders Lounge</div>', '<div class="experience-name">ركن القيادات</div>'),
     ('<div class="experience-name">Registration Experience</div>', '<div class="experience-name">منطقة التسجيل</div>'),

@@ -86,8 +86,8 @@ p.rep("""        <div class="eyebrow">
         </h2>""", """        <h2 class="section-heading">لماذا تكلف التذكرة الشاملة أكثر؟</h2>
         <p class="section-sub">لأنك تدفع لتعمل، لا لتجلس فقط</p>""")
 p.rep('<div class="why-title">Workshop Access &amp; Reservation</div>', '<div class="why-title">مقعد في الورش</div>')
-p.rep("""              Up to 5 workshops across the three workshop tracks, in
-              capacity-limited rooms.""", """              حتى 5 ورش من المسارات الثلاثة، في قاعات مقاعدها محدودة.""")
+p.rep("""              Up to 5 workshops across three capacity-limited workshop
+              rooms.""", """              حتى 5 ورش في ثلاث قاعات مقاعدها محدودة.""")
 p.rep('<div class="why-title">Presentation Slides</div>', '<div class="why-title">شرائح العروض</div>')
 p.rep("""              The presentation slides from the sessions, sent by email after
               the event.""", """              شرائح الجلسات تصلك بالبريد الإلكتروني بعد الفعالية.""")
@@ -106,7 +106,7 @@ p.rep("""              <span>Feature</span>
 for en, ar in [
     ("Access to Stage 1", "حضور المسرح 1"),
     ("Access to Stage 2", "حضور المسرح 2"),
-    ("Access to Workshop Tracks", "حضور مسارات الورش"),
+    ("Access to Workshop Rooms", "حضور قاعات الورش"),
     ("Workshop selection (up to 5)", "اختيار الورش (حتى 5)"),
     ("Workshop Templates &amp; Files", "ملفات ونماذج الورش"),
     ("Presentation slides", "شرائح العروض"),
@@ -125,11 +125,11 @@ p.rep("<span>What is the difference between the two tickets?</span>", "<span>م�
 p.rep("""                The Standard Pass covers full-day access to Stage 1 and
                 Stage 2: keynotes, panels, case studies, sponsor
                 activations and networking. The All Access Pass adds up to 5
-                workshops across the three workshop tracks, the presentation
+                workshops across the three workshop rooms, the presentation
                 slides and the Workshop Templates &amp; Files.""",
       """                الأساسية تدخلك المسرح 1 والمسرح 2 طوال اليوم: الكلمات
                 الرئيسية، والجلسات النقاشية، ودراسات الحالة، وأنشطة الرعاة،
-                والتعارف. والشاملة تضيف حتى 5 ورش عمل من المسارات الثلاثة، وشرائح
+                والتعارف. والشاملة تضيف حتى 5 ورش عمل من القاعات الثلاث، وشرائح
                 العروض، وملفات ونماذج الورش (Workshop Templates &amp; Files).""")
 p.rep("<span>How do workshops work with the All Access Pass?</span>", "<span>كيف تعمل الورش مع التذكرة الشاملة؟</span>")
 p.rep("""                Workshops are offline and capacity-limited. Workshop booking

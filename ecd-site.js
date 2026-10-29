@@ -126,7 +126,11 @@
     if (text == null) return text;
     return String(text)
       .replace(/\bmain stage\b/gi, "Stage 1")
-      .replace(/\bsecond stage\b/gi, "Stage 2");
+      .replace(/\bsecond stage\b/gi, "Stage 2")
+      // Workshop tracks became rooms (29 Oct 2026)
+      .replace(/\bacquisition workshops\b/gi, "Room 1")
+      .replace(/\bcro & retention workshops\b/gi, "Room 2")
+      .replace(/\boperations & logistics workshops\b/gi, "Room 3");
   }
 
   // Links written in a page as <a href="tickets.html" data-site-link>
