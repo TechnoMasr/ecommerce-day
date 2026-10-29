@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>اسأل د. محمد حسام خضر عن استراتيجية البيزنس بتاعك | يوم التجارة الإلكترونية 2026</title>
+    <title>اسأل د. خضر! | يوم التجارة الإلكترونية 2026</title>
     <!-- Hand-edited Arabic page (no en/ twin, not made by build/), copied from
          cro-talk-survey.html. Questions go to the TrafficMENA backend
          (POST /api/ecd/survey-responses, survey "khedr-ama"), which forwards
@@ -14,7 +14,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="TrafficMENA" />
     <meta property="og:locale" content="ar_EG" />
-    <meta property="og:title" content="اسأل د. محمد حسام خضر عن استراتيجية البيزنس بتاعك" />
+    <meta property="og:title" content="اسأل د. خضر!" />
     <meta property="og:description" content="جلسة أسئلة مفتوحة على المسرح 1 يوم 5 نوفمبر، يديرها محمد نعمة الله. ابعت سؤالك لحد 3 نوفمبر." />
     <meta property="og:url" content="https://www.trafficmena.com/ecommerce-day/ask-dr-khedr.html" />
     <meta property="og:image" content="https://www.trafficmena.com/ecommerce-day/assets/speakers/mohamed-hossam-khedr-ar.png" />
@@ -138,12 +138,45 @@
         unicode-bidi: isolate;
       }
 
-      /* ---------- intro (centred) ---------- */
+      /* ---------- intro: text beside Dr. Khedr's photo; photo on top on
+         phones and tablets ---------- */
       .intro {
-        max-width: 760px;
+        max-width: 1080px;
         margin: 0 auto;
         padding-top: 40px;
-        text-align: center;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 380px;
+        gap: 56px;
+        align-items: center;
+      }
+      .intro-photo {
+        margin: 0;
+        background: var(--white);
+        border: 1px solid var(--card-border);
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      .intro-photo img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 5;
+        object-fit: cover;
+        background: var(--fog);
+      }
+      .intro-photo figcaption {
+        padding: 14px 18px 16px;
+        border-top: 1px solid var(--border);
+      }
+      .intro-photo strong {
+        display: block;
+        font-size: 18px;
+        color: var(--ink);
+      }
+      .intro-photo .eyebrow {
+        display: block;
+        margin-top: 4px;
+        text-align: start;
       }
       h1 {
         font-weight: 700;
@@ -160,12 +193,13 @@
       .intro p {
         color: var(--secondary);
         max-width: 60ch;
-        margin: 0 auto 14px;
+        margin: 0 0 14px;
         font-size: 18px;
       }
       .meta {
         display: flex;
-        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
         margin: 24px 0 32px;
       }
       .meta span {
@@ -743,6 +777,33 @@
       }
 
       @media (max-width: 960px) {
+        .intro {
+          grid-template-columns: 1fr;
+          gap: 28px;
+          max-width: 640px;
+          text-align: center;
+        }
+        .intro-photo {
+          order: -1;
+          width: 100%;
+          max-width: 420px;
+          margin: 0 auto;
+        }
+        /* Head and shoulders: crops the logo corner and keeps the start
+           button closer to the first screen. */
+        .intro-photo img {
+          aspect-ratio: 4 / 3;
+          object-position: 50% 38%;
+        }
+        .intro-photo .eyebrow {
+          text-align: center;
+        }
+        .intro p {
+          margin: 0 auto 14px;
+        }
+        .meta {
+          justify-content: center;
+        }
         .shell {
           grid-template-columns: 1fr;
           gap: 16px;
@@ -899,20 +960,37 @@
     <main class="wrap">
       <!-- INTRO -->
       <section id="intro" class="intro" aria-labelledby="introTitle">
-        <div class="eyebrow">ECommerce Day 2026 · Stage 1 · Open Q&amp;A</div>
-        <h1 id="introTitle">
-          اسأل <span class="accent">د. محمد حسام خضر</span> عن استراتيجية البيزنس بتاعك
-        </h1>
-        <p>
-          جلسة أسئلة مفتوحة على المسرح 1 يوم 5 نوفمبر، يديرها محمد نعمة الله. هنجمع أسئلتكم ونفرزها، ومحمد هيطرح
-          المختار منها على د. خضر.
-        </p>
-        <p>د. خضر عنده 28 سنة في الإدارة وريادة الأعمال والاستثمار في العالم العربي.</p>
-        <div class="meta"><span>حوالي دقيقة</span><span>استقبال الأسئلة لحد 3 نوفمبر</span></div>
-        <button class="btn btn-grad" id="startBtn" type="button">
-          <span id="startTxt">اكتب سؤالك</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>
-        </button>
+        <div class="intro-text">
+          <div class="eyebrow">ECommerce Day 2026 · Stage 1 · Open Q&amp;A</div>
+          <h1 id="introTitle">اسأل <span class="accent">د. خضر</span>!</h1>
+          <p>
+            لقاء حر بين محمد نعمة الله ودكتور خضر لإجابة أسئلتكم واستشاراتكم في البزنس، أرسل استفسارك الآن ليأخذ دوره في
+            الاختيار والمناقشة.
+          </p>
+          <p>
+            استغل خبرة 28 سنة في السوق، واستشير بخصوص تحدي في شغلك أو هدف عايز تحققه بشركتك أو معاملة قلقان منها أو
+            شراكة شاغلاك أو توسع خايف منه أو قرار صعب.
+          </p>
+          <div class="meta"><span>حوالي دقيقة</span><span>استقبال الأسئلة لحد 3 نوفمبر</span></div>
+          <button class="btn btn-grad" id="startBtn" type="button">
+            <span id="startTxt">اكتب سؤالك</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>
+          </button>
+        </div>
+        <figure class="intro-photo">
+          <img
+            src="https://trafficmena.b-cdn.net/ecd/2026/b5b9ad2f-4412-4148-b566-6a7066ab9719.jpg"
+            width="1200"
+            height="1500"
+            alt="د. محمد حسام خضر، متحدث رئيسي في يوم التجارة الإلكترونية 2026"
+            fetchpriority="high"
+            decoding="async"
+          />
+          <figcaption>
+            <strong>د. محمد حسام خضر</strong>
+            <span class="eyebrow">Business Consultant</span>
+          </figcaption>
+        </figure>
       </section>
 
       <!-- QUESTION -->
