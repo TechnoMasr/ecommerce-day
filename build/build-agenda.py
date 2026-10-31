@@ -97,8 +97,8 @@ p.rep('<a href="tickets.html" class="btn-primary">Book Your Ticket</a>', '<a hre
 p.rep('<a href="tickets.html" class="btn-secondary">Compare Tickets</a>', '<a href="tickets.html" data-ar-link class="btn-secondary">قارن بين التذاكر</a>')
 
 # ---------- NOTICE ----------
-p.text("ECommerce Day offers 15+ workshops in 3 workshop rooms. All Access Pass holders can select and attend up to 5 workshops, subject to availability. Workshop booking opens 7-10 days before the event, and we will announce how to book. Workshops scheduled at the same time cannot be selected together.",
-       "أكثر من 15 ورشة عمل في 3 قاعات. مع التذكرة الشاملة (All Access Pass) تختار منها حتى 5 ورش حسب الأماكن المتاحة. يفتح الحجز قبل الفعالية بـ 7 إلى 10 أيام وسنعلن طريقته، ولا يمكنك اختيار ورشتين في التوقيت نفسه.")
+p.text("ECommerce Day offers 15+ workshops in 3 workshop rooms. All Access Pass holders can select and attend up to 6 workshops, subject to availability. Workshop booking opens 7-10 days before the event, and we will announce how to book. Workshops scheduled at the same time cannot be selected together.",
+       "أكثر من 15 ورشة عمل في 3 قاعات. مع التذكرة الشاملة (All Access Pass) تختار منها حتى 6 ورش حسب الأماكن المتاحة. يفتح الحجز قبل الفعالية بـ 7 إلى 10 أيام وسنعلن طريقته، ولا يمكنك اختيار ورشتين في التوقيت نفسه.")
 
 # ---------- VIEW SWITCHER + FILTERS ----------
 p.rep('aria-label="Agenda view"', 'aria-label="طريقة عرض الأجندة"')
@@ -183,11 +183,11 @@ P0 = '<p style="margin: 0">'
 def one(en1, en2, ar):
     p.rep(f"{P1}{en1}</p>\n            {P0}{en2}</p>", f"{P0}{ar}</p>")
 one("The Standard Pass includes access to Stage 1 and Stage 2.",
-    "The All Access Pass includes both stages, plus the opportunity to select up to five workshops from more than 15 options in three workshop rooms.",
-    "التذكرة الأساسية (Standard Pass) تدخلك المسرح 1 والمسرح 2. والتذكرة الشاملة (All Access Pass) تدخلك المسرحين، ومعهما حتى خمس ورش تختارها من أكثر من 15 ورشة في ثلاث قاعات.")
-one("Workshop booking opens 7-10 days before the event, and we will announce how to book. All Access holders can select up to five workshops, subject to availability.",
+    "The All Access Pass includes both stages, plus the opportunity to select up to six workshops from more than 15 options in three workshop rooms.",
+    "التذكرة الأساسية (Standard Pass) تدخلك المسرح 1 والمسرح 2. والتذكرة الشاملة (All Access Pass) تدخلك المسرحين، ومعهما حتى ست ورش تختارها من أكثر من 15 ورشة في ثلاث قاعات.")
+one("Workshop booking opens 7-10 days before the event, and we will announce how to book. All Access holders can select up to six workshops, subject to availability.",
     "Your selected workshops must not overlap, allowing you to attend each one in full.",
-    "يفتح الحجز قبل الفعالية بـ 7 إلى 10 أيام، وسنعلن طريقته. لحاملي التذكرة الشاملة حتى خمس ورش حسب الأماكن المتاحة، بشرط ألا تتداخل مواعيدها حتى تحضر كل ورشة من أولها لآخرها.")
+    "يفتح الحجز قبل الفعالية بـ 7 إلى 10 أيام، وسنعلن طريقته. لحاملي التذكرة الشاملة حتى ست ورش حسب الأماكن المتاحة، بشرط ألا تتداخل مواعيدها حتى تحضر كل ورشة من أولها لآخرها.")
 one("Workshop selections are final once your booking is confirmed.",
     "Each selection reserves a limited seat that immediately becomes unavailable to other attendees, so changes cannot be accommodated after confirmation. We recommend reviewing the workshop timings carefully before completing your booking.",
     "لا. يصبح اختيارك نهائياً بمجرد تأكيد الحجز، لأن كل مقعد تحجزه يخرج فوراً من المتاح لغيرك. راجع المواعيد جيداً قبل أن تؤكد.")

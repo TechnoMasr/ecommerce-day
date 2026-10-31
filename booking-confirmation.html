@@ -1742,7 +1742,7 @@
             >
           </div>
           <h2 class="section-title" style="color: #ffffff">
-            One workshop per slot, up to 5. Seats are capacity-limited. Your selection is final once confirmed.
+            One workshop per slot, up to 6. Seats are capacity-limited. Your selection is final once confirmed.
           </h2>
           <p style="font-size: 14px; color: #9aa1a9; margin: 0 0 32px">
             No selection? Your ticket remains valid for both stages.
@@ -1766,7 +1766,7 @@
           >
             <strong>Workshop booking opens 7-10 days before the event.</strong>
             We will announce how to book your workshops. You can select
-            up to 5 workshops, subject to availability.
+            up to 6 workshops, subject to availability.
           </div>
 
           <div id="resBookingUI">
@@ -3542,12 +3542,12 @@
             if (resSelection[slot] === slug) {
               delete resSelection[slot];
             } else {
-              // Up to 5 workshops (the server refuses more).
+              // Up to 6 workshops (the server refuses more).
               if (
                 resSelection[slot] === undefined &&
-                Object.keys(resSelection).length >= 5
+                Object.keys(resSelection).length >= 6
               ) {
-                alert("You can pick up to 5 workshops. Unselect one to choose another.");
+                alert("You can pick up to 6 workshops. Unselect one to choose another.");
                 return;
               }
               resSelection[slot] = slug;
@@ -3820,10 +3820,10 @@
           })
           .join("");
         document.getElementById("wbConfirmNote").textContent =
-          count < 5
+          count < 6
             ? "You picked " +
               count +
-              " of 5 workshops. Your selection is final: you can't change it or add workshops after you confirm."
+              " of 6 workshops. Your selection is final: you can't change it or add workshops after you confirm."
             : "Your selection is final: you can't change it after you confirm.";
         var dlg = document.getElementById("wbConfirm");
         // Fixed overlay at body level, so no parent section can clip or hide it.

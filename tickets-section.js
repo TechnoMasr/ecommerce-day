@@ -85,7 +85,7 @@
   var CT_EXCLUDED = ["Workshops", "Workshop templates and files"];
   var FJ_INCLUDED = [
     { t: "Everything in the Standard Pass", w: 700 },
-    { t: "Up to five workshops", w: 400 },
+    { t: "Up to six workshops", w: 400 },
     { t: "Presentation slides", w: 400 },
     { t: "Workshop templates and files", w: 400 },
   ];
@@ -94,14 +94,14 @@
         { f: "المسرحان والتعارف", c: "Yes" },
         { f: "الكلمات الرئيسية والجلسات النقاشية ودراسات الحالة", c: "Yes" },
         { f: "أنشطة الرعاة", c: "Yes" },
-        { f: "حتى خمس ورش عمل", c: "No" },
+        { f: "حتى ست ورش عمل", c: "No" },
         { f: "ملفات ونماذج الورش", c: "No" },
       ]
     : [
         { f: "Both stages and networking", c: "Yes" },
         { f: "Keynotes, panels, and case studies", c: "Yes" },
         { f: "Sponsor activations", c: "Yes" },
-        { f: "Up to five workshops", c: "No" },
+        { f: "Up to six workshops", c: "No" },
         { f: "Workshop templates and files", c: "No" },
       ];
 
