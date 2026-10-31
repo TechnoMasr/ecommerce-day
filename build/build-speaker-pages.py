@@ -89,7 +89,7 @@ SPEAKERS = [
             "faq": [
                 ("Which ticket gets me into Dr. Khedr's session?", ["The Standard Pass. His session is on Stage 1, and the Standard Pass gives you full-day access to Stage 1 and Stage 2."]),
                 ("How do I send my question?", ["We are collecting questions through a WhatsApp campaign and a public post on our Facebook page. Selected questions become part of the discussion on Stage 1."]),
-                ("When is his session?", ["The time will be announced soon on the Agenda page. The program runs from 11:00 AM to 7:00 PM."]),
+                ("When is his session?", ["The time will be announced soon on the Agenda page. The program runs from 10:30 AM to 7:30 PM."]),
             ],
         },
         "ar": {
@@ -147,7 +147,7 @@ SPEAKERS = [
             "faq": [
                 ("أي تذكرة تدخلني جلسة د. خضر؟", ["التذكرة الأساسية (Standard Pass). جلسته على المسرح 1، والتذكرة الأساسية تدخلك المسرح 1 والمسرح 2 طوال اليوم."]),
                 ("كيف أرسل سؤالي؟", ["نجمع الأسئلة عبر حملة على واتساب ومنشور عام على صفحتنا في فيسبوك، والأسئلة التي نختارها تصبح جزءاً من النقاش على المسرح 1."]),
-                ("متى موعد جلسته؟", ["نعلن الموعد قريباً في صفحة الأجندة. برنامج اليوم من 11:00 صباحاً حتى 7:00 مساءً."]),
+                ("متى موعد جلسته؟", ["نعلن الموعد قريباً في صفحة الأجندة. برنامج اليوم من 10:30 صباحاً حتى 7:30 مساءً."]),
             ],
         },
     },
@@ -207,7 +207,7 @@ SPEAKERS = [
             "final_h": "Meet Mohamed Neamatalla on Stage 1",
             "faq": [
                 ("Which ticket gets me into Mohamed Neamatalla's session?", ["The Standard Pass. His session is on Stage 1, and the Standard Pass gives you full-day access to Stage 1 and Stage 2."]),
-                ("What is the title of his session, and when is it?", ["The title and time will be announced soon on the Agenda page. The program runs from 11:00 AM to 7:00 PM."]),
+                ("What is the title of his session, and when is it?", ["The title and time will be announced soon on the Agenda page. The program runs from 10:30 AM to 7:30 PM."]),
             ],
         },
         "ar": {
@@ -262,7 +262,7 @@ SPEAKERS = [
             "final_h": "احضر جلسة محمد نعمة الله على المسرح 1",
             "faq": [
                 ("أي تذكرة تدخلني جلسة محمد نعمة الله؟", ["التذكرة الأساسية (Standard Pass). جلسته على المسرح 1، والتذكرة الأساسية تدخلك المسرح 1 والمسرح 2 طوال اليوم."]),
-                ("ما عنوان جلسته، ومتى موعدها؟", ["نعلن العنوان والموعد قريباً في صفحة الأجندة. برنامج اليوم من 11:00 صباحاً حتى 7:00 مساءً."]),
+                ("ما عنوان جلسته، ومتى موعدها؟", ["نعلن العنوان والموعد قريباً في صفحة الأجندة. برنامج اليوم من 10:30 صباحاً حتى 7:30 مساءً."]),
             ],
         },
     },
@@ -288,10 +288,10 @@ UI = {
         "time_v": "Coming Soon",
         "day_eyebrow": "The Rest of the Day",
         "day_h": "One Ticket, Both Stages, the Whole Day",
-        "day_p": "The Standard Pass gives you Stage 1 and Stage 2 from 11:00 AM to 7:00 PM: keynotes, panels, case studies and time to meet store owners, platforms and service companies.",
+        "day_p": "The Standard Pass gives you Stage 1 and Stage 2 from 10:30 AM to 7:30 PM: keynotes, panels, case studies and time to meet store owners, platforms and service companies.",
         "day_cards": [
             ("Stage 1 and Stage 2", "Sessions all day. The Standard Pass covers both."),
-            ("Registration 10:00 AM", "The program runs from 11:00 AM to 7:00 PM."),
+            ("Registration 9:30 AM", "The program runs from 10:30 AM to 7:30 PM."),
             ("Expo Area", "Companies showing ecommerce services and tools."),
             ("Networking", "Open time to meet store owners, platforms and partners."),
         ],
@@ -319,10 +319,10 @@ UI = {
         "time_v": "يعلن قريباً",
         "day_eyebrow": "باقي اليوم",
         "day_h": "تذكرة واحدة تدخلك المسرحين طوال اليوم",
-        "day_p": "التذكرة الأساسية (Standard Pass) تدخلك المسرح 1 والمسرح 2 من 11:00 صباحاً حتى 7:00 مساءً: كلمات رئيسية، وجلسات نقاشية، ودراسات حالة، ووقت تقابل فيه أصحاب المتاجر والمنصات وشركات الخدمات.",
+        "day_p": "التذكرة الأساسية (Standard Pass) تدخلك المسرح 1 والمسرح 2 من 10:30 صباحاً حتى 7:30 مساءً: كلمات رئيسية، وجلسات نقاشية، ودراسات حالة، ووقت تقابل فيه أصحاب المتاجر والمنصات وشركات الخدمات.",
         "day_cards": [
             ("المسرح 1 والمسرح 2", "جلسات طوال اليوم، والتذكرة الأساسية تشمل المسرحين معاً."),
-            ("التسجيل 10:00 صباحاً", "والبرنامج من 11:00 صباحاً حتى 7:00 مساءً."),
+            ("التسجيل 9:30 صباحاً", "والبرنامج من 10:30 صباحاً حتى 7:30 مساءً."),
             ("منطقة المعرض (Expo Area)", "شركات تعرض خدماتها وأدواتها للتجارة الإلكترونية."),
             ("التعارف", "وقت مفتوح تقابل فيه أصحاب متاجر ومنصات وشركات خدمات."),
         ],
@@ -351,7 +351,7 @@ FAQ_TAIL = {
             q: "What time does the event start?",
             a: [
               {
-                p: "Registration opens at 10:00 AM, and the stage program begins at 11:00 AM.",
+                p: "Registration opens at 9:30 AM, and the stage program begins at 10:30 AM.",
               },
               {
                 p: "Attendees are encouraged to arrive early to complete check-in and explore the venue before the first sessions begin.",
@@ -389,7 +389,7 @@ FAQ_TAIL = {
             q: "متى يبدأ اليوم؟",
             a: [
               {
-                p: "يفتح التسجيل الساعة 10:00 صباحاً، ويبدأ برنامج المسرح الساعة 11:00. تعال مبكراً لتنهي التسجيل وتعرف المكان قبل أول جلسة.",
+                p: "يفتح التسجيل الساعة 9:30 صباحاً، ويبدأ برنامج المسرح الساعة 10:30. تعال مبكراً لتنهي التسجيل وتعرف المكان قبل أول جلسة.",
               },
             ],
           },

@@ -51,7 +51,7 @@
 
     <!-- Shared prices + ECD content (partners/speakers/packages) -->
     <script src="prices.js?v=20261012b" defer></script>
-    <script src="ecd-api.js?v=20261012a" defer></script>
+    <script src="ecd-api.js?v=20261030a" defer></script>
     <script src="ecd-content.js?v=20261026e" defer></script>
 
     <style>
@@ -2584,7 +2584,7 @@
             q: "متى يبدأ اليوم؟",
             a: [
               {
-                p: "يفتح التسجيل الساعة 10:00 صباحاً، ويبدأ برنامج المسرح الساعة 11:00. تعال مبكراً لتنهي التسجيل وتعرف المكان قبل أول جلسة.",
+                p: "يفتح التسجيل الساعة 9:30 صباحاً، ويبدأ برنامج المسرح الساعة 10:30. تعال مبكراً لتنهي التسجيل وتعرف المكان قبل أول جلسة.",
               },
             ],
           },
@@ -2592,7 +2592,7 @@
             q: "متى ينتهي اليوم؟",
             a: [
               {
-                p: "نحو السابعة مساءً. مواعيد كل جلسة وورشة بالتفصيل في الأجندة.",
+                p: "نحو السابعة والنصف مساءً. مواعيد كل جلسة وورشة بالتفصيل في الأجندة.",
               },
             ],
           },
@@ -3086,7 +3086,7 @@
           var liveEl = document.getElementById("countdownLive");
           var blocksEl = document.getElementById("countdownBlocks");
           if (!blocksEl) return;
-          var target = new Date("2026-11-05T10:00:00+02:00").getTime();
+          var target = new Date("2026-11-05T09:30:00+02:00").getTime();
           var labels = ["يوم", "ساعة", "دقيقة", "ثانية"];
 
           function pad(n) {

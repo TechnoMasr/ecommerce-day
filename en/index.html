@@ -49,7 +49,7 @@
 
     <!-- Shared prices + ECD content (partners/speakers/packages) -->
     <script src="../prices.js?v=20261012b" defer></script>
-    <script src="../ecd-api.js?v=20261012a" defer></script>
+    <script src="../ecd-api.js?v=20261030a" defer></script>
     <script src="../ecd-content.js?v=20261026e" defer></script>
 
     <style>
@@ -2519,7 +2519,7 @@
             q: "What time does the event start?",
             a: [
               {
-                p: "Registration opens at 10:00 AM, and the stage program begins at 11:00 AM.",
+                p: "Registration opens at 9:30 AM, and the stage program begins at 10:30 AM.",
               },
               {
                 p: "Attendees are encouraged to arrive early to complete check-in and explore the venue before the first sessions begin.",
@@ -2529,7 +2529,7 @@
           {
             q: "What time does the event end?",
             a: [
-              { p: "The event is scheduled to end at approximately 7:00 PM." },
+              { p: "The event is scheduled to end at approximately 7:30 PM." },
               {
                 p: "The final timing of individual sessions and workshops will be available in the event agenda.",
               },
@@ -3057,7 +3057,7 @@
           var liveEl = document.getElementById("countdownLive");
           var blocksEl = document.getElementById("countdownBlocks");
           if (!blocksEl) return;
-          var target = new Date("2026-11-05T10:00:00+02:00").getTime();
+          var target = new Date("2026-11-05T09:30:00+02:00").getTime();
           var labels = ["Days", "Hours", "Mins", "Secs"];
 
           function pad(n) {
