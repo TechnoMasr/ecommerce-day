@@ -123,25 +123,8 @@ p.text("Case Studies", "دراسات الحالة")
 p.text("Workshops", "ورش العمل")
 p.text("* Selection updates the URL, filtered views are shareable", "* الفلاتر تحفظ في رابط الصفحة، فيمكنك مشاركته كما هو")
 
-# ---------- ROOM INTRO CARDS ----------
-p.text("STAGE 1", "المسرح 1")
-p.text("The full picture of the business", "الصورة الكبيرة")
-p.text("Founders, leaders, decision makers", "مؤسسون وقيادات يتكلمون عن قرارات اتخذوها")
-p.text("STAGE 2", "المسرح 2")
-p.text("Local brands on what actually happened", "علامات محلية تحكي ما حدث فعلاً")
-p.text("Anyone who wants the detail behind a result", "لمن يسأل: وكيف وصلتم لهذا الرقم؟")
-p.text("ROOM 1", "القاعة 1")
-p.text("ROOM 2", "القاعة 2")
-p.text("ROOM 3", "القاعة 3")
-p.text("Hands-on workshops", "ورش عمل تطبيقية", count=3)
-p.text("All Access Pass holders", "لحاملي التذكرة الشاملة", count=3)
-
 # ---------- TIMELINE / ROOM VIEW ----------
-p.text("Session topics and times are still being finalized, so a few may shift slightly over the coming days.",
-       "نؤكد الآن موضوعات الجلسات ومواعيدها مع المتحدثين، فقد يتغير بعضها قليلاً في الأيام القادمة.")
 p.text("Loading agenda…", "جار تحميل الأجندة...")
-p.text("Times shown are working times and may change before the final run of show.",
-       "المواعيد المعروضة مبدئية، وقد تتغير قبل الجدول النهائي.")
 
 # ---------- PLAN YOUR DAY ----------
 p.rep("""      <div class="section-label">
