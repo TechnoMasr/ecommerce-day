@@ -48,7 +48,7 @@
     <!-- Links between pages: Arabic at the root, English in en/ -->
     <script src="ecd-site.js?v=20261029a"></script>
     <!-- Arabic strings for the shared components (must load before them) -->
-    <script src="ecd-i18n.js?v=20261029a"></script>
+    <script src="ecd-i18n.js?v=20261031a"></script>
     <script src="navbar.js?v=20261012c" defer></script>
     <script src="breadcrumbs.js?v=20261012b" defer></script>
     <script type="application/ld+json">
@@ -592,6 +592,13 @@
         color: #6b747e;
         font-size: 13px;
       }
+      .speaker-initials {
+        font-family: Manrope, sans-serif;
+        font-weight: 700;
+        font-size: 44px;
+        letter-spacing: 0.02em;
+        color: #101010;
+      }
       .speaker-body {
         padding: 18px;
       }
@@ -905,6 +912,9 @@
         .speaker-media {
           aspect-ratio: auto;
           min-height: 150px;
+        }
+        .speaker-initials {
+          font-size: 32px;
         }
         .speaker-body {
           padding: 14px 16px;
@@ -1275,9 +1285,9 @@
 
       var speakers = [];
 
-      // Room label on speaker cards (Stage 1 / Stage 2 / workshops).
-      // Hidden for now; set to true to show it again.
-      var SHOW_ROOM_LABEL = false;
+      // Room label on speaker cards (Stage 1 / Stage 2 / Room 1-3).
+      // Shown since the final agenda (31 Oct 2026); false hides it again.
+      var SHOW_ROOM_LABEL = true;
 
       function mapApiSpeaker(s) {
         return {
@@ -1386,6 +1396,19 @@
           : "سيعلن عن مزيد من المتحدثين قريباً.";
       }
 
+      // Card without a photo: the person's initials (e.g. "WK"), replaced
+      // automatically once the team uploads a photo in the admin (31 Oct 2026).
+      function initialsOf(name) {
+        var words = String(name || "")
+          .replace(/^dr\.?\s*/i, "")
+          .split(/\s+/)
+          .filter(Boolean);
+        if (!words.length) return "";
+        var first = words[0].charAt(0);
+        var last = words.length > 1 ? words[words.length - 1].charAt(0) : "";
+        return (first + last).toUpperCase();
+      }
+
       // One speaker card, used by the Featured Speakers section and the full list.
       function speakerCardHtml(s) {
         var t = workshops[s.tr] || workshops[0];
@@ -1395,7 +1418,7 @@
           '" alt="' +
           esc(s.name) +
           '" width="800" height="1000" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover" />'
-        : "";
+        : '<span class="speaker-initials" aria-hidden="true">' + esc(initialsOf(s.name)) + "</span>";
         return (
         '<div class="speaker-card">' +
         '<div class="speaker-media">' +

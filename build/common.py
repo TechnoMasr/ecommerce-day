@@ -13,7 +13,7 @@ import urllib.parse
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
-I18N_TAG = "ecd-i18n.js?v=20261029a"
+I18N_TAG = "ecd-i18n.js?v=20261031a"
 SITE_TAG = '<script src="ecd-site.js?v=20261029a"></script>'
 BASE_URL = "https://www.trafficmena.com/ecommerce-day/"
 

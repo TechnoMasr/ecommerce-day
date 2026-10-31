@@ -76,7 +76,7 @@
     <!-- Links between pages: Arabic at the root, English in en/ -->
     <script src="ecd-site.js?v=20261029a"></script>
     <!-- Arabic strings for the shared components (must load before them) -->
-    <script src="ecd-i18n.js?v=20261029a"></script>
+    <script src="ecd-i18n.js?v=20261031a"></script>
     <script src="navbar.js?v=20261012c" defer></script>
     <script src="breadcrumbs.js?v=20261012b" defer></script>
     <script src="ecd-whatsapp.js?v=20261012b" defer></script>
@@ -86,7 +86,7 @@
     <!-- Shared prices + ECD content (partners/speakers/packages) -->
     <script src="prices.js?v=20261012b" defer></script>
     <script src="ecd-api.js?v=20261030a" defer></script>
-    <script src="ecd-content.js?v=20261026e" defer></script>
+    <script src="ecd-content.js?v=20261031a" defer></script>
 
     <style>
       /* Reserve the navbar's height before navbar.js renders it (prevents layout shift) */
@@ -1028,6 +1028,14 @@
         display: flex;
         align-items: center;
         justify-content: center;
+      }
+      .speaker-photo .speaker-initials,
+      .main-speaker-photo .speaker-initials {
+        font-family: Manrope, sans-serif;
+        font-weight: 700;
+        font-size: 44px;
+        letter-spacing: 0.02em;
+        color: #101010;
       }
       .speaker-info {
         padding: 16px 18px 20px;
@@ -2219,8 +2227,8 @@
           <p class="section-sub" data-reveal>جلسة على المسرح 1 عن تحسين معدل التحويل (CRO): كيف يحصل متجرك على طلبات أكثر من الزوار الذين يدخلونه بالفعل.</p>
           <ul class="sp-meta">
             <li><span class="sp-meta-label">القاعة</span><span class="sp-meta-value"><span class="sp-dot" aria-hidden="true"></span>المسرح 1</span></li>
-            <li><span class="sp-meta-label">عنوان الجلسة</span><span class="sp-meta-value">يعلن قريباً</span></li>
-            <li><span class="sp-meta-label">الموعد</span><span class="sp-meta-value">يعلن قريباً</span></li>
+            <li><span class="sp-meta-label">عنوان الجلسة</span><span class="sp-meta-value">CRO By Mohamed Neamatalla</span></li>
+            <li><span class="sp-meta-label">الموعد</span><span class="sp-meta-value">6:15 مساءً</span></li>
           </ul>
           <div class="sp-panel">
             <h3>ما الذي تتناوله الجلسة</h3>
@@ -2695,7 +2703,7 @@
             q: "ما عنوان جلسته، ومتى موعدها؟",
             a: [
               {
-                p: "نعلن العنوان والموعد قريباً في صفحة الأجندة. برنامج اليوم من 10:30 صباحاً حتى 7:30 مساءً.",
+                p: "«CRO By Mohamed Neamatalla»، الساعة 6:15 مساءً على المسرح 1، والبرنامج كامل في صفحة الأجندة.",
               },
             ],
           },

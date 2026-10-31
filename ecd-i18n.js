@@ -70,6 +70,13 @@
     "solo talks": "جلسة فردية",
     panel: "جلسة نقاشية",
     workshop: "ورشة عمل",
+    // Session types of the final agenda (user-approved, 31 Oct 2026)
+    talk: "كلمة",
+    "case study": "دراسة حالة",
+    announcement: "إعلان",
+    discussion: "جلسة أسئلة مفتوحة",
+    opening: "الافتتاح",
+    closing: "الختام",
     intermediate: "مستوى متوسط",
     founder: "مؤسس",
     operator: "خبير تشغيل",

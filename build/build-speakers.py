@@ -194,7 +194,6 @@ p.rep('''            ? '<a href="agenda.html" class="speaker-session">' +
 p.rep('''          ? "The lineup is impressive. More speakers will be announced soon."
           : "More speakers will be announced soon.";''', '''          ? "قائمة المتحدثين قوية، وسنعلن عن المزيد قريباً."
           : "سيعلن عن مزيد من المتحدثين قريباً.";''')
-p.rep(''': "Portrait 4:5";''', ''': "";''')
 p.rep('''            esc(t.name) +
             "</span>"''', '''            esc(EcdI18n.label(t.name)) +
             "</span>"''')

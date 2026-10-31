@@ -50,7 +50,7 @@
     <!-- Shared prices + ECD content (partners/speakers/packages) -->
     <script src="../prices.js?v=20261012b" defer></script>
     <script src="../ecd-api.js?v=20261030a" defer></script>
-    <script src="../ecd-content.js?v=20261026e" defer></script>
+    <script src="../ecd-content.js?v=20261031a" defer></script>
 
     <style>
       /* Reserve the navbar's height before navbar.js renders it (prevents layout shift) */
@@ -992,6 +992,14 @@
         display: flex;
         align-items: center;
         justify-content: center;
+      }
+      .speaker-photo .speaker-initials,
+      .main-speaker-photo .speaker-initials {
+        font-family: Manrope, sans-serif;
+        font-weight: 700;
+        font-size: 44px;
+        letter-spacing: 0.02em;
+        color: #101010;
       }
       .speaker-info {
         padding: 16px 18px 20px;

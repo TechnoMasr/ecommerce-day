@@ -28,7 +28,9 @@ MAPS = "https://maps.app.goo.gl/LxbaM9baBAA8t9Pv9"
 # ---------------------------------------------------------------- speakers
 # Facts come from the announcement posts (user approved them word for word,
 # 26 Oct 2026). Session titles and times are not set yet: they show as
-# "Announced soon" / "Coming Soon" (hard rules 11 and 12).
+# "Announced soon" / "Coming Soon" (hard rules 11 and 12). Final agenda
+# (31 Oct 2026): each session has its title (English on both pages, like the
+# Agenda) and its time from the admin agenda; change them here too.
 SPEAKERS = [
     {
         "slug": "mohamed-hossam-khedr",
@@ -50,6 +52,8 @@ SPEAKERS = [
                 "h2": "Build a Healthy Ecommerce Business, and Know When to Make Each Move",
                 "lede": "An open Q&A with Dr. Khedr on business strategy: what a healthy ecommerce business needs, what to do first, and where to slow down before you expand or invest.",
                 "format": "Open Q&A",
+                "title": "AMA Dr. Hossam Khedr",
+                "time": "2:10 PM",
                 "topics_h": "What the conversation covers",
                 "topics": [
                     "What a healthy ecommerce business looks like, beyond the sales numbers.",
@@ -89,7 +93,7 @@ SPEAKERS = [
             "faq": [
                 ("Which ticket gets me into Dr. Khedr's session?", ["The Standard Pass. His session is on Stage 1, and the Standard Pass gives you full-day access to Stage 1 and Stage 2."]),
                 ("How do I send my question?", ["We are collecting questions through a WhatsApp campaign and a public post on our Facebook page. Selected questions become part of the discussion on Stage 1."]),
-                ("When is his session?", ["The time will be announced soon on the Agenda page. The program runs from 10:30 AM to 7:30 PM."]),
+                ("When is his session?", ["At 2:10 PM on Stage 1. The full program is on the Agenda page."]),
             ],
         },
         "ar": {
@@ -108,6 +112,8 @@ SPEAKERS = [
                 "h2": "كيف تبني متجرك على أساس سليم، ومتى تتخذ كل قرار",
                 "lede": "جلسة تسأل فيها د. خضر مباشرة عن استراتيجية شركتك: ما الذي يحتاجه متجرك لينمو دون أن يهتز، وبماذا تبدأ، ومتى تتمهل قبل أن تتوسع أو تستثمر.",
                 "format": "أسئلة مفتوحة من الحضور",
+                "title": "AMA Dr. Hossam Khedr",
+                "time": "2:10 مساءً",
                 "topics_h": "ما الذي يدور حوله النقاش",
                 "topics": [
                     "كيف تعرف أن شركتك قوية فعلاً، بعيداً عن أرقام المبيعات وحدها.",
@@ -147,7 +153,7 @@ SPEAKERS = [
             "faq": [
                 ("أي تذكرة تدخلني جلسة د. خضر؟", ["التذكرة الأساسية (Standard Pass). جلسته على المسرح 1، والتذكرة الأساسية تدخلك المسرح 1 والمسرح 2 طوال اليوم."]),
                 ("كيف أرسل سؤالي؟", ["نجمع الأسئلة عبر حملة على واتساب ومنشور عام على صفحتنا في فيسبوك، والأسئلة التي نختارها تصبح جزءاً من النقاش على المسرح 1."]),
-                ("متى موعد جلسته؟", ["نعلن الموعد قريباً في صفحة الأجندة. برنامج اليوم من 10:30 صباحاً حتى 7:30 مساءً."]),
+                ("متى موعد جلسته؟", ["الساعة 2:10 مساءً على المسرح 1، والبرنامج كامل في صفحة الأجندة."]),
             ],
         },
     },
@@ -171,6 +177,8 @@ SPEAKERS = [
                 "h2": "Grow Revenue With CRO Before You Spend More on Ads",
                 "lede": "A Stage 1 session on conversion rate optimization (CRO): how ecommerce brands get more orders and revenue out of the traffic they already have.",
                 "format": "",
+                "title": "CRO By Mohamed Neamatalla",
+                "time": "6:15 PM",
                 "topics_h": "What the session is about",
                 "topics": [
                     "Finding the growth that already sits inside your store.",
@@ -207,7 +215,7 @@ SPEAKERS = [
             "final_h": "Meet Mohamed Neamatalla on Stage 1",
             "faq": [
                 ("Which ticket gets me into Mohamed Neamatalla's session?", ["The Standard Pass. His session is on Stage 1, and the Standard Pass gives you full-day access to Stage 1 and Stage 2."]),
-                ("What is the title of his session, and when is it?", ["The title and time will be announced soon on the Agenda page. The program runs from 10:30 AM to 7:30 PM."]),
+                ("What is the title of his session, and when is it?", ["\"CRO By Mohamed Neamatalla\", at 6:15 PM on Stage 1. The full program is on the Agenda page."]),
             ],
         },
         "ar": {
@@ -226,6 +234,8 @@ SPEAKERS = [
                 "h2": "ارفع مبيعاتك بالـ CRO قبل أن تزيد ميزانية الإعلانات",
                 "lede": "جلسة على المسرح 1 عن تحسين معدل التحويل (CRO): كيف يحصل متجرك على طلبات أكثر من الزوار الذين يدخلونه بالفعل.",
                 "format": "",
+                "title": "CRO By Mohamed Neamatalla",
+                "time": "6:15 مساءً",
                 "topics_h": "ما الذي تتناوله الجلسة",
                 "topics": [
                     "فرص النمو الموجودة أصلاً داخل متجرك.",
@@ -262,7 +272,7 @@ SPEAKERS = [
             "final_h": "احضر جلسة محمد نعمة الله على المسرح 1",
             "faq": [
                 ("أي تذكرة تدخلني جلسة محمد نعمة الله؟", ["التذكرة الأساسية (Standard Pass). جلسته على المسرح 1، والتذكرة الأساسية تدخلك المسرح 1 والمسرح 2 طوال اليوم."]),
-                ("ما عنوان جلسته، ومتى موعدها؟", ["نعلن العنوان والموعد قريباً في صفحة الأجندة. برنامج اليوم من 10:30 صباحاً حتى 7:30 مساءً."]),
+                ("ما عنوان جلسته، ومتى موعدها؟", ["«CRO By Mohamed Neamatalla»، الساعة 6:15 مساءً على المسرح 1، والبرنامج كامل في صفحة الأجندة."]),
             ],
         },
     },
@@ -799,8 +809,8 @@ def session(c, ui):
     meta = [(ui["room"], f'<span class="sp-dot" aria-hidden="true"></span>{e(ui["stage"])}')]
     if s["format"]:
         meta.append((ui["format"], e(s["format"])))
-    meta.append((ui["title_l"], e(ui["title_v"])))
-    meta.append((ui["time_l"], e(ui["time_v"])))
+    meta.append((ui["title_l"], e(s.get("title") or ui["title_v"])))
+    meta.append((ui["time_l"], e(s.get("time") or ui["time_v"])))
     meta_html = "".join(
         f"""
             <li><span class="sp-meta-label">{e(l)}</span><span class="sp-meta-value">{v}</span></li>"""

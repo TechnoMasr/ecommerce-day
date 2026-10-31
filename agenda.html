@@ -22,7 +22,7 @@
     <!-- Links between pages: Arabic at the root, English in en/ -->
     <script src="ecd-site.js?v=20261029a"></script>
     <!-- Arabic strings for the shared components (must load before them) -->
-    <script src="ecd-i18n.js?v=20261029a"></script>
+    <script src="ecd-i18n.js?v=20261031a"></script>
     <script src="navbar.js?v=20261012c" defer></script>
     <script src="breadcrumbs.js?v=20261012b" defer></script>
     <script type="application/ld+json">
@@ -755,7 +755,7 @@
           >
           <button
             class="fmt-chip"
-            data-fmt="Keynote"
+            data-fmt="Talk"
             style="
               background: #ffffff;
               border: 1px solid #d5dae0;
@@ -768,7 +768,7 @@
               cursor: pointer;
             "
           >
-            الكلمات الرئيسية
+            الكلمات
           </button>
           <button
             class="fmt-chip"
@@ -789,7 +789,7 @@
           </button>
           <button
             class="fmt-chip"
-            data-fmt="Solo Talk"
+            data-fmt="Case Study"
             style="
               background: #ffffff;
               border: 1px solid #d5dae0;
@@ -802,7 +802,7 @@
               cursor: pointer;
             "
           >
-            الجلسات الفردية
+            دراسات الحالة
           </button>
           <button
             class="fmt-chip"
@@ -1360,7 +1360,7 @@
             <div style="display: flex; justify-content: space-between">
               <span>الختام</span
               ><span class="font-mono" style="font-size: 10px; color: #6b747e"
-                >يعلن الموعد قريباً</span
+                >6:55 مساءً</span
               >
             </div>
             <div style="display: flex; justify-content: space-between">
@@ -2041,7 +2041,7 @@
     <!-- Scripts -->
     <script src="prices.js?v=20261012b"></script>
     <script src="ecd-api.js?v=20261030a"></script>
-    <script src="ecd-content.js?v=20261026e"></script>
+    <script src="ecd-content.js?v=20261031a"></script>
     <script>
       // ==========================================
       // 00. DATA
@@ -2134,6 +2134,16 @@
         return h * 60 + min;
       }
 
+      // "11:15" -> "11:15 AM", "1:00" -> "1:00 PM" (same clock rule as timeKey)
+      function timeText(t) {
+        var k = timeKey(t);
+        if (k === 9999) return String(t || "");
+        var h = Math.floor(k / 60);
+        var m = k % 60;
+        var pm = h >= 12;
+        return (h % 12 || 12) + ":" + (m < 10 ? "0" : "") + m + (pm ? " مساءً" : " صباحاً");
+      }
+
       function matchSession(s) {
         if (state.fRoom !== 0 && s.tr !== state.fRoom - 1) return false;
         if (state.fFmt && s.fmt !== state.fFmt) return false;
@@ -2161,7 +2171,7 @@
           ';display:block;width:100%;">' +
           '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">' +
           '<span class="font-mono" style="font-size:10px;letter-spacing:.08em;color:#101010;">' +
-          esc(s.time) +
+          esc(timeText(s.time)) +
           "</span>" +
           "<span style=\"border:1px solid #e6eaee;border-radius:999px;padding:2px 8px;font-size:10px;color:#4a5563;\">" +
           esc(EcdI18n.label(s.fmt)) +
@@ -2193,23 +2203,38 @@
           "القاعة 2",
           "القاعة 3",
         ];
-        // Stage 1 markers from data.text (Opening / Breaks / Closing)
-        // Venue-wide breaks, shown in every column by time.
-        // Prayer times: Giza, Thursday 5 November 2026, Egypt winter time (UTC+2):
-        // Dhuhr 11:40 AM · Asr 2:43 PM · Maghrib 5:05 PM.
-        var BREAKS = [
-          { start: "11:40", end: "12:00", label: "استراحة صلاة الظهر" },
-          { start: "1:00", end: "1:40", label: "استراحة الغداء" },
-          { start: "2:45", end: "3:05", label: "استراحة صلاة العصر" },
-          { start: "5:15", end: "5:35", label: "استراحة صلاة المغرب" },
+        // Breaks per column, from the final agenda sheet (31 Oct 2026).
+        // Opening and Closing are sessions in the admin, not markers.
+        var DHUHR = "استراحة صلاة الظهر";
+        var ASR = "استراحة صلاة العصر";
+        var MAGHRIB = "استراحة صلاة المغرب";
+        var MIDDAY = "استراحة منتصف اليوم";
+        var ROOM_BREAKS = [
+          { start: "12:00", end: "12:15", label: DHUHR },
+          { start: "2:00", end: "3:15", label: MIDDAY },
         ];
-        var CLOSING = { start: "6:40", end: "6:50", label: "الختام" };
+        var BREAKS_BY_COLUMN = [
+          [
+            { start: "12:00", end: "12:20", label: DHUHR },
+            { start: "3:00", end: "4:00", label: ASR },
+            { start: "5:05", end: "5:25", label: MAGHRIB },
+          ],
+          [
+            { start: "12:00", end: "12:10", label: DHUHR },
+            { start: "2:00", end: "3:00", label: MIDDAY },
+            { start: "3:00", end: "3:20", label: ASR },
+            { start: "5:00", end: "5:10", label: MAGHRIB },
+          ],
+          ROOM_BREAKS,
+          ROOM_BREAKS,
+          ROOM_BREAKS,
+        ];
 
         function markerHtml(m) {
           return (
             '<div style="background:#f4f6f8;border:1px dashed #d5dae0;border-radius:10px;padding:10px 14px;display:flex;gap:10px;align-items:center;">' +
             '<span class="font-mono" style="font-size:10px;letter-spacing:0.08em;color:#6b747e;white-space:nowrap;">' +
-            esc(m.start + " - " + m.end) +
+            esc(timeText(m.start) + " - " + timeText(m.end)) +
             "</span>" +
             '<span style="font-size:12px;font-weight:600;color:#4a5563;">' +
             esc(m.label) +
@@ -2247,7 +2272,7 @@
             // Breaks that fall inside this column's day (after its first session)
             var first = timeKey(list[0].time);
             var last = timeKey(list[list.length - 1].time);
-            var pending = BREAKS.filter(function (b) {
+            var pending = (BREAKS_BY_COLUMN[ri] || []).filter(function (b) {
               var k = timeKey(b.start);
               return k > first && k < last;
             });
@@ -2258,7 +2283,6 @@
               }
               html += sessionCardHtml(s, r, true);
             });
-            if (ri === 0) html += markerHtml(CLOSING);
           }
           html += "</div></div>";
         });
@@ -2271,9 +2295,13 @@
         var html = "";
         rooms.forEach(function (r, ri) {
           var visible = state.tvRoom === ri;
-          var list = sessions.filter(function (s) {
-            return s.tr === ri && matchSession(s);
-          });
+          var list = sessions
+            .filter(function (s) {
+              return s.tr === ri && matchSession(s);
+            })
+            .sort(function (a, b) {
+              return timeKey(a.time) - timeKey(b.time);
+            });
           html +=
             '<div class="tv-panel" data-tv-panel="' +
             ri +

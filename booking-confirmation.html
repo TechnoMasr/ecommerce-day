@@ -546,6 +546,16 @@
       .res-btn:disabled {
         cursor: not-allowed;
       }
+      /* Instructor line: light on the dark card, darker once picked (white card) */
+      .res-btn-speaker {
+        font-size: 12px;
+        line-height: 1.4;
+        color: #b8bec5;
+        margin-top: 4px;
+      }
+      .res-btn[aria-pressed="true"] .res-btn-speaker {
+        color: #4a5563;
+      }
 
       /* "Are you sure" step before the selection becomes final (29 Oct 2026) */
       .wbc-overlay {
@@ -3453,6 +3463,15 @@
         return h * 60 + min;
       }
 
+      // "11:15" -> "11:15 AM", "1:00" -> "1:00 PM" (same clock rule as timeSortKey)
+      function timeText(t) {
+        var k = timeSortKey(t);
+        if (k === 9999) return String(t || "");
+        var h = Math.floor(k / 60);
+        var m = k % 60;
+        return (h % 12 || 12) + ":" + (m < 10 ? "0" : "") + m + (h >= 12 ? " PM" : " AM");
+      }
+
       function slotKeyOf(t) {
         var k = timeSortKey(t);
         return k === 9999 ? String(t || "").trim().toLowerCase() : String(k);
@@ -3460,6 +3479,12 @@
 
       function workshopReferenceFor(orderCode, fromServer) {
         return fromServer || "WB-" + String(orderCode || "");
+      }
+
+      // Instructor name: from the booking (server) or from the workshop list
+      function speakerOf(w) {
+        var v = (w && w.speakerLabel) || ((resWorkshopBySlug[w && w.slug] || {}).speakerLabel) || "";
+        return /^speaker will be announced$/i.test(String(v).trim()) ? "" : String(v);
       }
 
       function renderBookedWorkshops(workshops) {
@@ -3473,8 +3498,8 @@
             var meta = TRACK_META[w.trackIndex] || { label: "", color: "#6b747e" };
             return (
               '<li style="display:flex;gap:12px;align-items:flex-start;border:1px solid #e6eaee;border-radius:12px;padding:10px 12px">' +
-              '<span style="font-family:JetBrains Mono,monospace;font-size:12px;color:#101010;min-width:64px">' +
-              escHtml(w.timeLabel) +
+              '<span style="font-family:JetBrains Mono,monospace;font-size:12px;color:#101010;min-width:72px">' +
+              escHtml(timeText(w.timeLabel)) +
               "</span>" +
               '<span style="display:flex;flex-direction:column;gap:2px"><span style="font-weight:700;font-size:14px;color:#101010">' +
               escHtml(w.title) +
@@ -3482,6 +3507,7 @@
               meta.color +
               '"></span>' +
               escHtml(meta.label) +
+              (speakerOf(w) ? " · " + escHtml(speakerOf(w)) : "") +
               "</span></span></li>"
             );
           })
@@ -3653,6 +3679,8 @@
           html +=
             '<div><div class="font-mono" style="font-size:11px;letter-spacing:0.1em;color:#ffffff;margin-bottom:10px">Slot ' +
             (slotIdx + 1) +
+            " · " +
+            escHtml(timeText(time)) +
             ' <span style="color:#6b747e">· pick one</span></div>';
           html += '<div class="grid-3-cols">';
 
@@ -3713,7 +3741,13 @@
             html +=
               '<div class="res-btn-title" style="font-weight:700;font-size:13px;line-height:1.4;color:#ffffff">' +
               escHtml(w.title) +
-              "</div></button>";
+              "</div>" +
+              (speakerOf(w)
+                ? '<div class="res-btn-speaker">' +
+                  escHtml(speakerOf(w)) +
+                  "</div>"
+                : "") +
+              "</button>";
           });
 
           html += "</div></div>";
@@ -3777,7 +3811,7 @@
             return (
               '<li><div class="wbc-meta">Slot ' +
               (Number(slot) + 1) +
-              (time ? " · " + escHtml(time) : "") +
+              (time ? " · " + escHtml(timeText(time)) : "") +
               (meta.label ? " · " + escHtml(meta.label) : "") +
               '</div><div class="wbc-name">' +
               escHtml(w.title || resSelection[slot]) +

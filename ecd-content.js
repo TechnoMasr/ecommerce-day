@@ -70,6 +70,19 @@
     );
   }
 
+  // Card without a photo: the person's initials (e.g. "WK"), replaced
+  // automatically once the team uploads a photo in the admin (31 Oct 2026).
+  function initialsTile(name) {
+    var words = String(name || "")
+      .replace(/^dr\.?\s*/i, "")
+      .split(/\s+/)
+      .filter(Boolean);
+    var text = words.length
+      ? (words[0].charAt(0) + (words.length > 1 ? words[words.length - 1].charAt(0) : "")).toUpperCase()
+      : "";
+    return el("span", { class: "speaker-initials", "aria-hidden": "true", text: text });
+  }
+
   function silhouetteSvg() {
     return (
       '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#D5DAE0" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>'
@@ -334,7 +347,7 @@
           }),
         );
       } else {
-        photo.innerHTML = silhouetteSvg();
+        photo.appendChild(initialsTile(s.name));
       }
       var body = el("div", { class: "main-speaker-body" });
       body.appendChild(el("span", { class: "main-speaker-pill", text: TXT.mainSpeaker }));
@@ -407,7 +420,7 @@
         img.style.objectFit = "cover";
         photo.appendChild(img);
       } else {
-        photo.innerHTML = silhouetteSvg();
+        photo.appendChild(initialsTile(s.name));
       }
       var info = el("div", { class: "speaker-info" });
       info.appendChild(el("div", { class: "speaker-name", text: s.name || "" }));

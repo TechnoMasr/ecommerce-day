@@ -84,7 +84,7 @@
     <!-- Shared prices + ECD content (partners/speakers/packages) -->
     <script src="../prices.js?v=20261012b" defer></script>
     <script src="../ecd-api.js?v=20261030a" defer></script>
-    <script src="../ecd-content.js?v=20261026e" defer></script>
+    <script src="../ecd-content.js?v=20261031a" defer></script>
 
     <style>
       /* Reserve the navbar's height before navbar.js renders it (prevents layout shift) */
@@ -1026,6 +1026,14 @@
         display: flex;
         align-items: center;
         justify-content: center;
+      }
+      .speaker-photo .speaker-initials,
+      .main-speaker-photo .speaker-initials {
+        font-family: Manrope, sans-serif;
+        font-weight: 700;
+        font-size: 44px;
+        letter-spacing: 0.02em;
+        color: #101010;
       }
       .speaker-info {
         padding: 16px 18px 20px;
@@ -2124,8 +2132,8 @@
           <p class="section-sub" data-reveal>A Stage 1 session on conversion rate optimization (CRO): how ecommerce brands get more orders and revenue out of the traffic they already have.</p>
           <ul class="sp-meta">
             <li><span class="sp-meta-label">Room</span><span class="sp-meta-value"><span class="sp-dot" aria-hidden="true"></span>Stage 1</span></li>
-            <li><span class="sp-meta-label">Session title</span><span class="sp-meta-value">Announced soon</span></li>
-            <li><span class="sp-meta-label">Time</span><span class="sp-meta-value">Coming Soon</span></li>
+            <li><span class="sp-meta-label">Session title</span><span class="sp-meta-value">CRO By Mohamed Neamatalla</span></li>
+            <li><span class="sp-meta-label">Time</span><span class="sp-meta-value">6:15 PM</span></li>
           </ul>
           <div class="sp-panel">
             <h3>What the session is about</h3>
@@ -2601,7 +2609,7 @@
             q: "What is the title of his session, and when is it?",
             a: [
               {
-                p: "The title and time will be announced soon on the Agenda page. The program runs from 10:30 AM to 7:30 PM.",
+                p: "\"CRO By Mohamed Neamatalla\", at 6:15 PM on Stage 1. The full program is on the Agenda page.",
               },
             ],
           },
