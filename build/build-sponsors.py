@@ -174,6 +174,8 @@ for en_one, en_many, ar_one, ar_many in [
     ("Main Sponsor", "Main Sponsors", "الراعي الرئيسي", "الرعاة الرئيسيون"),
     ("Strategic Partner", "Strategic Partners", "شريك استراتيجي", "شركاء استراتيجيون"),
     ("Growth Partner", "Growth Partners", "شريك النمو", "شركاء النمو"),
+    ("Marketing Partner", "Marketing Partners", "شريك التسويق", "شركاء التسويق"),
+    ("Creative Collaborator", "Creative Collaborators", "الشريك الإبداعي", "الشركاء الإبداعيون"),
     ("Fintech Partner", "Fintech Partners", "شريك التكنولوجيا المالية", "شركاء التكنولوجيا المالية"),
     ("Exhibitor Partner", "Exhibitor Partners", "شريك عارض", "العارضون"),
     ("Media & Tech Partner", "Media & Tech Partners", "شريك الإعلام والتكنولوجيا", "شركاء الإعلام والتكنولوجيا"),
