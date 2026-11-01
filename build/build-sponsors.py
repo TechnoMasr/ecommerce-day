@@ -176,6 +176,8 @@ for en_one, en_many, ar_one, ar_many in [
     ("Growth Partner", "Growth Partners", "شريك النمو", "شركاء النمو"),
     ("Fintech Partner", "Fintech Partners", "شريك التكنولوجيا المالية", "شركاء التكنولوجيا المالية"),
     ("Exhibitor Partner", "Exhibitor Partners", "شريك عارض", "العارضون"),
+    ("Media & Tech Partner", "Media & Tech Partners", "شريك الإعلام والتكنولوجيا", "شركاء الإعلام والتكنولوجيا"),
+    ("Hospitality Partner", "Hospitality Partners", "شريك الضيافة", "شركاء الضيافة"),
 ]:
     p.rep(f'one: "{en_one}", many: "{en_many}"', f'one: "{ar_one}", many: "{ar_many}"')
 p.rep(': "<span>Partner logo</span>";', ': "<span>شعار الشريك</span>";')

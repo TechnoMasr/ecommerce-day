@@ -24,6 +24,8 @@
           growth: ["شريك النمو", "شركاء النمو"],
           fintech: ["شريك التكنولوجيا المالية", "شركاء التكنولوجيا المالية"],
           exhibitor: ["شريك عارض", "العارضون"],
+          media_tech: ["شريك الإعلام والتكنولوجيا", "شركاء الإعلام والتكنولوجيا"],
+          hospitality: ["شريك الضيافة", "شركاء الضيافة"],
         },
         partnersSoon: "سيعلن عن الشركاء قريباً",
         speakersSoon: "سيعلن عن مزيد من المتحدثين قريباً",
@@ -42,6 +44,8 @@
           growth: ["Growth Partner", "Growth Partners"],
           fintech: ["Fintech Partner", "Fintech Partners"],
           exhibitor: ["Exhibitor Partner", "Exhibitor Partners"],
+          media_tech: ["Media & Tech Partner", "Media & Tech Partners"],
+          hospitality: ["Hospitality Partner", "Hospitality Partners"],
         },
         partnersSoon: "Partners announced soon",
         speakersSoon: "More speakers will be announced soon",
@@ -138,6 +142,8 @@
     { id: "growth", color: "#006681", size: "large" },
     { id: "fintech", color: "#ffb020", size: "large" },
     { id: "exhibitor", color: "#4a5563", size: "compact" },
+    { id: "media_tech", color: "#29cf9f", size: "compact" },
+    { id: "hospitality", color: "#6b747e", size: "compact" },
   ];
 
   function logoImg(p) {
