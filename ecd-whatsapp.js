@@ -14,7 +14,7 @@
   var I18N = window.EcdI18n || null;
   var WHATSAPP_URL = I18N
     ? I18N.whatsappUrl
-    : "https://wa.me/201005507443?text=I%20need%20help%20for%20Ecommerce%20Day%202026";
+    : "https://wa.me/201505437979?text=I%20need%20help%20for%20Ecommerce%20Day%202026";
   var GAP = 16;
 
   function init() {

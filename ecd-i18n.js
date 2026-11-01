@@ -124,6 +124,6 @@
     asset: function (path) {
       return window.EcdSite ? window.EcdSite.asset(path) : path;
     },
-    whatsappUrl: "https://wa.me/201005507443?text=" + encodeURIComponent(WHATSAPP_TEXT),
+    whatsappUrl: "https://wa.me/201505437979?text=" + encodeURIComponent(WHATSAPP_TEXT),
   };
 })();

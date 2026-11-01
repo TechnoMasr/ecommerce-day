@@ -26,7 +26,7 @@ def rep(old, new, count=1):
 
 
 VENUE = "مركز إبداع مصر الرقمية (كريتيفا)، الجيزة"
-WA_AR = "https://wa.me/201005507443?text=" + urllib.parse.quote(
+WA_AR = "https://wa.me/201505437979?text=" + urllib.parse.quote(
     "مرحباً، محتاج مساعدة بخصوص يوم التجارة الإلكترونية 2026"
 )
 
@@ -455,7 +455,7 @@ rep('{ n: 13, suffix: "", label: "MENA Countries" }', '{ n: 13, suffix: "", labe
 rep('{ n: 10, suffix: "+", label: "Professional Disciplines" }', '{ n: 10, suffix: "+", label: "تخصص مهني" }')
 
 rep('''        var WA_URL =
-          "https://wa.me/201005507443?text=I%20need%20help%20for%20Ecommerce%20Day%202026";''',
+          "https://wa.me/201505437979?text=I%20need%20help%20for%20Ecommerce%20Day%202026";''',
     f'''        var WA_URL =
           "{WA_AR}";''')
 

@@ -11,7 +11,7 @@ const footT = (key, en) => (FOOTER_I18N ? FOOTER_I18N.t(key, en) : en);
 const footPage = (href) => (FOOTER_SITE ? FOOTER_SITE.page(href) : href);
 const footWa = FOOTER_I18N
   ? FOOTER_I18N.whatsappUrl
-  : "https://wa.me/201005507443?text=I%20need%20help%20for%20Ecommerce%20Day%202026";
+  : "https://wa.me/201505437979?text=I%20need%20help%20for%20Ecommerce%20Day%202026";
 const footSocial = (name) =>
   FOOTER_I18N
     ? `${footT("footer.on", "")} ${name} ${footT("footer.newTab", "")}`

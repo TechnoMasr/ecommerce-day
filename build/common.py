@@ -13,14 +13,14 @@ import urllib.parse
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
-I18N_TAG = "ecd-i18n.js?v=20261101a"
+I18N_TAG = "ecd-i18n.js?v=20261101b"
 SITE_TAG = '<script src="ecd-site.js?v=20261029a"></script>'
 BASE_URL = "https://www.trafficmena.com/ecommerce-day/"
 
 VENUE = "مركز إبداع مصر الرقمية (كريتيفا)، الجيزة"
 WA_TEXT = "مرحباً، محتاج مساعدة بخصوص يوم التجارة الإلكترونية 2026"
-WA_AR = "https://wa.me/201005507443?text=" + urllib.parse.quote(WA_TEXT)
-WA_EN = "https://wa.me/201005507443?text=I%20need%20help%20for%20Ecommerce%20Day%202026"
+WA_AR = "https://wa.me/201505437979?text=" + urllib.parse.quote(WA_TEXT)
+WA_EN = "https://wa.me/201505437979?text=I%20need%20help%20for%20Ecommerce%20Day%202026"
 WA_ARIA_EN = 'aria-label="Chat with us on WhatsApp (opens in a new tab)"'
 WA_ARIA_AR = 'aria-label="تواصل معنا على واتساب (يفتح في نافذة جديدة)"'
 
