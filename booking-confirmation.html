@@ -665,6 +665,103 @@
         }
       }
 
+      /* Change booked workshops with the email code, until Wed 4 Nov 10 PM (2 Nov 2026) */
+      .wbv-ghost {
+        background: #ffffff;
+        border: 1px solid #101010;
+        color: #101010;
+        border-radius: 10px;
+        padding: 11px 18px;
+        font-family: "Manrope", sans-serif;
+        font-weight: 600;
+        font-size: 13px;
+        cursor: pointer;
+      }
+      .wbv-ghost:hover {
+        background: #f4f6f8;
+      }
+      .wbv-ghost:focus-visible,
+      .wbv-link:focus-visible,
+      .wbv-input:focus-visible,
+      .wb-cancel-edit:focus-visible {
+        outline: 2px solid #006681;
+        outline-offset: 2px;
+      }
+      .wbv {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #e6eaee;
+      }
+      .wbv[hidden] {
+        display: none;
+      }
+      .wbv-text {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #1f2630;
+        margin: 0 0 12px;
+      }
+      .wbv-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: flex-end;
+      }
+      .wbv-label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: #4a5563;
+        margin-bottom: 6px;
+      }
+      .wbv-input {
+        width: 150px;
+        border: 1px solid #d5dae0;
+        border-radius: 10px;
+        padding: 11px 14px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 16px;
+        letter-spacing: 0.12em;
+        color: #101010;
+        background: #ffffff;
+      }
+      .wbv-msg {
+        font-size: 13px;
+        line-height: 1.6;
+        color: #b42318;
+        margin: 10px 0 0;
+      }
+      .wbv-msg:empty {
+        display: none;
+      }
+      .wbv-link {
+        background: none;
+        border: none;
+        padding: 0;
+        margin-top: 12px;
+        font-family: "Manrope", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        color: #101010;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+      .wb-cancel-edit {
+        margin: 8px 0 0 8px;
+        background: transparent;
+        border: 1px solid #9aa1a9;
+        color: #ffffff;
+        border-radius: 10px;
+        padding: 14px 28px;
+        font-family: "Manrope", sans-serif;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+      }
+      .wb-cancel-edit[hidden] {
+        display: none;
+      }
+
       /* ==========================================
          06. PLATFORM TABLE
          ========================================== */
@@ -1741,7 +1838,7 @@
               >Reserve Your Workshops · All Access</span
             >
           </div>
-          <h2 class="section-title" style="color: #ffffff">
+          <h2 id="resHeading" class="section-title" style="color: #ffffff">
             One workshop per slot, up to 6. Seats are capacity-limited. Your selection is final once confirmed.
           </h2>
           <p style="font-size: 14px; color: #9aa1a9; margin: 0 0 32px">
@@ -1797,6 +1894,9 @@
               "
             >
               Confirm My Workshops (0 selected)
+            </button>
+            <button type="button" id="wbEditCancel" class="wb-cancel-edit" hidden>
+              Cancel
             </button>
           </div>
 
@@ -1893,7 +1993,7 @@
               >
                 Your workshops are saved to your booking. Show your ticket QR at
                 the entrance; our team will see your workshops when they scan it.
-                Selections are final.
+                <span id="wbSavedNote">Selections are final.</span>
               </div>
               <div style="display: flex; gap: 10px; flex-wrap: wrap">
                 <button
@@ -1903,6 +2003,41 @@
                   style="padding: 11px 18px; font-size: 13px"
                 >
                   Add to Calendar
+                </button>
+                <button type="button" id="wbChangeBtn" class="wbv-ghost" hidden>
+                  Change workshops
+                </button>
+              </div>
+              <!-- Email code step before changing workshops (same code as the booking page) -->
+              <div id="wbVerify" class="wbv" hidden>
+                <p id="wbVerifyText" class="wbv-text"></p>
+                <div class="wbv-row">
+                  <div>
+                    <label for="wbCode" class="wbv-label">6-digit code</label>
+                    <input
+                      id="wbCode"
+                      class="wbv-input"
+                      type="text"
+                      inputmode="numeric"
+                      autocomplete="one-time-code"
+                      maxlength="8"
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    id="wbVerifyBtn"
+                    class="btn-primary"
+                    style="padding: 11px 18px; font-size: 13px"
+                  >
+                    Verify
+                  </button>
+                  <button type="button" id="wbVerifyCancel" class="wbv-ghost">
+                    Cancel
+                  </button>
+                </div>
+                <p id="wbVerifyMsg" class="wbv-msg" role="alert"></p>
+                <button type="button" id="wbResend" class="wbv-link">
+                  Send a new code
                 </button>
               </div>
             </div>
@@ -3109,6 +3244,7 @@
         } else {
           window.__ecdSavedWorkshops = null;
         }
+        if (isFj && typeof applyChangeWindowCopy === "function") applyChangeWindowCopy();
 
         if (window.EventPrices) {
           EventPrices.applyTotals({
@@ -3518,8 +3654,10 @@
         var count = Object.keys(resSelection).length;
         var btn = document.getElementById("confirmWorkshopsBtn");
         if (!btn) return;
-        btn.textContent = "Confirm My Workshops (" + count + " selected)";
-        if (count > 0) {
+        btn.textContent =
+          (wbEditMode ? "Save Changes (" : "Confirm My Workshops (") + count + " selected)";
+        // While changing, removing every workshop is allowed (user, 2 Nov 2026).
+        if (count > 0 || wbEditMode) {
           btn.disabled = false;
           btn.style.background = "#05ef62";
           btn.style.color = "#101010";
@@ -3592,22 +3730,35 @@
         updateReservationUI();
       }
 
-      function applySavedWorkshopsFromBooking(workshops, orderCode) {
+      // Saved picks keyed by their slot in the full schedule (resSlotTimes), so the
+      // picker highlights the right card when the buyer changes them.
+      function selectionFromWorkshops(workshops) {
         var selection = {};
-        var times = [];
-        (workshops || []).forEach(function (w) {
-          if (w && w.timeLabel && times.indexOf(w.timeLabel) === -1) {
-            times.push(w.timeLabel);
-          }
-        });
-        times.sort(function (a, b) {
-          return timeSortKey(a) - timeSortKey(b);
-        });
+        var times = resSlotTimes.slice();
+        if (!times.length) {
+          (workshops || []).forEach(function (w) {
+            if (w && w.timeLabel && times.indexOf(w.timeLabel) === -1) {
+              times.push(w.timeLabel);
+            }
+          });
+          times.sort(function (a, b) {
+            return timeSortKey(a) - timeSortKey(b);
+          });
+        }
         (workshops || []).forEach(function (w) {
           if (!w || !w.slug) return;
-          var slotIdx = times.indexOf(w.timeLabel);
-          if (slotIdx >= 0) selection[slotIdx] = w.slug;
+          for (var i = 0; i < times.length; i++) {
+            if (slotKeyOf(times[i]) === slotKeyOf(w.timeLabel)) {
+              selection[i] = w.slug;
+              return;
+            }
+          }
         });
+        return selection;
+      }
+
+      function applySavedWorkshopsFromBooking(workshops, orderCode) {
+        var selection = selectionFromWorkshops(workshops);
         resSelection = selection;
         var wbId = workshopReferenceFor(
           orderCode,
@@ -3620,6 +3771,7 @@
         var conf = document.getElementById("resConfirmed");
         if (notC) notC.style.display = "none";
         if (conf) conf.style.display = "block";
+        applyChangeWindowCopy();
         try {
           sessionStorage.setItem(
             "ecd2026_workshops",
@@ -3633,6 +3785,266 @@
           );
         } catch (e) {}
       }
+
+      // ------------------------------------------
+      // Change booked workshops (user, 2 Nov 2026): after the code sent to the
+      // booking email, until Wednesday 4 Nov, 10 PM Cairo. The server decides
+      // (booking.workshopChangesOpen + every save); this page only follows it.
+      // ------------------------------------------
+      var WB_DEADLINE_TEXT = "Wednesday 4 November, 10:00 PM (Cairo time)";
+      var wbEditMode = false;
+      var wbHeld = {}; // slug -> true for seats this booking holds
+      var wbLastWorkshopList = [];
+
+      function wbChangesOpen() {
+        return !!(window.__ecdBooking && window.__ecdBooking.workshopChangesOpen === true);
+      }
+
+      function wbSavedList() {
+        return (window.__ecdSavedWorkshops && window.__ecdSavedWorkshops.workshops) || [];
+      }
+
+      function applyChangeWindowCopy() {
+        var open = wbChangesOpen();
+        var heading = document.getElementById("resHeading");
+        if (heading) {
+          heading.textContent = open
+            ? "One workshop per slot, up to 6. Seats are capacity-limited. You can change your picks until " +
+              WB_DEADLINE_TEXT +
+              "."
+            : "One workshop per slot, up to 6. Seats are capacity-limited. Your selection is final once confirmed.";
+        }
+        var note = document.getElementById("wbSavedNote");
+        if (note) {
+          note.textContent = open
+            ? "You can change or remove them until " + WB_DEADLINE_TEXT + ". After that, your selection is final."
+            : "Selections are final.";
+        }
+        var changeBtn = document.getElementById("wbChangeBtn");
+        if (changeBtn) changeBtn.hidden = !(open && wbSavedList().length);
+      }
+
+      function wbTokenKey(order) {
+        return "ecd2026_wb_edit:" + order;
+      }
+
+      function wbLoadToken(order) {
+        try {
+          var raw = JSON.parse(sessionStorage.getItem(wbTokenKey(order)) || "null");
+          // Keep a minute of margin before the server's 2-hour limit.
+          if (raw && raw.token && raw.exp > Date.now() + 60000) return raw.token;
+        } catch (e) {}
+        return "";
+      }
+
+      function wbSaveToken(order, token, seconds) {
+        try {
+          sessionStorage.setItem(
+            wbTokenKey(order),
+            JSON.stringify({ token: token, exp: Date.now() + (seconds || 7200) * 1000 }),
+          );
+        } catch (e) {}
+      }
+
+      function wbClearToken(order) {
+        try {
+          sessionStorage.removeItem(wbTokenKey(order));
+        } catch (e) {}
+      }
+
+      // Same /api/ecd endpoints as the booking page (the TrafficMENA app portal).
+      function wbApi(path, body, token) {
+        var headers = { "Content-Type": "application/json" };
+        if (token) headers.Authorization = "Bearer " + token;
+        return fetch(EcdApi.CONFIG.API_BASE + path, {
+          method: "POST",
+          headers: headers,
+          body: JSON.stringify(body || {}),
+          credentials: "omit",
+        }).then(
+          function (res) {
+            return res
+              .json()
+              .catch(function () {
+                return {};
+              })
+              .then(function (json) {
+                if (!res.ok) {
+                  var e = (json && json.error) || {};
+                  var err = new Error(e.message || "Something went wrong. Try again.");
+                  err.code = e.code || "";
+                  err.status = res.status;
+                  throw err;
+                }
+                return (json && json.data) || {};
+              });
+          },
+          function () {
+            var err = new Error("No connection. Check your internet and try again.");
+            err.code = "NETWORK";
+            throw err;
+          },
+        );
+      }
+
+      function wbSetVerifyMsg(text) {
+        var el = document.getElementById("wbVerifyMsg");
+        if (el) el.textContent = text || "";
+      }
+
+      function wbSendCode() {
+        var order = currentOrderCode();
+        if (!order) return;
+        var box = document.getElementById("wbVerify");
+        var text = document.getElementById("wbVerifyText");
+        var changeBtn = document.getElementById("wbChangeBtn");
+        var resend = document.getElementById("wbResend");
+        box.hidden = false;
+        wbSetVerifyMsg("");
+        text.textContent = "Sending a code to your booking email…";
+        if (changeBtn) changeBtn.disabled = true;
+        if (resend) resend.disabled = true;
+        wbApi("/portal/" + encodeURIComponent(order) + "/otp/request")
+          .then(function (data) {
+            text.textContent =
+              "To change your workshops, enter the 6-digit code we sent to " +
+              (data.maskedEmail || "your booking email") +
+              ". It works for " +
+              (data.ttlMinutes || 10) +
+              " minutes.";
+            var input = document.getElementById("wbCode");
+            input.value = "";
+            input.focus();
+          })
+          .catch(function (err) {
+            text.textContent = "To change your workshops, we need to send a code to your booking email.";
+            wbSetVerifyMsg(err.message);
+          })
+          .then(function () {
+            if (changeBtn) changeBtn.disabled = false;
+            if (resend) resend.disabled = false;
+          });
+      }
+
+      function wbVerifyCode() {
+        var order = currentOrderCode();
+        var input = document.getElementById("wbCode");
+        // Arabic digits and spaces are fine: keep the digits only.
+        var code = String(input.value || "")
+          .replace(/[٠-٩]/g, function (d) {
+            return String(d.charCodeAt(0) - 0x0660);
+          })
+          .replace(/\D/g, "");
+        if (code.length !== 6) {
+          wbSetVerifyMsg("Enter the 6-digit code from the email.");
+          input.focus();
+          return;
+        }
+        var btn = document.getElementById("wbVerifyBtn");
+        btn.disabled = true;
+        btn.textContent = "Checking…";
+        wbSetVerifyMsg("");
+        wbApi("/portal/" + encodeURIComponent(order) + "/otp/verify", { otp: code })
+          .then(function (data) {
+            wbSaveToken(order, data.editToken, data.expiresInSeconds);
+            document.getElementById("wbVerify").hidden = true;
+            wbEnterEditMode();
+          })
+          .catch(function (err) {
+            wbSetVerifyMsg(err.message);
+            input.focus();
+          })
+          .then(function () {
+            btn.disabled = false;
+            btn.textContent = "Verify";
+          });
+      }
+
+      function wbShowPicker(list) {
+        renderWorkshopSlots(list);
+        resSelection = selectionFromWorkshops(wbSavedList());
+        applyResSelectionHighlight();
+      }
+
+      function wbEnterEditMode() {
+        if (!wbChangesOpen()) return;
+        wbEditMode = true;
+        wbHeld = {};
+        wbSavedList().forEach(function (w) {
+          if (w && w.slug) wbHeld[w.slug] = true;
+        });
+        document.getElementById("resConfirmed").style.display = "none";
+        document.getElementById("resNotConfirmed").style.display = "block";
+        document.getElementById("wbEditCancel").hidden = false;
+        wbShowPicker(wbLastWorkshopList);
+        // Fresh seat counts before they choose.
+        if (window.EcdApi && EcdApi.fetchContent) {
+          EcdApi.fetchContent()
+            .then(function (data) {
+              if (!wbEditMode) return;
+              wbLastWorkshopList = (data && data.workshops) || [];
+              var keep = resSelection;
+              renderWorkshopSlots(wbLastWorkshopList);
+              resSelection = keep;
+              applyResSelectionHighlight();
+            })
+            .catch(function () {});
+        }
+        var section = document.getElementById("workshopSection");
+        if (section && section.scrollIntoView) section.scrollIntoView({ block: "start" });
+      }
+
+      function wbLeaveEditMode() {
+        wbEditMode = false;
+        wbHeld = {};
+        document.getElementById("wbEditCancel").hidden = true;
+        var saved = wbSavedList();
+        renderWorkshopSlots(wbLastWorkshopList);
+        if (saved.length) {
+          applySavedWorkshopsFromBooking(saved, currentOrderCode());
+        } else {
+          resSelection = {};
+          document.getElementById("resConfirmed").style.display = "none";
+          document.getElementById("resNotConfirmed").style.display = "block";
+          applyChangeWindowCopy();
+        }
+        updateReservationUI();
+      }
+
+      // Keep the booking data in step with what the server saved.
+      function wbRememberSaved(order, workshops) {
+        window.__ecdSavedWorkshops = { orderCode: order, workshops: workshops || [] };
+        if (window.__ecdBooking) window.__ecdBooking.workshops = workshops || [];
+      }
+
+      document.getElementById("wbChangeBtn").addEventListener("click", function () {
+        var order = currentOrderCode();
+        if (!order) return;
+        if (wbLoadToken(order)) {
+          wbEnterEditMode();
+          return;
+        }
+        wbSendCode();
+      });
+      document.getElementById("wbVerifyBtn").addEventListener("click", wbVerifyCode);
+      document.getElementById("wbCode").addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          wbVerifyCode();
+        }
+      });
+      document.getElementById("wbResend").addEventListener("click", wbSendCode);
+      document.getElementById("wbVerifyCancel").addEventListener("click", function () {
+        document.getElementById("wbVerify").hidden = true;
+        wbSetVerifyMsg("");
+        var changeBtn = document.getElementById("wbChangeBtn");
+        if (changeBtn) changeBtn.focus();
+      });
+      document.getElementById("wbEditCancel").addEventListener("click", function () {
+        wbLeaveEditMode();
+        var changeBtn = document.getElementById("wbChangeBtn");
+        if (changeBtn && !changeBtn.hidden) changeBtn.focus();
+      });
 
       function renderWorkshopSlots(workshops) {
         var container = document.getElementById("resSlotsContainer");
@@ -3691,7 +4103,8 @@
               text: "#6b747e",
             };
             var status = w.seatStatus || "Available";
-            var available = w.available !== false;
+            // A seat this booking already holds stays pickable while changing, even if full.
+            var available = w.available !== false || (wbEditMode && !!wbHeld[w.slug]);
             var badgeBg = "#e6fbee";
             var badgeBorder = "#c3f7d7";
             var badgeColor = "#04c44e";
@@ -3766,7 +4179,8 @@
         }
         EcdApi.fetchContent()
           .then(function (data) {
-            renderWorkshopSlots((data && data.workshops) || []);
+            wbLastWorkshopList = (data && data.workshops) || [];
+            renderWorkshopSlots(wbLastWorkshopList);
             if (
               window.__ecdSavedWorkshops &&
               window.__ecdSavedWorkshops.workshops &&
@@ -3792,7 +4206,8 @@
       document
         .getElementById("confirmWorkshopsBtn")
         .addEventListener("click", function () {
-          if (!currentOrderCode() || !Object.keys(resSelection).length) return;
+          if (!currentOrderCode()) return;
+          if (!wbEditMode && !Object.keys(resSelection).length) return;
           openWorkshopConfirm();
         });
 
@@ -3819,12 +4234,28 @@
             );
           })
           .join("");
+        var open = wbChangesOpen();
+        document.getElementById("wbConfirmList").hidden = count === 0;
+        document.getElementById("wbConfirmTitle").textContent = wbEditMode
+          ? "Save your workshop changes?"
+          : "Confirm your workshops?";
+        document.getElementById("wbConfirmYes").textContent = wbEditMode
+          ? "Save changes"
+          : "Confirm workshops";
         document.getElementById("wbConfirmNote").textContent =
-          count < 6
-            ? "You picked " +
-              count +
-              " of 6 workshops. Your selection is final: you can't change it or add workshops after you confirm."
-            : "Your selection is final: you can't change it after you confirm.";
+          count === 0
+            ? "You removed all your workshops. Their seats go back to other buyers. You can book again later if seats are left."
+            : open
+              ? "You picked " +
+                count +
+                " of 6 workshops. You can change them until " +
+                WB_DEADLINE_TEXT +
+                ". After that, your selection is final."
+              : count < 6
+                ? "You picked " +
+                  count +
+                  " of 6 workshops. Your selection is final: you can't change it or add workshops after you confirm."
+                : "Your selection is final: you can't change it after you confirm.";
         var dlg = document.getElementById("wbConfirm");
         // Fixed overlay at body level, so no parent section can clip or hide it.
         if (dlg.parentNode !== document.body) document.body.appendChild(dlg);
@@ -3867,12 +4298,74 @@
         }
       });
 
+      // Changing booked picks: saved with the email-code token through the booking
+      // page endpoint, where the server checks the deadline.
+      async function saveWorkshopChanges(order, slugs) {
+        var btn = document.getElementById("confirmWorkshopsBtn");
+        var token = wbLoadToken(order);
+        if (!token) {
+          alert("Your verification expired. Press Change workshops to get a new code.");
+          wbLeaveEditMode();
+          return;
+        }
+        btn.disabled = true;
+        btn.textContent = "Saving…";
+        try {
+          var result = await wbApi(
+            "/portal/" + encodeURIComponent(order) + "/workshops",
+            { sessionSlugs: slugs },
+            token,
+          );
+          var saved = (result && result.workshops) || [];
+          wbRememberSaved(order, saved);
+          wbLeaveEditMode();
+          if (window.EcdApi && EcdApi.fetchContent) {
+            // Seats changed: refresh the counts shown in the picker.
+            EcdApi.fetchContent()
+              .then(function (data) {
+                wbLastWorkshopList = (data && data.workshops) || [];
+                if (!wbEditMode && !wbSavedList().length) {
+                  renderWorkshopSlots(wbLastWorkshopList);
+                }
+              })
+              .catch(function () {});
+          }
+        } catch (err) {
+          alert(err.message || "Could not save your changes. Try again.");
+          if (err.code === "OTP_REQUIRED") {
+            wbClearToken(order);
+            wbLeaveEditMode();
+            return;
+          }
+          if (err.code === "CHANGES_CLOSED" || err.code === "SELECTION_FINAL") {
+            window.location.reload();
+            return;
+          }
+          if (err.code === "WORKSHOP_FULL" && window.EcdApi && EcdApi.fetchContent) {
+            EcdApi.fetchContent()
+              .then(function (data) {
+                wbLastWorkshopList = (data && data.workshops) || [];
+                var keep = resSelection;
+                renderWorkshopSlots(wbLastWorkshopList);
+                resSelection = keep;
+                applyResSelectionHighlight();
+              })
+              .catch(function () {});
+          }
+          updateReservationUI();
+        }
+      }
+
       async function saveWorkshops() {
           var btn = document.getElementById("confirmWorkshopsBtn");
           var order = currentOrderCode();
           var slugs = Object.keys(resSelection).map(function (k) {
             return resSelection[k];
           });
+          if (order && wbEditMode) {
+            await saveWorkshopChanges(order, slugs);
+            return;
+          }
           if (!order || !slugs.length) return;
           if (!window.EcdApi || !EcdApi.reserveWorkshops) {
             alert("Workshop API unavailable. Refresh and try again.");
@@ -3888,6 +4381,8 @@
             renderBookedWorkshops((result && result.workshops) || []);
             document.getElementById("resNotConfirmed").style.display = "none";
             document.getElementById("resConfirmed").style.display = "block";
+            wbRememberSaved(order, (result && result.workshops) || []);
+            applyChangeWindowCopy();
             try {
               sessionStorage.setItem(
                 "ecd2026_workshops",
