@@ -1393,6 +1393,107 @@
       </div>
     </header>
 
+    <!-- Both passes sold out (4 Nov 2026): this notice replaces the form.
+         TICKETS_SOLD_OUT below (and the body class) switch it; the server
+         refuses new bookings too (ECD_TICKETS_SOLD_OUT in the backend). -->
+    <style>
+      .ecd-soldout-notice { display: none; }
+      body.ecd-sold-out .ecd-soldout-notice { display: block; }
+      body.ecd-sold-out .checkout-main,
+      body.ecd-sold-out #checkoutBreadcrumb,
+      body.ecd-sold-out #mobilePayBar { display: none !important; }
+      body.ecd-sold-out .secure-badge { visibility: hidden; }
+      .ecd-soldout-notice {
+        max-width: 640px;
+        margin: 64px auto 96px;
+        padding: 0 16px;
+        text-align: center;
+      }
+      .ecd-soldout-card {
+        background: #ffffff;
+        border: 1px solid #d5dae0;
+        border-radius: 16px;
+        padding: 48px 32px;
+      }
+      .ecd-soldout-kicker {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #6b747e;
+        margin-bottom: 12px;
+      }
+      .ecd-soldout-card h1 {
+        font-size: 40px;
+        line-height: 1.1;
+        font-weight: 700;
+        color: #101010;
+        margin: 0 0 16px;
+      }
+      .ecd-soldout-card p {
+        font-size: 16px;
+        line-height: 1.7;
+        color: #4a5563;
+        margin: 0 auto 12px;
+        max-width: 60ch;
+      }
+      .ecd-soldout-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 28px;
+      }
+      .ecd-soldout-actions a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 22px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 15px;
+        text-decoration: none;
+      }
+      .ecd-soldout-primary { background: #05ef62; color: #101010; }
+      .ecd-soldout-primary:hover { background: #00fdc2; }
+      .ecd-soldout-ghost { border: 1px solid #101010; color: #101010; background: #ffffff; }
+      .ecd-soldout-actions a:focus-visible { outline: 2px solid #101010; outline-offset: 2px; }
+      @media (max-width: 600px) {
+        .ecd-soldout-notice { margin: 32px auto 64px; }
+        .ecd-soldout-card { padding: 36px 20px; }
+        .ecd-soldout-card h1 { font-size: 32px; }
+        .ecd-soldout-actions a { width: 100%; }
+      }
+    </style>
+    <script>
+      document.body.classList.add("ecd-sold-out");
+    </script>
+    <section class="ecd-soldout-notice" aria-labelledby="ecdSoldOutTitle">
+      <div class="ecd-soldout-card">
+        <div class="ecd-soldout-kicker">ECommerce Day 2026 · 5 November · Cairo</div>
+        <h1 id="ecdSoldOutTitle">Tickets are sold out</h1>
+        <p>
+          Both passes, the Standard Pass and the All Access Pass, are sold out.
+          Thank you for the huge interest.
+        </p>
+        <p>
+          Already booked? Your ticket is in your booking email.
+        </p>
+        <div class="ecd-soldout-actions">
+          <a href="en/index.html" data-site-link="index.html" class="ecd-soldout-primary">Back to ECommerce Day</a>
+          <a
+            href="https://wa.me/201505437979?text=I%20need%20help%20for%20Ecommerce%20Day%202026"
+            target="_blank"
+            rel="noopener"
+            class="ecd-soldout-ghost"
+            aria-label="Need help? Chat with us on WhatsApp (opens in a new tab)"
+            >Need help? WhatsApp us</a
+          >
+        </div>
+      </div>
+    </section>
+
     <!-- Breadcrumb: follows the step (rendered by renderBreadcrumb) -->
     <div class="ecd-bc-host" id="checkoutBreadcrumb" style="width: 100%"></div>
 
@@ -1840,6 +1941,13 @@
 
     <script>
       (function () {
+        // Both passes sold out (4 Nov 2026): the notice above replaces the
+        // form and the checkout never starts (no draft, no booking, no
+        // checkout analytics). Set to false, and remove the
+        // "ecd-sold-out" body class script above, to reopen.
+        const TICKETS_SOLD_OUT = true;
+        if (TICKETS_SOLD_OUT) return;
+
         const DRAFT_STORAGE_KEY = "ecd2026_checkout_draft_v1";
         // All Access Pass is sold out: checkout only sells the Standard Pass.
         // Old ?ticket=fj links and saved drafts land on Standard. Set to

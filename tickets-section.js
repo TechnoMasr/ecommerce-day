@@ -16,10 +16,13 @@
 (function () {
   if (customElements.get("ecd-tickets")) return;
 
-  // All Access Pass is sold out: its card is grayed, the price stays, the
-  // button is disabled and has no checkout link. Set to false (with the same
-  // switch in checkout.html) to reopen sales.
+  // Sold out passes: the card is grayed, the price stays, the button is
+  // disabled and has no checkout link. All Access since 12 Oct 2026, Standard
+  // since 4 Nov 2026 (both sold out; the server refuses new bookings too,
+  // ECD_TICKETS_SOLD_OUT in the backend). Set to false (with the same
+  // switches in checkout.html and navbar.js) to reopen sales.
   var ALL_ACCESS_SOLD_OUT = true;
+  var STANDARD_SOLD_OUT = true;
 
   // Arabic pages load ecd-i18n.js first: the section's own text is
   // Arabic there. Card names, features, badge and CTA come from the admin
@@ -219,14 +222,22 @@
       '<p class="ecdt-sub" data-reveal>' + COPY.sub + "</p>" +
       '<div class="ecdt-grid">' +
       // Standard Pass (ct)
-      '<article class="ecdt-card" data-ticket-card="ct" data-reveal>' +
+      (STANDARD_SOLD_OUT
+        ? '<article class="ecdt-card sold-out" data-ticket-card="ct" data-sold-out data-reveal>'
+        : '<article class="ecdt-card" data-ticket-card="ct" data-reveal>') +
       '<div class="ecdt-card-eyebrow" data-pkg-eyebrow>Standard Pass</div>' +
       '<h3 class="ecdt-card-title" data-pkg-title>The Live Stage Experience</h3>' +
       '<p class="ecdt-card-desc" data-pkg-desc>Market perspectives, case studies, industry conversations, and networking.</p>' +
       '<ul class="ecdt-list" id="confIncluded" aria-label="' + UI.inStandard + '">' + listItems(CT_INCLUDED, CHECK) + "</ul>" +
       '<ul class="ecdt-list excluded" id="confExcluded" aria-label="' + UI.notStandard + '">' + listItems(CT_EXCLUDED, CROSS) + "</ul>" +
-      '<div class="ecdt-price price-ct" data-suffix="' + UI.suffix + '">' + UI.token + "</div>" +
-      '<button type="button" class="ecdt-btn ecdt-btn-outline ecdt-btn-full" data-checkout="ct" data-pkg-cta>Get Standard Pass</button>' +
+      (STANDARD_SOLD_OUT
+        ? '<div class="ecdt-price-row">' +
+          '<div class="ecdt-price price-ct" data-suffix="' + UI.suffix + '">' + UI.token + "</div>" +
+          '<span class="ecdt-limited ecdt-soldout">' + UI.soldOut + "</span>" +
+          "</div>" +
+          '<button type="button" class="ecdt-btn ecdt-btn-soldout ecdt-btn-full" disabled data-pkg-cta>' + UI.soldOut + "</button>"
+        : '<div class="ecdt-price price-ct" data-suffix="' + UI.suffix + '">' + UI.token + "</div>" +
+          '<button type="button" class="ecdt-btn ecdt-btn-outline ecdt-btn-full" data-checkout="ct" data-pkg-cta>Get Standard Pass</button>') +
       "</article>" +
       // All Access Pass (fj)
       (ALL_ACCESS_SOLD_OUT

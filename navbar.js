@@ -620,3 +620,78 @@ function trackHeaderHeight(header) {
   }
   window.addEventListener("hashchange", () => settle(true));
 })();
+
+/* ------------------------------------------------------------
+   Tickets sold out (user decision, 4 Nov 2026: both passes)
+   Every ticket button on the site (links to the tickets page or
+   checkout, and [data-checkout] buttons) becomes a disabled
+   "Sold Out" button. Plain "Tickets" text links in the nav and
+   footer stay: the pages stay. The ticket cards are handled in
+   tickets-section.js and checkout in checkout.html; the server
+   refuses new bookings too (ECD_TICKETS_SOLD_OUT in the backend).
+   Set NAV_TICKETS_SOLD_OUT to false here, with the switches in
+   tickets-section.js and checkout.html, to reopen sales.
+   ------------------------------------------------------------ */
+(function () {
+  const NAV_TICKETS_SOLD_OUT = true;
+  if (!NAV_TICKETS_SOLD_OUT) return;
+  const isAr = /^ar/i.test(document.documentElement.lang || "") || !!NAV_I18N;
+  const TXT = isAr
+    ? { soldOut: "نفدت التذاكر", standard: "التذكرة الأساسية · نفدت التذاكر" }
+    : { soldOut: "Sold Out", standard: "Standard Pass · Sold Out" };
+  const TICKET_HREF = /(^|\/)(tickets|checkout)\.html([?#]|$)|^#tickets$|^#ticket-cards$/i;
+
+  if (!document.getElementById("ecd-soldout-style")) {
+    const style = document.createElement("style");
+    style.id = "ecd-soldout-style";
+    style.textContent =
+      ".ecd-soldout-cta,.ecd-soldout-cta:hover,.ecd-soldout-cta:focus{" +
+      "background:#E6EAEE!important;border-color:#D5DAE0!important;color:#4A5563!important;" +
+      "cursor:not-allowed!important;box-shadow:none!important;transform:none!important;" +
+      "text-decoration:none!important}";
+    document.head.appendChild(style);
+  }
+
+  function isButtonStyled(el) {
+    return /(^|[\s-])btn([\s-]|$)/.test(el.className || "");
+  }
+
+  function markSoldOut(el, text) {
+    el.classList.add("ecd-soldout-cta");
+    el.setAttribute("data-sold-out", "");
+    el.textContent = text;
+    if (el.tagName === "A") {
+      el.removeAttribute("href");
+      el.setAttribute("aria-disabled", "true");
+      el.setAttribute("role", "link");
+    } else {
+      el.disabled = true;
+    }
+    // Two ticket buttons side by side ("Book Your Ticket" + "Compare
+    // Tickets") would read "Sold Out" twice: keep the first one only.
+    const parent = el.parentElement;
+    if (parent) {
+      const first = parent.querySelector(":scope > .ecd-soldout-cta[data-ecd-generic]");
+      if (first && first !== el && text === TXT.soldOut) el.style.display = "none";
+      if (text === TXT.soldOut) el.setAttribute("data-ecd-generic", "");
+    }
+  }
+
+  function sweep() {
+    document.querySelectorAll("[data-checkout]").forEach((el) => {
+      const id = el.getAttribute("data-checkout");
+      el.removeAttribute("data-checkout");
+      markSoldOut(el, id === "ct" ? TXT.standard : TXT.soldOut);
+    });
+    document.querySelectorAll("a[href]").forEach((el) => {
+      if (el.closest(".ecdt-card")) return;
+      if (!isButtonStyled(el)) return;
+      if (!TICKET_HREF.test(el.getAttribute("href") || "")) return;
+      markSoldOut(el, TXT.soldOut);
+    });
+  }
+
+  sweep();
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", sweep);
+  window.addEventListener("load", sweep);
+})();
